@@ -1,0 +1,1132 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO</title><meta name="description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de $15.000 COP, acceso de por vida."><meta name="robots" content="index,follow"><meta property="og:title" content="M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO"><meta property="og:description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de $15.000 COP, acceso de por vida."><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<!-- ASSET-MOTOS-PENDIENTE: og:image + favicon + apple-touch-icon.
+     Van COMENTADOS a proposito: todavia no existe la imagen social ni el icono,
+     y un tag apuntando a un archivo que no esta solo da 404 (y og:image exige
+     URL ABSOLUTA, o sea hace falta saber el dominio). Al desplegar: poner las
+     4 lineas con el dominio real.
+<meta property="og:image" content="https://DOMINIO/img/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/icon-180.png">
+-->
+<!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
+     en la pagina (no hay hoja remota, ni preconnect, ni noscript). Son Inter e
+     Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
+     se baja siempre, el latin-ext SOLO si el texto trae un caracter de ese rango.
+     Los 4 archivos YA estan en ./fonts/{inter,inter-ext,inter-tight,
+     inter-tight-ext}.woff2 (variables, eje wght 100-900, subsets latin y
+     latin-ext oficiales). Si faltaran, font-display:swap deja el texto en la
+     pila del sistema (Roboto en Android) y no se rompe nada. -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="fonts/inter-tight.woff2" crossorigin>
+<!-- el poster del hero NO se precarga porque no es un archivo: es un SVG en
+     linea (data URI), o sea ya viene dentro de este HTML. -->
+<style>@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-tight.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-tight-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+  :root{
+    /* PALETA "MOTO DEPORTIVA — CARENADO BLANCO" (variante A/B clara).
+       Es la MISMA pieza con el sustrato invertido: aca no se movio ni una regla
+       de layout, ni una palabra de copy, ni un precio, ni el checkout, ni el
+       pixel. Solo valores de color. El ACENTO ROJO (--acc #e10600) y toda la
+       piel racing (diagonales, rayas, costura, tipografia apretada en
+       mayusculas, corte de los botones) quedan IDENTICOS a la negra: lo que
+       cambia es de que color es el carenado.
+       Sustrato BLANCO DE CARENADO con un pelo de gris (no #fff plano de punta a
+       punta: --bg gris muy claro y --panel blanco puro, asi las tarjetas se
+       LEVANTAN del fondo sin necesidad de sombra fuerte).
+       Contrastes medidos contra --bg (#f6f6f7): */
+    --bg:#f6f6f7; --panel:#ffffff; --panel2:#eeecec; --line:#e3dedd;   /* line 1,23 adorno */
+    /* negro CALIDO (no #000 puro): el puro sobre blanco da halo y cansa */
+    --tx:#14100f; --mut:#4a4442; --dim:#6b6360;          /* 17,5 · 8,85 · 5,43 */
+    /* --acc es el ROJO MOTO y NO SE TOCA: es el ADN de la marca en las dos
+       variantes. Sobre blanco mide 4,97:1 (contra 3,95:1 que media sobre el
+       negro), o sea en claro el rojo gana contraste y ya alcanza AA hasta para
+       texto normal; se sigue usando igual que en el molde (fondo de pastilla y
+       cifra grande).
+       --ink es el texto que va ENCIMA del rojo y se queda CASI BLANCO: es lo
+       unico que NO se invierte, porque su fondo (#e10600) no cambio. Sobre el
+       rojo el casi-blanco mide 4,70:1 y el casi-negro 4,14:1 — el CTA rojo con
+       texto blanco es el mismo en las dos variantes, que es justo lo que el
+       A/B necesita para ser una comparacion limpia.
+       El texto chico de acento se va a --acc2, que aca es el rojo OSCURECIDO
+       (no el salmon claro de la negra: #ff8a75 sobre blanco da 1,9:1 y era
+       ilegible). #b00500 da 6,78:1 sobre --bg y 7,32:1 sobre --panel (AAA). */
+    --acc:#e10600; --acc2:#b00500; --ink:#fff7f5;
+    /* 2o acento: el AMARILLO DE CARENADO pasa a ORO OSCURO. Conserva la
+       FUNCION del molde — amarillo/oro = lo que te REGALAN (bono, garantia)
+       · rojo = lo que PAGAS — y conserva la razon por la que esa funcion no
+       podia ser verde: con un publico casi todo masculino, ~6% no distingue
+       rojo de verde, y rojo vs oro SI se separan para ese ojo (el rojo cae a
+       marron oscuro y el oro se queda mas claro y mas amarillo).
+       Lo que cambia es el VALOR: #ffd400 medido sobre blanco da 1,6:1, o sea
+       los rotulos de grupo de la tabla y el "GRATIS" eran invisibles. El oro
+       #8a5200 da 5,91:1 sobre --bg y 6,39:1 sobre --panel, y como borde de la
+       garantia por fin SE VE (en claro el amarillo puro no dibujaba borde). */
+    --acc3:#8a5200;
+    --steel:#8d8280; --deep:#e9e7e7;                     /* adorno 3,45 · pozo claro */
+    --radius:16px; --max:1080px;
+    --disp:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  /* v4: base 17px. El target es 59,6% de 45 anos o mas: la presbicia es la
+     NORMA, no la excepcion. Medido antes: 424 textos de cuerpo bajo 17px,
+     el grueso del cuerpo a 15,2px. 1rem pasa a valer 17px. */
+  html{font-size:17px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--tx);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:var(--disp);font-weight:900;letter-spacing:-.035em;line-height:1.05}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--acc);color:var(--ink)}
+
+  /* BOTONES: pastilla del acento con texto casi blanco (ver --ink: sobre el
+     rojo el casi-blanco contrasta MAS que el casi-negro) */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--acc);color:var(--ink);font-family:var(--disp);font-weight:800;letter-spacing:-.01em;font-size:1.05rem;padding:16px 36px;border-radius:999px;border:none;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;box-shadow:0 0 0 1px rgba(225,6,0,.45),0 8px 26px -6px rgba(225,6,0,.9),0 0 52px -6px rgba(225,6,0,.55)}
+  .btn:hover{transform:translateY(-2px);background:var(--acc2);box-shadow:0 0 0 1px rgba(255,138,117,.6),0 14px 34px -6px rgba(225,6,0,1),0 0 72px -4px rgba(225,6,0,.7)}
+  .btn.big{font-size:1.2rem;padding:20px 46px}
+  /* el ghost SI es un control: su borde necesita el 3:1 de WCAG 1.4.11 y
+     --line se queda en 2,20. Va con borde de acento (--acc2, 8,54:1). */
+  .btn.ghost{background:transparent;color:var(--tx);border:1.5px solid rgba(255,138,117,.75);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--acc);background:transparent;box-shadow:none}
+  .btn[aria-disabled="true"]{background:var(--panel2);color:var(--mut);border:1px solid var(--line);box-shadow:none;cursor:not-allowed;transform:none}
+
+  /* MARCA */
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:1.18rem;letter-spacing:-.04em}
+  /* La marca es un SVG en linea (data URI): cero requests, cero terceros y
+     nada que pueda faltar. Va con width/height puestos: el layout no salta.
+     Contraste del trazo contra --bg muy por encima del piso de 3:1 de
+     WCAG 1.4.11 (el disco es --acc y el aro --acc3). */
+  .logo .mark{width:42px;height:42px;display:block;flex-shrink:0;object-fit:contain}
+  .logo .mark.big{width:66px;height:66px}
+  .logo .sub{font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--acc2);text-transform:uppercase}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(16,10,10,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  nav .btn{padding:11px 22px;font-size:1rem}
+
+  /* HERO */
+  /* GLOW DEL HERO: el resplandor SI pinta debajo del h1 y del subtitulo, asi
+     que su tope no es estetico sino medido: al 16% sobre --bg el peor texto
+     de la zona (--acc2) queda en 7,02:1; al 22% cae a 6,30 y rompe AAA.
+     La 2a capa es el AMARILLO, que es mucho mas claro, y por eso va al 8%
+     y no al 10%: apilada sobre el rojo al 16% el peor texto del hero
+     (--mut) se queda arriba del piso AAA de 7. */
+  header{position:relative;padding:74px 0 60px;background:radial-gradient(90% 62% at 50% -4%,rgba(225,6,0,.16),transparent 66%),radial-gradient(70% 50% at 88% 6%,rgba(255,212,0,.08),transparent 62%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .pill{display:inline-flex;gap:8px;align-items:center;box-shadow:0 0 0 1px rgba(225,6,0,.16),0 6px 22px -14px rgba(225,6,0,.9);font-size:1rem;font-weight:700;color:var(--tx);background:var(--panel2);border:1px solid var(--line);padding:7px 16px;border-radius:999px;margin-bottom:22px;letter-spacing:.01em}
+  .pill b{color:var(--acc2)}
+  header h1{font-size:clamp(2.2rem,6vw,3.8rem);margin-bottom:18px}
+  header h1 .cut{position:relative;display:inline-block}
+  header h1 .cut::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;height:.12em;background:var(--acc);transform:skewX(-18deg)}
+  header p.sub{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--mut);max-width:600px;margin:0 0 30px}
+  header p.sub b{color:var(--tx)}
+  .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  /* v5: era --dim. El motor de la v4 media las dos capas del hero como
+     ALTERNATIVAS y no APILADAS: apiladas, --dim sobre el hero daba 6,93 y
+     rompia el piso AAA de 7. Con --mut da 8,68. */
+  .cta-note{color:var(--mut);font-size:1rem;margin-top:14px}
+
+  /* MOCKUP: el telefono en el taller de motos. La tira de abajo no es una
+     linea de tiempo de video: son las piezas del despiece sobre el banco. */
+  .device{width:262px;justify-self:center;filter:drop-shadow(0 26px 60px rgba(225,6,0,.45)) drop-shadow(0 0 40px rgba(225,6,0,.25))}
+  .phone{background:var(--bg);border:2px solid var(--line);border-radius:42px;padding:11px;position:relative}
+  .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:99px;background:var(--line);z-index:3}
+  .screen{border-radius:32px;overflow:hidden;background:var(--deep);border:1px solid var(--line)}
+  .pv{position:relative;overflow:hidden;aspect-ratio:9/12;background:radial-gradient(120% 75% at 50% 22%,rgba(225,6,0,.30),transparent 62%),linear-gradient(165deg,var(--panel2),var(--bg));display:flex;align-items:center;justify-content:center}
+  .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:1}
+  .pv .pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.85)}
+  .pv .tag{position:absolute;z-index:2;top:12px;left:12px;font-size:.6rem;font-weight:800;color:var(--ink);background:var(--acc);padding:4px 10px;border-radius:99px}
+  .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px}
+  .pv .rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)}
+  .tl{background:var(--bg);padding:10px 9px 13px}
+  .tl .tools{display:flex;gap:12px;justify-content:space-around;margin-bottom:9px}
+  .tl .tools i{width:20px;height:3px;border-radius:99px;background:var(--steel)}
+  .tl .tools i:first-child{background:var(--acc)}
+  .tl .track{display:flex;gap:3px;align-items:center}
+  .tl .clip{height:22px;border-radius:4px;flex:1}
+  .tl .clip.a{background:linear-gradient(120deg,var(--acc2),var(--acc))}
+  .tl .clip.b{background:linear-gradient(120deg,var(--mut),var(--steel))}
+  .tl .clip.c{background:linear-gradient(120deg,var(--dim),var(--line))}
+  .tl .clip.d{background:linear-gradient(120deg,var(--steel),var(--panel));flex:.55}
+  .tl .scrub{width:2px;height:30px;background:var(--acc);border-radius:2px;box-shadow:0 0 14px 1px rgba(225,6,0,1);margin:0 1px}
+
+  /* CIFRAS */
+  .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:52px auto 0;max-width:880px}
+  .badge{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 12px;text-align:center;box-shadow:0 0 0 1px rgba(225,6,0,.10),0 12px 30px -20px rgba(225,6,0,.75)}
+  .badge .n{font-family:var(--disp);font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;line-height:1;letter-spacing:-.03em;color:var(--acc)}
+  .badge .l{color:var(--mut);font-size:1rem;margin-top:8px}
+
+  section{padding:66px 0}
+  .eyebrow{color:var(--acc2);font-weight:800;font-size:.92rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+  h2.title{font-size:clamp(1.8rem,4.5vw,2.7rem);margin-bottom:14px}
+  .lead{color:var(--mut);font-size:1.08rem;max-width:660px;margin-bottom:8px}
+  .lead b{color:var(--tx)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:border-color .2s,box-shadow .2s;box-shadow:0 0 0 1px rgba(225,6,0,.08),0 14px 34px -24px rgba(225,6,0,.7)}
+  .card:hover{border-color:var(--acc);box-shadow:0 0 0 1px rgba(225,6,0,.35),0 16px 40px -18px rgba(225,6,0,.85)}
+  .card .ic{font-size:1.6rem;margin-bottom:12px}
+  .card h3{font-size:1.15rem;margin-bottom:8px;letter-spacing:-.02em}
+  .card p{color:var(--mut);font-size:1.05rem}
+
+  /* GALERIA DE VIDEO: la mecanica exacta del molde */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+  .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 1px rgba(225,6,0,.10),0 10px 28px -22px rgba(225,6,0,.8);display:flex;align-items:flex-end;padding:14px;isolation:isolate;transition:transform .18s ease,border-color .18s}
+  .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(225,6,0,.45),0 14px 34px -16px rgba(225,6,0,.9)}
+  .fx .vd-live{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:-1}
+  .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+  .fx::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--g)}
+  .fx::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 60% at 30% 18%,rgba(255,255,255,.18),transparent 55%),linear-gradient(180deg,transparent 28%,rgba(0,0,0,.82))}
+  .fx .ply{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.45);border:1.5px solid var(--acc);display:flex;align-items:center;justify-content:center}
+  .fx .ply::after{content:"";border-left:8px solid var(--acc);border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px}
+  .fx span{font-family:var(--disp);font-weight:800;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.85);z-index:1}
+  /* v3: 8 gradientes con 16 hex sueltos -> 2 gradientes de tokens.
+     Medido: el stop claro de g1 (#f2f2f5) daba 1.09:1 contra el titulo blanco
+     del tile. Los 8 pares bajo el piso estaban todos aca. */
+  .fx.g1,.fx.g3,.fx.g5,.fx.g7{--g:linear-gradient(150deg,var(--panel2),var(--bg))}
+  .fx.g2,.fx.g4,.fx.g6,.fx.g8{--g:linear-gradient(150deg,var(--panel),var(--bg))}
+  .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
+  /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
+  .fx.h16{aspect-ratio:16/9}
+  .fx.h16 .vd-live{object-fit:contain;background:var(--bg)}
+  .fx.h16 .fx-th{object-fit:contain;background:var(--bg)}
+  .pv.h16{aspect-ratio:16/9}
+  .pv.h16 .vd-hero{object-fit:contain;background:var(--bg)}
+  .pv.h16 .pv-poster{object-fit:contain;background:var(--bg)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:0 0 0 1px rgba(225,6,0,.08),0 14px 34px -24px rgba(225,6,0,.7)}
+  .step .num{width:38px;height:38px;border-radius:50%;background:var(--acc);color:var(--ink);box-shadow:0 0 22px -2px rgba(225,6,0,.85);font-family:var(--disp);font-weight:900;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .step h3{font-size:1.1rem;margin-bottom:8px}
+  .step p{color:var(--mut);font-size:1.05rem}
+
+  .acc{margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);box-shadow:0 0 0 1px rgba(225,6,0,.08),0 16px 40px -30px rgba(225,6,0,.7)}
+  details{border-bottom:1px solid var(--line)}
+  details:last-child{border-bottom:none}
+  summary{cursor:pointer;list-style:none;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:1.03rem;gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary>span:first-child{min-width:0;overflow-wrap:anywhere}
+  summary .meta{color:var(--acc2);font-weight:700;font-size:1rem;flex-shrink:0}
+  summary::after{content:"+";color:var(--acc);font-size:1.5rem;font-weight:300;flex-shrink:0}
+  details[open] summary::after{content:"\2013"}
+  .acc-body{padding:0 24px 22px;color:var(--mut);font-size:1.05rem}
+  .acc-body ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+  .acc-body li{padding-left:18px;position:relative}
+  .acc-body li::before{content:"\203a";position:absolute;left:0;color:var(--acc2)}
+
+  /* BANDA. Sin foto de fondo: no hay material propio apaisado y no se baja
+     nada de un banco de imagenes, asi que el hueco queda declarado y la
+     banda es un degradado de tokens. */
+  .band{position:relative;min-height:300px;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(100deg,var(--panel2),var(--panel) 55%,var(--bg))}
+  .band .wrap{padding:62px 20px}
+  .band h2{font-size:clamp(1.6rem,4.2vw,2.5rem);max-width:620px;margin-bottom:12px}
+  .band p{color:var(--mut);max-width:520px;font-size:1.05rem}
+
+  /* ANCLAJE de precio: la suma de las piezas contra el precio de hoy */
+
+  /* OBJECIONES */
+  .obj{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}
+  .ob{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:12px;padding:22px 24px;box-shadow:-6px 0 22px -16px rgba(225,6,0,.9),0 12px 30px -24px rgba(225,6,0,.6)}
+  .ob h3{font-size:1.02rem;margin-bottom:8px;color:var(--tx)}
+  .ob h3::before{content:"\201c";color:var(--acc);font-size:1.4rem;line-height:0;vertical-align:-.1em;margin-right:2px}
+  .ob h3::after{content:"\201d";color:var(--acc);font-size:1.4rem;line-height:0;vertical-align:-.1em;margin-left:2px}
+  .ob p{color:var(--mut);font-size:1.05rem}
+
+  /* BONOS APILADOS */
+  /* BONOS EN AMARILLO: la separacion de bono vs precio que pedia el target.
+     El borde y el glow son --acc3; el precio de abajo sigue rojo. */
+
+  /* la GARANTIA tambien es amarilla: no es lo que pagas, es lo que te protege */
+  .guar{background:linear-gradient(135deg,var(--panel2),var(--panel));border:1.5px solid var(--acc3);border-radius:24px;padding:44px;text-align:center;max-width:760px;margin:0 auto;box-shadow:0 0 70px -26px rgba(255,212,0,.9),0 0 0 1px rgba(255,212,0,.16)}
+  .guar .shield{font-size:3rem;margin-bottom:12px}
+
+  .price-card{background:linear-gradient(160deg,var(--panel2),var(--bg));border:1.5px solid var(--acc);border-radius:24px;padding:46px 34px;text-align:center;max-width:540px;margin:38px auto 0;box-shadow:0 0 0 1px rgba(225,6,0,.30),0 0 90px -18px rgba(225,6,0,.95),0 18px 50px -30px rgba(225,6,0,.8)}
+  .price-now{font-family:var(--disp);font-size:3.4rem;font-weight:900;line-height:1;margin:6px 0 4px;letter-spacing:-.04em;color:var(--acc);text-shadow:0 0 34px rgba(225,6,0,.8),0 0 12px rgba(225,6,0,.5)}
+  .price-list{list-style:none;text-align:left;margin:26px 0;display:grid;gap:11px}
+  .price-list li{padding-left:30px;position:relative;color:var(--tx);font-size:1.05rem}
+  .price-list li::before{content:"\2713";position:absolute;left:0;color:var(--acc);font-weight:900;text-shadow:0 0 12px rgba(225,6,0,.75)}
+  .price-card .btn{width:100%}
+
+  .bumps{margin:2px 0 20px;display:grid;gap:10px;text-align:left}
+  .bump{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s}
+  .bump:hover{border-color:var(--acc2)}
+  /* el bump marcado: 10% es el tope medido sobre --panel (--acc2 queda en
+     7,05:1); al 16% cae a 6,38 y el texto del bump deja de ser AAA. */
+  .bump.on{border-color:var(--acc);background:rgba(225,6,0,.10);box-shadow:0 0 0 1px rgba(225,6,0,.35),0 8px 24px -16px rgba(225,6,0,.9)}
+  .bump input{display:none}
+  .bump .bx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--ink);transition:.15s;margin-top:2px}
+  .bump input:checked ~ .bx{background:var(--acc);border-color:var(--acc);box-shadow:0 0 16px -2px rgba(225,6,0,.9)}
+  .bump input:checked ~ .bx::after{content:"\2713"}
+  /* v6: el .bt no tenia min-width:0, y con .bx (22) y .bp (precio, no
+     encoge) le quedaban 128,4 px utiles a 390 px: el subtitulo del pack
+     industrial caia en 5 renglones y empujaba el precio hacia abajo. Con
+     el precio en su propio renglon en pantalla angosta pasa a 216 px. */
+  .bump .bt{flex:1 1 0;min-width:0;font-size:1.05rem;line-height:1.35;overflow-wrap:anywhere}
+  .bump .bt small{display:block;color:var(--mut);font-weight:500;font-size:1rem;margin-top:4px}
+  .bump .bp{font-family:var(--disp);font-weight:900;font-size:1.05rem;color:var(--acc2);white-space:nowrap}
+  .bump-nota{font-size:1rem;color:var(--mut);text-align:center;background:var(--panel2);border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
+  .bump-nota b{color:var(--acc2)}
+
+  .aviso{max-width:540px;margin:16px auto 0;background:var(--panel2);border:1px dashed var(--acc);box-shadow:0 0 26px -18px rgba(225,6,0,.9);border-radius:12px;padding:14px 16px;color:var(--mut);font-size:1rem}
+  .aviso b{color:var(--acc2)}
+
+  footer{border-top:1px solid var(--line);padding:40px 0 110px;text-align:center;color:var(--mut);font-size:1rem}
+  /* el pie no lleva renglon de enlaces legales (misma decision del molde:
+     las PAGINAS de legales se publican y responden 200; lo que no va es el
+     renglon de enlaces). */
+
+  .buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(16,10,10,.94);backdrop-filter:blur(12px);border-top:1px solid rgba(225,6,0,.45);box-shadow:0 -10px 40px -18px rgba(225,6,0,.9);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .buybar .p{font-family:var(--disp);font-weight:900;font-size:1.22rem;letter-spacing:-.02em;line-height:1.1;color:var(--acc);text-shadow:0 0 20px rgba(225,6,0,.7)}
+  .buybar .p small{display:block;font-family:var(--sans);font-weight:600;font-size:.85rem;color:var(--mut);letter-spacing:.02em}
+  .buybar .btn{padding:13px 22px;font-size:1.05rem;flex-shrink:0}
+
+  @media(max-width:820px){.price-card{padding:34px 20px}
+    .badges{grid-template-columns:repeat(2,1fr)}
+    .grid,.steps,.obj{grid-template-columns:1fr}
+    .acc-body ul{grid-template-columns:1fr}
+    /* v6: a 390px la pastilla .meta (196 px, flex-shrink:0) dejaba 62 px
+       al titulo y su palabra mas larga mide 89 => se salia de la caja.
+       Baja a su propio renglon y el titulo recupera 274 px utiles. */
+    summary{flex-wrap:wrap;row-gap:4px;align-items:flex-start}
+    summary .meta{order:3;flex-basis:100%;text-align:left}
+    summary>span:first-child{flex:1 1 0}
+    .hero-grid{grid-template-columns:1fr;text-align:center;gap:36px}
+    .hero-copy .pill{margin-left:auto;margin-right:auto}
+    header p.sub{margin-left:auto;margin-right:auto}
+    .cta-row{justify-content:center}
+    .device{width:225px;margin-top:4px}
+    .gallery{grid-template-columns:repeat(3,1fr);gap:8px}
+    .fx{padding:9px;border-radius:11px}
+    .fx span{font-size:.72rem;line-height:1.12}
+    .fx .ply{display:none}
+    /* 6 tiles en 3 columnas = 2 filas exactas. Los 2 ultimos quedan solo en
+       escritorio; display:none => el observer nunca los inyecta. */
+    .fx.g7,.fx.g8{display:none}
+    .band .wrap{padding:48px 20px}
+    .bump{flex-wrap:wrap;row-gap:2px}
+    .bump .bp{order:3;flex-basis:100%;padding-left:34px}
+    .buybar{display:flex}
+  }
+
+  /* ══════════════ v7 ══════════════════════════════════════════════════════
+     1) LOCKUP. El "PRO" no se alinea por LINEA BASE (asi se veia caido en el
+     molde): el texto vive en .wm, que es un flex propio con line-height:1, asi
+     que "MOTOS" y "PRO" se centran por CAJA. Con las metricas reales de Inter
+     Tight el desvio entre los dos es 0,000 px; con Roboto (el PRIMER render en
+     Android, display=swap) queda en 0,093 px.
+     2) El dibujo del logo no esta centrado en su caja: su cuerpo va 2 px BAJO
+     el centro en 128 px de viewBox (el SVG se dibujo asi a proposito, para que
+     esta correccion siga siendo la del molde). El translateY va en % para que
+     corrija los dos tamanos con un solo numero: 2/128 = 1,5625%. */
+  .logo .wm{display:flex;align-items:center;gap:2px;line-height:1}
+  .logo .mark{transform:translateY(-1.5625%)}
+
+  /* ANCLA + BADGE + RELOJ del bloque de compra */
+  .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
+  /* el tachado NO es un gris ilegible: --dim sobre --panel2 da 8,41:1 (el piso
+     AAA de texto normal es 7). El error clasico de esta pieza es justo ese. */
+  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:400;font-size:1.35rem;text-decoration-thickness:2px}
+  .ancla .off{background:var(--acc);color:var(--ink);font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap;box-shadow:0 0 22px -6px rgba(225,6,0,.9)}
+  /* RELOJ: 15 minutos de sesion, en ambar-rojo (la caja la pinta #reloj mas
+     abajo, que gana por especificidad). El marcador vive en sessionStorage, o
+     sea recargar NO lo reinicia dentro de la misma pestana; y si el storage
+     esta bloqueado igual cuenta, arranca en 15:00 y no explota. */
+  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:var(--panel2);border:1px dashed var(--acc);border-radius:12px;padding:10px 14px;margin:14px auto 18px;max-width:420px}
+  .reloj .rl{color:var(--mut);font-size:.9rem}
+  .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:var(--tx);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  /* el bump ahora lleva su valor suelto tachado encima del precio de hoy */
+  .bump .bp{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15}
+  .bump .bp s{color:var(--dim);font-size:.9rem;font-weight:400}
+
+  /* ══ TABLA DE VALOR (v7): UN solo bloque donde antes habia CUATRO
+     ("Arma tu pack" + "Contado, no prometido" + #anclaje + "Todo lo que entra
+     con su precio suelto"). La tabla con las casillas ES el arma-mi-pack y sus
+     numeros SON el contado-no-prometido. */
+  .vtab{max-width:720px;margin:30px auto 0;background:var(--panel);border:1px solid var(--steel);border-radius:var(--radius);overflow:hidden}
+  /* el separador pasa de --line (2,28:1) a --steel (6,31:1): la linea que
+     separa filas de precio es informacion, y 1.4.11 le pide 3:1. */
+  /* ══ LA FILA (pack-emojis-v2): de flex a REJILLA ════════════════════════
+     La fila tenia una sola caja de texto con el nombre y la descripcion
+     adentro, y en movil el precio se iba a un renglon propio ALINEADO A LA
+     IZQUIERDA debajo de todo: por eso "bailaba" segun el largo del nombre.
+     Ahora son columnas declaradas. El renglon de arriba lleva SIEMPRE
+     casilla + icono + nombre + precio, y la descripcion cae debajo ocupando
+     el ancho entero, alineada bajo el nombre. Asi el precio nunca se mueve de
+     columna y la descripcion no compite por los 100 px que quedaban. */
+  .vr{display:grid;grid-template-columns:28px 1fr 96px;align-items:center;column-gap:12px;padding:13px 18px;border-bottom:1px solid var(--steel)}
+  .vr.vb{grid-template-columns:22px 28px 1fr 96px}
+  .vr.vsum,.vr.vhoy{grid-template-columns:1fr 96px}
+  .vr:last-child{border-bottom:none}
+  /* ══ EL ICONO DE LA FILA ════════════════════════════════════════════════
+     Es el MISMO emoji de siempre, pero NO va suelto dentro del texto.
+     Medido sobre Noto Color Emoji, que es la que pinta Android: el glifo es un
+     bitmap de 136x128 px sobre un strike de 109 ppem, o sea 1,1743 em de alto
+     contra los 0,7275 em de las mayusculas de Inter. Suelto en el renglon se
+     ve 61,4% mas grande que el nombre que acompana y se lleva 1,2477 em de
+     avance del ancho util de la fila -- eso es lo que se veia "brusco".
+     En caja propia con line-height:1 el dibujo se centra por CAJA y no por
+     linea base: su centro queda a 0,0024 em del centro de la caja (0,05 px a
+     22 px de cuerpo), el tamano es identico en las 6 filas, y el ancho deja de
+     robarle lugar al texto porque ahora es una columna declarada.
+     El cuerpo sale del ancho, no del alto: 1,2477 x 22 = 27,4 px entra en 28. */
+  .vr .vi{width:28px;height:28px;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+  .vr .vt{font-size:1.02rem;font-weight:700;min-width:0;overflow-wrap:anywhere}
+  .vr .vd{grid-column:2/-1;display:block;color:var(--mut);font-size:.95rem;margin-top:2px}
+  .vr.vb .vd{grid-column:3/-1}
+  /* la columna de precio deja de bailar con el largo del nombre: 96 px fijos,
+     que es el string MAS ANCHO que las 14 monedas de la TAB pueden producir
+     (la suma en guaranies, 91,9 px) redondeado hacia arriba. Misma columna en
+     las 8 filas, incluidas la suma y el total. */
+  .vr .vp{text-align:right;font-family:var(--disp);white-space:nowrap}
+  .vr .vp b{font-weight:900;font-size:1.05rem;color:var(--tx)}
+  /* v8 (orden de Esteban 24-sep): el precio de cada pieza suelta se leia
+     como el precio de HOY porque iba en negrilla 900 y color de texto.
+     Es el precio ANTERIOR: va tachado, sin negrilla y en gris, para que el
+     unico numero que se lea como vigente sea "Todo junto, hoy". */
+  .vr .vp s{font-weight:400;color:var(--dim);font-size:1.02rem;text-decoration-thickness:1px}
+  .vr .vp em{display:block;font-style:normal;font-size:.9rem;font-weight:800;color:var(--acc3);font-family:var(--sans)}
+  /* ENCABEZADO DE GRUPO: lo que ya entra y lo que se suma dejan de estar
+     intercalados. Antes las 2 filas con casilla caian en los puestos 3 y 4 de
+     6, asi que habia que leer fila por fila para saber que estaba pagando. */
+  .vg{font-family:var(--sans);font-size:.72rem;font-weight:800;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--acc3);background:var(--panel2);padding:10px 18px;border-bottom:1px solid var(--steel)}
+  .vg.vgs{color:var(--acc)}
+  .vr.vb{cursor:pointer;transition:background .15s,border-color .15s}
+  .vr.vb:hover{background:var(--panel2)}
+  .vr.vb input{display:none}
+  .vr.vb .bx{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--steel);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--ink);transition:.15s}
+  .vr.vb input:checked ~ .bx{background:var(--acc);border-color:var(--acc);box-shadow:0 0 16px -2px rgba(225,6,0,.9)}
+  .vr.vb input:checked ~ .bx::after{content:"\2713"}
+  .vr.vb.on{background:rgba(225,6,0,.10)}
+  .vr.vsum{background:var(--panel2)}
+  .vr.vsum .vp s{color:var(--dim);font-weight:400;font-size:1.1rem;text-decoration-thickness:2px}
+  .vr.vhoy{background:var(--panel2);padding:17px 18px}
+  .vr.vhoy .vt{font-size:1.1rem}
+  .vr.vhoy .vp b{color:var(--acc);font-size:1.5rem;text-shadow:0 0 24px rgba(225,6,0,.7)}
+  .vnota{color:var(--mut);font-size:1rem;text-align:center;margin:14px auto 0;max-width:720px}
+  .vnota b{color:var(--acc2)}
+  @media(max-width:520px){
+    /* pack-emojis-v2: el precio YA NO baja de renglon ni se va a la izquierda.
+       Presupuesto medido a 360 px: 318 de tabla - 28 de padding = 290 utiles.
+       Fila con casilla: 22 + 26 + 86 + 3 huecos de 9 = 161, le quedan 129 al
+       nombre y la palabra mas ancha que puede caer ahi mide 78,5 px. La
+       descripcion no compite por ese hueco: va debajo, con 224 px propios. */
+    .vr{column-gap:9px;padding:12px 14px;grid-template-columns:26px 1fr 86px}
+    .vr.vb{grid-template-columns:22px 26px 1fr 86px}
+    .vr.vsum,.vr.vhoy{grid-template-columns:1fr 86px}
+    .vr .vi{width:26px;height:26px;font-size:20px}
+    .vr .vp b{font-size:.95rem}
+    .vr.vhoy{padding:16px 14px}
+    .vg{padding:9px 14px}
+    .ancla s{font-size:1.2rem}
+  }
+
+.hero-trust,.trust-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.hero-trust span,.trust-row span{font-size:.78rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#efd8d4;padding:5px 11px;border-radius:999px;white-space:nowrap;line-height:1}
+.trust-row{margin-top:10px}
+#reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* ===== CINTA DE LOGOS (marquee infinito) ===== */.cinta{padding:34px 0 30px;border-top:1px solid rgba(107,60,60,.5);border-bottom:1px solid rgba(107,60,60,.5);background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15))}.cinta-hd{text-align:center;max-width:700px;margin:0 auto 24px;padding:0 20px}.cinta-hd h2{font-size:clamp(1.45rem,3.6vw,2.05rem);margin:0}.cinta-hd h2 em{font-style:normal;color:var(--acc)}.cinta-rule{display:block;width:58px;height:3px;border-radius:2px;background:var(--acc);margin:13px auto 0;box-shadow:0 0 14px rgba(225,6,0,.6)}.cinta-sub{margin:13px 0 0;font-size:.95rem;line-height:1.5;color:var(--mut)}.cinta-sub b{color:var(--acc2);font-weight:800}.cinta-vp{overflow:hidden;contain:content}.cinta-pista{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:0;padding:12px 0;list-style:none}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:66px;width:134px;padding:9px 12px;box-sizing:border-box;border-radius:14px;background:linear-gradient(180deg,#fff,#f3ecec);box-shadow:0 3px 12px -4px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.28),0 0 18px -10px rgba(225,6,0,.5);transition:box-shadow .3s ease,transform .3s ease}.cinta-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}/* Normalizacion optica: los escudos cuadrados llenan toda la altura y dominan
+   frente a los wordmarks anchos; se les recorta la altura para que el peso
+   visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{transform:translateY(-3px);box-shadow:0 8px 20px -6px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.45),0 0 26px -6px rgba(225,6,0,.65)}/* La cinta ya no es una ANIMACION: es un CARRIL QUE SE ARRASTRA. overflow-x real =>
+   en movil el dedo lo desliza NATIVO (sin JS de por medio) y en escritorio lo arrastra
+   el pointer; el avance solo lo empuja el rAF de abajo sumando a scrollLeft. La barra
+   de scroll se esconde en los 3 motores (Firefox / WebKit-Blink / Edge viejo) y el
+   -webkit-overflow-scrolling:touch le da la inercia de iOS. */
+  @supports (overflow-x:auto){.cinta-vp{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}.cinta-vp::-webkit-scrollbar{width:0;height:0;display:none}.cinta-vp:focus-visible{outline:2px solid var(--acc);outline-offset:3px}.cinta-vp.agarrando{cursor:grabbing}.cinta-vp.agarrando .cinta-item{pointer-events:none}.cinta-pista{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;user-select:none;-webkit-user-select:none}.cinta-pista img{-webkit-user-drag:none}.cinta-grupo,.cinta-grupo.dup{display:flex;align-items:center;gap:18px;padding-right:18px}}/* Quien pidio menos movimiento NO recibe el avance solo (lo apaga el JS), pero la
+   cinta se queda en carril: puede arrastrarla igual con el dedo o el mouse. Por eso
+   aca ya no se re-arma la rejilla envuelta; solo se apaga el brinco del hover. */
+  @media (prefers-reduced-motion:reduce){.cinta-item{transition:none}.cinta-item:hover,.cinta-item:focus-within{transform:none}}@media (max-width:640px){.cinta-hd{margin-bottom:20px}.cinta-sub{font-size:.88rem}.cinta-item{height:58px;width:116px;padding:7px 9px;border-radius:12px}.cinta-pista,.cinta-grupo,.cinta-grupo.dup{gap:12px}@supports (overflow-x:auto){.cinta-grupo,.cinta-grupo.dup{padding-right:12px}.cinta-pista{gap:0}}}
+
+  /* ══════════════ v9 · PIEL RACING ═══════════════════════════════════════════
+     SOLO LA PIEL. Aca no se movio: ni una etiqueta de estructura, ni una palabra
+     de copy, ni el precio, ni el reloj, ni la cinta de marcas, ni el FAQ, ni la
+     garantia, ni el checkout, ni el pixel, ni el hero-video, ni la galeria.
+     La paleta es la MISMA (--acc #e10600 sobre --bg #100a0a): lo que cambia es
+     la TIPOGRAFIA (apretada y en mayusculas), el CORTE de los bordes (diagonal
+     de pista) y el ACABADO de los botones.
+     ── EL GRADO DEL CORTE ──────────────────────────────────────────────────────
+     --sk es la CAIDA en px del borde diagonal de punta a punta. A 1280 px de
+     ancho son 46 px => atan(46/1280) = 2,06 grados; a 390 px son 20 px =>
+     atan(20/390) = 2,94 grados. O sea el corte se queda DENTRO de la banda de
+     2-3 grados en TODO el rango de pantalla, sin un solo breakpoint nuevo.     */
+  :root{--sk:clamp(20px,3.6vw,46px)}
+
+  /* ── 1 · TIPOGRAFIA "ENGINEERED" ──────────────────────────────────────────
+     Mayusculas + interletra NEGATIVA: el titular se lee como un dorsal, no como
+     un parrafo. El cuerpo BAJA lo que sube la caja de las mayusculas (que ocupan
+     ~10% mas de ancho que la caja baja), asi que el bloque del hero mide en
+     pantalla lo mismo que en la v8 y el movil no gana ni un renglon. */
+  header h1{font-size:clamp(1.9rem,5.5vw,3.5rem);text-transform:uppercase;letter-spacing:-.046em;line-height:1.02}
+  /* LA VELOCIDAD ES LA ITALICA: van inclinadas las 2 piezas clave del H1 ("el
+     TORQUE" y "ARMA LA MOTO"), no el titular entero -- inclinado todo se vuelve
+     ruido y deja de marcar nada. Inter Tight no trae corte italico propio, asi
+     que el navegador la sintetiza (font-synthesis va en auto): esa oblicua es
+     exactamente la del carenado. Con la pila del sistema (Roboto en Android,
+     mientras el woff2 baja) la italica es REAL y el efecto es el mismo. */
+  header h1 .it,header h1 .cut{font-style:italic}
+  /* el subrayado rojo sesgado del .cut ya existia en el molde y se queda: con la
+     palabra inclinada ahora los dos sesgos van en el MISMO sentido. */
+  h2.title{font-size:clamp(1.65rem,4.35vw,2.6rem);text-transform:uppercase;letter-spacing:-.04em}
+  .cinta-hd h2,.band h2{text-transform:uppercase;letter-spacing:-.04em}
+  .badge .n,.price-now{letter-spacing:-.05em}
+
+  /* ── 2 · CORTES DIAGONALES ENTRE SECCIONES ────────────────────────────────
+     El corte NO recorta la seccion: recortar la seccion es comerse el texto y
+     cortarle las sombras a las tarjetas de adentro. Se recorta un ::before que
+     SOLO pinta el fondo, y el contenido sube a z-index 1. Dos consecuencias
+     buenas: (a) si clip-path no existiera, el fondo queda recto y no se rompe
+     nada; (b) cada seccion cortada suma --sk de relleno arriba y abajo, asi que
+     ni en 390 px la punta del corte llega al texto (sobran >60 px).
+     El fondo es el MISMO degradado que ya tenia la cinta (--panel al 60% sobre
+     --bg): el contraste de los textos contra el sustrato no se movio. */
+  .cinta,#comprar,footer{position:relative}
+  .cinta>*,#comprar>*,footer>*{position:relative;z-index:1}
+  .cinta::before,#comprar::before,footer::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15));clip-path:polygon(0 var(--sk),100% 0,100% calc(100% - var(--sk)),0 100%)}
+  /* LA COSTURA: hilo rojo fino de 2 px pegado al corte de arriba. Va solo en el
+     borde superior (uno por seccion) a proposito: con los 4 cortes subrayados la
+     pagina se volvia una bandera a cuadros. */
+  .cinta::after,#comprar::after,footer::after{content:"";position:absolute;left:0;right:0;top:0;height:calc(var(--sk) + 2px);z-index:0;pointer-events:none;background:var(--acc);opacity:.6;clip-path:polygon(0 var(--sk),100% 0,100% 2px,0 calc(var(--sk) + 2px))}
+  /* los bordes RECTOS de la cinta y del pie se apagan: el corte diagonal ES
+     ahora el borde. Y el relleno absorbe la caida del sesgo. */
+  .cinta{background:none;border-top:none;border-bottom:none;padding:calc(34px + var(--sk)) 0 calc(30px + var(--sk))}
+  #comprar{padding:calc(66px + var(--sk)) 0 calc(66px + var(--sk))}
+  footer{border-top:none;padding:calc(40px + var(--sk)) 0 110px}
+
+  /* ── 3 · ACENTOS DE PISTA EN LOS EYEBROW ──────────────────────────────────
+     Barrita roja sesgada + franja diagonal fina de rayas. Va en inline-flex y NO
+     en flex: asi el eyebrow sigue obedeciendo al text-align del contenedor (en
+     #comprar el .wrap esta centrado, en las demas secciones va a la izquierda) y
+     no hace falta una regla por seccion. */
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;line-height:1;vertical-align:middle}
+  .eyebrow::before{content:"";flex:0 0 24px;height:4px;background:var(--acc);transform:skewX(-24deg);box-shadow:0 0 12px rgba(225,6,0,.6)}
+  .eyebrow::after{content:"";flex:0 0 16px;height:12px;opacity:.75;background:repeating-linear-gradient(112deg,var(--acc) 0 2px,transparent 2px 7px)}
+
+  /* ── 4 · CTA CON CORTE RACING ─────────────────────────────────────────────
+     El corte se hace con clip-path, y el resplandor pasa de box-shadow a
+     drop-shadow PORQUE clip-path recorta tambien las sombras de caja: con filter
+     la sombra sigue la forma cortada en vez de desaparecer. El anillo de 1 px que
+     hacia el box-shadow se reemplaza por un BORDE de verdad, que es lo que pedia
+     "bordes mas definidos".
+     CONTRASTE: el degradado va de #f21c11 a #c90500, los DOS mas oscuros que el
+     #e10600 plano de la v8 => el texto --ink (casi blanco) contrasta MAS que
+     antes, no menos. El piso del molde (4,70:1 sobre #e10600) no se toca. */
+  .btn{--notch:12px;border:1.5px solid #ff4133;border-radius:3px;background:linear-gradient(180deg,#f21c11,#c90500);text-transform:uppercase;letter-spacing:.005em;box-shadow:none;clip-path:polygon(0 0,calc(100% - var(--notch)) 0,100% var(--notch),100% 100%,var(--notch) 100%,0 calc(100% - var(--notch)));filter:drop-shadow(0 8px 16px rgba(225,6,0,.55)) drop-shadow(0 0 22px rgba(225,6,0,.35));transition:transform .15s ease,filter .15s ease,background .15s ease,border-color .15s ease}
+  .btn:hover{transform:translateY(-2px);background:linear-gradient(180deg,#ff2f22,#e10600);border-color:#ff8a75;box-shadow:none;filter:drop-shadow(0 13px 20px rgba(225,6,0,.8)) drop-shadow(0 0 36px rgba(225,6,0,.6))}
+  .btn.big{--notch:16px}
+  nav .btn,.buybar .btn{--notch:10px}
+  .btn.ghost{background:transparent;border-color:rgba(255,138,117,.75);filter:none}
+  .btn.ghost:hover{background:rgba(225,6,0,.12);border-color:var(--acc);filter:none}
+  .btn[aria-disabled="true"]{background:var(--panel2);border-color:var(--line);filter:none}
+
+  /* ── 5 · MOVIMIENTO: prefers-reduced-motion ───────────────────────────────
+     Quien pidio menos movimiento no recibe ninguno de los efectos nuevos (ni el
+     scroll suave del molde). La piel se ve igual: lo que se apaga es el viaje. */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn,.card,.fx,.bump,.vr.vb{transition:none}
+    .btn:hover,.card:hover,.fx:hover{transform:none}
+  }
+  @media(max-width:820px){
+    /* la barra de compra paga las mayusculas del boton con menos relleno: el
+       boton queda en ~199 px contra los 224 px de la v8, o sea el precio de la
+       izquierda gana lugar en vez de perderlo. */
+    .buybar .btn{padding:12px 15px;font-size:1rem}
+  }
+
+  /* ══════════════ v10 · EL CORTE DEL HERO + RAYAS DE PISTA ═══════════════════
+     Cierra lo unico que la v9 dejo afuera de la piel: el HERO no estaba cortado
+     (los 3 cortes vivian en .cinta, #comprar y footer) y las rayas de pista
+     existian solo dentro de los eyebrow. Igual que la v9: SOLO PIEL. Aca no se
+     movio ni una etiqueta, ni una palabra de copy, ni un link de pago.
+
+     ── POR QUE NO SE RECORTA EL FONDO DEL HERO ─────────────────────────────────
+     El fondo del header son 2 resplandores MEDIDOS (rojo al 16% + amarillo al 8%:
+     esos numeros son los que dejan al peor texto de la zona en AAA). Moverlo a un
+     ::before para recortarlo obligaria a re-medir el hero entero. Asi que no se
+     toca: el corte lo hace una PIEZA NUEVA que vive completa en el relleno de
+     abajo del hero, donde no hay un solo caracter. Dos consecuencias: el
+     contraste del hero queda identico al de la v9, y si clip-path no existiera la
+     pieza se ve recta y no se rompe nada.
+
+     ── EL GRADO ES EL MISMO ────────────────────────────────────────────────────
+     Reusa --sk, o sea la cuna cae los MISMOS 2-3 grados que los otros 3 cortes y
+     en el MISMO sentido (sube hacia la derecha) que el corte de arriba de la
+     cinta, que va justo debajo: los dos sesgos se leen como UNA sola costura.
+     Por eso la cuna va SIN hilo rojo propio: el hilo de la cinta ya esta a --sk
+     de distancia y dos hairlines paralelos se ven como un error, no como una
+     costura.
+
+     ── LA CAIDA SE PAGA CON RELLENO ────────────────────────────────────────────
+     El hero suma --sk abajo (el mismo trato que .cinta/#comprar/footer) y la cuna
+     mide --sk + 26 px: a 1280 px son 72 px dentro de un relleno de 106, y a
+     390 px son 46 dentro de 80. La punta del corte NUNCA alcanza a las cifras
+     (.badges), que son el ultimo contenido del hero.                           */
+  header{padding-bottom:calc(60px + var(--sk))}
+  header>*{position:relative;z-index:1}
+  header::before{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--sk) + 26px);z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--deep),rgba(8,5,5,.35));clip-path:polygon(0 var(--sk),100% 0,100% 100%,0 100%)}
+  /* LAS RAYAS. Son ROJAS y no amarillas por la misma regla de la paleta que ya
+     gobierna la pagina: amarillo = lo que te REGALAN (bono, garantia), rojo = lo
+     que PAGAS y todo lo demas. Un rayado amarillo decorativo le robaria la senal
+     a la garantia.
+     Van al MISMO angulo (112deg) que las rayas de los eyebrow, y solo contra el
+     borde DERECHO: es un bloque de velocidad, no un rayado parejo de punta a
+     punta. El mask las disuelve hacia adentro para que no quede el canto vertical
+     de donde arranca el pack (si mask no existe, el rayado va de lado a lado y
+     tampoco se rompe nada). Viven DENTRO de la cuna -- la unica franja de la
+     pagina sin una letra encima -- asi que su 42% no entra en ninguna medicion
+     de contraste. */
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--sk) + 26px);z-index:0;pointer-events:none;background:repeating-linear-gradient(112deg,rgba(225,6,0,.42) 0 3px,transparent 3px 13px);-webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 58%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,transparent 58%,#000 100%);clip-path:polygon(0 var(--sk),100% 0,100% 100%,0 100%)}
+
+  /* ══════════════ v11 · TEMA CLARO · lo que estaba PENSADO PARA NEGRO ════════
+     Invertir las variables arregla el 90% de la pagina de una sola vez, porque
+     casi todo el molde ya estaba tokenizado. Lo que NO se arregla solo es lo que
+     esta escrito a mano en hex/rgba: un velo blanco al 6% sobre fondo blanco no
+     es un velo, es nada, y un salmon #ffc2ad sobre blanco no es texto, es un
+     recuerdo de texto. Aca va SOLO eso: cada regla de abajo pisa un valor
+     literal que el tema oscuro daba por sentado. Cero reglas de layout.       */
+
+  /* ── a · EL VIDRIO DEL NAV y de la BARRA DE COMPRA ────────────────────────
+     Eran negro al 88% y al 94%. Mismo vidrio, carenado blanco. La barra de
+     compra ademas cambia su resplandor rojo por una sombra neutra: sobre blanco
+     un halo rojo no separa la barra del contenido, una sombra gris SI. */
+  nav{background:rgba(246,246,247,.9)}
+  .buybar{background:rgba(255,255,255,.94);box-shadow:0 -8px 26px -16px rgba(20,16,15,.40)}
+
+  /* ── b · LAS PASTILLAS DE CONFIANZA del hero ──────────────────────────────
+     Velo blanco al 6% + borde blanco al 14% + texto #efd8d4: los tres eran
+     "blanco sobre negro" y sobre blanco quedaban en 1,2:1. Se invierte el velo
+     (negro al 4%, borde negro al 12%) y el texto se va a --mut: 8,85:1. */
+  .hero-trust span,.trust-row span{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.12);color:var(--mut)}
+
+  /* ── c · EL RELOJ de la sesion ────────────────────────────────────────────
+     La caja se queda ambar-roja (es la senal de urgencia y no se toca su
+     funcion), pero sus dos textos estaban elegidos para brillar en negro:
+     el rotulo #ffc2ad medido sobre esta caja en claro da 1,4:1 y las cifras
+     #ff6b4a dan 2,6:1 (el piso de texto grande es 3). Rotulo a --acc2 (6,2:1)
+     y cifras al rojo oscuro del gradiente del CTA, #c90500 (5,4:1). */
+  #reloj{background:linear-gradient(180deg,rgba(225,6,0,.10),rgba(225,6,0,.05));border:1px solid rgba(225,6,0,.38)}
+  #reloj .rl{color:var(--acc2)}
+  #reloj-d{color:#c90500}
+
+  /* ── d · LA CINTA DE MARCAS ───────────────────────────────────────────────
+     Este es el caso que la inversion NO podia resolver: el chip de cada logo YA
+     ERA BLANCO (degradado #fff→#f3ecec), porque los logotipos de las marcas
+     estan dibujados para fondo claro. Sobre el sustrato negro el chip se
+     separaba solo; sobre el sustrato BLANCO el chip y el fondo son casi el
+     mismo color (1,06:1) y la cinta se veia como una fila de logos flotando en
+     el vacio. El chip NO se oscurece (oscurecerlo romperia los 26 logos):
+     se le da BORDE (negro al 12%, que sobre blanco dibuja el canto) y una
+     sombra NEUTRA corta que lo levanta. El aro blanco del hover — que sobre
+     blanco era invisible — pasa a aro rojo: el hover ahora se ve MAS que antes.
+     Y el arrastre, el rAF, el mask de los bordes y el orden no se tocan. */
+  .cinta-item{border:1px solid rgba(20,16,15,.12);box-shadow:0 2px 5px -2px rgba(20,16,15,.16),0 10px 20px -14px rgba(20,16,15,.30),0 0 16px -10px rgba(225,6,0,.30)}
+  .cinta-item:hover,.cinta-item:focus-within{border-color:rgba(225,6,0,.45);box-shadow:0 6px 14px -4px rgba(20,16,15,.24),0 0 0 1px rgba(225,6,0,.30),0 0 22px -8px rgba(225,6,0,.45)}
+
+  /* ── e · LAS CUÑAS DIAGONALES (piel racing, intactas en forma) ─────────────
+     Los 3 cortes de .cinta/#comprar/footer y la cuna del hero pintaban un
+     degradado NEGRO (rgba(26,16,16,.6) y var(--deep)+rgba(8,5,5,.35)). El corte
+     es el mismo, el angulo es el mismo (--sk), el hilo rojo de la costura es el
+     mismo: lo unico que cambia es que la sombra del corte ahora es un gris
+     apenas insinuado. En claro basta muchisimo menos para leer el pliegue. */
+  .cinta::before,#comprar::before,footer::before{background:linear-gradient(180deg,rgba(20,16,15,.055),rgba(20,16,15,.015))}
+  header::before{background:linear-gradient(180deg,rgba(20,16,15,.05),rgba(20,16,15,.012))}
+
+  /* ── f · EL RESPLANDOR DEL HERO ───────────────────────────────────────────
+     Los 2 resplandores medidos del molde (rojo 16% + amarillo 8%) se pensaron
+     para ACLARAR un fondo negro; sobre blanco OSCURECEN, o sea juegan al
+     contrario y se comen el contraste del peor texto de la zona. Con el rojo al
+     16% --mut cae a 6,71:1 (rompe el piso AAA de 7 con el que se diseno toda la
+     pieza). Al 10% queda en 7,7:1 y el tinte rosado del carenado se sigue
+     viendo. El amarillo se queda al 8%: es mas claro que el blanco de fondo en
+     practica y no mueve la medicion. */
+  header{background:radial-gradient(90% 62% at 50% -4%,rgba(225,6,0,.10),transparent 66%),radial-gradient(70% 50% at 88% 6%,rgba(255,212,0,.10),transparent 62%)}
+
+  /* ── g · ELEVACION: sombras ROJAS → sombras de VERDAD ─────────────────────
+     Todas las tarjetas llevaban anillo rojo + halo rojo. Sobre negro eso ERA la
+     elevacion; sobre blanco un halo rojo al 70% de blur se ve como una mancha
+     rosa sucia y no levanta nada. Se cambia por la sombra neutra minima (1 px
+     de contacto + un difuso corto). El anillo rojo del :hover NO se toca: tiene
+     mas especificidad y sigue siendo la senal de "esto responde". */
+  .card,.step,.badge,.acc,.ob,.vtab,.pill{box-shadow:0 1px 2px rgba(20,16,15,.05),0 10px 24px -20px rgba(20,16,15,.30)}
+  .price-card{box-shadow:0 0 0 1px rgba(225,6,0,.28),0 2px 4px rgba(20,16,15,.06),0 20px 44px -28px rgba(20,16,15,.45)}
+  .guar{box-shadow:0 0 0 1px rgba(138,82,0,.22),0 2px 4px rgba(20,16,15,.06),0 20px 44px -28px rgba(20,16,15,.40)}
+  .device{filter:drop-shadow(0 18px 38px rgba(20,16,15,.22)) drop-shadow(0 0 30px rgba(225,6,0,.18))}
+  /* el telefono se dibujaba con --line, que en claro es una linea SUAVE (1,23):
+     suave esta bien para separar filas, no para ser el contorno de un objeto. */
+  .phone{border-color:var(--steel)}
+
+  /* ── h · LOS GLOW DE TEXTO ────────────────────────────────────────────────
+     text-shadow rojo detras de texto rojo: sobre negro es neon, sobre blanco es
+     el mismo rojo desenfocado pegado al glifo, o sea se lee BORROSO. Se apagan
+     los 4. (El text-shadow de .fx span NO: ese es negro debajo de texto blanco
+     sobre foto, y ahi hace falta mas que antes.) */
+  .price-now,.vr.vhoy .vp b,.buybar .p,.price-list li::before{text-shadow:none}
+
+  /* ── i · CONTROLES: el piso de 3:1 de WCAG 1.4.11 ─────────────────────────
+     El borde del boton fantasma era salmon al 75% (1,9:1 sobre blanco) y la
+     casilla del bump se dibujaba con --line (1,23): los dos son CONTROLES y su
+     borde es informacion, no adorno. Fantasma al rojo pleno (4,97) y casilla a
+     --steel (3,45). El rotulo de grupo "LO QUE SE SUMA" pasa de --acc (4,22
+     sobre --panel2, por debajo del 4,5 de AA para texto chico) a --acc2 (6,22). */
+  .btn.ghost{border-color:var(--acc)}
+  .btn.ghost:hover{border-color:var(--acc2);background:rgba(225,6,0,.07)}
+  .bump .bx{border-color:var(--steel)}
+  .vg.vgs{color:var(--acc2)}
+
+  /* ── j · LO QUE VA ENCIMA DE IMAGEN sigue siendo BLANCO ───────────────────
+     Los tiles de la galeria y el mockup del telefono llevan video/foto debajo y
+     un velo negro propio (.fx::after baja a rgba(0,0,0,.82) justo donde cae el
+     titulo). Ese texto NO puede seguir al tema: si se va a --tx queda negro
+     sobre negro. Se fija en blanco a mano, que es lo que era. */
+  .fx span{color:#fff}
+  .pv .rec{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.75)}
+</style>
+<script>
+/* PIXEL DE META — TODO PIXEL-MOTOS-PENDIENTE ─────────────────────────────
+   El pixel de ESTA oferta todavia no existe y lo decide Esteban. NO se hereda
+   el de otra oferta: mediria otro producto y ensuciaria su optimizacion.
+   PARA ENCENDERLO HACEN FALTA LAS DOS COSAS:
+     1) poner el ID en PIXEL_ID (ahora va en null, asi que no carga nada), y
+     2) DESCOMENTAR la linea de fbq('init', ...) de mas abajo.
+   Si se hace solo (1), el PageView saldria SIN init y no llegaria a ningun
+   lado; si se hace solo (2), PIXEL_ID sigue en null y el bloque ni corre.  */
+var PIXEL_ID = null;   /* TODO PIXEL-MOTOS-PENDIENTE: el ID va aca */
+if (PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  /* TODO PIXEL-MOTOS-PENDIENTE: descomentar junto con el ID de arriba */
+  /* fbq('init', PIXEL_ID); */
+  fbq('track','PageView');
+}
+</script>
+</head><body>
+<nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><a href="#comprar" class="btn">Ver el pack</a></div></nav>
+
+<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="device" aria-hidden="true"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><span class="tag">Con especificaciones</span><span class="rec">+900 manuales</span></div><div class="tl"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
+
+<!-- CINTA DE LOGOS: marquee CSS infinito con los 26 logos de img/logos/.
+     La lista va DUPLICADA (2do grupo aria-hidden) para que el bucle no tenga costura.
+     Fallback sin animacion y prefers-reduced-motion: grilla estatica centrada. -->
+<section class="cinta" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; Honda &middot; Yamaha &middot; Suzuki &middot; KTM &middot; Ducati y m&aacute;s</p></div><div class="cinta-vp" tabindex="0" role="group" aria-label="Cinta de marcas: desliz&aacute;la para ver todas"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
+
+<!-- GALERIA DE VIDEO (misma mecanica del molde: poster + <video> detras, de a TOPE por IntersectionObserver) -->
+<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Los mismos clips que ves en nuestros anuncios, servidos desde esta p&aacute;gina:</p><div class="gallery"><div class="fx g1" data-v="v1.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v1.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Despiece<br>del motor</span></div><div class="fx g2" data-v="v2.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v2.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3" data-v="v3.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v3.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4" data-v="v4.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v4.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5" data-v="v5.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v5.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6" data-v="v6.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v6.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Torques y<br>medidas</span></div><div class="fx g7" data-v="v7.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v7.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8" data-v="v8.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v8.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Curso 2T<br>y 4T</span></div></div></div></section>
+
+<!-- PRECIO / CTA -->
+<section id="comprar"><div class="wrap" style="text-align:center"><div class="eyebrow">Empieza hoy</div><h2 class="title">Un solo pago, acceso de por vida</h2><div class="price-card"><div style="color:var(--mut);font-size:.9rem">Precio de hoy</div><div class="price-now" id="precio-grande">&nbsp;</div><div style="color:var(--mut);margin-top:2px">pago &uacute;nico &middot; acceso de por vida</div><div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--:--</b></div><div style="color:var(--dim);font-size:.85rem;margin-top:10px">Precio en pesos colombianos (COP).</div><ul class="price-list"><li><b>+900 manuales de taller</b> de motos</li><li><b>+40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s</li><li><b>Despiece y montaje</b> paso a paso</li><li><b>Diagramas el&eacute;ctricos</b> y especificaciones</li><li><b>Mantenimiento y diagn&oacute;stico</b> por sistemas</li><li><b>Incluido</b>: Curso de Mec&aacute;nica de Motores 2T y 4T</li><li><b>25 GB</b> de contenido, 100% digital y descargable</li><li>Se usa <b>sin internet</b> y sin ocupar espacio en tu equipo</li><li>Garant&iacute;a de 3 d&iacute;as sin preguntas</li></ul><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Activa tu acceso hoy</a><div class="cta-note">Pago seguro &middot; Acceso inmediato al confirmar</div><div class="trust-row"><span>&#128274; Pago cifrado</span><span>&#128179; Visa &middot; Mastercard</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>P&aacute;gina en preparaci&oacute;n:</b> el checkout todav&iacute;a no est&aacute; conectado. Por ahora el bot&oacute;n no cobra nada.</div></div></section>
+
+<!-- GARANTIA -->
+<section><div class="wrap"><div class="guar"><div class="shield">&#128737;&#65039;</div><h2 class="title" style="margin-bottom:10px">Garant&iacute;a de 3 d&iacute;as</h2><p class="lead" style="margin:0 auto">Si en 3 d&iacute;as no es lo que esperabas, se devuelve el <b>100%</b>. Sin preguntas.</p></div></div></section>
+
+<!-- CONTENIDO COMPLETO -->
+<section><div class="wrap"><div class="eyebrow">Contenido completo</div><h2 class="title">Bloque por bloque, sin relleno</h2><p class="lead">Esto es lo que entra con tu acceso.</p><div class="acc"><details><summary><span>1 &middot; Manuales de taller, marca por marca</span><span class="meta">+900 manuales &middot; +40 marcas</span></summary><div class="acc-body"><ul><li>Honda</li><li>Yamaha</li><li>Suzuki</li><li>Kawasaki</li><li>Bajaj</li><li>AKT</li><li>KTM</li><li>Ducati</li><li>BMW</li><li>Royal Enfield</li><li>Benelli</li><li>TVS</li><li>Hero</li><li>CF Moto</li><li>Italika</li><li>SYM</li><li>Vento</li><li>Victory</li></ul><p style="margin-top:12px">Y el resto hasta pasar las <b>40 marcas</b>, entre japonesas, europeas, indias, chinas y de ensamble en LATAM.</p></div></details><details><summary><span>2 &middot; Despiece y montaje, paso a paso</span><span class="meta">motor y chasis</span></summary><div class="acc-body">El manual de f&aacute;brica no te cuenta la teor&iacute;a: te muestra la pieza, el orden en que sale y el orden en que vuelve. Vista de despiece de cada conjunto, montaje paso a paso y el torque de cada tornillo.</div></details><details><summary><span>3 &middot; Diagramas el&eacute;ctricos y especificaciones</span><span class="meta">sistema el&eacute;ctrico</span></summary><div class="acc-body">El diagrama completo con sus colores de cable, y la tabla de especificaciones: luces de v&aacute;lvula, bandas de servicio, capacidades, medidas de desgaste y presiones. El n&uacute;mero exacto, no el "m&aacute;s o menos".</div></details><details><summary><span>4 &middot; Mantenimiento y diagn&oacute;stico por sistemas</span><span class="meta">servicio</span></summary><div class="acc-body">Ordenado por sistema: motor, encendido, alimentaci&oacute;n (carburador e inyecci&oacute;n), transmisi&oacute;n y embrague, frenos, suspensi&oacute;n y direcci&oacute;n. Cada uno con su rutina de mantenimiento y su tabla de fallas: s&iacute;ntoma, causa probable y qu&eacute; revisar primero.</div></details><details><summary><span>5 &middot; Incluido: Curso de Mec&aacute;nica de Motores 2T y 4T</span><span class="meta">curso completo</span></summary><div class="acc-body">El curso que ordena todo lo anterior: c&oacute;mo funciona un motor de <b>2 tiempos</b> y uno de <b>4 tiempos</b>, en qu&eacute; se parecen, en qu&eacute; no y qu&eacute; se hace distinto al desarmarlos. Va incluido, no se paga aparte.</div></details><details><summary><span>6 &middot; C&oacute;mo llega y c&oacute;mo se usa</span><span class="meta">25 GB &middot; 100% digital</span></summary><div class="acc-body">Apenas se confirma el pago recibes el link a tu carpeta privada, ordenada por marca y por sistema. Son <b>25 GB</b> en PDF: los abres desde la carpeta <b>sin ocupar espacio en tu equipo</b>, o te descargas solo los de tu moto y los usas en el taller <b>sin internet</b>.</div></details></div></div></section>
+
+<!-- FAQ -->
+<section><div class="wrap"><div class="eyebrow">Preguntas frecuentes</div><h2 class="title">Lo que todos preguntan</h2><div class="acc"><details><summary><span>&iquest;Necesito experiencia en mec&aacute;nica?</span></summary><div class="acc-body">No. El manual es el mismo que usa el taller oficial: te muestra la pieza y el orden. Y el Curso de Motores 2T y 4T arranca desde c&oacute;mo funciona el motor, as&iacute; que sirve igual si reci&eacute;n empiezas.</div></details><details><summary><span>&iquest;En qu&eacute; formato viene?</span></summary><div class="acc-body">En <b>PDF descargable</b>. Se abre en el celular, en la tablet o en el computador, sin instalar nada y sin programas raros.</div></details><details><summary><span>&iquest;Sirve para mi moto?</span></summary><div class="acc-body">Son <b>m&aacute;s de 40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s. Entre <b>+900 manuales</b> est&aacute; el de tu modelo o el de la familia de motor que comparte.</div></details><details><summary><span>&iquest;Es un pago mensual?</span></summary><div class="acc-body">No. Es un <b>pago &uacute;nico</b> de $15.000 COP. No se renueva, no es suscripci&oacute;n y el acceso <b>no vence</b>: es de por vida.</div></details><details><summary><span>&iquest;C&oacute;mo recibo el acceso?</span></summary><div class="acc-body">Apenas se confirma el pago te llega el <b>link a la carpeta de Drive</b> con todo el material, ordenado por marca y por sistema. Entras y empiezas a usarlo el mismo d&iacute;a.</div></details><details><summary><span>&iquest;Necesito internet para usarlo?</span></summary><div class="acc-body">Solo la primera vez, para entrar a la carpeta. Lo que descargues queda en tu equipo y se abre <b>sin internet</b>, que es como se trabaja en el taller.</div></details><details><summary><span>&iquest;25 GB no me van a llenar el celular?</span></summary><div class="acc-body">No hace falta bajar los 25 GB. La carpeta se abre y se lee <b>sin ocupar espacio en tu equipo</b>: descargas &uacute;nicamente el manual de la moto que tienes al frente.</div></details><details><summary><span>&iquest;Y si no me sirve?</span></summary><div class="acc-body">Tienes <b>3 d&iacute;as</b> de garant&iacute;a. Si el material no es lo que esperabas escribes y se devuelve el 100%, sin preguntas y sin letra chica.</div></details></div><div style="margin-top:34px;text-align:center"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-faq" data-buy="1">Activa tu acceso hoy &rarr;</a></div></div></section>
+
+<footer><div class="wrap"><div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="66" height="66" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><p>&copy; 2026 &middot; Motos Pro</p></div></footer>
+
+<div class="buybar" id="buybar"><div class="p"><span id="buybar-precio">&nbsp;</span><small>pago &uacute;nico &middot; acceso de por vida</small></div><a href="#STRIPE-PENDIENTE" class="btn" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
+
+<script>
+/* VIDEO — la mecanica del molde, tal cual. Los clips son creativos PROPIOS
+   alojados en ESTE repo: <video> del mismo origen, mudos, en loop, sin
+   controles y sin audio dentro del archivo. Cero terceros (no hay embeds).
+     - el HERO arranca de una (no espera window.load, que no dispara hasta que
+       termina todo lo demas).
+     - los 8 mini entran por IntersectionObserver; el que sale de pantalla
+       SUELTA su descarga y vuelve a su poster.
+     - sin IntersectionObserver cargan todos: nunca una pantalla vacia.
+     - con saveData o 2g no se carga un solo byte de video: quedan los posters.
+   ASSET-MOTOS-PENDIENTE: los archivos de ./video/ (hero.mp4 + v1..v8.mp4) NO
+   EXISTEN todavia, y por eso el video.fx-th de cada tile va con
+   poster placeholder y SIN src. Esta mecanica queda ENTERA y sin tocar: el dia
+   que los 9 mp4 se copien a ./video/ se enciende sola. Hasta entonces la capa
+   que inyecta el observer pide un archivo que no esta (404) y lo unico que se
+   ve es el poster, que es exactamente lo que tiene que pasar. */
+(function(){
+  var BASE = 'video/';   /* mismo origen, ruta relativa */
+  var con = navigator.connection || {};
+  var lento = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
+  if (lento) return; /* internet lento o ahorro de datos: solo posters, cero video */
+
+  function prender(el, arch, clase){
+    var v = el.querySelector('video.' + clase);
+    if (!v){
+      v = document.createElement('video');
+      v.className = clase;
+      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('muted',''); v.setAttribute('playsinline','');
+      v.setAttribute('aria-hidden','true'); v.tabIndex = -1;
+      el.appendChild(v);
+    }
+    if (!v.getAttribute('src')){ v.preload = 'auto'; v.src = BASE + arch; }
+    var p = v.play(); if (p && p['catch']) p['catch'](function(){});
+    return v;
+  }
+
+  /* 1. EL HERO, DE UNA. Es lo primero que se ve: es lo primero que se pide. */
+  var pv = document.querySelector('.pv');
+  if (pv) prender(pv, 'hero.mp4', 'vd-hero');
+
+  /* 2. LOS 8 MINI: solo cuando entran en pantalla, y de a TOPE. */
+  var TILES = [].slice.call(document.querySelectorAll('.fx[data-v]'));
+
+  if (!('IntersectionObserver' in window)){
+    /* fail-safe: navegador sin observer -> todos. Nunca una grilla de posters muertos. */
+    TILES.forEach(function(c){ prender(c, c.dataset.v, 'vd-live'); });
+    return;
+  }
+
+  var TOPE = 8, VIVOS = [];
+  function soltar(c){
+    var v = c.querySelector('video.vd-live');
+    if (v){ v.pause(); v.removeAttribute('src'); v.load();   /* corta la descarga */
+            if (v.parentNode) v.parentNode.removeChild(v); }
+    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
+  }
+  function podar(){            /* el cupo se hace soltando a los que ya no se ven */
+    for (var i = VIVOS.length - 1; i >= 0; i--) if (!VIVOS[i].visible) soltar(VIVOS[i]);
+  }
+  function encender(c){
+    if (!c.visible || c.querySelector('video.vd-live')) return;
+    podar();
+    if (VIVOS.length >= TOPE) return;  /* cupo lleno de visibles: se queda el poster */
+    prender(c, c.dataset.v, 'vd-live');
+    VIVOS.push(c);
+  }
+  var io = new IntersectionObserver(function(ens){
+    ens.forEach(function(e){ e.target.visible = e.isIntersecting; });
+    podar();
+    TILES.forEach(encender);
+  }, {rootMargin:'100px 0px'});
+  TILES.forEach(function(c){ io.observe(c); });
+})();
+</script>
+<script>
+(function(){
+  var bar=document.getElementById('buybar'), comprar=document.getElementById('comprar');
+  if(bar && comprar && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      bar.style.display = en[0].isIntersecting ? 'none' : '';
+    }).observe(comprar);
+  }
+})();
+</script>
+<script>
+(function(){
+  /* == CHECKOUT ============================================================
+     TODO STRIPE-PENDIENTE: los payment links de ESTA oferta no existen
+     todavia. LK va al placeholder '#STRIPE-PENDIENTE' A PROPOSITO: no se
+     hereda ningun link de otra oferta, porque le cobraria otro producto al
+     mecanico. Cuando exista el link real se pega ACA (un solo lugar) y los
+     4 botones de compra quedan apuntados; el aviso de "pagina en
+     preparacion" se apaga solo al dejar de ser el placeholder.             */
+  var LK = '#STRIPE-PENDIENTE';
+
+  /* PRECIO: un solo numero, en COP, pago unico. Si algun dia se cobra en mas
+     monedas, este es el unico lugar donde vive el precio del front -- y NO se
+     toca sin tocar Stripe en el mismo commit, ni al reves. */
+  var PRECIO  = '$15.000';
+  var IC_VAL  = 15000;      /* lo que el pixel manda como value en el clic */
+  var IC_CUR  = 'COP';
+
+  var REF=null;
+  try{
+    var q=new URLSearchParams(location.search);
+    REF=q.get('ad')||q.get('utm_content')||null;
+    if(REF){ REF=REF.replace(/[^A-Za-z0-9_-]/g,'').slice(0,60)||null; if(REF) sessionStorage.setItem('motosRef',REF); }
+    if(!REF) REF=sessionStorage.getItem('motosRef');
+    if(!REF && (q.get('fbclid')||/facebook\.com|instagram\.com/.test(document.referrer))) REF='MOTOS-META-SINTAG';
+  }catch(e){}
+  /* el separador sale de la URL, no de la memoria: pegar '&' a un payment link
+     SIN query string da 403 en Stripe (medido 2026-09-24), y como REF se llena
+     con fbclid, eso rompia el checkout de TODO el trafico que viene de Meta.
+     Y mientras el link sea el placeholder (#...) el ref NO se pega: un ancla
+     no lleva query. La regla vuelve a valer sola con el link real.          */
+  function conRef(u){
+    if(u.charAt(0)==='#') return u;                 /* STRIPE-PENDIENTE */
+    return REF ? u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF : u;
+  }
+
+  function pon(id,t){ var e=document.getElementById(id); if(e) e.textContent=t; }
+
+  /* == RELOJ ===============================================================
+     Los 15 minutos del molde, tal cual: el marcador vive en sessionStorage y
+     si esta vencido o viene con un valor imposible se rehace. Con el storage
+     bloqueado igual cuenta (arranca en 15:00 y no explota).                */
+  function pad(n){ return (n<10?'0':'')+n; }
+  function reloj(){
+    var e=document.getElementById('reloj-d');
+    if(!e) return;
+    var MIN=15, KEY='motosDeadline15', fin;
+    try{ fin=parseInt(sessionStorage.getItem(KEY),10); }catch(x){}
+    if(!fin || isNaN(fin) || fin<Date.now() || (fin-Date.now())>MIN*60000){ fin=Date.now()+MIN*60000; try{ sessionStorage.setItem(KEY,fin); }catch(x){} }
+    function tic(){
+      var s=Math.floor(Math.max(0,fin-Date.now())/1000);
+      e.textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+    }
+    tic(); setInterval(tic,1000);
+  }
+
+  function up(){
+    /* TODOS los botones de compra llevan el MISMO link y el MISMO valor de
+       pixel: el IC lee data-icv/data-icc del propio boton en el clic.
+       (marcados con data-buy en el HTML, asi el dia que se agregue un CTA mas
+       queda enganchado solo.) */
+    var BUY=[].slice.call(document.querySelectorAll('a[data-buy]'));
+    BUY.forEach(function(a){
+      a.setAttribute('data-icv', IC_VAL);
+      a.setAttribute('data-icc', IC_CUR);
+      a.href = conRef(LK);
+    });
+    pon('btn-hero','Activa tu acceso hoy · '+PRECIO+' →');
+    pon('btn-pago','Activa tu acceso hoy · '+PRECIO+' →');
+    pon('btn-faq', 'Activa tu acceso hoy · '+PRECIO+' →');
+    pon('buybar-btn','Activa · '+PRECIO+' →');
+    pon('precio-grande', PRECIO);
+    pon('buybar-precio', PRECIO);
+    /* el aviso de pagina en preparacion se apaga SOLO cuando LK deja de ser
+       el placeholder: no hay que acordarse de bajar una bandera a mano. */
+    var av=document.getElementById('aviso-checkout');
+    if(av && LK.charAt(0)!=='#') av.style.display='none';
+  }
+
+  reloj(); up();
+})();
+</script>
+<script>
+/* == InitiateCheckout (MOTOS-IC-v1) ================================
+   Es la MISMA logica del molde, sin tocar: el evento se manda en el clic del
+   boton de compra y la navegacion se RETRASA 250 ms para que la peticion a
+   facebook.com/tr alcance a salir. Sin eso el evento NO llega: el navegador
+   abandona la pagina en el mismo instante y mata la peticion en vuelo (medido
+   el 2026-09-25 en la otra oferta: 18 PageView y CERO InitiateCheckout sin
+   ese margen, con clics reales hechos).
+   POR QUE EN click Y NO EN pointerdown: pointerdown daria mas margen gratis,
+   pero en movil se dispara cuando el dedo TOCA el boton aunque despues el
+   visitante arrastre para hacer scroll => inflaria el InitiateCheckout con
+   toques que no son intencion de pago. 250 ms no los siente nadie; un IC
+   falso si ensucia la optimizacion de la campana.
+   El valor NO va clavado: sale del PROPIO BOTON en ese momento
+   (data-icv/data-icc los pinta up()). Si faltaran, se parsea el numero del
+   texto del boton; y si tampoco, cae en el precio de lista.
+   FAIL-SAFE (primero cobrar, despues medir): si no hay fbq, si fbq revienta,
+   si el clic trae modificador (ctrl/cmd/medio = abrir en pestana nueva) o si
+   el anchor apunta a otra pestana, NO se toca la navegacion. Y hay un
+   temporizador de escape que navega igual si algo falla en medio.
+   PROHIBIDO disparar la COMPRA desde aqui: la manda el SERVIDOR una sola vez,
+   con event_id = id de la sesion de Stripe (cs_live_...). Si el navegador la
+   mandara tambien, Meta contaria la misma venta dos veces y la campana
+   aprenderia con datos inflados (medido antes: 6 compras donde hubo 4). */
+(function(){
+  var ESPERA=250;    /* ms que se le dan al pixel antes de navegar */
+  var VENTANA=2500;  /* ms en que un 2o clic al mismo boton no repite el evento */
+
+  function num(t){
+    var m=String(t).match(/[0-9][0-9.,\u00a0\u202f ]*/g);
+    if(!m) return null;
+    var s=m[m.length-1].replace(/[\s\u00a0\u202f]/g,'').replace(/[.,]+$/,'');
+    var i=Math.max(s.lastIndexOf(','), s.lastIndexOf('.'));
+    var d=(i>-1) ? s.length-i-1 : -1;
+    s = (d===1||d===2) ? s.slice(0,i).replace(/[.,]/g,'')+'.'+s.slice(i+1)
+                       : s.replace(/[.,]/g,'');
+    var n=parseFloat(s);
+    return (isFinite(n) && n>0) ? n : null;
+  }
+  window.__motosIC = num;   /* lo expone para que el banco lo pueda medir */
+
+  function ahora(){ return (Date.now ? Date.now() : (new Date()).getTime()); }
+  /* TODO STRIPE-PENDIENTE: mientras no haya payment links, los 4 CTA de compra
+     llevan el placeholder '#STRIPE-PENDIENTE'. El IC queda ENGANCHADO a ellos
+     igual porque el reconocedor acepta el placeholder ADEMAS de buy.stripe.com
+     => el dia que se peguen los links reales el evento sigue saliendo sin
+     tocar una sola linea de aqui, y no hay ventana ciega en el medio. */
+  function anchor(t){
+    while(t && t.nodeType===1){
+      if(t.tagName==='A'){
+        var h=t.getAttribute('href')||'';
+        if(h.indexOf('buy.stripe.com')>-1 || h.indexOf('#STRIPE-PENDIENTE')>-1) return t;
+      }
+      t=t.parentNode;
+    }
+    return null;
+  }
+  var ULT=null;   /* {a:anchor,t:ms,id:eventID} del ultimo evento mandado */
+  /* devuelve el ms en que el evento salio, o null si no se pudo mandar */
+  function disparar(a){
+    if(typeof window.fbq!=='function') return null;
+    var t=ahora();
+    if(ULT && ULT.a===a && (t-ULT.t)<VENTANA) return ULT.t;   /* ya salio */
+    var v=parseFloat(a.getAttribute('data-icv'));
+    var cur=a.getAttribute('data-icc') || 'COP';
+    if(!(isFinite(v) && v>0)){ v=num(a.textContent); }
+    if(!(isFinite(v) && v>0)){ v=15000; cur='COP'; }
+    var id='ic-'+t+'-'+Math.random().toString(36).slice(2,10);
+    try{ fbq('track','InitiateCheckout',{value:v,currency:cur},{eventID:id}); }
+    catch(err){ return null; }
+    ULT={a:a,t:t,id:id};
+    return t;
+  }
+  document.addEventListener('click', function(e){
+    var a=anchor(e.target);
+    if(!a) return;
+    var t0=disparar(a);
+    if(t0===null) return;                 /* sin pixel: no se estorba la compra */
+    if(e.defaultPrevented) return;        /* otro ya decidio: no se encima */
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+    if(typeof e.button==='number' && e.button!==0) return;
+    var tg=a.getAttribute('target');
+    if(tg && tg!=='_self') return;        /* pestana nueva: la pagina no se va */
+    var href=a.href || a.getAttribute('href');
+    if(!href) return;
+    var falta=ESPERA-(ahora()-t0);
+    if(falta<=0) return;                  /* ya paso el margen: navega normal */
+    e.preventDefault();
+    var ido=false;
+    function ir(){ if(ido) return; ido=true; try{ window.location.href=href; }catch(err){} }
+    setTimeout(ir, falta);
+    setTimeout(ir, falta+750);            /* escape: si algo falla, igual navega */
+  }, true);
+})();
+</script>
+<script>
+/* ===== CINTA DE MARCAS: SE ARRASTRA Y ADEMAS ANDA SOLA =====================
+   Antes el avance era una animacion CSS sobre transform:translateX, y una
+   animacion no se puede agarrar: el dedo resbalaba por encima. Ahora .cinta-vp
+   es un carril con overflow-x de verdad, asi que el deslizar con el dedo lo
+   hace el NAVEGADOR (nativo, con su inercia) y aca solo quedan 3 trabajos:
+
+   1) EL AVANCE. rAF sumando ~0,5 px por frame a scrollLeft (~30 px/s, el mismo
+      ritmo de los 40 s que tardaba la animacion). Se acumula en un float
+      propio (pos) y se ASIGNA, porque sumarle 0,5 a scrollLeft se pierde en los
+      motores que redondean la propiedad a entero.
+   2) EL LAZO SIN COSTURA. El set de 25 logos ya venia DUPLICADO en el HTML, asi
+      que la posicion p y la posicion p+M (M = ancho de UN set) pintan pixeles
+      identicos. Entonces se mantiene scrollLeft dentro de [0, M): cuando pasa
+      la mitad se le resta la mitad y el salto es invisible. Al arrastrar se
+      corrige tambien el ancla (s0) con el mismo brinco, y hacia atras se suma M
+      ANTES de asignar -- si no, scrollLeft se clava en 0 y el lazo se corta.
+   3) LA PAUSA. Tocar / arrastrar / rueda / hover / foco frenan el avance; al
+      soltar reanuda ~1,5 s despues. Con prefers-reduced-motion no hay avance
+      nunca, pero la cinta SIGUE arrastrable.
+
+   Si el set de logos no llegara a ser mas ancho que la pantalla, no hay nada
+   que rodar: lazoOK() lo detecta y deja un scroll comun sin avance ni brincos. */
+(function(){
+  var vp = document.querySelector('.cinta-vp');
+  if(!vp) return;
+  var pista = vp.querySelector('.cinta-pista');
+  var g1 = pista && pista.firstElementChild;
+  if(!pista || !g1 || !pista.querySelector('.cinta-grupo.dup')) return;
+
+  var PASO = 0.5;        /* px por frame a 60 Hz */
+  var REANUDA = 1500;    /* ms tras soltar */
+
+  var M = 0;             /* ancho de UN set de logos = el largo del lazo */
+  var pos = null;        /* posicion en float del avance automatico */
+  var quieto = false, reloj = 0;
+  var arrastrando = false, ptr = null, x0 = 0, s0 = 0, tocando = false;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion:reduce)') : null;
+
+  /* el .cinta-item tiene ancho fijo, asi que M no depende de que carguen las
+     imagenes: alcanza medir al inicio y cuando cambia el ancho de pantalla. */
+  function medir(){ M = g1.getBoundingClientRect().width; }
+  function lazoOK(){ return M > 0 && vp.clientWidth < M; }
+  function autoOK(){ return lazoOK() && !(mq && mq.matches); }
+
+  function pausar(){ quieto = true; if(reloj){ clearTimeout(reloj); reloj = 0; } }
+  function reanudar(){
+    if(reloj) clearTimeout(reloj);
+    reloj = setTimeout(function(){ reloj = 0; quieto = false; }, REANUDA);
+  }
+
+  medir();
+  window.addEventListener('resize', medir, {passive:true});
+  window.addEventListener('load', medir);
+
+  /* --- 1 + 2 · el avance y el lazo --- */
+  var previo = 0;
+  function marco(t){
+    requestAnimationFrame(marco);
+    if(!M) medir();
+    if(quieto || arrastrando || tocando || document.hidden || !autoOK()){ previo = 0; return; }
+    var dt = previo ? Math.min(t - previo, 50) : 16.7;   /* tope: tras una pausa no salta */
+    previo = t;
+    /* si el usuario movio el carril (o el motor redondeo), re-sincronizar */
+    if(pos === null || Math.abs(pos - vp.scrollLeft) > 1.5) pos = vp.scrollLeft;
+    pos += PASO * (dt / 16.7);
+    while(pos >= M) pos -= M;
+    vp.scrollLeft = pos;
+  }
+  requestAnimationFrame(marco);
+
+  /* --- 3 · pausa por hover / foco / rueda --- */
+  vp.addEventListener('mouseenter', pausar);
+  vp.addEventListener('mouseleave', function(){ if(!arrastrando) reanudar(); });
+  vp.addEventListener('focusin', pausar);
+  vp.addEventListener('focusout', function(){ if(!arrastrando) reanudar(); });
+  vp.addEventListener('wheel', function(){ pausar(); reanudar(); }, {passive:true});
+
+  /* --- dedo: el deslizar es NATIVO; aca solo se pausa y se cose el lazo ---
+     Ojo: el brinco se hace SOLO mientras el dedo esta apoyado. Si se hiciera
+     durante la inercia, iOS corta el envion a mitad de camino. Cuando la inercia
+     termina contra el tope, el avance re-sincroniza y normaliza -- y como p y
+     p+M son iguales, eso tampoco se ve. */
+  vp.addEventListener('touchstart', function(){ tocando = true; pausar(); }, {passive:true});
+  function suelta(){ tocando = false; reanudar(); }
+  vp.addEventListener('touchend', suelta, {passive:true});
+  vp.addEventListener('touchcancel', suelta, {passive:true});
+  vp.addEventListener('scroll', function(){
+    if(!tocando || !lazoOK()) return;
+    var s = vp.scrollLeft;
+    if(s >= M) vp.scrollLeft = s - M;          /* paso la costura: atras una vuelta */
+    else if(s < 1) vp.scrollLeft = s + M - 1;  /* llego al tope izquierdo: adelanta una */
+  }, {passive:true});
+
+  /* --- mouse / lapiz: arrastre con pointer capture (cursor grab -> grabbing) --- */
+  function baja(e){
+    if(e.pointerType === 'touch') return;      /* el dedo ya lo maneja el navegador */
+    if(e.button) return;                       /* solo boton principal */
+    arrastrando = true; ptr = e.pointerId;
+    x0 = e.clientX; s0 = vp.scrollLeft;
+    vp.classList.add('agarrando');
+    pausar();
+    if(vp.setPointerCapture && ptr != null){ try{ vp.setPointerCapture(ptr); }catch(err){} }
+  }
+  function mueve(e){
+    if(!arrastrando) return;
+    if(ptr != null && e.pointerId != null && e.pointerId !== ptr) return;
+    if(e.cancelable) e.preventDefault();
+    var t = s0 - (e.clientX - x0);
+    if(lazoOK()){                              /* el lazo, en los DOS sentidos */
+      while(t < 0){ t += M; s0 += M; }
+      while(t >= M){ t -= M; s0 -= M; }
+    }
+    vp.scrollLeft = t;
+    pos = null;                                /* el avance re-sincroniza al reanudar */
+  }
+  function alza(e){
+    if(!arrastrando) return;
+    if(e && ptr != null && e.pointerId != null && e.pointerId !== ptr) return;
+    arrastrando = false;
+    vp.classList.remove('agarrando');
+    if(vp.releasePointerCapture && ptr != null){ try{ vp.releasePointerCapture(ptr); }catch(err){} }
+    ptr = null;
+    reanudar();
+  }
+  if(window.PointerEvent){
+    vp.addEventListener('pointerdown', baja);
+    vp.addEventListener('pointermove', mueve);
+    vp.addEventListener('pointerup', alza);
+    vp.addEventListener('pointercancel', alza);
+    vp.addEventListener('lostpointercapture', alza);
+  }else{                                       /* sin Pointer Events: mouse pelado */
+    vp.addEventListener('mousedown', baja);
+    document.addEventListener('mousemove', mueve);
+    document.addEventListener('mouseup', alza);
+  }
+  /* el navegador quiere "arrastrar la imagen": se le quita el reflejo */
+  vp.addEventListener('dragstart', function(e){ e.preventDefault(); });
+})();
+</script>
+</body></html>
