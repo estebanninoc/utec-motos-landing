@@ -406,7 +406,15 @@
 .trust-row{margin-top:10px}
 #reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* ===== CINTA DE LOGOS (marquee infinito) ===== */.cinta{padding:34px 0 30px;border-top:1px solid rgba(107,60,60,.5);border-bottom:1px solid rgba(107,60,60,.5);background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15))}.cinta-hd{text-align:center;max-width:700px;margin:0 auto 24px;padding:0 20px}.cinta-hd h2{font-size:clamp(1.45rem,3.6vw,2.05rem);margin:0}.cinta-hd h2 em{font-style:normal;color:var(--acc)}.cinta-rule{display:block;width:58px;height:3px;border-radius:2px;background:var(--acc);margin:13px auto 0;box-shadow:0 0 14px rgba(225,6,0,.6)}.cinta-sub{margin:13px 0 0;font-size:.95rem;line-height:1.5;color:var(--mut)}.cinta-sub b{color:var(--acc2);font-weight:800}.cinta-vp{overflow:hidden;contain:content}.cinta-pista{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:0;padding:12px 0;list-style:none}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:66px;width:134px;padding:9px 12px;box-sizing:border-box;border-radius:14px;background:linear-gradient(180deg,#fff,#f3ecec);box-shadow:0 3px 12px -4px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.28),0 0 18px -10px rgba(225,6,0,.5);transition:box-shadow .3s ease,transform .3s ease}.cinta-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}/* Normalizacion optica: los escudos cuadrados llenan toda la altura y dominan
    frente a los wordmarks anchos; se les recorta la altura para que el peso
-   visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{transform:translateY(-3px);box-shadow:0 8px 20px -6px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.45),0 0 26px -6px rgba(225,6,0,.65)}@keyframes cinta-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}@supports (animation-name:cinta-scroll){.cinta-vp{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}.cinta-pista{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;will-change:transform;animation:cinta-scroll 40s linear infinite}.cinta-grupo,.cinta-grupo.dup{display:flex;align-items:center;gap:18px;padding-right:18px}.cinta:hover .cinta-pista,.cinta-pista:focus-within{animation-play-state:paused}}@media (prefers-reduced-motion:reduce){.cinta-vp{-webkit-mask-image:none;mask-image:none}.cinta-pista{flex-wrap:wrap;justify-content:center;width:auto;gap:18px;animation:none;will-change:auto}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{transition:none}.cinta-item:hover,.cinta-item:focus-within{transform:none}}@media (max-width:640px){.cinta-hd{margin-bottom:20px}.cinta-sub{font-size:.88rem}.cinta-item{height:58px;width:116px;padding:7px 9px;border-radius:12px}.cinta-pista,.cinta-grupo,.cinta-grupo.dup{gap:12px}@supports (animation-name:cinta-scroll){.cinta-grupo,.cinta-grupo.dup{padding-right:12px}.cinta-pista{gap:0}}}</style>
+   visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{transform:translateY(-3px);box-shadow:0 8px 20px -6px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.45),0 0 26px -6px rgba(225,6,0,.65)}/* La cinta ya no es una ANIMACION: es un CARRIL QUE SE ARRASTRA. overflow-x real =>
+   en movil el dedo lo desliza NATIVO (sin JS de por medio) y en escritorio lo arrastra
+   el pointer; el avance solo lo empuja el rAF de abajo sumando a scrollLeft. La barra
+   de scroll se esconde en los 3 motores (Firefox / WebKit-Blink / Edge viejo) y el
+   -webkit-overflow-scrolling:touch le da la inercia de iOS. */
+  @supports (overflow-x:auto){.cinta-vp{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}.cinta-vp::-webkit-scrollbar{width:0;height:0;display:none}.cinta-vp:focus-visible{outline:2px solid var(--acc);outline-offset:3px}.cinta-vp.agarrando{cursor:grabbing}.cinta-vp.agarrando .cinta-item{pointer-events:none}.cinta-pista{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;user-select:none;-webkit-user-select:none}.cinta-pista img{-webkit-user-drag:none}.cinta-grupo,.cinta-grupo.dup{display:flex;align-items:center;gap:18px;padding-right:18px}}/* Quien pidio menos movimiento NO recibe el avance solo (lo apaga el JS), pero la
+   cinta se queda en carril: puede arrastrarla igual con el dedo o el mouse. Por eso
+   aca ya no se re-arma la rejilla envuelta; solo se apaga el brinco del hover. */
+  @media (prefers-reduced-motion:reduce){.cinta-item{transition:none}.cinta-item:hover,.cinta-item:focus-within{transform:none}}@media (max-width:640px){.cinta-hd{margin-bottom:20px}.cinta-sub{font-size:.88rem}.cinta-item{height:58px;width:116px;padding:7px 9px;border-radius:12px}.cinta-pista,.cinta-grupo,.cinta-grupo.dup{gap:12px}@supports (overflow-x:auto){.cinta-grupo,.cinta-grupo.dup{padding-right:12px}.cinta-pista{gap:0}}}</style>
 <script>
 /* PIXEL DE META — TODO PIXEL-MOTOS-PENDIENTE ─────────────────────────────
    El pixel de ESTA oferta todavia no existe y lo decide Esteban. NO se hereda
@@ -436,7 +444,7 @@ if (PIXEL_ID) {
 <!-- CINTA DE LOGOS: marquee CSS infinito con los 26 logos de img/logos/.
      La lista va DUPLICADA (2do grupo aria-hidden) para que el bucle no tenga costura.
      Fallback sin animacion y prefers-reduced-motion: grilla estatica centrada. -->
-<section class="cinta" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; Honda &middot; Yamaha &middot; Suzuki &middot; KTM &middot; Ducati y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
+<section class="cinta" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; Honda &middot; Yamaha &middot; Suzuki &middot; KTM &middot; Ducati y m&aacute;s</p></div><div class="cinta-vp" tabindex="0" role="group" aria-label="Cinta de marcas: desliz&aacute;la para ver todas"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
 
 <!-- GALERIA DE VIDEO (misma mecanica del molde: poster + <video> detras, de a TOPE por IntersectionObserver) -->
 <section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Los mismos clips que ves en nuestros anuncios, servidos desde esta p&aacute;gina:</p><div class="gallery"><div class="fx g1" data-v="v1.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v1.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Despiece<br>del motor</span></div><div class="fx g2" data-v="v2.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v2.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3" data-v="v3.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v3.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4" data-v="v4.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v4.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5" data-v="v5.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v5.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6" data-v="v6.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v6.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Torques y<br>medidas</span></div><div class="fx g7" data-v="v7.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v7.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8" data-v="v8.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v8.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Curso 2T<br>y 4T</span></div></div></div></section>
@@ -717,6 +725,146 @@ if (PIXEL_ID) {
     setTimeout(ir, falta);
     setTimeout(ir, falta+750);            /* escape: si algo falla, igual navega */
   }, true);
+})();
+</script>
+<script>
+/* ===== CINTA DE MARCAS: SE ARRASTRA Y ADEMAS ANDA SOLA =====================
+   Antes el avance era una animacion CSS sobre transform:translateX, y una
+   animacion no se puede agarrar: el dedo resbalaba por encima. Ahora .cinta-vp
+   es un carril con overflow-x de verdad, asi que el deslizar con el dedo lo
+   hace el NAVEGADOR (nativo, con su inercia) y aca solo quedan 3 trabajos:
+
+   1) EL AVANCE. rAF sumando ~0,5 px por frame a scrollLeft (~30 px/s, el mismo
+      ritmo de los 40 s que tardaba la animacion). Se acumula en un float
+      propio (pos) y se ASIGNA, porque sumarle 0,5 a scrollLeft se pierde en los
+      motores que redondean la propiedad a entero.
+   2) EL LAZO SIN COSTURA. El set de 25 logos ya venia DUPLICADO en el HTML, asi
+      que la posicion p y la posicion p+M (M = ancho de UN set) pintan pixeles
+      identicos. Entonces se mantiene scrollLeft dentro de [0, M): cuando pasa
+      la mitad se le resta la mitad y el salto es invisible. Al arrastrar se
+      corrige tambien el ancla (s0) con el mismo brinco, y hacia atras se suma M
+      ANTES de asignar -- si no, scrollLeft se clava en 0 y el lazo se corta.
+   3) LA PAUSA. Tocar / arrastrar / rueda / hover / foco frenan el avance; al
+      soltar reanuda ~1,5 s despues. Con prefers-reduced-motion no hay avance
+      nunca, pero la cinta SIGUE arrastrable.
+
+   Si el set de logos no llegara a ser mas ancho que la pantalla, no hay nada
+   que rodar: lazoOK() lo detecta y deja un scroll comun sin avance ni brincos. */
+(function(){
+  var vp = document.querySelector('.cinta-vp');
+  if(!vp) return;
+  var pista = vp.querySelector('.cinta-pista');
+  var g1 = pista && pista.firstElementChild;
+  if(!pista || !g1 || !pista.querySelector('.cinta-grupo.dup')) return;
+
+  var PASO = 0.5;        /* px por frame a 60 Hz */
+  var REANUDA = 1500;    /* ms tras soltar */
+
+  var M = 0;             /* ancho de UN set de logos = el largo del lazo */
+  var pos = null;        /* posicion en float del avance automatico */
+  var quieto = false, reloj = 0;
+  var arrastrando = false, ptr = null, x0 = 0, s0 = 0, tocando = false;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion:reduce)') : null;
+
+  /* el .cinta-item tiene ancho fijo, asi que M no depende de que carguen las
+     imagenes: alcanza medir al inicio y cuando cambia el ancho de pantalla. */
+  function medir(){ M = g1.getBoundingClientRect().width; }
+  function lazoOK(){ return M > 0 && vp.clientWidth < M; }
+  function autoOK(){ return lazoOK() && !(mq && mq.matches); }
+
+  function pausar(){ quieto = true; if(reloj){ clearTimeout(reloj); reloj = 0; } }
+  function reanudar(){
+    if(reloj) clearTimeout(reloj);
+    reloj = setTimeout(function(){ reloj = 0; quieto = false; }, REANUDA);
+  }
+
+  medir();
+  window.addEventListener('resize', medir, {passive:true});
+  window.addEventListener('load', medir);
+
+  /* --- 1 + 2 · el avance y el lazo --- */
+  var previo = 0;
+  function marco(t){
+    requestAnimationFrame(marco);
+    if(!M) medir();
+    if(quieto || arrastrando || tocando || document.hidden || !autoOK()){ previo = 0; return; }
+    var dt = previo ? Math.min(t - previo, 50) : 16.7;   /* tope: tras una pausa no salta */
+    previo = t;
+    /* si el usuario movio el carril (o el motor redondeo), re-sincronizar */
+    if(pos === null || Math.abs(pos - vp.scrollLeft) > 1.5) pos = vp.scrollLeft;
+    pos += PASO * (dt / 16.7);
+    while(pos >= M) pos -= M;
+    vp.scrollLeft = pos;
+  }
+  requestAnimationFrame(marco);
+
+  /* --- 3 · pausa por hover / foco / rueda --- */
+  vp.addEventListener('mouseenter', pausar);
+  vp.addEventListener('mouseleave', function(){ if(!arrastrando) reanudar(); });
+  vp.addEventListener('focusin', pausar);
+  vp.addEventListener('focusout', function(){ if(!arrastrando) reanudar(); });
+  vp.addEventListener('wheel', function(){ pausar(); reanudar(); }, {passive:true});
+
+  /* --- dedo: el deslizar es NATIVO; aca solo se pausa y se cose el lazo ---
+     Ojo: el brinco se hace SOLO mientras el dedo esta apoyado. Si se hiciera
+     durante la inercia, iOS corta el envion a mitad de camino. Cuando la inercia
+     termina contra el tope, el avance re-sincroniza y normaliza -- y como p y
+     p+M son iguales, eso tampoco se ve. */
+  vp.addEventListener('touchstart', function(){ tocando = true; pausar(); }, {passive:true});
+  function suelta(){ tocando = false; reanudar(); }
+  vp.addEventListener('touchend', suelta, {passive:true});
+  vp.addEventListener('touchcancel', suelta, {passive:true});
+  vp.addEventListener('scroll', function(){
+    if(!tocando || !lazoOK()) return;
+    var s = vp.scrollLeft;
+    if(s >= M) vp.scrollLeft = s - M;          /* paso la costura: atras una vuelta */
+    else if(s < 1) vp.scrollLeft = s + M - 1;  /* llego al tope izquierdo: adelanta una */
+  }, {passive:true});
+
+  /* --- mouse / lapiz: arrastre con pointer capture (cursor grab -> grabbing) --- */
+  function baja(e){
+    if(e.pointerType === 'touch') return;      /* el dedo ya lo maneja el navegador */
+    if(e.button) return;                       /* solo boton principal */
+    arrastrando = true; ptr = e.pointerId;
+    x0 = e.clientX; s0 = vp.scrollLeft;
+    vp.classList.add('agarrando');
+    pausar();
+    if(vp.setPointerCapture && ptr != null){ try{ vp.setPointerCapture(ptr); }catch(err){} }
+  }
+  function mueve(e){
+    if(!arrastrando) return;
+    if(ptr != null && e.pointerId != null && e.pointerId !== ptr) return;
+    if(e.cancelable) e.preventDefault();
+    var t = s0 - (e.clientX - x0);
+    if(lazoOK()){                              /* el lazo, en los DOS sentidos */
+      while(t < 0){ t += M; s0 += M; }
+      while(t >= M){ t -= M; s0 -= M; }
+    }
+    vp.scrollLeft = t;
+    pos = null;                                /* el avance re-sincroniza al reanudar */
+  }
+  function alza(e){
+    if(!arrastrando) return;
+    if(e && ptr != null && e.pointerId != null && e.pointerId !== ptr) return;
+    arrastrando = false;
+    vp.classList.remove('agarrando');
+    if(vp.releasePointerCapture && ptr != null){ try{ vp.releasePointerCapture(ptr); }catch(err){} }
+    ptr = null;
+    reanudar();
+  }
+  if(window.PointerEvent){
+    vp.addEventListener('pointerdown', baja);
+    vp.addEventListener('pointermove', mueve);
+    vp.addEventListener('pointerup', alza);
+    vp.addEventListener('pointercancel', alza);
+    vp.addEventListener('lostpointercapture', alza);
+  }else{                                       /* sin Pointer Events: mouse pelado */
+    vp.addEventListener('mousedown', baja);
+    document.addEventListener('mousemove', mueve);
+    document.addEventListener('mouseup', alza);
+  }
+  /* el navegador quiere "arrastrar la imagen": se le quita el reflejo */
+  vp.addEventListener('dragstart', function(e){ e.preventDefault(); });
 })();
 </script>
 </body></html>
