@@ -37,14 +37,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
 -->
 <!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
-     en esta capa (no hay hoja remota, ni preconnect, ni noscript). Los UNICOS
-     terceros de toda la pagina son de YouTube: UN (1) iframe al abrir -- el del
-     hero (orden N) --, los 8 de la galeria en FACHADA desde la orden U (no
-     existen hasta el clic y vive uno a la vez) y, desde la orden W, las 8
-     MINIATURAS de i.ytimg.com que esos tiles usan de fondo (imagenes, con
-     loading="lazy": se piden recien cuando la seccion se acerca, y en movil
-     son 6 porque g7/g8 no se dibujan). Cada uno autorizado a mano en su orden.
-     Ninguno lleva preconnect (ver esos comentarios). Son Inter e
+     en esta capa (no hay hoja remota, ni preconnect, ni noscript).
+     ORDEN AI · YA NO HAY TERCEROS EN NINGUNA CAPA. Se cayo el ultimo: los 9
+     videos (el del hero + los 8 de la galeria) eran embeds de YouTube y ahora
+     son archivos MP4/WEBM propios en ./video/, mudos y en bucle. Esta pagina
+     no le pide UN SOLO BYTE a otro dominio. Son Inter e
      Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
      se baja siempre, el latin-ext SOLO si el texto trae un caracter de ese rango.
      Los 4 archivos YA estan en ./fonts/{inter,inter-ext,inter-tight,
@@ -161,14 +158,25 @@
      asi que el recorte se hace a mano -- 102% de ancho y 136% de alto
      centrados dentro del 9/12 => el 16/9 llena la pantalla del telefono y
      lo que sobra se va por los lados. Adios bandas negras. */
-  .pv .yt-hero{position:absolute;top:50%;left:50%;width:102%;height:136%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:1}
+  /* ORDEN AI · Vuelve el <video>, y con el vuelve object-fit:cover. El
+     recorte a mano de la AG (102% x 136%) existia SOLO porque un iframe no
+     obedece object-fit; un <video> si, entonces el cover es de una linea.
+     pointer-events:none = puro decorado, no se puede ni pausar: el video
+     se reproduce solo y no pide nada al visitante. */
+  .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;background:var(--bg)}
   /* el play del molde: se ve mientras el video no ha cargado (y si YouTube
      no carga, queda el poster con su play en vez de un rectangulo mudo). */
   .pv .play{width:48px;height:48px;border-radius:50%;background:rgba(225,6,0,.22);backdrop-filter:blur(4px);border:1.5px solid rgba(255,138,117,.75);display:flex;align-items:center;justify-content:center}
   .pv .play::after{content:"";border-left:14px solid var(--tx);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
   .pv .pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.85)}
   .pv .tag{position:absolute;z-index:2;top:12px;left:12px;font-size:.6rem;font-weight:800;color:var(--ink);background:var(--acc);padding:4px 10px;border-radius:99px}
-  .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px}
+  /* ORDEN AI · text-shadow nuevo. Este rotulo no tiene fondo propio (el
+     .tag de al lado si: es una pastilla roja), y antes se apoyaba en que
+     debajo hubiera una miniatura oscura. Ahora debajo corre un video que
+     cambia de brillo cuadro a cuadro -- en un fotograma de aluminio pulido
+     el texto blanco desaparecia. La sombra lo despega de CUALQUIER fondo
+     sin meter una caja que el molde no tiene. */
+  .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px;text-shadow:0 1px 4px rgba(0,0,0,.95),0 0 10px rgba(0,0,0,.8)}
   .pv .rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)}
   .tl{background:var(--bg);padding:10px 9px 13px}
   .tl .tools{display:flex;gap:12px;justify-content:space-around;margin-bottom:9px}
@@ -211,12 +219,12 @@
      Lo que cambia respecto de CapCut: donde alla el acento es BLANCO (el
      anillo del play, el triangulo, el brillo de arriba) aca es el ROJO de
      marca #e10600. El negro se queda igual.
-     Lo que se MANTIENE de la orden U: el tile sigue siendo una FACHADA -- el
-     <iframe> no existe hasta el clic y vive UNO SOLO a la vez. Lo que se
-     PIERDE de la orden U, dicho sin adornos: en reposo la galeria vuelve a
-     pedirle 8 miniaturas a i.ytimg.com (imagenes, ~8-12 KB cada una, con
-     loading="lazy" => solo cuando la seccion se acerca). Cero reproductores
-     igual: eso no vuelve. */
+     ORDEN AI · SE ACABO LA FACHADA. El tile ya no espera un clic ni inyecta
+     un iframe: es un <video> local, mudo y en bucle, que arranca solo cuando
+     entra en pantalla (muro de reels). Ni miniaturas de i.ytimg.com ni
+     reproductores de terceros: el fondo del tile ES el clip, y su poster es
+     un .jpg nuestro. Lo unico que sobrevive del molde es lo de arriba -- la
+     geometria, los dos velos y el acento rojo --, que no se toco. */
   .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:36px}
   /* SEIS pistas, cada tile ocupa DOS => 3 POR FILA, como el molde. Las pistas
      son 6 y no 3 por un motivo concreto: los videos son 8, o sea la ultima
@@ -233,7 +241,12 @@
      ::after, que es el unico velo que la pisa.
      ORDEN AG · se retira grayscale(.85) contrast(.88) brightness(.52): era lo
      que dejaba los ocho tiles como rectangulos de barro. */
-  .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+  /* ORDEN AI · el fondo del tile ya no es la miniatura de i.ytimg.com sino
+     el clip local. Mismo z-index:-2 que tenia la miniatura => los dos velos
+     (::before y ::after) le siguen cayendo encima igual y el degradado del
+     molde no se movio. object-fit:cover recorta el 9/16 del short dentro
+     del 3/4 del tile. El poster se ve mientras el clip no arranca. */
+  .fx .fx-vd{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;background:#0b0505}
   /* VELO 1 · la rampa por tile (g1..g8): del rojo de marca al carbon, un paso
      por tarjeta. Es semitransparente A PROPOSITO -- tapa lo suficiente para
      que el thumb no mande, y deja ver la foto lo suficiente para que el tile
@@ -268,50 +281,24 @@
      no el circulito del play. Es un <a> de verdad: sin JS abre el video en
      YouTube en vez de no hacer nada. align-items:flex-end deja el rotulo
      ABAJO-IZQUIERDA, que es donde lo pone el molde. */
-  .fx-btn{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;padding:14px;color:var(--tx);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .fx-btn:focus-visible{outline:2px solid var(--acc2);outline-offset:-4px;border-radius:13px}
+  /* ORDEN AI · El rotulo ya no es un <a>: no hay nada que clickear (los
+     videos corren solos). Queda la MISMA caja y el mismo padding para que
+     el texto no se mueva ni un pixel, pero inerte: sin cursor, sin foco,
+     sin tap-highlight. pointer-events:none para que no tape al video. */
+  .fx-lb{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;padding:14px;color:var(--tx);pointer-events:none}
   /* EL PLAY: chiquito y ARRIBA-DERECHA, como el molde. Ya no es el pastillon
      centrado de la orden U -- con la miniatura de fondo, un circulo de 54 px
      en el medio tapa justamente la imagen que ahora si vale la pena ver.
      Anillo y triangulo en rojo de marca (en CapCut son blancos). */
-  .fx-ply{position:absolute;top:12px;right:12px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,.42);border:1.5px solid rgba(225,6,0,.85);box-shadow:0 2px 10px -2px rgba(0,0,0,.9);transition:background .18s,border-color .18s,box-shadow .18s}
-  .fx-ply svg{width:11px;height:11px;margin-left:1px;fill:var(--acc)}
-  .fx:hover .fx-ply,.fx-btn:focus-visible .fx-ply{background:var(--acc);border-color:rgba(255,247,245,.8);box-shadow:0 0 20px -3px rgba(225,6,0,.95)}
-  .fx:hover .fx-ply svg,.fx-btn:focus-visible .fx-ply svg{fill:var(--ink)}
+  /* (ORDEN AI · el circulito .fx-ply se fue: prometia un clic que ya no
+     existe. Un boton de play encima de algo que YA se esta reproduciendo
+     solo es mentirle al visitante.) */
   .fx-tt{font-family:var(--disp);font-weight:800;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.85)}
-  /* EL REPRODUCTOR. Solo existe DESPUES del clic; lo inyecta el JS. Un iframe
-     NO obedece object-fit, asi que se ENCUADRA igual que el hero: ancho
-     completo del tile y su propio 16/9, centrado vertical dentro del 3/4.
-     (Esa era la receta cuando los 8 videos eran APAISADOS. Desde la orden AB2
-     son SHORTS VERTICALES y este 16/9 quedo al reves: lo corrige AB3 mas
-     abajo, en .fx.on .yt-mini. Esta linea se deja intacta porque es la que
-     encuadra al iframe en el instante en que nace, antes del repintado.) */
-  .fx .yt-mini{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;z-index:2}
-  /* TILE SONANDO: la fachada se va ENTERA (rotulo, play, los dos velos y la
-     miniatura) y la tarjeta se queda QUIETA (sin hover), para que no baile
-     debajo del video que estas mirando. */
-  .fx.on .fx-btn{display:none}
-  .fx.on .fx-th{display:none}
-  .fx.on::before,.fx.on::after{opacity:0}
-  .fx.on,.fx.on:hover{transform:none;border-color:var(--acc)}
-  /* ── ORDEN AB3 · EL SHORT ABIERTO LLENA EL TILE EN VERTICAL ───────────────
-     EL BUG, MEDIDO: el tile es 249,5 x 332,7 (su 3/4). El iframe heredaba el
-     16/9 de .fx .yt-mini => 247,5 x 139,2, y adentro de ese apaisado YouTube
-     letterboxea el short vertical a 78 x 139. Eso es el 13% del tile: un
-     sellito en el medio de una tarjeta casi vacia.
-     EL ARREGLO: se INVIERTE la reja de encuadre para el tile ABIERTO. La cota
-     pasa a ser la ALTURA (height:100% del tile) y el ancho lo deduce el
-     aspect-ratio 9/16 => 186 x 331 en escritorio, el video ~2,4x mas grande de
-     area. El iframe queda centrado horizontal (left:50% + translateX), y los
-     ~31 px que sobran a cada lado son fondo del tile, NO barras negras de
-     YouTube: la caja del iframe ES el 9:16, asi que el player no letterboxea.
-     LO QUE NO SE TOCA, A PROPOSITO: la geometria del tile. El 3/4 en reposo ya
-     es MAS ALTO (332,7) que el 9:16 que necesita el short a este ancho, o sea
-     el short entra completo sin estirar la fila => el mosaico en reposo se
-     queda exactamente donde estaba. Cero cambios de grilla, de gap, de velos
-     y de rotulos: esta regla solo existe mientras una tarjeta suena.
-     Su gemela de movil vive en el @media(max-width:820px) (.fx.on). */
-  .fx.on .yt-mini{top:0;left:50%;right:auto;transform:translateX(-50%);width:auto;height:100%;aspect-ratio:9/16}
+  /* ORDEN AI · AQUI VIVIAN .fx .yt-mini, .fx.on y .fx.on .yt-mini: todo el
+     andamiaje de encuadre del iframe de YouTube que se inyectaba al hacer
+     clic (ordenes W / AB3). Ya no hay iframe ni hay clic -- cada tile es un
+     <video> local que llena su propio 3/4 con object-fit:cover -- asi que
+     el encuadre se resolvio solo y estas reglas quedaron sin sujeto. */
   .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
   /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
   .fx.h16{aspect-ratio:16/9}
@@ -434,30 +421,16 @@
        CapCut): siguen siendo 6 pistas de a 2, solo se cierra el gap. */
     .gallery{gap:8px}
     .fx{border-radius:11px}
-    .fx-btn{padding:9px}
+    .fx-lb{padding:9px}
     .fx-tt{font-size:.68rem;line-height:1.12}
-    /* el play se APAGA en movil, igual que alla: en un tile de ~110 px el
-       circulito no se toca ni se lee, y el tile entero ya es el boton. */
-    .fx-ply{display:none}
     /* 6 tiles quedan a la vista; los 2 ultimos son solo de escritorio.
-       Ahora esto SI decide trafico otra vez (cada tile visible pide su
-       miniatura a i.ytimg.com): son 6 imagenes, no 8. */
+       ORDEN AI · esto ya no decide trafico de terceros (no hay ninguno):
+       decide trafico NUESTRO. Los clips de g7/g8 no se descargan en movil
+       porque display:none nunca los hace visibles y el observador no los
+       manda a reproducir. */
     .fx.g7,.fx.g8{display:none}
-    /* EL TILE QUE SUENA SE LLEVA LA FILA ENTERA. Sin esto, en 3 columnas
-       sobre un telefono de 390 px el reproductor queda de ~118x66 px y sus
-       controles no se pueden tocar con el dedo. Al abrirse ocupa las 6
-       pistas => un player de ancho completo, usable, y la grilla vuelve a
-       cerrarse sola al apagarlo.
-       ORDEN AB3 · LA GEMELA DE MOVIL. El ancho completo se queda; lo que
-       cambia es la PROPORCION: 16/9 daba 350x197 y el short vertical se
-       letterboxeaba a 110x196 dentro de esa franja apaisada. Con 9/16 el tile
-       mismo se vuelve vertical (350x621) y el short lo llena de borde a borde,
-       que es como se ve un short en un telefono. Aca SI hace falta cambiar el
-       aspect-ratio del tile -- al reves que en escritorio -- porque la fila
-       completa es 350 de ancho y el 9:16 de 350 no cabe en los 197 de alto del
-       16/9. No mueve el mosaico en reposo: el tile abierto ya se llevaba su
-       propia fila desde la orden W, los otros 5 no cambian de tamano. */
-    .fx.on{grid-column:1/-1;aspect-ratio:9/16}
+    /* (ORDEN AI · el bloque .fx.on de movil se fue con su gemelo de
+       escritorio: ningun tile "suena" ya, todos corren a la vez.) */
     .band .wrap{padding:48px 20px}
     .bump{flex-wrap:wrap;row-gap:2px}
     .bump .bp{order:3;flex-basis:100%;padding-left:34px}
@@ -711,7 +684,7 @@
        la misma doctrina que ya gobierna la cinta de marcas. (El play de la W
        ya no viaja ni escala: esta clavado arriba-derecha. Lo que queda por
        apagar aca es solo el fundido.) */
-    .fx-ply,.fx::before{transition:none}
+    .fx::before{transition:none}
   }
   @media(max-width:820px){
     /* la barra de compra paga las mayusculas del boton con menos relleno: el
@@ -1809,34 +1782,30 @@ if (PIXEL_ID) {
      tiene), y encima cambia de tamano entre Android, iPhone y Windows. Estos
      tres SVG son los mismos que ya firman la barra y la garantia. -->
 <div class="hero-trust"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.6l5 5L20 6.4"/></svg>Pago &uacute;nico</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.4 2.6L4.6 13.6h6.1l-1.1 7.8 8.8-11h-6.1z"/></svg>Acceso inmediato</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg>Garant&iacute;a 3 d&iacute;as</span></div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
-     bajo a los adornos de adentro (las dos pastillas y la tira de piezas). El
-     motivo no es estetico: dentro del mock ahora vive un iframe, y un iframe
-     ENFOCA CON TAB. Contenido enfocable colgado de un aria-hidden es el bug de
-     accesibilidad clasico ("focusable content inside aria-hidden"): el teclado
-     llega, el lector de pantalla no lo nombra. El iframe lleva su title. -->
-<div class="device"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><!-- ORDEN N · VIDEO DEL HERO = UN (1) EMBED DE YOUTUBE.
-     Es la UNICA excepcion autorizada a la regla de cero terceros de esta pagina
-     (el resto sigue 100% del mismo origen: fuentes, imagenes, la galeria de 8).
-     Video elegido: "Motor de Moto 150cc completo PIEZA por PIEZA ( armar y
-     desarmar )" del canal MECANIC AVANZADA, id x_fEhdxWdLA — despiece y armado
-     de un motor entero, que es literalmente lo que promete el h1 de al lado.
-     PENDIENTE-VETO: si Esteban veta el video, lo unico que se cambia son las
-     DOS apariciones del id en esta misma etiqueta (src y playlist=).
-     Por que asi y no de otra forma:
-     - youtube-nocookie.com = el dominio oficial de YouTube en modo privacidad
-       (no planta cookies de seguimiento hasta que el visitante le da play).
-     - loading="lazy" (lo pide la orden): el navegador no baja el reproductor
-       hasta que hace falta. Como el hero esta arriba, en la practica entra de
-       una, pero no compite con el texto del hero por el primer ancho de banda.
-     - autoplay=1&mute=1 imita al hero.mp4 que estaba aca (mudo y en loop);
-       loop=1 EXIGE playlist=<id>, si no el loop no existe (asi es la API).
-     - controls=1 a proposito: si el navegador BLOQUEA el autoplay (pasa en
-       moviles con ahorro de datos), sin controles el hero queda en una imagen
-       muerta que nadie puede arrancar. Con controles siempre hay salida.
-       Para volverlo puro decorado: controls=0 y pointer-events:none en .yt-hero.
-     - rel=0 acota los sugeridos del final al mismo canal (ya no se puede
-       apagar del todo) y modestbranding=1 baja el logo encima del video. -->
-<iframe class="yt-hero" src="https://www.youtube-nocookie.com/embed/x_fEhdxWdLA?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=x_fEhdxWdLA&amp;controls=0&amp;modestbranding=1&amp;rel=0&amp;playsinline=1&amp;iv_load_policy=3" title="Motor de moto 150cc pieza por pieza: armar y desarmar" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><div class="play" aria-hidden="true"></div><span class="tag" aria-hidden="true">Paso a paso</span><span class="rec" aria-hidden="true">+900 manuales</span></div><div class="tl" aria-hidden="true"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
+     bajo a los adornos de adentro (las dos pastillas y la tira de piezas).
+     ORDEN AI · el motivo original era el iframe (ENFOCA CON TAB, y contenido
+     enfocable colgado de un aria-hidden es el bug clasico de accesibilidad).
+     Ahora adentro hay un <video> decorativo, que NO enfoca por si solo y que
+     ademas lleva tabindex="-1" + aria-hidden: para el teclado y para el lector
+     de pantalla el mock volvio a ser lo que siempre fue, un dibujo. -->
+<div class="device"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><!-- ORDEN AI · VIDEO DEL HERO = ARCHIVO PROPIO. Aca vivia el unico embed de
+     YouTube autorizado de la pagina (orden N, iframe a youtube-nocookie con
+     autoplay=1&mute=1&loop=1). Se cayo por dos motivos:
+     1. YouTube le puso a ese embed el muro "sign in to confirm you're not a
+        bot", asi que el hero podia quedar en un rectangulo muerto.
+     2. Con el archivo local la regla de CERO TERCEROS de esta pagina por fin
+        es cierta de punta a punta.
+     El clip es un recorte MUDO de ~7s en bucle del mismo video (despiece y
+     armado de un motor, que es lo que promete el h1 de al lado), re-encodeado
+     a 854x480 => ~135 KB en mp4. Va <source> mp4 PRIMERO y webm despues: a
+     este tamano el h264 -preset veryslow salio mas liviano que el VP9, y el
+     navegador se queda con el primero que sabe leer.
+     Es puro decorado: muted + playsinline + loop + pointer-events:none, sin
+     controles y con aria-hidden -- no aporta nada que un lector de pantalla
+     necesite nombrar, y sin foco no hay contenido enfocable colgado de un
+     aria-hidden (que era justo el bug que el iframe obligaba a esquivar).
+     poster= deja una imagen quieta si el navegador bloquea el autoplay. -->
+<video class="vd-hero" autoplay muted loop playsinline preload="metadata" poster="video/hero.jpg" aria-hidden="true" tabindex="-1"><source src="video/hero.mp4" type="video/mp4"><source src="video/hero.webm" type="video/webm"></video><span class="tag" aria-hidden="true">Paso a paso</span><span class="rec" aria-hidden="true">+900 manuales</span></div><div class="tl" aria-hidden="true"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
 
 <!-- CINTA DE MARCAS: marquee CSS infinito con 44 items = 34 logos de
      img/logos/ + 10 CHIPS DE TEXTO (las marcas de LatAm sin logo propio:
@@ -1870,7 +1839,7 @@ if (PIXEL_ID) {
      lo acota todavia mas -- solo se rompe si el visitante lo pide con un clic.
      PENDIENTE-VETO: los 8 ids estan en la ficha de la orden O. Cambiar un
      video es cambiar UN id: data-yt, el href y el aria-label de su tile. -->
-<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1" data-yt="8wka491SJtE" data-tt="Despiece del motor &middot; Desarmado de un motor de moto paso a paso"><img class="fx-th" src="https://i.ytimg.com/vi/8wka491SJtE/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/8wka491SJtE" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Despiece del motor &middot; Desarmado de un motor de moto paso a paso"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Despiece<br>del motor</span></a></div><div class="fx g2" data-yt="S5sZuzAHi6A" data-tt="Diagramas el&eacute;ctricos &middot; Sistema de carga y c&oacute;digo de colores del CDI"><img class="fx-th" src="https://i.ytimg.com/vi/S5sZuzAHi6A/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/S5sZuzAHi6A" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagramas el&eacute;ctricos &middot; Sistema de carga y c&oacute;digo de colores del CDI"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span></a></div><div class="fx g3" data-yt="nrh3Dl36DEU" data-tt="Frenos y suspensi&oacute;n &middot; Pastillas de freno que se quedan pegadas: la soluci&oacute;n"><img class="fx-th" src="https://i.ytimg.com/vi/nrh3Dl36DEU/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/nrh3Dl36DEU" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Frenos y suspensi&oacute;n &middot; Pastillas de freno que se quedan pegadas: la soluci&oacute;n"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span></a></div><div class="fx g4" data-yt="YPhIJTy5PDI" data-tt="Transmisi&oacute;n y embrague &middot; Discos de embrague de una moto 125"><img class="fx-th" src="https://i.ytimg.com/vi/YPhIJTy5PDI/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/YPhIJTy5PDI" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Transmisi&oacute;n y embrague &middot; Discos de embrague de una moto 125"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span></a></div><div class="fx g5" data-yt="jW1_H01Kxns" data-tt="Carburador e inyecci&oacute;n &middot; Limpieza del carburador por dentro"><img class="fx-th" src="https://i.ytimg.com/vi/jW1_H01Kxns/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/jW1_H01Kxns" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Carburador e inyecci&oacute;n &middot; Limpieza del carburador por dentro"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span></a></div><div class="fx g6" data-yt="96_0ZA2AsSA" data-tt="Torques y medidas &middot; C&oacute;mo revisar el ajuste de los balancines"><img class="fx-th" src="https://i.ytimg.com/vi/96_0ZA2AsSA/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/96_0ZA2AsSA" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Torques y medidas &middot; C&oacute;mo revisar el ajuste de los balancines"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Torques y<br>medidas</span></a></div><div class="fx g7" data-yt="OMM6CH7bd_4" data-tt="Diagn&oacute;stico por sistemas &middot; Hallar la falla de un motor abierto"><img class="fx-th" src="https://i.ytimg.com/vi/OMM6CH7bd_4/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/OMM6CH7bd_4" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagn&oacute;stico por sistemas &middot; Hallar la falla de un motor abierto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span></a></div><div class="fx g8" data-yt="ZeEZQ59dHqM" data-tt="Curso 2T y 4T &middot; Motor 4T por dentro con las piezas en movimiento"><img class="fx-th" src="https://i.ytimg.com/vi/ZeEZQ59dHqM/oar2.jpg" alt="" loading="lazy" decoding="async" width="720" height="1280"><a class="fx-btn" href="https://www.youtube.com/shorts/ZeEZQ59dHqM" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Curso 2T y 4T &middot; Motor 4T por dentro con las piezas en movimiento"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Curso 2T<br>y 4T</span></a></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g1.jpg" aria-label="Despiece del motor &middot; Desarmado de un motor de moto paso a paso"><source src="video/g1.mp4" type="video/mp4"><source src="video/g1.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Despiece<br>del motor</span></span></div><div class="fx g2"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g2.jpg" aria-label="Diagramas el&eacute;ctricos &middot; Sistema de carga y c&oacute;digo de colores del CDI"><source src="video/g2.mp4" type="video/mp4"><source src="video/g2.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span></span></div><div class="fx g3"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g3.jpg" aria-label="Frenos y suspensi&oacute;n &middot; Pastillas de freno que se quedan pegadas: la soluci&oacute;n"><source src="video/g3.mp4" type="video/mp4"><source src="video/g3.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span></span></div><div class="fx g4"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g4.jpg" aria-label="Transmisi&oacute;n y embrague &middot; Discos de embrague de una moto 125"><source src="video/g4.mp4" type="video/mp4"><source src="video/g4.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span></span></div><div class="fx g5"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g5.jpg" aria-label="Carburador e inyecci&oacute;n &middot; Limpieza del carburador por dentro"><source src="video/g5.mp4" type="video/mp4"><source src="video/g5.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span></span></div><div class="fx g6"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g6.jpg" aria-label="Torques y medidas &middot; C&oacute;mo revisar el ajuste de los balancines"><source src="video/g6.mp4" type="video/mp4"><source src="video/g6.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Torques y<br>medidas</span></span></div><div class="fx g7"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g7.jpg" aria-label="Diagn&oacute;stico por sistemas &middot; Hallar la falla de un motor abierto"><source src="video/g7.mp4" type="video/mp4"><source src="video/g7.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span></span></div><div class="fx g8"><video class="fx-vd" muted loop playsinline preload="metadata" poster="video/g8.jpg" aria-label="Curso 2T y 4T &middot; Motor 4T por dentro con las piezas en movimiento"><source src="video/g8.mp4" type="video/mp4"><source src="video/g8.webm" type="video/webm"></video><span class="fx-lb"><span class="fx-tt">Curso 2T<br>y 4T</span></span></div></div></div></section>
 
 <!-- ═══════ ORDEN S · DESPIECE DINAMICO "ENCUENTRA TU PIEZA" ═════════════════
      SUSTITUYE al despiece dibujado a mano de la orden P. Aquel era un <svg> de
@@ -2322,69 +2291,104 @@ if (PIXEL_ID) {
 
 <div class="buybar" id="buybar"><div class="p"><span id="buybar-precio">&nbsp;</span><small>pago &uacute;nico &middot; acceso de por vida</small></div><a href="#STRIPE-PENDIENTE" class="btn" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
 
-<!-- ORDEN U · LA FACHADA DE LA GALERIA. 14 lineas de JS reemplazan a 8
-     reproductores de YouTube bajados de prepo. Historia de este hueco: aca
-     vivio un IntersectionObserver que inyectaba <video> del mismo origen
-     (video/v1..v8.mp4, archivos que nunca existieron); la orden O lo borro y
-     puso 8 <iframe loading="lazy">; la U los saca y deja el click-to-load.
-     LO QUE ESTO RECUPERA: al abrir la pagina la galeria no baja NI UN
-     REPRODUCTOR (antes, al llegar a la seccion, 8). Y como solo vive UNO a la
-     vez, no hay forma de terminar con 8 players en memoria.
-     LO QUE LA ORDEN W LE DEVUELVE AL COSTO, dicho sin adornos: los tiles
-     ahora llevan la MINIATURA de YouTube de fondo => 8 imagenes (6 en movil)
-     a i.ytimg.com, diferidas con loading="lazy". Son imagenes, no players:
-     ni JS de terceros, ni cookies, ni autoplay.
+<!-- ORDEN AI · EL MURO DE REELS. Historia de este hueco, que dio la vuelta
+     entera: primero vivio un IntersectionObserver que inyectaba <video> del
+     mismo origen (video/v1..v8.mp4, archivos que NUNCA existieron); la orden O
+     lo borro y puso 8 <iframe loading="lazy"> de YouTube; la U los cambio por
+     click-to-load; la W les colgo las miniaturas de i.ytimg.com de fondo.
+     La AI cierra el circulo: vuelve el IntersectionObserver, pero esta vez los
+     archivos SI existen -- ./video/g1..g8.{mp4,webm}, recortes mudos de ~7s
+     bajados y re-encodeados a mano -- y ademas ya no hay que clickear nada.
+     LO QUE ESTO GANA: cero terceros (ni players, ni miniaturas, ni cookies, ni
+     JS ajeno) y los 8 clips corriendo solos, como un muro de reels.
+     LO QUE CUESTA, dicho sin adornos: la galeria pesa ~2,5 MB de video propio
+     contra los ~80 KB de miniaturas de antes. Se acota con preload="metadata"
+     (no se baja el clip entero hasta que hace falta), con el observador (solo
+     se reproduce lo que esta en pantalla) y en movil con g7/g8 en display:none.
      LO QUE SIGUE SIN HABER: no hay corte por saveData ni por
-     effectiveType=2g. El JS de aca abajo no cambio ni una linea en la W. -->
+     effectiveType=2g. -->
 <script>
 (function(){
-  /* FACHADA / click-to-load, UN SOLO REPRODUCTOR.
-     El listener es UNO en la grilla (delegacion), no ocho: menos memoria y
-     funciona igual si algun dia los tiles se generan solos.
-     El <a> se intercepta SOLO en el clic simple: ctrl/cmd/shift/alt o boton
-     del medio siguen abriendo el video en YouTube, que es lo que el visitante
-     esta pidiendo cuando hace eso. */
-  var g = document.querySelector('.gallery');
-  if(!g || !g.querySelector('.fx-btn')) return;
-  var vivo = null;
+  /* ORDEN AI · MURO DE REELS: los clips se reproducen SOLOS, sin un clic.
+     Aca vivia la fachada click-to-load que inyectaba un iframe de YouTube.
+     Ya no hay terceros: cada tile es un <video> local y mudo.
 
-  function apagar(){
-    if(!vivo) return;
-    var f = vivo.querySelector('iframe.yt-mini');
-    if(f && f.parentNode) f.parentNode.removeChild(f);   /* matar el iframe corta el audio Y la descarga */
-    vivo.classList.remove('on');
-    vivo = null;
+     POR QUE UN IntersectionObserver Y NO EL autoplay DEL HTML:
+     los 8 tiles NO llevan el atributo autoplay, y eso esta MEDIDO, no opinado.
+     Con autoplay puesto la pagina pesaba lo mismo en movil que en escritorio
+     (3,5 MB): el navegador arranca a bajar el clip entero en cuanto parsea la
+     etiqueta -- antes de que este script pueda pausar nada -- y se bajaba
+     hasta g7 y g8, que en movil ni se dibujan (display:none). Sacando el
+     atributo, preload="metadata" por fin manda: solo se baja el encabezado de
+     cada clip, y los bytes de verdad los pide el observador cuando el tile
+     entra en pantalla al 50% => play, sale => pause.
+     EL HERO SI conserva autoplay: es uno solo, pesa 135 KB y esta arriba de
+     todo, asi que no vale la pena hacerlo esperar al JS.
+     LO QUE SE PIERDE, dicho sin adornos: sin JS los 8 tiles se quedan en su
+     poster (imagen quieta). El hero igual arranca.
+     El 50% (y no un pixel) evita que un clip arranque de refilon en el borde
+     y evita el traqueteo de play/pause mientras se hace scroll.
+
+     PAUSE, NO STOP: se pausa sin tocar currentTime, asi el clip retoma donde
+     iba en vez de saltar al principio cada vez que cruza el borde.
+
+     MOVIMIENTO REDUCIDO: si el visitante pidio menos animacion, NADA se
+     reproduce -- se quedan todos en su poster, que es una imagen quieta.
+     Un muro de 8 videos en bucle es exactamente la clase de movimiento que
+     esa preferencia esta pidiendo apagar. */
+  var vids = document.querySelectorAll('video.fx-vd, video.vd-hero');
+  if(!vids.length) return;
+
+  var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(quieto && quieto.matches){
+    for(var i=0;i<vids.length;i++){
+      vids[i].autoplay = false;
+      vids[i].removeAttribute('autoplay');
+      try { vids[i].pause(); } catch(e){}
+    }
+    return;
   }
 
-  g.addEventListener('click', function(ev){
-    var a = ev.target && ev.target.closest ? ev.target.closest('.fx-btn') : null;
-    if(!a || !g.contains(a)) return;
-    if(ev.button || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
-    var fx = a.parentNode, id = fx.getAttribute('data-yt') || '';
-    /* sin id sano NO se inyecta nada: el <a> navega como si el JS no existiera.
-       El filtro es tambien la reja: lo unico que entra a la URL son los 64
-       caracteres de un id de YouTube, asi que data-yt no puede inventar otra
-       cosa dentro del src. */
-    if(!/^[A-Za-z0-9_-]{6,24}$/.test(id)) return;
-    ev.preventDefault();
-    apagar();
-    var f = document.createElement('iframe');
-    f.className = 'yt-mini';
-    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-    f.title = fx.getAttribute('data-tt') || 'Video';
-    f.width = 640; f.height = 360;
-    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-    f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-    f.setAttribute('allowfullscreen', '');
-    fx.appendChild(f);
-    fx.classList.add('on');
-    vivo = fx;
-    /* el foco se muda al reproductor: quien llego con el teclado sigue ahi
-       dentro y no queda enfocando un <a> que acaba de desaparecer. */
-    try { f.focus({preventScroll:true}); } catch(e){}
+  function arrancar(v){
+    /* play() devuelve promesa y PUEDE fallar (ahorro de datos, politicas de
+       autoplay). Se traga el error a proposito: el poster se queda puesto y
+       el tile sigue viendose bien, que es mejor que una excepcion suelta. */
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+
+  /* Sin IntersectionObserver (navegador viejo) no se toca nada: el autoplay
+     del HTML ya los puso a correr y eso es mejor que dejarlos congelados. */
+  if(!('IntersectionObserver' in window)) return;
+
+  for(var j=0;j<vids.length;j++){ try { vids[j].pause(); } catch(e){} }
+
+  var obs = new IntersectionObserver(function(entradas){
+    for(var k=0;k<entradas.length;k++){
+      var e = entradas[k];
+      if(e.isIntersecting && e.intersectionRatio >= 0.5) arrancar(e.target);
+      else { try { e.target.pause(); } catch(err){} }
+    }
+  }, {threshold:[0, 0.5, 1]});
+
+  for(var m=0;m<vids.length;m++) obs.observe(vids[m]);
+
+  /* Al volver de otra pestana el navegador a veces deja los <video> pausados;
+     se le vuelve a preguntar al observador por lo que hay en pantalla. */
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){
+      for(var n=0;n<vids.length;n++){ try { vids[n].pause(); } catch(e){} }
+    } else {
+      for(var q=0;q<vids.length;q++){
+        var r = vids[q].getBoundingClientRect();
+        var alto = window.innerHeight || document.documentElement.clientHeight;
+        var visible = Math.min(r.bottom, alto) - Math.max(r.top, 0);
+        if(r.height && visible / r.height >= 0.5) arrancar(vids[q]);
+      }
+    }
   });
 })();
-</script>
+</script></script>
 
 <script>
 (function(){
