@@ -1480,6 +1480,254 @@
     .dp-stage{padding:20px 0 26px}
     .dp-plate{transform:translate(-50%,-50%)}
   }
+
+  /* ══════════════════════════════════════════════════════════════════════════
+     ORDEN AC · PASADA DE PULIDO — "QUE SE LEA COMO UN SISTEMA, NO COMO 13 ORDENES"
+     ══════════════════════════════════════════════════════════════════════════
+     Diagnostico de Esteban: "se ve chambon, no parece pagina oficial".
+     VARA DE CALIDAD: la landing de CapCut (capcut-utec). Lo que se midio alla,
+     renderizada de verdad a 1280 y a 390:
+       · UN solo ritmo de seccion: las CINCO secciones miden 66px arriba y 66px
+         abajo. Sin excepciones.
+       · UN solo encabezado: eyebrow gris chico en versalita + h2 + lead. Sin
+         adornos por seccion.
+       · Miniaturas A COLOR con un unico velo oscuro abajo. Ninguna rampa.
+     Contra eso, esta pagina medida ANTES (produccion, motos.local):
+       secciones 80/76 · 66/66 · 74/10 · 112/112 · 66/66 · 66/66 · 66/66
+       encabezados: 5 con eyebrow + 2 SIN (la cinta y la garantia, cada una con
+       su propio invento) · titulos de 34,85px y de 44,2px conviviendo
+       galeria: velo rojo del 46% al 60% + grayscale(.85) + brightness(.52) =>
+       las 8 fotos se leian como 8 rectangulos de barro rojo, y con 3 columnas
+       para 8 piezas la ultima fila quedaba coja.
+     ESTE BLOQUE NO TOCA: copy, precios, la interaccion del despiece, la cinta
+     de 44 marcas, el reloj, el pixel, el checkout ni un solo dato. Es PIEL y
+     RITMO. Va al final a proposito: es la ultima capa, y asi el diff de esta
+     orden se lee de una sola pieza en vez de repartido por 1400 lineas.      */
+
+  /* ── AC/1 · EL RITMO. Un token, no siete numeros sueltos ──────────────────
+     El aire de seccion deja de escribirse en cada regla y pasa a --sec. Sube de
+     66 a 96 en escritorio porque esta pagina tiene el DOBLE de secciones que el
+     molde y secciones mas densas (la cinta de 44 logos, la tabla de precio, 11
+     preguntas): con 66 los bloques se tocaban. En movil baja a 64, que es lo
+     que el molde usa en escritorio -- en un telefono el aire de mas es scroll. */
+  :root{--sec:80px; --hd-gap:40px; --r-lg:20px; --r-sm:12px;
+        --card-sh:0 0 0 1px rgba(225,6,0,.08),0 14px 34px -24px rgba(225,6,0,.7)}
+  section{padding:var(--sec) 0}
+  /* LAS TRES SECCIONES CORTADAS NO PAGAN DOS VECES. La v9 les sumaba --sk
+     ENTERO encima de su relleno, y como el corte va arriba Y abajo, cada
+     frontera cortada costaba --sec + --sk + --sec. Medido a 1280 con --sec 96
+     eso daba 238px de nada entre el aviso del checkout y el titulo de la
+     garantia, contra los 132px que mide el molde entre dos secciones.
+     La cuenta correcta: la franja del sesgo YA es aire (no hay una letra
+     dentro), asi que solo hace falta que sobre un colchon PLANO despues de la
+     punta del corte. Con .6 de --sec ese colchon son 48px a 1280 y 36 a 390,
+     que es de sobra para que la punta no roce el texto -- que era lo unico que
+     el relleno entero venia a garantizar. */
+  .cinta{padding:calc(var(--sec) * .6 + var(--sk)) 0}
+  #comprar{padding:calc(var(--sec) * .6 + var(--sk)) 0}
+  footer{padding:calc(var(--sec) * .55 + var(--sk)) 0 110px}
+  /* el despiece es la excepcion DECLARADA y por geometria, no por descuido: su
+     contenido es un riel pegajoso de 250vh que termina con la foto ya fuera de
+     pantalla, asi que el aire de abajo lo pone el corte de #comprar que sigue.
+     Lo que se corrige es el arriba (74 sueltos) y el pie de 10px. */
+  #despiece{padding:var(--sec) 0 calc(var(--sec) * .25)}
+
+  /* ── AC/2 · UN SOLO ENCABEZADO DE SECCION ─────────────────────────────────
+     eyebrow -> titulo -> bajada, con las MISMAS tres distancias en las siete
+     secciones. Antes cada bloque traia la suya (12/14/8 aqui, 0/13 en la cinta,
+     nada en la garantia) y el ojo lo lee como descuido aunque no sepa por que. */
+  .eyebrow{margin-bottom:14px}
+  h2.title{margin-bottom:16px}
+  .lead{margin-bottom:0}
+  /* la distancia del encabezado al contenido tambien era distinta en cada
+     seccion: 36 la galeria, 38 la grilla, 34 el acordeon. Ahora es una. */
+  .gallery,.grid,.steps,.acc,.res-grid,.obj{margin-top:var(--hd-gap)}
+  /* SE VA LA FRANJA DE RAYAS DEL EYEBROW. La barrita roja sesgada se queda: es
+     UNA marca de marca y se lee como tal. Las rayas que iban detras ponian un
+     segundo adorno en el mismo renglon y, a .92rem, se leian como dos barras
+     "//" sueltas -- el tipico remate que delata una plantilla. Una firma por
+     renglon, no dos. */
+  .eyebrow::after{content:none}
+  .eyebrow{font-size:.84rem;letter-spacing:.16em;gap:12px}
+
+  /* ── AC/3 · LA CINTA DE MARCAS ENTRA AL SISTEMA ───────────────────────────
+     Tenia encabezado propio: h2 sin la clase .title (34,85px contra los 44,2 de
+     las demas), centrado, con una regla roja de 58px debajo que no existe en
+     ninguna otra seccion. Ahora usa el MISMO encabezado que las otras seis y la
+     regla suelta se va (su trabajo -- decir "aca empieza algo" -- ya lo hace la
+     barrita del eyebrow). */
+  .cinta-hd{text-align:left;max-width:none;margin:0 auto var(--hd-gap);
+    padding:0 20px;width:100%;max-width:var(--max)}
+  .cinta-hd h2{font-size:clamp(1.65rem,4.35vw,2.6rem);margin:0 0 16px}
+  .cinta-rule{display:none}
+  .cinta-sub{margin:0;font-size:1.08rem;color:var(--mut);max-width:660px}
+  /* EL CHIP DEL LOGO deja de ser una calcomania. Tenia un halo rojo y un anillo
+     blanco al 28% que, repetidos 44 veces, convertian la cinta en una plancha de
+     stickers. Se queda el fondo claro (los manuales de marca piden fondo claro y
+     esta pagina ya lo resolvio asi), pero con el mismo radio chico del resto de
+     las piezas menores y una sombra sola de apoyo. */
+  .cinta-item{border-radius:var(--r-sm);
+    background:linear-gradient(180deg,#fff,#f1eaea);
+    box-shadow:0 2px 10px -5px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.14)}
+  .cinta-item:hover,.cinta-item:focus-within{
+    box-shadow:0 8px 18px -8px rgba(0,0,0,.8),0 0 0 1px rgba(225,6,0,.45)}
+
+  /* ── AC/4 · LA GALERIA: QUE SE VEAN LAS FOTOS ─────────────────────────────
+     Era el bloque que mas gritaba "chambon". Dos causas medibles:
+     (a) LA RAMPA g1..g8. Ocho velos distintos (46%..60%) sobre ocho fotos
+         distintas = ocho tarjetas que NO son una familia, son un degradado de
+         prueba. En el molde la rampa existe pero vive TAPADA por un reproductor;
+         aca se veia. Se reemplaza por UN velo igual para las ocho -- que es lo
+         que de verdad las uniforma.
+     (b) EL FILTRO. grayscale(.85) + brightness(.52) bajo un velo rojo del 50%
+         deja pasar tan poca foto que los tiles se leian como rectangulos de
+         barro. Se afloja a grayscale(.45)/brightness(.72): la foto se reconoce
+         (que es para lo que esta) y el rojo de marca sigue mandando.
+     (c) LA FILA COJA. 8 piezas en 3 columnas = 3+3+2, con la ultima fila
+         centrada y dos huecos. Se pasa a CUATRO columnas en escritorio: 4+4,
+         dos filas exactas y ni un hueco. En movil no cambia nada (siguen 3
+         columnas con g7/g8 apagados = 6 tiles, 2 filas exactas). */
+  .gallery{grid-template-columns:repeat(4,1fr)}
+  .fx{grid-column:auto;border-radius:var(--radius);background:var(--deep)}
+  .fx:nth-child(7){grid-column:auto}
+  /* el filtro tiene DOS trabajos y hay que darle los dos: dejar ver la foto
+     (para eso baja el grayscale) y APLANAR las diferencias de exposicion entre
+     ocho miniaturas de ocho canales distintos (para eso suben el contraste y
+     baja el brillo). Con brightness(.72) a secas las tres fotos mas claras --
+     frenos, carburador y el dibujo del 2T/4T -- quedaban rosadas y se salian de
+     la familia. */
+  .fx .fx-th{filter:grayscale(.62) contrast(1.12) brightness(.56)}
+  .fx.g1,.fx.g2,.fx.g3,.fx.g4,.fx.g5,.fx.g6,.fx.g7,.fx.g8{
+    --g:linear-gradient(158deg,rgba(225,6,0,.34) 0%,rgba(12,5,5,.46) 52%,rgba(9,4,4,.84) 100%)}
+  /* el velo 2 se queda con SU trabajo (sostener el rotulo blanco) y suelta el
+     brillo rojo de arriba, que ahora seria una tercera capa de rojo sobre las
+     otras dos. */
+  .fx::after{background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,transparent 34%,rgba(0,0,0,.82) 100%)}
+  .fx-note{margin-top:18px}
+  @media(min-width:821px){.fx-tt{font-size:1rem}}
+
+  /* ── AC/5 · UNA SOLA TARJETA ──────────────────────────────────────────────
+     Habia SEIS radios conviviendo (8, 12, 14, 16, 18, 24) y cuatro recetas de
+     superficie. Quedan tres escalones y una sola receta:
+       --r-lg 20  piezas grandes (precio, garantia)
+       --radius 16 tarjetas y tiles
+       --r-sm  12  fichas chicas y pastillas */
+  .price-card,.guar{border-radius:var(--r-lg)}
+  .card,.step,.acc,.badge,.res-c,.vtab{border-radius:var(--radius);box-shadow:var(--card-sh)}
+  .gbadge,.guar-3 li,.reloj,.aviso,.ft-red a,.res-aviso{border-radius:var(--r-sm)}
+  .dp-scene{border-radius:var(--radius)}
+  .pay-b{border-radius:10px;box-shadow:0 2px 10px -6px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.16)}
+
+  /* ── AC/6 · EL AMARILLO DEJA DE PELEARLE AL ROJO ──────────────────────────
+     La paleta reserva el amarillo para "lo que te protege" y eso NO se toca: el
+     sello, los tildes y el rotulo siguen amarillos. Lo que se va es el ENVASE
+     amarillo -- borde de 1,5px y un resplandor de 70px alrededor de la caja de
+     garantia, que en una pagina roja y negra se leia como otra marca metida
+     dentro. La caja pasa a la MISMA superficie que las demas tarjetas y el
+     amarillo queda donde significa algo: en el dibujo, no en el marco. */
+  .guar{border:1px solid var(--line);box-shadow:var(--card-sh)}
+  .guar-3 li{border-color:var(--line)}
+  .gbadge{border-color:rgba(255,212,0,.28);
+    background:linear-gradient(135deg,rgba(255,212,0,.06),rgba(255,212,0,.02))}
+  /* el reloj tenia DOS pieles (.reloj con tokens y #reloj con naranjas sueltos
+     -- #ff6b4a, #ffc2ad, rgba(255,90,50) -- que le ganaban por especificidad).
+     Se queda una, y hecha con los tokens de la pagina. */
+  #reloj{background:var(--panel2);border:1px solid rgba(225,6,0,.55);border-radius:var(--r-sm);
+    padding:11px 20px;gap:5px}
+  #reloj .rl{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2)}
+  #reloj-d{font-size:1.85rem;color:var(--tx)}
+
+  /* ── AC/7 · LOS SELLOS DE CONFIANZA DEL HERO ──────────────────────────────
+     Eran tres emojis (verde, amarillo y azul) en pastillas de blanco crudo al
+     6% -- el unico sitio de la pagina que no usa tokens, y tres colores que la
+     paleta no tiene. Pasan al dibujo propio que esta pagina ya usa en todas
+     partes (SVG en linea, ver el candado de la barra y los sellos de garantia)
+     y a la superficie de ficha estandar. El texto no cambia. */
+  .hero-trust{gap:10px;margin-top:18px}
+  .hero-trust span{display:inline-flex;align-items:center;gap:7px;
+    font-size:.86rem;font-weight:700;color:var(--mut);
+    background:var(--panel);border:1px solid var(--line);padding:7px 14px;
+    border-radius:999px;line-height:1.1}
+  .hero-trust svg{width:15px;height:15px;flex:none;color:var(--acc2)}
+
+  /* ── AC/8 · EL AVISO DE CHECKOUT NO SE BORRA, SE EDUCA ────────────────────
+     El texto es VERDAD y se queda palabra por palabra: el boton no cobra. Lo
+     que cambia es que dejaba de ser una nota y se leia como un error de la
+     pagina (emoji de sistema + caja punteada roja del ancho del precio, justo
+     debajo del CTA). Pasa a nota discreta con el mismo dibujo de aviso que ya
+     usa la pagina, alineada a la izquierda como cualquier letra chica. */
+  .aviso{max-width:540px;margin:20px auto 0;display:flex;align-items:flex-start;gap:11px;
+    background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);
+    box-shadow:none;padding:13px 16px;color:var(--mut);font-size:.95rem;
+    line-height:1.45;text-align:left;border-radius:var(--r-sm)}
+  .aviso svg{width:19px;height:19px;flex:none;color:var(--acc);margin-top:1px}
+
+  /* ── AC/9 · LA LISTA DEL DESPIECE SE PUEDE LEER ───────────────────────────
+     La regla de presbicia de la v4 (base 17px porque el target es 45+) tenia
+     una excepcion sin declarar: los diez renglones de la lista iban a .86rem
+     (14,6px) y su detalle a .72rem (12,2px) -- el texto MAS CHICO de la pagina,
+     en la seccion que la orden llama interactiva. La lista pasa ademas a ser
+     una TARJETA (misma superficie que las demas) en vez de texto flotando al
+     lado de la foto, que es lo que la hacia parecer un apunte pegado.
+     LOS CUERPOS SON LOS QUE CABEN, no los que se quieren: con 1rem/.86rem la
+     tarjeta crecia a ~600px y quedaba mas alta que la propia foto (345px), o
+     sea la lista le ganaba el cuadro a la prueba. Con .94/.78 baja a ~500 y las
+     dos piezas se equilibran, sin volver a los 12,2px ilegibles.
+     La columna pasa de 250 a 272px para que "Motor: cilindro y piston" no
+     parta. */
+  .dp-box{grid-template-columns:minmax(0,1fr) 272px}
+  .dp-list{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:9px;gap:1px;box-shadow:var(--card-sh)}
+  .dp-it .dp-n{font-size:.94rem}
+  .dp-it .dp-d{font-size:.78rem;line-height:1.28}
+  .dp-it{padding:6px 10px}
+  .dp-it:hover,.dp-it.hot{background:var(--panel2)}
+  .dp-cap{font-size:1.05rem}
+
+  /* ── AC/10 · EL PIE NO PUBLICA SU PROPIO ANDAMIO ──────────────────────────
+     Nacio bien pensado (no inventar un correo ni una cuenta) pero mal resuelto
+     a la vista: publicaba un enlace gris "Correo de contacto (pendiente)" y
+     TRES fichas de red apagadas con "Cuentas oficiales (pendiente)" debajo. Eso
+     no es honestidad, es andamio: al visitante no le importa que falte, y a una
+     pagina que quiere leerse como oficial le resta. La regla nueva es la misma
+     doctrina llevada hasta el final -- lo que no existe NO SE DIBUJA -- y la
+     enciende el MISMO bloque de constantes PIE (ver script del final): el dia
+     que se llenen, la columna aparece sola. Aca solo queda el reparto que
+     sobrevive a que falten columnas. */
+  .ft-top{grid-template-columns:1.6fr repeat(auto-fit,minmax(150px,1fr))}
+
+  /* ── AC/11 · REMATES ──────────────────────────────────────────────────────
+     (a) el CTA grande en movil: "ACTIVA TU ACCESO HOY · US$12.99 →" a 1.2rem
+         con 46px de relleno por lado partia en dos renglones dentro de un
+         telefono de 390 y el boton quedaba de dos pisos. Se ajusta el cuerpo y
+         el relleno SOLO en movil: el texto no cambia y entra en un renglon.
+     (b) los rotulos de las cifras del hero: "MANUALES DE TALLER" partia en dos
+         y desalineaba la fila de cuatro. Con .92rem entra entero.
+     (c) la nota bajo el despiece y la bajada de la garantia comparten el mismo
+         cuerpo que .lead: eran tres tamanos distintos para la misma funcion. */
+  .badge .l{font-size:.92rem;letter-spacing:.05em}
+  .dp-pie{font-size:1.02rem;margin-top:22px}
+  .guar .lead{margin-left:auto;margin-right:auto}
+  @media(max-width:820px){
+    :root{--sec:64px;--hd-gap:32px}
+    /* LAS CUATRO COLUMNAS SON DE ESCRITORIO Y NADA MAS. El media query de la
+       orden W solo tocaba el gap, o sea heredaba las columnas de la regla base:
+       al pasar la base de 3 a 4, el movil se fue a 4 tiles de 130px y los
+       rotulos se cortaban a media palabra ("Transmis", "Carburad"). En un
+       telefono se vuelve a las 3 columnas de siempre y, con g7/g8 apagados,
+       quedan 6 tiles = 2 filas exactas. */
+    .gallery{grid-template-columns:repeat(3,1fr)}
+    /* el CTA grande a 1.05rem todavia pedia 352px de renglon dentro de los 350
+       utiles de un telefono de 390: por 2px partia en dos pisos. A .98rem con
+       18px de relleno pide 306 y entra. El texto no se toco. */
+    .btn.big{font-size:.98rem;padding:16px 18px;--notch:12px}
+    .cinta-hd{padding:0 20px}
+    .hero-trust{justify-content:center}
+    /* en una sola columna la lista del despiece vuelve a ser pastillas sueltas
+       (regla de la orden Z): el envase de tarjeta sobra y comeria ancho. */
+    .dp-list{background:none;border:0;box-shadow:none;padding:0}
+  }
+  @media(max-width:900px){.dp-box{grid-template-columns:minmax(0,1fr)}}
 </style>
 <script>
 /* PIXEL DE META — TODO PIXEL-MOTOS-PENDIENTE ─────────────────────────────
@@ -1505,7 +1753,13 @@ if (PIXEL_ID) {
 </head><body>
 <nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><div class="nav-links"><a href="#contenido">Contenido</a><a href="#marcas">Marcas</a><a href="#resenas">Rese&ntilde;as</a><a href="#faq">Preguntas</a></div><div class="nav-der"><span class="nav-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>Pago seguro</span><a href="#STRIPE-PENDIENTE" class="btn" id="btn-nav" data-buy="1"><span>Comprar</span><span class="nav-p" id="btn-nav-p"></span></a></div></div></nav>
 
-<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
+<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><!-- ORDEN AC · los tres sellos del hero dejan de ser EMOJIS. El texto es el
+     mismo; lo que cambia es que el dibujo lo pone la pagina y no el sistema
+     operativo: un emoji lo pinta cada aparato con su propio estilo y su propio
+     color (el ✅ verde y el ⚡ amarillo metian dos colores que esta paleta no
+     tiene), y encima cambia de tamano entre Android, iPhone y Windows. Estos
+     tres SVG son los mismos que ya firman la barra y la garantia. -->
+<div class="hero-trust"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.6l5 5L20 6.4"/></svg>Pago &uacute;nico</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.4 2.6L4.6 13.6h6.1l-1.1 7.8 8.8-11h-6.1z"/></svg>Acceso inmediato</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg>Garant&iacute;a 3 d&iacute;as</span></div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
      bajo a los adornos de adentro (las dos pastillas y la tira de piezas). El
      motivo no es estetico: dentro del mock ahora vive un iframe, y un iframe
      ENFOCA CON TAB. Contenido enfocable colgado de un aria-hidden es el bug de
@@ -1541,7 +1795,13 @@ if (PIXEL_ID) {
      y Carabela). Los chips no traen ni un request nuevo.
      La lista va DUPLICADA (2do grupo aria-hidden) para que el bucle no tenga costura.
      Fallback sin animacion y prefers-reduced-motion: grilla estatica centrada. -->
-<section class="cinta" id="marcas" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; 44 en la cinta &middot; Honda &middot; Yamaha &middot; Bajaj &middot; Italika &middot; AKT &middot; Auteco &middot; Victory &middot; Corven &middot; Bera y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="Logo Zanella" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="Logo Motomel" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="Logo Bera Motorcycles" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="Logo Shineray" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="Logo Zongshen" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="Logo Loncin" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="Logo Lifan" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="Logo Keeway" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="Logo Vento" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
+<section class="cinta" id="marcas" aria-label="Marcas cubiertas"><!-- ORDEN AC · esta seccion era la unica con encabezado propio: h2 SIN la clase
+     .title (o sea 34,85px donde las otras seis miden 44,2), centrado y con una
+     regla roja debajo que no aparece en ninguna otra parte de la pagina. Ahora
+     usa el mismo eyebrow + h2.title + lead que las demas. El texto no cambia:
+     lo que era la regla suelta lo dice ahora la barrita del eyebrow, que es la
+     misma marca en las siete secciones. -->
+<div class="cinta-hd"><div class="eyebrow">Marcas cubiertas</div><h2 class="title">&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub lead"><b>+40 marcas</b> &middot; 44 en la cinta &middot; Honda &middot; Yamaha &middot; Bajaj &middot; Italika &middot; AKT &middot; Auteco &middot; Victory &middot; Corven &middot; Bera y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="Logo Zanella" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="Logo Motomel" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="Logo Bera Motorcycles" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="Logo Shineray" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="Logo Zongshen" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="Logo Loncin" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="Logo Lifan" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="Logo Keeway" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="Logo Vento" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
 
 <!-- GALERIA DE VIDEO · ORDEN U — 8 FACHADAS, UNA POR TILE.
      CERO YOUTUBE EN REPOSO: al abrir la pagina la galeria no pide un byte.
@@ -1561,7 +1821,7 @@ if (PIXEL_ID) {
      lo acota todavia mas -- solo se rompe si el visitante lo pide con un clic.
      PENDIENTE-VETO: los 8 ids estan en la ficha de la orden O. Cambiar un
      video es cambiar UN id: data-yt, el href y el aria-label de su tile. -->
-<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1" data-yt="KKSEE5ApKso" data-tt="Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><img class="fx-th" src="https://i.ytimg.com/vi/KKSEE5ApKso/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=KKSEE5ApKso" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Despiece<br>del motor</span></a></div><div class="fx g2" data-yt="Tdp9uo6uzxY" data-tt="Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><img class="fx-th" src="https://i.ytimg.com/vi/Tdp9uo6uzxY/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=Tdp9uo6uzxY" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span></a></div><div class="fx g3" data-yt="cRhqfWuhqpE" data-tt="Frenos &middot; Limpieza y engrase del freno delantero de la moto"><img class="fx-th" src="https://i.ytimg.com/vi/cRhqfWuhqpE/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=cRhqfWuhqpE" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Frenos &middot; Limpieza y engrase del freno delantero de la moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span></a></div><div class="fx g4" data-yt="CUFzNiQOynU" data-tt="Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><img class="fx-th" src="https://i.ytimg.com/vi/CUFzNiQOynU/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=CUFzNiQOynU" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span></a></div><div class="fx g5" data-yt="RFNfKlG-Qs8" data-tt="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><img class="fx-th" src="https://i.ytimg.com/vi/RFNfKlG-Qs8/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=RFNfKlG-Qs8" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span></a></div><div class="fx g6" data-yt="qnfSIW9EN2k" data-tt="Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><img class="fx-th" src="https://i.ytimg.com/vi/qnfSIW9EN2k/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=qnfSIW9EN2k" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Torques y<br>medidas</span></a></div><div class="fx g7" data-yt="XZ8oY3q0Hqk" data-tt="Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><img class="fx-th" src="https://i.ytimg.com/vi/XZ8oY3q0Hqk/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=XZ8oY3q0Hqk" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span></a></div><div class="fx g8" data-yt="4FPUS5CwhUo" data-tt="Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><img class="fx-th" src="https://i.ytimg.com/vi/4FPUS5CwhUo/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=4FPUS5CwhUo" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Curso 2T<br>y 4T</span></a></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1" data-yt="4-o9kyDRX0A" data-tt="Despiece del motor &middot; As&iacute; funciona por dentro un motor de moto de 150cc"><img class="fx-th" src="https://i.ytimg.com/vi/4-o9kyDRX0A/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=4-o9kyDRX0A" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Despiece del motor &middot; As&iacute; funciona por dentro un motor de moto de 150cc"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Despiece<br>del motor</span></a></div><div class="fx g2" data-yt="GrUCXD-LwV0" data-tt="Diagramas el&eacute;ctricos &middot; Sistema de carga: regulador y bater&iacute;a que se descarga"><img class="fx-th" src="https://i.ytimg.com/vi/GrUCXD-LwV0/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=GrUCXD-LwV0" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagramas el&eacute;ctricos &middot; Sistema de carga: regulador y bater&iacute;a que se descarga"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span></a></div><div class="fx g3" data-yt="X72Lf12k7NE" data-tt="Frenos y suspensi&oacute;n &middot; Qu&eacute; causa el rechinido de los frenos de una moto"><img class="fx-th" src="https://i.ytimg.com/vi/X72Lf12k7NE/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=X72Lf12k7NE" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Frenos y suspensi&oacute;n &middot; Qu&eacute; causa el rechinido de los frenos de una moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span></a></div><div class="fx g4" data-yt="BpuOJDAzxh4" data-tt="Transmisi&oacute;n y embrague &middot; C&oacute;mo cambiar el embrague de una moto 125, 150 y 200cc"><img class="fx-th" src="https://i.ytimg.com/vi/BpuOJDAzxh4/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=BpuOJDAzxh4" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Transmisi&oacute;n y embrague &middot; C&oacute;mo cambiar el embrague de una moto 125, 150 y 200cc"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span></a></div><div class="fx g5" data-yt="RFNfKlG-Qs8" data-tt="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><img class="fx-th" src="https://i.ytimg.com/vi/RFNfKlG-Qs8/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=RFNfKlG-Qs8" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span></a></div><div class="fx g6" data-yt="rJaWe9CxKAQ" data-tt="Torques y medidas &middot; Ajuste y calibraci&oacute;n de v&aacute;lvulas (punter&iacute;as) de una moto"><img class="fx-th" src="https://i.ytimg.com/vi/rJaWe9CxKAQ/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=rJaWe9CxKAQ" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Torques y medidas &middot; Ajuste y calibraci&oacute;n de v&aacute;lvulas (punter&iacute;as) de una moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Torques y<br>medidas</span></a></div><div class="fx g7" data-yt="8208VXqJ3pg" data-tt="Diagn&oacute;stico por sistemas &middot; Moto que pierde compresi&oacute;n: c&oacute;mo hallar la causa"><img class="fx-th" src="https://i.ytimg.com/vi/8208VXqJ3pg/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=8208VXqJ3pg" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagn&oacute;stico por sistemas &middot; Moto que pierde compresi&oacute;n: c&oacute;mo hallar la causa"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span></a></div><div class="fx g8" data-yt="Hw1WR_uy6tU" data-tt="Curso 2T y 4T &middot; Motor de 2 tiempos frente a uno de 4 tiempos: diferencias"><img class="fx-th" src="https://i.ytimg.com/vi/Hw1WR_uy6tU/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=Hw1WR_uy6tU" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Curso 2T y 4T &middot; Motor de 2 tiempos frente a uno de 4 tiempos: diferencias"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Curso 2T<br>y 4T</span></a></div></div></div></section>
 
 <!-- ═══════ ORDEN S · DESPIECE DINAMICO "ENCUENTRA TU PIEZA" ═════════════════
      SUSTITUYE al despiece dibujado a mano de la orden P. Aquel era un <svg> de
@@ -1922,7 +2182,10 @@ if (PIXEL_ID) {
 
 <!-- BADGE DE GARANTIA, version compacta: va pegado al boton porque es ahi donde
      se decide. La version completa vive en la seccion #garantia. -->
-<div class="gbadge"><svg class="gb-s" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="2" stroke-dasharray="1.6 4.1" stroke-linecap="round" opacity=".85"/><circle cx="24" cy="24" r="16.4" stroke="currentColor" stroke-width="2.2"/><path d="M16.6 24.5l5.1 5.1 10-10.4" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="gb-b"><div class="gb-t">Garant&iacute;a<i aria-hidden="true"></i>Compra segura</div><ul><li><b>Acceso de por vida.</b> Un solo pago, no se renueva.</li><li><b>Soporte por WhatsApp.</b> Te ayudamos a encontrar tu manual.</li><li><b>Garant&iacute;a de satisfacci&oacute;n.</b> 3 d&iacute;as, devoluci&oacute;n del 100%.</li></ul></div></div></div><div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>P&aacute;gina en preparaci&oacute;n:</b> el checkout todav&iacute;a no est&aacute; conectado. Por ahora el bot&oacute;n no cobra nada.</div></div></section>
+<div class="gbadge"><svg class="gb-s" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="2" stroke-dasharray="1.6 4.1" stroke-linecap="round" opacity=".85"/><circle cx="24" cy="24" r="16.4" stroke="currentColor" stroke-width="2.2"/><path d="M16.6 24.5l5.1 5.1 10-10.4" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="gb-b"><div class="gb-t">Garant&iacute;a<i aria-hidden="true"></i>Compra segura</div><ul><li><b>Acceso de por vida.</b> Un solo pago, no se renueva.</li><li><b>Soporte por WhatsApp.</b> Te ayudamos a encontrar tu manual.</li><li><b>Garant&iacute;a de satisfacci&oacute;n.</b> 3 d&iacute;as, devoluci&oacute;n del 100%.</li></ul></div></div></div><!-- ORDEN AC · el AVISO se queda con su texto exacto (es verdad: el boton no
+     cobra) y pierde el emoji de sistema. Mismo motivo que los sellos del hero:
+     el dibujo lo pone la pagina. -->
+<div class="aviso" id="aviso-checkout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4l9 15.6H3z"/><path d="M12 9.6v4.1"/><path d="M12 16.4v.1"/></svg><span><b>P&aacute;gina en preparaci&oacute;n:</b> el checkout todav&iacute;a no est&aacute; conectado. Por ahora el bot&oacute;n no cobra nada.</span></div></div></section>
 
 <!-- GARANTIA (orden C1/4): el badge completo con sus TRES sellos. El titular
      pasa de "Garantia de 3 dias" a "Compras sin riesgo" porque ahora la caja
@@ -1931,7 +2194,13 @@ if (PIXEL_ID) {
      El SOPORTE se afirma aca por primera vez en la pagina, y su unico canal es
      el WhatsApp del pie: si ese numero no existe al desplegar, este sello es una
      promesa sin telefono. Van juntos o no van. -->
-<section id="garantia"><div class="wrap"><div class="guar"><svg class="guar-seal" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.4 3.8" stroke-linecap="round" opacity=".8"/><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.8"/><circle cx="24" cy="24" r="15.4" stroke="currentColor" stroke-width="1" opacity=".55"/><path d="M16.4 24.6l5.2 5.2 10.2-10.6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><h2 class="title" style="margin-bottom:10px">Compras sin riesgo</h2><p class="lead" style="margin:0 auto">Un solo pago, un acceso que no vence y <b>3 d&iacute;as</b> para pedir la devoluci&oacute;n del <b>100%</b> si no es lo que esperabas. Sin preguntas y sin letra chica.</p><ul class="guar-3"><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="11" width="15" height="10.5" rx="2.4"/><path d="M7.3 11V7.6a4.2 4.2 0 0 1 8.2-1.2"/><path d="M11 15.2v2.2"/></svg><b>Acceso de por vida</b><span>Pagas una vez. El acceso no vence, no se renueva y no es una suscripci&oacute;n.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.6a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.6-.4L4 21.6l1.7-4.3A8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.4z"/><path d="M8.8 11.6h6.4M8.8 8.4h4.2"/></svg><b>Soporte por WhatsApp</b><span>Si no encuentras el manual de tu moto, escribes y lo buscamos contigo.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg><b>Garant&iacute;a de satisfacci&oacute;n</b><span>Tienes 3 d&iacute;as para probarlo. Si no te sirve, se devuelve el 100%.</span></li></ul></div></div></section>
+<!-- ORDEN AC · la garantia era la OTRA seccion sin encabezado de sistema: su
+     titulo vivia dentro de la caja amarilla, asi que al bajar la pagina se
+     pasaba de "eyebrow + titulo" a "una caja con un titulo adentro" sin motivo.
+     Se le pone el mismo encabezado que a las otras seis (eyebrow + h2.title) y
+     la caja se queda con lo suyo: el sello, la promesa y los tres puntos. El
+     copy no cambia ni una palabra -- el h2 es literalmente el que estaba. -->
+<section id="garantia"><div class="wrap"><div class="eyebrow">Garant&iacute;a</div><h2 class="title">Compras sin riesgo</h2><div class="guar"><svg class="guar-seal" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.4 3.8" stroke-linecap="round" opacity=".8"/><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.8"/><circle cx="24" cy="24" r="15.4" stroke="currentColor" stroke-width="1" opacity=".55"/><path d="M16.4 24.6l5.2 5.2 10.2-10.6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="lead" style="margin:0 auto">Un solo pago, un acceso que no vence y <b>3 d&iacute;as</b> para pedir la devoluci&oacute;n del <b>100%</b> si no es lo que esperabas. Sin preguntas y sin letra chica.</p><ul class="guar-3"><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="11" width="15" height="10.5" rx="2.4"/><path d="M7.3 11V7.6a4.2 4.2 0 0 1 8.2-1.2"/><path d="M11 15.2v2.2"/></svg><b>Acceso de por vida</b><span>Pagas una vez. El acceso no vence, no se renueva y no es una suscripci&oacute;n.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.6a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.6-.4L4 21.6l1.7-4.3A8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.4z"/><path d="M8.8 11.6h6.4M8.8 8.4h4.2"/></svg><b>Soporte por WhatsApp</b><span>Si no encuentras el manual de tu moto, escribes y lo buscamos contigo.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg><b>Garant&iacute;a de satisfacci&oacute;n</b><span>Tienes 3 d&iacute;as para probarlo. Si no te sirve, se devuelve el 100%.</span></li></ul></div></div></section>
 
 <!-- RESENAS (orden C2/4) ─────────────────────────────────────────────────────
      REGLA DURA DE HONESTIDAD, escrita aca para que no se pierda:
@@ -2438,12 +2707,29 @@ if (PIXEL_ID) {
   var OK = /^(https:\/\/|mailto:|tel:|\.\/|\/)/;   /* candado 1 */
   var pendientes = [];
 
+  /* ORDEN AC · QUE PASA CON LO QUE TODAVIA NO EXISTE.
+     Antes: el enlace se PINTABA apagado, en gris, con un "(pendiente)" a la
+     vista. La intencion era buena (no inventar un correo ni una cuenta) pero el
+     resultado en pantalla era andamio publicado: un pie que anuncia sus propios
+     huecos no se lee como oficial, se lee como obra a medias -- que es
+     exactamente el diagnostico de esta orden.
+     Ahora: lo que no existe NO SE DIBUJA. El renglon se esconde, y si una
+     columna entera se queda sin renglones visibles, se esconde la columna.
+     Lo que NO cambia: sigue sin inventarse un dato, el bloque PIE de arriba
+     sigue siendo el UNICO lugar que se edita, el enlace sigue encendiendose
+     solo el dia que se llene su constante, y la consola sigue gritando lo que
+     falta (eso es para nosotros, no para el visitante).                     */
+  function esconder(el){ if(el) el.style.display='none'; }
+  /* sube desde el enlace hasta su <li> (o su <div class="ft-col">) */
+  function subir(el, sel){ while(el && el !== document.body){ if(el.matches && el.matches(sel)) return el; el = el.parentNode; } return null; }
+
   Object.keys(PIE).forEach(function(id){
     var a = document.getElementById(id);
     if(!a) return;
     var u = PIE[id];
-    if(!u || !OK.test(u)){                         /* nace apagado: se queda apagado */
+    if(!u || !OK.test(u)){                         /* nace apagado: se ESCONDE */
       pendientes.push(id);
+      esconder(subir(a, 'li') || a);
       return;
     }
     a.setAttribute('href', u);
@@ -2456,12 +2742,13 @@ if (PIXEL_ID) {
     if(pend && pend.parentNode) pend.parentNode.removeChild(pend);
   });
 
-  /* el aviso de las redes se va cuando las TRES estan puestas: con una sola
-     encendida el bloque sigue incompleto y decirlo es lo honesto. */
+  /* la NOTA de las redes ("Cuentas oficiales (pendiente)") ya no tiene a quien
+     avisarle: si falta alguna red, esa ficha ya no esta dibujada. Se va siempre.
+     Si faltan las TRES, lo que se va es la columna entera. */
   var redes = ['ft-yt','ft-ig','ft-fb'];
-  var redesOk = redes.every(function(id){ return pendientes.indexOf(id) === -1; });
-  var nota = document.getElementById('ft-red-nota');
-  if(nota && redesOk) nota.parentNode.removeChild(nota);
+  var redesFaltan = redes.filter(function(id){ return pendientes.indexOf(id) !== -1; }).length;
+  esconder(document.getElementById('ft-red-nota'));
+  if(redesFaltan === redes.length) esconder(subir(document.getElementById('ft-yt'), '.ft-col'));
 
   /* candado 2: ancla del pie que apunte a una seccion que ya no esta */
   var huerfanas = [];
@@ -2471,6 +2758,18 @@ if (PIXEL_ID) {
     a.setAttribute('aria-disabled','true');
     huerfanas.push(a.getAttribute('data-ancla'));
     if(a.parentNode) a.parentNode.style.display = 'none';
+  });
+
+  /* ORDEN AC · BARRIDO FINAL. Va DESPUES del candado 2 a proposito: una columna
+     puede quedarse vacia tanto por un destino sin llenar como por una seccion
+     borrada. Un titulo de columna sin un solo renglon debajo es un hueco con
+     rotulo, que es peor que no tener la columna. */
+  [].slice.call(document.querySelectorAll('footer .ft-col')).forEach(function(col){
+    if(col.style.display === 'none') return;
+    var vivos = [].slice.call(col.querySelectorAll('li')).filter(function(li){
+      return li.style.display !== 'none';
+    });
+    if(!vivos.length) esconder(col);
   });
 
   if(window.console && console.warn){
