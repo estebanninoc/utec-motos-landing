@@ -17,7 +17,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
 -->
 <!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
-     en la pagina (no hay hoja remota, ni preconnect, ni noscript). Son Inter e
+     en esta capa (no hay hoja remota, ni preconnect, ni noscript). Los UNICOS
+     terceros de toda la pagina son NUEVE iframes de YouTube: el del hero (orden
+     N) y los 8 de la galeria (orden O), cada uno autorizado a mano en su orden.
+     Ninguno lleva preconnect (ver esos comentarios). Son Inter e
      Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
      se baja siempre, el latin-ext SOLO si el texto trae un caracter de ese rango.
      Los 4 archivos YA estan en ./fonts/{inter,inter-ext,inter-tight,
@@ -121,7 +124,16 @@
   .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:99px;background:var(--line);z-index:3}
   .screen{border-radius:32px;overflow:hidden;background:var(--deep);border:1px solid var(--line)}
   .pv{position:relative;overflow:hidden;aspect-ratio:9/12;background:radial-gradient(120% 75% at 50% 22%,rgba(225,6,0,.30),transparent 62%),linear-gradient(165deg,var(--panel2),var(--bg));display:flex;align-items:center;justify-content:center}
-  .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:1}
+  /* ORDEN N · EL VIDEO DEL HERO ES UN IFRAME DE YOUTUBE, NO UN <video>.
+     Un iframe NO obedece object-fit (no es un medio reemplazado con contenido
+     propio de relacion fija), asi que el "cover" del <video> que vivia aca no
+     se podia copiar: se ENCUADRA. El iframe entra con el ancho completo de la
+     pantalla del telefono y su propio 16/9, y se centra vertical dentro del
+     9/12 del mock => bandas arriba y abajo que dejan ver el poster de atras
+     (exactamente la doctrina .h16 que ya estaba escrita mas abajo: "si entra
+     un 16:9 se ve CHICO Y BIEN, nunca grande y roto"). Con .pv.h16 la caja ya
+     es 16/9 y esta misma regla lo calza clavado, sin regla extra. */
+  .pv .yt-hero{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;z-index:1}
   .pv .pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.85)}
   .pv .tag{position:absolute;z-index:2;top:12px;left:12px;font-size:.6rem;font-weight:800;color:var(--ink);background:var(--acc);padding:4px 10px;border-radius:99px}
   .pv .rec{position:absolute;z-index:2;top:12px;right:12px;font-size:.58rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:5px}
@@ -161,12 +173,22 @@
   .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
   .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 0 1px rgba(225,6,0,.10),0 10px 28px -22px rgba(225,6,0,.8);display:flex;align-items:flex-end;padding:14px;isolation:isolate;transition:transform .18s ease,border-color .18s}
   .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(225,6,0,.45),0 14px 34px -16px rgba(225,6,0,.9)}
-  .fx .vd-live{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;z-index:-1}
+  /* ORDEN O · LOS 8 EMBEDS DE LA GALERIA. Aca vivia .fx .vd-live, el <video>
+     del mismo origen que inyectaba el JS. Un iframe NO obedece object-fit, asi
+     que su cover no se podia copiar: se ENCUADRA igual que el hero -- ancho
+     completo del tile y su propio 16/9, centrado vertical dentro del 3/4 => dos
+     bandas arriba y abajo que dejan ver el poster de atras. La proporcion es
+     fija (42% del alto el video, 29% cada banda), asi que el titulo de abajo
+     NUNCA se le monta encima, ni en la columna mas ancha.
+     z-index:1 y SIN pointer-events:none, al reves que el viejo .vd-live: ese
+     era decorado y este es el reproductor, tiene que recibir el clic. */
+  .fx .yt-mini{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;z-index:1}
   .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
   .fx::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--g)}
   .fx::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 60% at 30% 18%,rgba(255,255,255,.18),transparent 55%),linear-gradient(180deg,transparent 28%,rgba(0,0,0,.82))}
-  .fx .ply{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.45);border:1.5px solid var(--acc);display:flex;align-items:center;justify-content:center}
-  .fx .ply::after{content:"";border-left:8px solid var(--acc);border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px}
+  /* (se fue .fx .ply, el boton de play DIBUJADO en la esquina: era correcto
+     cuando el tile era un poster muerto, pero al lado del play REAL de YouTube
+     pasaba a ser un boton falso que no se puede tocar. Orden O.) */
   .fx span{font-family:var(--disp);font-weight:800;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.85);z-index:1}
   /* v3: 8 gradientes con 16 hex sueltos -> 2 gradientes de tokens.
      Medido: el stop claro de g1 (#f2f2f5) daba 1.09:1 contra el titulo blanco
@@ -176,10 +198,10 @@
   .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
   /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
   .fx.h16{aspect-ratio:16/9}
-  .fx.h16 .vd-live{object-fit:contain;background:var(--bg)}
   .fx.h16 .fx-th{object-fit:contain;background:var(--bg)}
   .pv.h16{aspect-ratio:16/9}
-  .pv.h16 .vd-hero{object-fit:contain;background:var(--bg)}
+  /* (la linea de .pv.h16 .vd-hero se fue con el <video> del hero: el iframe de
+     YouTube ya viene con su 16/9 puesto y se encuadra solo, ver .pv .yt-hero) */
   .pv.h16 .pv-poster{object-fit:contain;background:var(--bg)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
@@ -295,15 +317,21 @@
     .gallery{grid-template-columns:repeat(3,1fr);gap:8px}
     .fx{padding:9px;border-radius:11px}
     .fx span{font-size:.72rem;line-height:1.12}
-    .fx .ply{display:none}
-    /* 6 tiles en 3 columnas = 2 filas exactas. Los 2 ultimos quedan solo en
-       escritorio; display:none => el observer nunca los inyecta. */
+    /* 6 tiles quedan a la vista. Los 2 ultimos son solo de escritorio;
+       display:none => el navegador NUNCA baja esos 2 iframes, porque
+       loading="lazy" no carga lo que no se muestra. */
     .fx.g7,.fx.g8{display:none}
     .band .wrap{padding:48px 20px}
     .bump{flex-wrap:wrap;row-gap:2px}
     .bump .bp{order:3;flex-basis:100%;padding-left:34px}
     .buybar{display:flex}
   }
+  /* ORDEN O · ABAJO DE 560 px LA GRILLA BAJA A 2 COLUMNAS. No es gusto: en 3
+     columnas sobre un telefono de 390 px cada tile mide ~111 px, y adentro ahora
+     vive un reproductor de YouTube de 111x62 px -- a ese tamano el boton de play
+     y los controles no se pueden tocar. A 2 columnas el tile queda de ~171 px y
+     el reproductor se usa. Con g7/g8 ocultos son 6 tiles = 3 filas exactas. */
+  @media(max-width:560px){.gallery{grid-template-columns:repeat(2,1fr)}}
 
   /* ══════════════ v7 ══════════════════════════════════════════════════════
      1) LOCKUP. El "PRO" no se alinea por LINEA BASE (asi se veia caido en el
@@ -969,6 +997,196 @@
   @media(max-width:820px){
     body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
   }
+
+  /* ══════════════ ORDEN P · DESPIECE INTERACTIVO ════════════════════════════
+     El GANCHO: una moto dibujada POR NOSOTROS que se DESARMA con el scroll y va
+     diciendo como se llama cada pieza. Es la promesa del producto hecha demo:
+     "cada manual te muestra tu moto pieza por pieza, como aqui".
+
+     CERO TERCEROS, y aca la frase es literal: la moto es un <svg> en linea
+     dibujado a mano en este archivo (paths, no imagenes), el movimiento es CSS
+     y ~120 lineas de JS propio. No entra ni un diagrama con copyright, ni una
+     libreria de scroll, ni una request. Si el JS no corre, la seccion se ve
+     DESPIECADA Y ROTULADA (--t vale 1 por defecto): sigue siendo informativa.
+
+     ── COMO SE MUEVE ───────────────────────────────────────────────────────────
+     Una sola variable manda: --t (0 = moto armada · 1 = moto abierta del todo).
+     El JS la escribe UNA vez por frame en .dp-scene y de ahi hereda todo.
+     Cada pieza tiene su propio --s (cuando le toca salir) y saca su --lt local
+     con un clamp() de CSS puro, o sea el escalonado NO cuesta JS: son 10 piezas
+     saliendo en cascada con 1 sola escritura de estilo por frame.
+
+     ── POR QUE LOS ROTULOS SON HTML Y NO <text> DEL SVG ────────────────────────
+     Un <text> dentro del viewBox se encoge con el dibujo: en un telefono de
+     390px los 10 nombres quedarian en ~4px. Los rotulos son <button> de HTML
+     con tamano de fuente REAL, y el JS los coloca resolviendo a mano el
+     preserveAspectRatio del SVG (--sc = escala, --ox/--oy0 = franjas del
+     letterbox). Asi el nombre se lee igual en 390px que en 1280px. Y al ser
+     <button> son alcanzables con el teclado, que un <text> no lo es.
+
+     ── CONTRASTE ───────────────────────────────────────────────────────────────
+     El dibujo es GRAFICO, o sea su piso es 3:1 (WCAG 1.4.11), no 4,5:1.
+     --dp-mtl #a08d8d mide 6,0:1 contra --bg y --dp-rub #2e1d1d va SIEMPRE
+     encima de un trazo claro, nunca solo. Los rotulos SI son texto y van en
+     --tx sobre pastilla --panel2: ahi el piso que se respeta es el de texto. */
+  #despiece{position:relative;padding:74px 0 10px;background:
+    radial-gradient(64% 46% at 50% 38%,rgba(225,6,0,.13),transparent 70%),
+    linear-gradient(180deg,transparent 0,var(--deep) 16%,var(--deep) 84%,transparent 100%)}
+  #despiece .wrap{position:relative;z-index:2}
+  /* el riel es el que da el VIAJE: su alto de mas es la distancia de scroll que
+     el JS traduce a --t. El escenario va pegado (sticky) debajo de la barra. */
+  .dp-rail{position:relative;height:250vh}
+  /* top:0 + padding, y NO top:<alto de la barra>. Aca hay tres alturas ajenas
+     en juego: la barra de arriba mide 67px en escritorio y 61 en movil, y el
+     pie fijo de compra existe SOLO en movil y mide 80. Pegando el escenario
+     arriba del todo y respirando con padding, ninguno de esos tres numeros
+     queda escrito aqui: si manana cambian, esta seccion no se entera. */
+  .dp-stage{position:sticky;top:0;height:100vh;min-height:460px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:80px 14px 26px;--t:1}
+  /* aspect-ratio = la caja del escenario mide LO MISMO que el dibujo. Sin esto,
+     en un telefono el SVG (que es apaisado) se dibujaba a 374x247 dentro de una
+     caja de 374x600 y sobraban 350px de negro en medio de la pantalla. */
+  .dp-scene{position:relative;width:100%;max-width:1160px;aspect-ratio:1300/860;
+    flex:0 1 auto;min-height:0;
+    --sc:1;--ox:0;--oy0:0;--zf:1.26;
+    --dp-mtl:#a08d8d;--dp-mtl2:#e4d2d2;--dp-rub:#2e1d1d;--dp-dark:#1a1010}
+  .dp-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  /* ZOOM DE ENTRADA: con la moto armada el dibujo llena el cuadro (126%) y se
+     aleja al 100% para dejar sitio a las piezas que vuelan. Se apaga en --t .18
+     A PROPOSITO: los rotulos son HTML y NO estan dentro de este <g>, o sea no
+     se enteran del zoom. Mientras haya un nombre en pantalla (el primero sale
+     en .26) el zoom ya tiene que valer 1 exacto, o el nombre queda corrido. */
+  .dp-zoom{transform-box:view-box;transform-origin:50% 50%;
+    transform:scale(calc(var(--zf) - (var(--zf) - 1) * clamp(0,calc(var(--t) / .22),1)))}
+
+  /* ── LA PIEZA: una sola regla mueve las 10 ─────────────────────────────────
+     --dx/--dy = a donde vuela (unidades del viewBox, que en CSS sobre SVG son
+     px de usuario) · --s = en que punto de --t arranca · .48 = lo que dura. */
+  .dp-pz{--dx:0;--dy:0;--s:0;
+    --lt:clamp(0,calc((var(--t) - var(--s)) / .48),1);
+    transform:translate(calc(var(--dx) * var(--lt) * 1px),calc(var(--dy) * var(--lt) * 1px));
+    transition:opacity .22s ease;cursor:pointer}
+  .dp-hit{fill:transparent;stroke:none}
+  /* al senalar una pieza las demas se APAGAN (no se esconden): el ojo va a una
+     sola y el esqueleto sigue dando contexto. */
+  .dp-scene[data-hot] .dp-pz{opacity:.26}
+  .dp-scene[data-hot] .dp-pz.hot{opacity:1}
+  .dp-scene[data-hot] .dp-frame{opacity:.4}
+  .dp-pz.hot .dp-glow{opacity:1}
+  .dp-glow{opacity:0;transition:opacity .22s ease;fill:none;stroke:var(--acc);
+    stroke-width:13;stroke-linecap:round;stroke-linejoin:round;
+    filter:drop-shadow(0 0 10px rgba(225,6,0,.95))}
+
+  /* trazos del dibujo */
+  .dp-tube,.dp-fork,.dp-shock{fill:none;stroke:var(--dp-mtl);stroke-width:7;
+    stroke-linecap:round;stroke-linejoin:round}
+  .dp-fork{stroke-width:9}
+  .dp-shock{stroke:var(--acc3);stroke-width:9;opacity:.85}
+  .dp-swing{fill:var(--dp-dark);stroke:var(--dp-mtl);stroke-width:4}
+  .dp-ground{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:3 13;
+    stroke-linecap:round;opacity:calc(.85 - .85 * var(--t))}
+  .dp-tire{fill:none;stroke:var(--dp-rub);stroke-width:24}
+  .dp-tread{fill:none;stroke:var(--dp-mtl);stroke-width:24;stroke-dasharray:7 15;opacity:.3}
+  .dp-rim{fill:none;stroke:var(--dp-mtl2);stroke-width:6}
+  .dp-spoke{fill:none;stroke:var(--dp-mtl);stroke-width:5;stroke-linecap:round}
+  .dp-hub{fill:var(--dp-mtl2);stroke:none}
+  .dp-metal{fill:var(--panel2);stroke:var(--dp-mtl);stroke-width:5;
+    stroke-linejoin:round;stroke-linecap:round}
+  .dp-line{fill:none;stroke:var(--dp-mtl);stroke-width:4;stroke-linecap:round}
+  .dp-fin{fill:none;stroke:var(--dp-mtl2);stroke-width:3;stroke-linecap:round;opacity:.75}
+  .dp-pipe{fill:none;stroke:var(--dp-mtl2);stroke-width:13;
+    stroke-linecap:round;stroke-linejoin:round}
+  .dp-can{fill:var(--panel2);stroke:var(--dp-mtl2);stroke-width:5}
+  .dp-chain{fill:none;stroke:var(--dp-mtl2);stroke-width:7;stroke-dasharray:8 6;stroke-linecap:butt}
+  .dp-sproc{fill:none;stroke:var(--dp-mtl);stroke-width:9;stroke-dasharray:6 7}
+  .dp-disc{fill:none;stroke:var(--dp-mtl2);stroke-width:5}
+  .dp-disc2{fill:none;stroke:var(--dp-mtl);stroke-width:3;stroke-dasharray:5 11;opacity:.9}
+  .dp-tank{fill:url(#dpTank);stroke:#ff8a75;stroke-width:3}
+  .dp-seat{fill:url(#dpSeat);stroke:var(--dp-mtl);stroke-width:4;stroke-linejoin:round}
+  .dp-lamp{fill:url(#dpLamp);stroke:var(--dp-mtl2);stroke-width:4}
+  .dp-frame{transition:opacity .22s ease}
+
+  /* ── EL ROTULO ─────────────────────────────────────────────────────────────
+     Va colocado por el JS: --ax/--ay es el centro de la pieza ARMADA (ya con el
+     origen del viewBox sumado) y se desplaza con el mismo --lt que la pieza, o
+     sea el nombre VIAJA pegado a su pieza. --oy lo baja para no taparla. */
+  .dp-lb{position:absolute;left:0;top:0;--ax:0;--ay:0;--oy:0;--dx:0;--dy:0;--s:0;
+    --lt:clamp(0,calc((var(--t) - var(--s)) / .48),1);
+    transform:translate(
+      calc(var(--ox) * 1px + (var(--ax) + var(--dx) * var(--lt)) * var(--sc) * 1px - 50%),
+      calc(var(--oy0) * 1px + (var(--ay) + var(--oy) + var(--dy) * var(--lt)) * var(--sc) * 1px - 50%));
+    opacity:clamp(0,calc((var(--lt) - .6) * 3.6),1);
+    font-family:var(--disp);font-weight:800;font-size:.82rem;letter-spacing:.02em;
+    color:var(--tx);background:rgba(37,22,22,.92);border:1px solid var(--line);
+    border-radius:999px;padding:5px 13px;white-space:nowrap;cursor:pointer;
+    backdrop-filter:blur(6px);transition:background .2s ease,border-color .2s ease,color .2s ease}
+  .dp-lb::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+    background:var(--acc2);margin-right:7px;vertical-align:middle;transform:translateY(-1px)}
+  .dp-lb.hot,.dp-lb.act{opacity:1;background:var(--acc);border-color:var(--acc);color:var(--ink)}
+  .dp-lb.hot::before,.dp-lb.act::before{background:var(--ink)}
+  /* .act es "la pieza que acaba de salir" y .hot es "la que estas senalando".
+     Mientras haya una senalada, la roja tiene que ser UNA: dos pastillas rojas
+     a la vez dicen dos cosas distintas y el ojo no sabe cual le esta hablando. */
+  .dp-scene[data-hot] .dp-lb.act:not(.hot){background:rgba(37,22,22,.92);
+    border-color:var(--line);color:var(--tx)}
+  .dp-scene[data-hot] .dp-lb.act:not(.hot)::before{background:var(--acc2)}
+  .dp-lb:focus-visible{outline:2px solid var(--acc3);outline-offset:3px}
+  /* CANDADO DEL ZOOM. data-ab lo pone el JS y vale 0 mientras --t < .22, o sea
+     exactamente mientras el zoom de entrada sigue vivo. En esa ventana NINGUN
+     rotulo puede verse ni recibir clicks: los rotulos son HTML y no se enteran
+     del zoom, asi que un toque sobre una pieza a --t .1 (que enciende .hot y
+     forzaria opacity:1) habria pintado el nombre corrido respecto de su pieza.
+     Gana por especificidad a .dp-lb.hot / .dp-lb.act, que es justo el caso. */
+  .dp-scene[data-ab="0"] .dp-lb{pointer-events:none;opacity:0}
+
+  /* pie del escenario: el nombre GRANDE de la pieza viva + la barra de avance */
+  .dp-cap{min-height:2.9em;text-align:center;font-size:1.02rem;color:var(--mut);
+    max-width:640px;line-height:1.35}
+  .dp-cap b{color:var(--tx);font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
+  .dp-cap .sep{color:var(--acc2);margin:0 7px}
+  .dp-bar{width:min(320px,70%);height:4px;border-radius:999px;background:var(--panel2);
+    overflow:hidden;flex:0 0 auto}
+  .dp-bar i{display:block;height:100%;border-radius:999px;background:var(--acc);
+    width:calc(var(--t) * 100%);box-shadow:0 0 14px rgba(225,6,0,.9)}
+  .dp-pie{color:var(--dim);font-size:.96rem;text-align:center;margin:18px auto 0;max-width:640px}
+  .dp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    clip-path:inset(50%);white-space:nowrap}
+
+  @media(max-width:720px){
+    #despiece{padding-top:56px}
+    .dp-rail{height:210vh}
+    /* los 96px de abajo son el pie fijo de compra (80) mas aire: sin ellos el
+       pie del escenario quedaba TAPADO por la barra de US$12.99 */
+    .dp-stage{gap:8px;padding:74px 8px 96px}
+    /* en 390px de ancho la moto entera ocupaba el 51% del viewBox = 190px de
+       dibujo. Con el zoom al 175% llena la pantalla mientras esta armada, que
+       es el fotograma que todo el mundo ve primero. */
+    .dp-scene{--zf:1.75}
+    /* en el telefono el dibujo cabe pero 10 pastillas a la vez NO: se muestra
+       SOLO la de la pieza viva (la que acaba de salir o la que tocaste) y el
+       resto de la informacion la da el pie, que ahi si se lee. */
+    .dp-lb{font-size:.7rem;padding:3px 9px;letter-spacing:0;display:none}
+    .dp-lb::before{width:5px;height:5px;margin-right:5px}
+    .dp-lb.act,.dp-lb.hot{display:block}
+    .dp-cap{font-size:.96rem;min-height:3.4em}
+    .dp-glow{stroke-width:16}
+  }
+  /* pantallas bajas (o movil apaisado): el escenario no puede comerse la altura */
+  @media(max-height:620px){.dp-stage{min-height:0;height:auto;position:static;padding:20px 12px}
+    .dp-scene{flex:0 0 auto;max-width:760px}.dp-rail{height:auto}}
+
+  /* ── MOVIMIENTO ────────────────────────────────────────────────────────────
+     Quien pidio menos movimiento no recibe el viaje: ve la moto YA despiezada y
+     con los 10 nombres puestos, que es exactamente la informacion que la
+     animacion iba a entregar. El JS ni siquiera engancha el scroll. */
+  @media (prefers-reduced-motion:reduce){
+    .dp-rail{height:auto}
+    .dp-stage{position:static;height:auto;min-height:0;padding:20px 12px 26px}
+    .dp-scene{flex:0 0 auto;max-width:min(100%,900px)}
+    .dp-pz,.dp-lb,.dp-frame,.dp-glow{transition:none}
+    .dp-lb{display:block}
+  }
 </style>
 <script>
 /* PIXEL DE META — TODO PIXEL-MOTOS-PENDIENTE ─────────────────────────────
@@ -994,7 +1212,35 @@ if (PIXEL_ID) {
 </head><body>
 <nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><div class="nav-links"><a href="#contenido">Contenido</a><a href="#marcas">Marcas</a><a href="#resenas">Rese&ntilde;as</a><a href="#faq">Preguntas</a></div><div class="nav-der"><span class="nav-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>Pago seguro</span><a href="#STRIPE-PENDIENTE" class="btn" id="btn-nav" data-buy="1"><span>Comprar</span><span class="nav-p" id="btn-nav-p"></span></a></div></div></nav>
 
-<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="device" aria-hidden="true"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><span class="tag">Con especificaciones</span><span class="rec">+900 manuales</span></div><div class="tl"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
+<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
+     bajo a los adornos de adentro (las dos pastillas y la tira de piezas). El
+     motivo no es estetico: dentro del mock ahora vive un iframe, y un iframe
+     ENFOCA CON TAB. Contenido enfocable colgado de un aria-hidden es el bug de
+     accesibilidad clasico ("focusable content inside aria-hidden"): el teclado
+     llega, el lector de pantalla no lo nombra. El iframe lleva su title. -->
+<div class="device"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><!-- ORDEN N · VIDEO DEL HERO = UN (1) EMBED DE YOUTUBE.
+     Es la UNICA excepcion autorizada a la regla de cero terceros de esta pagina
+     (el resto sigue 100% del mismo origen: fuentes, imagenes, la galeria de 8).
+     Video elegido: "Motor de Moto 150cc completo PIEZA por PIEZA ( armar y
+     desarmar )" del canal MECANIC AVANZADA, id x_fEhdxWdLA — despiece y armado
+     de un motor entero, que es literalmente lo que promete el h1 de al lado.
+     PENDIENTE-VETO: si Esteban veta el video, lo unico que se cambia son las
+     DOS apariciones del id en esta misma etiqueta (src y playlist=).
+     Por que asi y no de otra forma:
+     - youtube-nocookie.com = el dominio oficial de YouTube en modo privacidad
+       (no planta cookies de seguimiento hasta que el visitante le da play).
+     - loading="lazy" (lo pide la orden): el navegador no baja el reproductor
+       hasta que hace falta. Como el hero esta arriba, en la practica entra de
+       una, pero no compite con el texto del hero por el primer ancho de banda.
+     - autoplay=1&mute=1 imita al hero.mp4 que estaba aca (mudo y en loop);
+       loop=1 EXIGE playlist=<id>, si no el loop no existe (asi es la API).
+     - controls=1 a proposito: si el navegador BLOQUEA el autoplay (pasa en
+       moviles con ahorro de datos), sin controles el hero queda en una imagen
+       muerta que nadie puede arrancar. Con controles siempre hay salida.
+       Para volverlo puro decorado: controls=0 y pointer-events:none en .yt-hero.
+     - rel=0 acota los sugeridos del final al mismo canal (ya no se puede
+       apagar del todo) y modestbranding=1 baja el logo encima del video. -->
+<iframe class="yt-hero" src="https://www.youtube-nocookie.com/embed/x_fEhdxWdLA?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=x_fEhdxWdLA&amp;controls=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1" title="Motor de moto 150cc pieza por pieza: armar y desarmar" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="tag" aria-hidden="true">Con especificaciones</span><span class="rec" aria-hidden="true">+900 manuales</span></div><div class="tl" aria-hidden="true"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
 
 <!-- CINTA DE MARCAS: marquee CSS infinito con 44 items = 34 logos de
      img/logos/ + 10 CHIPS DE TEXTO (las marcas de LatAm sin logo propio:
@@ -1004,8 +1250,410 @@ if (PIXEL_ID) {
      Fallback sin animacion y prefers-reduced-motion: grilla estatica centrada. -->
 <section class="cinta" id="marcas" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; 44 en la cinta &middot; Honda &middot; Yamaha &middot; Bajaj &middot; Italika &middot; AKT &middot; Auteco &middot; Victory &middot; Corven &middot; Bera y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="Logo Zanella" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="Logo Motomel" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="Logo Bera Motorcycles" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="Logo Shineray" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="Logo Zongshen" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="Logo Loncin" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="Logo Lifan" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="Logo Keeway" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="Logo Vento" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
 
-<!-- GALERIA DE VIDEO (misma mecanica del molde: poster + <video> detras, de a TOPE por IntersectionObserver) -->
-<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Los mismos clips que ves en nuestros anuncios, servidos desde esta p&aacute;gina:</p><div class="gallery"><div class="fx g1" data-v="v1.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v1.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Despiece<br>del motor</span></div><div class="fx g2" data-v="v2.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v2.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3" data-v="v3.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v3.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4" data-v="v4.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v4.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5" data-v="v5.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v5.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6" data-v="v6.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v6.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Torques y<br>medidas</span></div><div class="fx g7" data-v="v7.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v7.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8" data-v="v8.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v8.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Curso 2T<br>y 4T</span></div></div></div></section>
+<!-- GALERIA DE VIDEO · ORDEN O — 8 EMBEDS DE YOUTUBE, UNO POR TILE.
+     Lo que habia: el poster + un <video> del mismo origen que inyectaba un
+     IntersectionObserver, pidiendo video/v1..v8.mp4 -- 8 archivos que NUNCA
+     existieron (ASSET-MOTOS-PENDIENTE), o sea 8 posters muertos.
+     Lo que hay: el MISMO poster SVG de antes (ahora en un <img>, que es lo que
+     siempre fue) + un <iframe> de youtube-nocookie.com con loading="lazy". Los
+     8 videos son de TERCEROS (canales de mecanica), no material propio: la
+     orden O autorizo romper el cero-terceros SOLO para estos iframes.
+     PENDIENTE-VETO: los 8 ids estan en la ficha de la orden O. Cambiar un video
+     es cambiar UN id en su /embed/<id> y su title; nada mas. -->
+<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/KKSEE5ApKso?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Despiece<br>del motor</span></div><div class="fx g2"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/Tdp9uo6uzxY?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/cRhqfWuhqpE?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Frenos &middot; Limpieza y engrase del freno delantero de la moto" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/CUFzNiQOynU?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/RFNfKlG-Qs8?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/qnfSIW9EN2k?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Torques y<br>medidas</span></div><div class="fx g7"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/XZ8oY3q0Hqk?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/4FPUS5CwhUo?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Curso 2T<br>y 4T</span></div></div></div></section>
+
+<!-- ═══════ ORDEN P · DESPIECE INTERACTIVO "ARMA TU MOTO" ════════════════════
+     La moto de abajo es un DIBUJO PROPIO: ~90 paths escritos a mano en este
+     mismo archivo. No es una foto, no es un diagrama bajado de ningun lado y no
+     hay una sola request extra (ni imagen, ni fuente, ni libreria). Esa es la
+     razon de fondo para dibujarla y no copiarla: un despiece de manual de
+     taller SIEMPRE tiene dueno, y esta pagina vende manuales — publicar el
+     despiece de otro en la portada seria el peor sitio posible para tropezar.
+
+     Las 10 piezas rotuladas son las que el comprador busca en un manual:
+     tanque, asiento, manubrio, faro, motor, escape, cadena, freno, rueda
+     delantera y rueda trasera. El CHASIS no se rotula a proposito: se queda
+     quieto como esqueleto para que el ojo entienda de donde sale cada parte.
+
+     Toda la coreografia esta en los style="--dx:..;--dy:..;--s:.." de cada
+     grupo: --dx/--dy es a donde vuela la pieza (unidades del viewBox) y --s es
+     en que punto del scroll le toca salir. Se re-coreografia cambiando numeros,
+     sin tocar ni el dibujo ni el JS. -->
+<section id="despiece">
+<div class="wrap">
+  <div class="eyebrow">Arma tu moto</div>
+  <h2 class="title">Conoce cada pieza</h2>
+  <p class="lead">Cada manual te muestra tu moto <b>pieza por pieza</b>, como aqu&iacute;. Baja despacio: la moto se abre sola y cada parte dice c&oacute;mo se llama.</p>
+</div>
+
+<div class="dp-rail" id="dp-rail">
+<div class="dp-stage" id="dp-stage">
+<div class="dp-scene" id="dp-scene" data-ab="0">
+<svg class="dp-svg" viewBox="-110 -70 1300 860" role="img" aria-label="Despiece de una moto de perfil: las piezas se separan del chasis y cada una lleva su nombre. Tanque, asiento, manubrio, faro, motor, escape, cadena, freno, rueda delantera y rueda trasera.">
+  <defs>
+    <linearGradient id="dpTank" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4a3c"/><stop offset=".55" stop-color="#e10600"/><stop offset="1" stop-color="#7d0300"/></linearGradient>
+    <linearGradient id="dpSeat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3c2828"/><stop offset="1" stop-color="#170e0e"/></linearGradient>
+    <radialGradient id="dpLamp" cx=".36" cy=".34" r=".78"><stop offset="0" stop-color="#fffbe6"/><stop offset=".5" stop-color="#ffd400"/><stop offset="1" stop-color="#9c7c00"/></radialGradient>
+  </defs>
+
+  <!-- TODO EL DIBUJO va dentro de .dp-zoom. El viewBox tiene margenes anchos
+       porque las piezas tienen a donde volar, pero con la moto ARMADA esos
+       margenes la dejaban chiquita en medio de un cuadro vacio. El zoom la
+       agranda al 126% mientras esta entera y la devuelve al 100% ANTES de que
+       salga el primer rotulo (los rotulos son HTML y no viven en el viewBox:
+       si el zoom siguiera vivo mientras hay nombres en pantalla, quedarian
+       corridos). Por eso el zoom muere en --t .18 y el primer nombre no
+       aparece hasta .26. -->
+  <g class="dp-zoom">
+  <!-- el piso: referencia visual de que esto es una moto de pie, no un dibujo
+       flotando. Se desvanece con --t: con la moto abierta ya no hay suelo que
+       valga, y una raya cruzando el despiece solo estorba. -->
+  <path class="dp-ground" d="M40 492H1000"/>
+
+  <!-- ── RUEDA TRASERA ───────────────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="rueda-trasera" style="--dx:-191;--dy:-216;--s:.52">
+    <circle class="dp-glow" cx="300" cy="380" r="97"/>
+    <circle class="dp-tire" cx="300" cy="380" r="84"/>
+    <circle class="dp-tread" cx="300" cy="380" r="84"/>
+    <circle class="dp-rim" cx="300" cy="380" r="62"/>
+    <circle class="dp-rim" cx="300" cy="380" r="53" style="stroke-width:3;opacity:.5"/>
+    <path class="dp-spoke" d="M320 380H360 M310 397L330 432 M290 397L270 432 M280 380H240 M290 363L270 328 M310 363L330 328"/>
+    <circle class="dp-hub" cx="300" cy="380" r="15"/>
+    <rect class="dp-hit" x="204" y="284" width="192" height="192"/>
+  </g>
+
+  <!-- ── RUEDA DELANTERA ─────────────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="rueda-delantera" style="--dx:-145;--dy:236;--s:.46">
+    <circle class="dp-glow" cx="770" cy="380" r="97"/>
+    <circle class="dp-tire" cx="770" cy="380" r="84"/>
+    <circle class="dp-tread" cx="770" cy="380" r="84"/>
+    <circle class="dp-rim" cx="770" cy="380" r="62"/>
+    <circle class="dp-rim" cx="770" cy="380" r="53" style="stroke-width:3;opacity:.5"/>
+    <path class="dp-spoke" d="M790 380H830 M780 397L800 432 M760 397L740 432 M750 380H710 M760 363L740 328 M780 363L800 328"/>
+    <circle class="dp-hub" cx="770" cy="380" r="15"/>
+    <path class="dp-line" d="M698 308A102 102 0 0 1 842 308" style="stroke:var(--dp-mtl2);stroke-width:9"/>
+    <rect class="dp-hit" x="674" y="284" width="192" height="192"/>
+  </g>
+
+  <!-- ── CADENA + CORONA + PINON ─────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="cadena" style="--dx:-322;--dy:-52;--s:.34">
+    <path class="dp-glow" d="M300 336L487 361 M300 424L487 405"/>
+    <circle class="dp-sproc" cx="300" cy="380" r="40"/>
+    <circle class="dp-sproc" cx="487" cy="383" r="18" style="stroke-width:7;stroke-dasharray:5 5"/>
+    <path class="dp-chain" d="M300 336L487 361 M300 424L487 405 M300 336A44 44 0 0 0 300 424 M487 361A22 22 0 0 1 487 405"/>
+    <rect class="dp-hit" x="332" y="330" width="182" height="104"/>
+  </g>
+
+  <!-- ── CHASIS: el unico grupo SIN rotulo y SIN viaje. Es el esqueleto. ──── -->
+  <g class="dp-frame" aria-hidden="true">
+    <path class="dp-swing" d="M468 364L302 372L302 392L470 384Z"/>
+    <path class="dp-tube" d="M700 228L562 244L478 290"/>
+    <path class="dp-tube" d="M708 254L624 318L524 356"/>
+    <path class="dp-tube" d="M478 290L470 372"/>
+    <path class="dp-tube" d="M500 264L368 238"/>
+    <path class="dp-tube" d="M692 204L716 270"/>
+    <path class="dp-shock" d="M482 298L440 366"/>
+    <path class="dp-fork" d="M704 258L758 368"/>
+    <path class="dp-fork" d="M722 250L780 366"/>
+    <path class="dp-line" d="M714 228H744" style="stroke-width:5"/>
+    <circle class="dp-hub" cx="470" cy="374" r="9"/>
+  </g>
+
+  <!-- ── ESCAPE: multiple + silenciador ──────────────────────────────────── -->
+  <g class="dp-pz" data-p="escape" style="--dx:-405;--dy:105;--s:.22">
+    <path class="dp-glow" d="M650 292C686 320 688 366 664 396C638 428 578 440 536 424C512 414 504 380 504 352"/>
+    <path class="dp-pipe" d="M650 292C686 320 688 366 664 396C638 428 578 440 536 424C512 414 504 380 504 352" style="stroke:var(--dp-mtl);stroke-width:11"/>
+    <g transform="rotate(-8 426 334)">
+      <rect class="dp-can" x="352" y="312" width="150" height="44" rx="21"/>
+      <path class="dp-line" d="M372 316V352 M386 317V351" style="opacity:.45"/>
+      <ellipse class="dp-line" cx="354" cy="334" rx="6" ry="17" style="fill:var(--deep)"/>
+    </g>
+    <rect class="dp-hit" x="350" y="306" width="156" height="60"/>
+  </g>
+
+  <!-- ── MOTOR: carter + cilindro inclinado + culata + aletas ────────────── -->
+  <g class="dp-pz" data-p="motor" style="--dx:-190;--dy:270;--s:.28">
+    <path class="dp-glow" d="M556 352L594 268L652 292L614 376Z"/>
+    <rect class="dp-metal" x="485" y="332" width="128" height="88" rx="16"/>
+    <path class="dp-metal" d="M556 352L594 268L652 292L614 376Z"/>
+    <path class="dp-metal" d="M592 272L604 244L662 268L650 296Z"/>
+    <path class="dp-fin" d="M572 324L630 348 M580 304L638 328 M588 284L646 308"/>
+    <circle class="dp-metal" cx="522" cy="382" r="30" style="stroke-width:4"/>
+    <path class="dp-line" d="M500 350H542" style="opacity:.55"/>
+    <rect class="dp-hit" x="482" y="240" width="184" height="184"/>
+  </g>
+
+  <!-- ── ASIENTO (con colin) ─────────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="asiento" style="--dx:-80;--dy:-176;--s:.05">
+    <path class="dp-glow" d="M338 226L362 234C368 218 388 210 414 208L508 206C522 206 528 216 524 230C520 246 506 254 486 255L398 255C376 255 364 249 362 240L340 248C334 250 332 230 338 226Z"/>
+    <path class="dp-seat" d="M338 226L362 234C368 218 388 210 414 208L508 206C522 206 528 216 524 230C520 246 506 254 486 255L398 255C376 255 364 249 362 240L340 248C334 250 332 230 338 226Z"/>
+    <path class="dp-line" d="M392 232H498" style="opacity:.4;stroke-width:3"/>
+    <rect class="dp-hit" x="330" y="200" width="204" height="62"/>
+  </g>
+
+  <!-- ── TANQUE (la pieza con el color de la marca) ──────────────────────── -->
+  <g class="dp-pz" data-p="tanque" style="--dx:20;--dy:-196;--s:0">
+    <path class="dp-glow" d="M518 262C514 232 540 208 586 200C630 193 668 200 686 212C692 222 688 244 672 258C656 272 620 278 580 278L540 278C526 278 519 272 518 262Z"/>
+    <path class="dp-tank" d="M518 262C514 232 540 208 586 200C630 193 668 200 686 212C692 222 688 244 672 258C656 272 620 278 580 278L540 278C526 278 519 272 518 262Z"/>
+    <path class="dp-line" d="M552 220C590 208 640 210 670 220" style="stroke:#ffd8d0;opacity:.45;stroke-width:5"/>
+    <circle class="dp-metal" cx="600" cy="207" r="11" style="stroke-width:3"/>
+    <rect class="dp-hit" x="512" y="190" width="182" height="94"/>
+  </g>
+
+  <!-- ── FRENO: disco + mordaza ──────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="freno" style="--dx:100;--dy:172;--s:.40">
+    <circle class="dp-glow" cx="770" cy="380" r="52"/>
+    <circle class="dp-disc" cx="770" cy="380" r="52"/>
+    <circle class="dp-disc2" cx="770" cy="380" r="40"/>
+    <circle class="dp-disc" cx="770" cy="380" r="21" style="stroke-width:4;opacity:.7"/>
+    <path class="dp-metal" d="M794 330L826 341L816 372L788 360Z" style="stroke-width:4"/>
+    <path class="dp-line" d="M798 344L816 350" style="opacity:.55;stroke-width:3"/>
+    <rect class="dp-hit" x="716" y="326" width="122" height="110"/>
+  </g>
+
+  <!-- ── MANUBRIO: tija, barra, punos y maneta ───────────────────────────── -->
+  <g class="dp-pz" data-p="manubrio" style="--dx:228;--dy:-46;--s:.15">
+    <path class="dp-glow" d="M648 190L694 180L722 176L764 166"/>
+    <path class="dp-line" d="M702 212L706 186" style="stroke-width:8"/>
+    <path class="dp-pipe" d="M648 190L694 180L722 176L764 166" style="stroke:var(--dp-mtl);stroke-width:9"/>
+    <path class="dp-pipe" d="M650 190L676 185 M738 170L764 166" style="stroke:#5c4242;stroke-width:17"/>
+    <path class="dp-line" d="M650 190L676 185 M738 170L764 166" style="stroke:var(--dp-mtl2);stroke-width:2;opacity:.5"/>
+    <path class="dp-line" d="M732 177L766 182" style="stroke-width:5"/>
+    <rect class="dp-hit" x="640" y="156" width="142" height="64"/>
+  </g>
+
+  <!-- ── FARO ────────────────────────────────────────────────────────────── -->
+  <g class="dp-pz" data-p="faro" style="--dx:288;--dy:100;--s:.10">
+    <ellipse class="dp-glow" cx="776" cy="226" rx="24" ry="30"/>
+    <path class="dp-metal" d="M744 202L764 198L766 254L746 250Z" style="stroke-width:4"/>
+    <ellipse class="dp-lamp" cx="776" cy="226" rx="24" ry="30"/>
+    <ellipse class="dp-disc" cx="776" cy="226" rx="24" ry="30" style="stroke-width:4"/>
+    <path class="dp-line" d="M756 226H796" style="stroke:#8a6e00;opacity:.6;stroke-width:3"/>
+    <path class="dp-line" d="M765 210C771 205 781 206 786 212" style="stroke:#fffbe6;opacity:.9;stroke-width:4"/>
+    <rect class="dp-hit" x="736" y="192" width="70" height="70"/>
+  </g>
+  </g>
+</svg>
+
+<!-- LOS 10 ROTULOS. Son <button> de HTML (no <text> del SVG) para que el nombre
+     se lea igual en un telefono que en un monitor y para que el teclado pueda
+     recorrerlos. El JS les resuelve la posicion; --ax/--ay es el centro de la
+     pieza ARMADA con el origen del viewBox (-110,-70) ya sumado. -->
+<button type="button" class="dp-lb" data-p="tanque" data-d="sellos, llave de paso y capacidad exacta" aria-label="Pieza: tanque" style="--ax:712;--ay:306;--oy:66;--dx:20;--dy:-196;--s:0">Tanque</button>
+<button type="button" class="dp-lb" data-p="asiento" data-d="anclajes y desmontaje sin romper las pesta&ntilde;as" aria-label="Pieza: asiento" style="--ax:540;--ay:302;--oy:52;--dx:-80;--dy:-176;--s:.05">Asiento</button>
+<button type="button" class="dp-lb" data-p="faro" data-d="conexi&oacute;n, reglaje y diagrama del circuito" aria-label="Pieza: faro" style="--ax:879;--ay:297;--oy:52;--dx:288;--dy:100;--s:.10">Faro</button>
+<button type="button" class="dp-lb" data-p="manubrio" data-d="mandos, cables y torque de las abrazaderas" aria-label="Pieza: manubrio" style="--ax:817;--ay:258;--oy:50;--dx:228;--dy:-46;--s:.15">Manubrio</button>
+<button type="button" class="dp-lb" data-p="escape" data-d="junta, ruta del m&uacute;ltiple y montaje" aria-label="Pieza: escape" style="--ax:537;--ay:420;--oy:48;--dx:-405;--dy:105;--s:.22">Escape</button>
+<button type="button" class="dp-lb" data-p="motor" data-d="despiece completo, holguras y torques" aria-label="Pieza: motor" style="--ax:670;--ay:402;--oy:112;--dx:-190;--dy:270;--s:.28">Motor</button>
+<button type="button" class="dp-lb" data-p="cadena" data-d="tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y desgaste" aria-label="Pieza: cadena" style="--ax:492;--ay:452;--oy:66;--dx:-322;--dy:-52;--s:.34">Cadena</button>
+<button type="button" class="dp-lb" data-p="freno" data-d="disco, pastillas y purga del sistema" aria-label="Pieza: freno" style="--ax:880;--ay:450;--oy:76;--dx:100;--dy:172;--s:.40">Freno</button>
+<button type="button" class="dp-lb" data-p="rueda-delantera" data-d="rodamientos, presi&oacute;n y medidas" aria-label="Pieza: rueda delantera" style="--ax:880;--ay:450;--oy:116;--dx:-145;--dy:236;--s:.46">Rueda delantera</button>
+<button type="button" class="dp-lb" data-p="rueda-trasera" data-d="corona, eje y alineaci&oacute;n" aria-label="Pieza: rueda trasera" style="--ax:410;--ay:450;--oy:116;--dx:-191;--dy:-216;--s:.52">Rueda trasera</button>
+</div>
+
+<p class="dp-cap" id="dp-cap" aria-live="polite"></p>
+<div class="dp-bar" aria-hidden="true"><i></i></div>
+</div>
+</div>
+
+<div class="wrap"><p class="dp-pie">Eso son <b>10 piezas</b> de una moto de ejemplo. Un manual de taller trae el mismo despiece de <b>la tuya</b>, con el n&uacute;mero de cada parte, el orden de armado y el torque de cada tornillo.</p></div>
+</section>
+<script>
+/* == ORDEN P · EL MOTOR DEL DESPIECE =======================================
+   Todo el movimiento de la seccion sale de UNA variable: --t (0 = moto armada,
+   1 = moto abierta del todo). Este bloque solo hace tres cosas:
+
+     1) ESCALA  - resuelve a mano el preserveAspectRatio del SVG para poder
+                  colocar los rotulos, que son HTML y no viven en el viewBox.
+     2) VIAJE   - traduce cuanto se ha recorrido el riel en un --t, UNA sola
+                  escritura de estilo por frame. El escalonado de las 10 piezas
+                  NO se calcula aca: cada pieza saca su propio --lt con un
+                  clamp() de CSS. Por eso hay 1 escritura y no 20.
+     3) FOCO    - senalar/tocar una pieza la aisla y el pie dice que trae el
+                  manual de esa parte.
+
+   POR QUE VA AQUI Y NO AL FINAL DEL <body>: el CSS deja --t en 1 a proposito
+   (sin JS la seccion se ve despiezada y rotulada, que sigue siendo util). Si
+   este script corriera al final, el visitante veria un parpadeo de la moto ya
+   abierta antes de que se cerrara. Corriendo pegado a su seccion, --t pasa a 0
+   durante el parseo y no hay frame intermedio.
+
+   prefers-reduced-motion: no se engancha el scroll. Se queda en --t:1, que es
+   exactamente la informacion que la animacion iba a entregar, sin el viaje. */
+(function(){
+  'use strict';
+  var stage = document.getElementById('dp-stage');
+  var scene = document.getElementById('dp-scene');
+  var rail  = document.getElementById('dp-rail');
+  var cap   = document.getElementById('dp-cap');
+  if(!stage || !scene || !rail || !cap) return;
+  var svg = scene.querySelector('.dp-svg');
+  if(!svg) return;
+
+  var VBW = 1300, VBH = 860;          /* el viewBox del dibujo, y nada mas */
+
+  /* pieza <-> rotulo: los une el mismo data-p, no hay una segunda lista que
+     mantener sincronizada. Agregar una pieza = un <g> + un <button>. */
+  var piezas = {};
+  [].slice.call(scene.querySelectorAll('.dp-pz')).forEach(function(g){
+    piezas[g.getAttribute('data-p')] = g;
+  });
+  var por = {};
+  var fichas = [].slice.call(scene.querySelectorAll('.dp-lb')).map(function(b){
+    var f = {
+      id: b.getAttribute('data-p'),
+      nombre: b.textContent,
+      desc: b.getAttribute('data-d') || '',
+      s: parseFloat(b.style.getPropertyValue('--s')) || 0,
+      lb: b,
+      pz: piezas[b.getAttribute('data-p')] || null
+    };
+    por[f.id] = f;
+    return f;
+  }).sort(function(a, b){ return a.s - b.s; });
+  if(!fichas.length) return;
+
+  var quieto   = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var conRaton = window.matchMedia ? window.matchMedia('(hover: hover)').matches : true;
+  var BASE = conRaton ? 'Pasa el cursor por una pieza para aislarla.'
+                      : 'Toca una pieza para aislarla.';
+
+  var t = -1, hot = null, act = null, fijo = false, pedido = false;
+
+  /* ── 1 · ESCALA ──────────────────────────────────────────────────────────
+     El SVG conserva su proporcion dentro de su caja, o sea puede sobrar franja
+     arriba/abajo o a los lados. --sc es la escala real y --ox/--oy0 esas
+     franjas: con los tres, un punto del viewBox y un rotulo de HTML caen en el
+     mismo pixel en cualquier ancho de pantalla. */
+  function escalar(){
+    var r = svg.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    var sc = Math.min(r.width / VBW, r.height / VBH);
+    scene.style.setProperty('--sc',  sc.toFixed(5));
+    scene.style.setProperty('--ox',  ((r.width  - VBW * sc) / 2).toFixed(2));
+    scene.style.setProperty('--oy0', ((r.height - VBH * sc) / 2).toFixed(2));
+  }
+
+  /* ── 2 · EL PIE QUE HABLA ────────────────────────────────────────────────
+     Se arma con nodos, no con innerHTML: el texto trae acentos y enes y no hay
+     ninguna razon para volver a pasarlo por el parser. */
+  var capB = document.createElement('b');
+  var capS = document.createElement('span');
+  var capT = document.createTextNode('');
+  capS.className = 'sep';
+  capS.textContent = '\u00b7';
+  cap.appendChild(capB); cap.appendChild(capS); cap.appendChild(capT);
+  function texto(f){
+    if(!f){ capB.textContent = ''; capS.style.display = 'none'; capT.nodeValue = BASE; return; }
+    capB.textContent = f.nombre;
+    capS.style.display = '';
+    capT.nodeValue = f.desc;
+  }
+
+  function marcar(id){
+    if(hot === id) return;
+    if(hot && por[hot]){
+      por[hot].lb.classList.remove('hot');
+      if(por[hot].pz) por[hot].pz.classList.remove('hot');
+    }
+    hot = id;
+    if(hot && por[hot]){
+      por[hot].lb.classList.add('hot');
+      if(por[hot].pz) por[hot].pz.classList.add('hot');
+      scene.setAttribute('data-hot', hot);
+    } else {
+      scene.removeAttribute('data-hot');
+    }
+    texto(hot ? por[hot] : (act ? por[act] : null));
+  }
+
+  /* ── 3 · EL VIAJE ────────────────────────────────────────────────────────
+     Una escritura por frame. El .08/.80 son el respiro de entrada y de salida:
+     la moto se deja ver armada un momento antes de empezar a abrirse, y abierta
+     del todo un momento antes de que la seccion se vaya. */
+  function pintar(){
+    pedido = false;
+    stage.style.setProperty('--t', t.toFixed(4));
+    /* .22 NO es un numero suelto: es el final del zoom de entrada. Hasta ahi
+       el dibujo esta agrandado y los rotulos (que son HTML, fuera del viewBox)
+       no lo saben, asi que el CSS los apaga mientras data-ab valga 0. */
+    var ab = t > 0.22 ? '1' : '0';
+    if(scene.getAttribute('data-ab') !== ab) scene.setAttribute('data-ab', ab);
+
+    var nuevo = null;
+    for(var i = 0; i < fichas.length; i++){
+      if(t >= fichas[i].s + 0.30) nuevo = fichas[i].id; else break;
+    }
+    if(nuevo !== act){
+      if(act && por[act]) por[act].lb.classList.remove('act');
+      act = nuevo;
+      if(act && por[act]) por[act].lb.classList.add('act');
+      if(!hot) texto(act ? por[act] : null);
+    }
+  }
+
+  function medir(){
+    var v = 1;
+    if(!fijo && !(quieto && quieto.matches)){
+      var rr = rail.getBoundingClientRect();
+      var rs = stage.getBoundingClientRect();
+      /* viaje = lo que el escenario pegado puede recorrer dentro del riel.
+         Si es <= 0 (pantalla baja, riel de alto automatico) no hay animacion
+         posible y la seccion se queda abierta: el fallback, no un bug. */
+      var viaje = rr.height - rs.height;
+      if(viaje > 0){
+        var p = (rs.top - rr.top) / viaje;
+        p = (p - 0.08) / 0.80;
+        p = p < 0 ? 0 : (p > 1 ? 1 : p);
+        v = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;  /* easeInOutCubic */
+      }
+    }
+    if(Math.abs(v - t) < 0.0001) return;
+    t = v;
+    if(!pedido){ pedido = true; requestAnimationFrame(pintar); }
+  }
+
+  /* ── 4 · SENALAR / TOCAR ─────────────────────────────────────────────────
+     Con raton: entrar y salir. Sin raton: SOLO click, porque en tactil el
+     pointerenter dispara junto con el tap y el toggle se anularia solo. */
+  fichas.forEach(function(f){
+    var objetivos = f.pz ? [f.pz, f.lb] : [f.lb];
+    objetivos.forEach(function(el){
+      if(conRaton){
+        el.addEventListener('pointerenter', function(){ marcar(f.id); });
+        el.addEventListener('pointerleave', function(){ marcar(null); });
+      }
+      el.addEventListener('click', function(){ marcar(hot === f.id ? null : f.id); });
+    });
+    /* teclado: al caer el foco en un rotulo se ABRE la moto entera (si no, el
+       rotulo enfocado seria una pastilla invisible describiendo una pieza que
+       todavia no salio) y se queda abierta hasta que el foco se vaya. */
+    f.lb.addEventListener('focus', function(){ fijo = true; medir(); marcar(f.id); });
+  });
+  scene.addEventListener('focusout', function(e){
+    if(e.relatedTarget && scene.contains(e.relatedTarget)) return;
+    fijo = false;
+    marcar(null);
+    medir();
+  });
+
+  /* ── 5 · ARRANQUE ───────────────────────────────────────────────────────── */
+  escalar();
+  texto(null);
+  t = (quieto && quieto.matches) ? 1 : 0;
+  pintar();
+  if(!(quieto && quieto.matches)){
+    window.addEventListener('scroll', medir, { passive: true });
+    medir();
+  }
+  window.addEventListener('resize', function(){ escalar(); medir(); }, { passive: true });
+  if(window.ResizeObserver) new ResizeObserver(escalar).observe(scene);
+  /* si el visitante cambia la preferencia de movimiento en caliente */
+  if(quieto && quieto.addEventListener) quieto.addEventListener('change', function(){
+    if(quieto.matches){ t = 1; pintar(); } else { medir(); }
+  });
+})();
+</script>
 
 <!-- PRECIO / CTA -->
 <section id="comprar"><div class="wrap" style="text-align:center"><div class="eyebrow">Empieza hoy</div><h2 class="title">Un solo pago, acceso de por vida</h2><div class="price-card"><div style="color:var(--mut);font-size:.9rem">Precio de hoy</div><div class="price-now" id="precio-grande">&nbsp;</div><div style="color:var(--mut);margin-top:2px">pago &uacute;nico &middot; acceso de por vida</div><div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--:--</b></div><!-- LA MONEDA, DOS VECES Y A PROPOSITO, pero cada una diciendo LO SUYO: aca,
@@ -1126,81 +1774,22 @@ if (PIXEL_ID) {
 
 <div class="buybar" id="buybar"><div class="p"><span id="buybar-precio">&nbsp;</span><small>pago &uacute;nico &middot; acceso de por vida</small></div><a href="#STRIPE-PENDIENTE" class="btn" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
 
-<script>
-/* VIDEO — la mecanica del molde, tal cual. Los clips son creativos PROPIOS
-   alojados en ESTE repo: <video> del mismo origen, mudos, en loop, sin
-   controles y sin audio dentro del archivo. Cero terceros (no hay embeds).
-     - el HERO arranca de una (no espera window.load, que no dispara hasta que
-       termina todo lo demas).
-     - los 8 mini entran por IntersectionObserver; el que sale de pantalla
-       SUELTA su descarga y vuelve a su poster.
-     - sin IntersectionObserver cargan todos: nunca una pantalla vacia.
-     - con saveData o 2g no se carga un solo byte de video: quedan los posters.
-   ASSET-MOTOS-PENDIENTE: los archivos de ./video/ (hero.mp4 + v1..v8.mp4) NO
-   EXISTEN todavia, y por eso el video.fx-th de cada tile va con
-   poster placeholder y SIN src. Esta mecanica queda ENTERA y sin tocar: el dia
-   que los 9 mp4 se copien a ./video/ se enciende sola. Hasta entonces la capa
-   que inyecta el observer pide un archivo que no esta (404) y lo unico que se
-   ve es el poster, que es exactamente lo que tiene que pasar. */
-(function(){
-  var BASE = 'video/';   /* mismo origen, ruta relativa */
-  var con = navigator.connection || {};
-  var lento = con.saveData === true || /(^|-)2g$/.test(con.effectiveType || '');
-  if (lento) return; /* internet lento o ahorro de datos: solo posters, cero video */
-
-  function prender(el, arch, clase){
-    var v = el.querySelector('video.' + clase);
-    if (!v){
-      v = document.createElement('video');
-      v.className = clase;
-      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
-      v.setAttribute('muted',''); v.setAttribute('playsinline','');
-      v.setAttribute('aria-hidden','true'); v.tabIndex = -1;
-      el.appendChild(v);
-    }
-    if (!v.getAttribute('src')){ v.preload = 'auto'; v.src = BASE + arch; }
-    var p = v.play(); if (p && p['catch']) p['catch'](function(){});
-    return v;
-  }
-
-  /* 1. EL HERO, DE UNA. Es lo primero que se ve: es lo primero que se pide. */
-  var pv = document.querySelector('.pv');
-  if (pv) prender(pv, 'hero.mp4', 'vd-hero');
-
-  /* 2. LOS 8 MINI: solo cuando entran en pantalla, y de a TOPE. */
-  var TILES = [].slice.call(document.querySelectorAll('.fx[data-v]'));
-
-  if (!('IntersectionObserver' in window)){
-    /* fail-safe: navegador sin observer -> todos. Nunca una grilla de posters muertos. */
-    TILES.forEach(function(c){ prender(c, c.dataset.v, 'vd-live'); });
-    return;
-  }
-
-  var TOPE = 8, VIVOS = [];
-  function soltar(c){
-    var v = c.querySelector('video.vd-live');
-    if (v){ v.pause(); v.removeAttribute('src'); v.load();   /* corta la descarga */
-            if (v.parentNode) v.parentNode.removeChild(v); }
-    var i = VIVOS.indexOf(c); if (i >= 0) VIVOS.splice(i, 1);
-  }
-  function podar(){            /* el cupo se hace soltando a los que ya no se ven */
-    for (var i = VIVOS.length - 1; i >= 0; i--) if (!VIVOS[i].visible) soltar(VIVOS[i]);
-  }
-  function encender(c){
-    if (!c.visible || c.querySelector('video.vd-live')) return;
-    podar();
-    if (VIVOS.length >= TOPE) return;  /* cupo lleno de visibles: se queda el poster */
-    prender(c, c.dataset.v, 'vd-live');
-    VIVOS.push(c);
-  }
-  var io = new IntersectionObserver(function(ens){
-    ens.forEach(function(e){ e.target.visible = e.isIntersecting; });
-    podar();
-    TILES.forEach(encender);
-  }, {rootMargin:'100px 0px'});
-  TILES.forEach(function(c){ io.observe(c); });
-})();
-</script>
+<!-- ORDEN O · EL SCRIPT DE VIDEO DE LA GALERIA SE FUE COMPLETO.
+     Aca vivia la mecanica del molde: un IntersectionObserver que inyectaba un
+     <video> del mismo origen (video/v1..v8.mp4) en cada tile al entrar en
+     pantalla, con TOPE de 8 vivos y corte por saveData/2g. Esos 8 mp4 nunca
+     existieron, asi que lo unico que hacia era pedir 404 y dejar el poster.
+     Ahora cada tile lleva su <iframe> con loading="lazy": el navegador lo
+     difiere y lo maneja solo, el JS no hace falta. Se borro entero en vez de
+     dejarlo pidiendo archivos que no estan, igual que la orden N hizo con el
+     paso del hero.
+     LO QUE SE PERDIO AL BORRARLO, sin adornos: ya no hay corte por saveData ni
+     por effectiveType=2g (un iframe no consulta navigator.connection), ni tope
+     de reproductores vivos. El freno que queda es el del navegador: los tiles
+     fuera de pantalla no bajan nada por loading="lazy", y en movil los dos
+     ultimos van display:none y tampoco cargan.
+     Si algun dia existen los clips PROPIOS, este bloque vuelve del backup
+     index.html.bak.20260928-galeria-yt y los iframes salen. -->
 <script>
 (function(){
   /* C1a · SOMBRA DE LA BARRA AL BAJAR.
