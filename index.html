@@ -6,13 +6,33 @@
      de CHECKOUT (hero, 4 botones, tarjeta, barra fija y FAQ). Si el precio
      cambia otra vez: se toca la constante Y estas dos lineas. No hay una tercera.
      Y NO dice "COP": la oferta se vende en toda LatAm, el precio es en USD. -->
-<!-- ASSET-MOTOS-PENDIENTE: og:image + favicon + apple-touch-icon.
-     Van COMENTADOS a proposito: todavia no existe la imagen social ni el icono,
-     y un tag apuntando a un archivo que no esta solo da 404 (y og:image exige
-     URL ABSOLUTA, o sea hace falta saber el dominio). Al desplegar: poner las
-     4 lineas con el dominio real.
-<meta property="og:image" content="https://DOMINIO/img/og.jpg">
+<!-- ORDEN Y * IMAGEN SOCIAL. Estas lineas estuvieron COMENTADAS desde el dia
+     uno por dos faltantes, y ya no faltan ninguno de los dos: (a) el archivo
+     img/og.jpg no existia -- ahora si, compuesto 1200x630 a partir del recorte
+     COVER de img/despiece-hero.jpg mas velo oscuro y la marca; (b) og:image
+     exige URL ABSOLUTA -- un rastreador lee el <head> suelto, no resuelve rutas
+     relativas ni tiene de donde sacar el host -- y el dominio ya se sabe.
+     Por eso las URLs de aca abajo son absolutas A MANO y repiten el subpath
+     /utec-motos-landing/: esto es un PROJECT SITE de GitHub Pages, no vive en
+     la raiz del dominio. Si el sitio se muda, estas dos URLs se tocan a mano;
+     no heredan de nada.
+     Son DOS y no una: og:image la leen Facebook/WhatsApp/LinkedIn, y X lee
+     twitter:image -- con el card en summary_large_image (declarado arriba) no
+     hay fallback garantizado a og:image, asi que se declara explicita.
+     1200x630 es la proporcion 1.91:1 que piden todas: se declara width/height
+     para que el rastreador pinte el hueco sin bajar la imagen primero. -->
+<meta property="og:image" content="https://estebanninoc.github.io/utec-motos-landing/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Despiece de una moto pieza por pieza sobre fondo negro, con el r&oacute;tulo MOTOS PRO y +900 manuales de taller por US$12.99.">
+<meta name="twitter:image" content="https://estebanninoc.github.io/utec-motos-landing/img/og.jpg">
+<meta name="twitter:image:alt" content="Despiece de una moto pieza por pieza sobre fondo negro, con el r&oacute;tulo MOTOS PRO y +900 manuales de taller por US$12.99.">
+<!-- ASSET-MOTOS-PENDIENTE: favicon + apple-touch-icon. Siguen COMENTADOS, pero
+     OJO: ya NO es porque falten los archivos -- img/favicon-32.png e
+     img/icon-180.png existen y estan subidos. Quedaron inertes aca dentro. La
+     orden Y era la imagen social, asi que no se tocan en esta ronda; para
+     encenderlos basta sacarlos del comentario (son rutas relativas, no piden
+     dominio) y verificar los dos 200.
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
 -->
@@ -1320,20 +1340,113 @@
     .dp-it.hot .dp-n{color:var(--ink)}
     .dp-it.hot::before{background:var(--ink);box-shadow:none}
   }
+  /* ══ ORDEN Z · EN VERTICAL MANDA LA FOTO ═════════════════════════════════
+     El problema que se corrige: una escena 16:9 dentro de una pantalla de
+     390x844 mide 210px de alto -- el 25% del telefono. El resto del escenario
+     pegado eran 168px de negro arriba y 190px abajo: la foto, que es LA prueba
+     de la seccion, se leia como una tira perdida entre dos franjas.
+
+     Se arregla por los dos lados a la vez:
+
+     1) LA ESCENA DEJA DE SER 16:9. En vertical se vuelve un rectangulo mas
+        alto (min(34vh,80vw)) y la PLACA -- foto + zonas + halo, todo junto --
+        conserva su 1280/720 y se agranda hasta CUBRIRLO (height:100%, ancho
+        automatico). Lo que sobra por los lados lo recorta el overflow de la
+        escena, con la moto centrada.
+        POR QUE ASI Y NO CON object-fit EN LA FOTO: las diez zonas estan
+        declaradas en % de la placa. Si el recorte lo hiciera la imagen por su
+        cuenta, la foto se moveria y las zonas no: cada punto quedaria corrido
+        de su pieza. Recortando la PLACA ENTERA, las zonas se agrandan y se
+        desplazan con la foto -- la calibracion de la orden S no se toca ni un
+        numero, y sigue valiendo el "un % de la escena es el mismo % de la
+        foto" del que vive el motor.
+        EL ALTO SALE DE TRES NUMEROS Y NINGUNO ES ESTETICO:
+          max( 56.25vw , min( 31vh , 64vw ) )
+          · 56.25vw = 100vw / (16/9). Es el PISO: por debajo de ahi la escena
+            seria mas apaisada que la foto y la placa ya no la cubriria (se
+            verian franjas laterales). Un telefono bajito (360x640) cae aqui y
+            se lleva la foto ENTERA, sin un pixel de recorte.
+          · 31vh  = la foto no se queda con mas de un tercio de la pantalla;
+            debajo todavia tienen que caber las diez pastillas y el pie.
+          · 64vw  = EL TOPE DE RECORTE. 100/64 = 1.5625 de proporcion, o sea
+            se ve el 87,9% del ancho de la foto: 6% por lado. La foto es una
+            lamina que va de borde a borde -- la rueda delantera arranca en el
+            2% y la punta del escape muere en el 99% -- asi que cada punto de
+            alto de mas se paga en piezas comidas. A 6% la rueda delantera
+            conserva casi dos tercios y su foco sigue cayendo dentro del
+            marco; a 12% (que es lo que daba dejar mandar al 34vh) quedaba un
+            cuarto de rueda y el foco pegado al borde.
+
+     2) SE REPARTE EL AIRE. La foto va a sangre (sin padding lateral: +16px de
+        ancho, que son +9 de alto) y lo que sobra de alto ya no se apila en dos
+        franjas gigantes arriba y abajo: space-evenly lo reparte en cuatro
+        respiros iguales entre foto, lista, pie y barra.
+
+     Resultado medido a 390x844: la foto pasa de 210px de alto (25% de la
+     pantalla) a 250px (30%), y las piezas se ven un 14% mas grandes porque la
+     placa entra a 444px de ancho y no a 374. El aire suelto -- el que no es ni
+     la barra de arriba ni el pie de compra -- baja de 107/110px a ~35px. */
   @media(max-width:720px){
     #despiece{padding-top:56px}
     .dp-rail{height:210vh}
-    /* los 96px de abajo son el pie fijo de compra (80) mas aire */
-    .dp-stage{gap:10px;padding:74px 8px 96px}
-    /* la foto entra a 374px de ancho: el zoom de entrada se hace mas grande
+    /* los 88px de abajo son el pie fijo de compra (80) mas aire. Sin padding
+       lateral: la foto va a sangre y son la lista y el pie los que se separan
+       del borde (ver .dp-list/.dp-cap aqui abajo). */
+    .dp-stage{gap:0;padding:66px 0 88px;justify-content:space-evenly}
+    /* la foto entra a 390px de ancho: el zoom de entrada se hace mas grande
        para que la moto ARMADA llene la pantalla, que es el primer fotograma
-       que todo el mundo ve. */
-    .dp-plate{--zf:1.26}
-    .dp-scene{border-radius:14px}
+       que todo el mundo ve. Algo mas suave que antes (1.26) porque la escena
+       ya viene recortada: encimar los dos aumentos dejaba fuera de cuadro
+       media rueda en el primer fotograma. */
+    .dp-plate{--zf:1.18}
+    /* SIN BORDE, y no es cosmetica: el borde de 1px arriba y abajo le quita 2px
+       de alto a la caja de contenido, y la placa cuelga de ESE alto. En el piso
+       (56,25vw, donde el ajuste tiene que ser exacto) esos 2px dejaban a la
+       placa 3,6px mas angosta que el marco: dos franjas negras de 1,8px a los
+       lados, justo lo contrario de lo que se vino a arreglar. La linea fina
+       sigue estando -- es el `inset 0 0 0 1px` que ya trae la sombra. */
+    .dp-scene{border:0;border-radius:0;
+      aspect-ratio:auto;height:max(56.25vw,min(31vh,64vw))}
+    /* LA PLACA CUBRE: mantiene su 1280/720 y se cuelga del alto de la escena.
+       Queda mas ancha que el marco a proposito -- ese sobrante es el recorte.
+       El translate(-50%,-50%) la centra; el resto de la transformacion es la
+       misma de siempre (parallax de entrada + zoom). */
+    .dp-plate{top:50%;left:50%;right:auto;bottom:auto;
+      height:100%;width:auto;aspect-ratio:1280/720;
+      transform:translate(-50%,-50%)
+                translateY(calc((.5 - var(--p)) * 12px))
+                scale(calc(var(--zf) - (var(--zf) - 1) * var(--e)))}
+    /* la lista y el pie SI respiran del borde: la que va a sangre es la foto.
+       8px y no 10: con 10 la pastilla mas larga ("Motor: cilindro y piston")
+       ya no entraba y se cortaba con puntos suspensivos. */
+    .dp-list,.dp-cap{padding-left:8px;padding-right:8px}
+    /* las pastillas engordan un punto: es el relleno natural del alto que
+       sobra ahora que el escenario esta compacto -- y de paso son un blanco
+       mas comodo para el dedo (44px es la medida de toque recomendada). */
+    .dp-it{padding:10px 12px}
+    /* la barra de avance sube a pegarse a la lista: es el reloj del viaje de
+       la FOTO, no del pie. Suelta al fondo quedaba flotando sola. */
+    .dp-bar{order:1}
+    .dp-cap{order:2}
     .dp-pt{width:11px;height:11px}
     /* la foto mide 210px de alto en un telefono: el rotulo de la pieza mas baja
        (la caja, que empieza en el 88%) se salia del marco con 8px de separacion. */
     .dp-tag{font-size:.7rem;padding:3px 9px;--tg:4px}
+    /* ROTULOS DE LOS EXTREMOS, RECALIBRADOS POR EL RECORTE. En la escena 16:9
+       "izq/der" alineaban el rotulo con el borde de SU zona, porque ese borde
+       era tambien el borde del marco. Con la escena recortada ya no lo es: el
+       borde de la rueda delantera (0,8% de la placa) cae FUERA del cuadro, asi
+       que su pastilla se salia entera. Ahora se alinean hacia adentro de la
+       zona -- 55% para las de la izquierda, 75% para las de la derecha -- que
+       con el tope de 6% de recorte las deja dentro del marco en cualquier
+       telefono, sin dejar de apuntar a su pieza. */
+    .dp-hs.izq .dp-tag{--tl:55%}
+    .dp-hs.der .dp-tag{--tl:75%}
+    /* la caja y embrague no es de los extremos, pero es la pastilla ANCHA cuyo
+       centro cae mas a la izquierda (18,5% de la placa): centrada ahi se salia
+       por el filo recortado. Corrida hacia adentro de su propia zona entra
+       entera y sigue cayendo sobre las tapas del motor. */
+    .dp-hs[data-p="caja"] .dp-tag{--tl:68%}
     .dp-cap{font-size:.94rem;min-height:3.2em}
   }
   /* pantallas bajas (o movil apaisado): el escenario no puede comerse la altura */
@@ -1354,6 +1467,18 @@
     .dp-sweep{display:none}
     .dp-ring,.dp-tag,.dp-veil,.dp-it,.dp-pt{transition:none}
     .dp-scene{transition:none}
+  }
+  /* ORDEN Z · quien pidio menos movimiento tambien tiene telefono. En vertical
+     la placa ya no esta pegada a los cuatro lados de la escena: se cuelga del
+     centro y el translate(-50%,-50%) es lo que la CENTRA, no un adorno de la
+     animacion. El transform:none de aqui arriba se lo llevaba por delante y la
+     foto aparecia corrida a un cuarto del marco (se veia media rueda delantera
+     en una esquina). Se le devuelve el centrado, sin el viaje ni el zoom.
+     De paso el escenario pierde el padding lateral, para que la foto vaya a
+     sangre igual que en la version con movimiento. */
+  @media (prefers-reduced-motion:reduce) and (max-width:720px){
+    .dp-stage{padding:20px 0 26px}
+    .dp-plate{transform:translate(-50%,-50%)}
   }
 </style>
 <script>
