@@ -1,4 +1,11 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO</title><meta name="description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de $15.000 COP, acceso de por vida."><meta name="robots" content="index,follow"><meta property="og:title" content="M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO"><meta property="og:description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de $15.000 COP, acceso de por vida."><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO</title><meta name="description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de US$12.99, acceso de por vida."><meta name="robots" content="index,follow"><meta property="og:title" content="M&aacute;s de 900 manuales de taller de motos + curso de mec&aacute;nica | MOTOS PRO"><meta property="og:description" content="M&aacute;s de 900 manuales de taller de motos de m&aacute;s de 40 marcas: despiece y montaje paso a paso, diagramas el&eacute;ctricos, especificaciones y diagn&oacute;stico por sistemas. Incluye el Curso de Mec&aacute;nica de Motores 2T y 4T. 25 GB, 100% digital. Pago &uacute;nico de US$12.99, acceso de por vida."><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<!-- PRECIO-EN-META (orden D/5): "US$12.99" aparece DOS veces arriba (description
+     y og:description) y son las UNICAS dos copias del precio que el navegador no
+     puede repintar: un <meta> lo lee el rastreador antes de que corra un script.
+     Todo el resto del precio de la pagina sale de la constante PRECIO del script
+     de CHECKOUT (hero, 4 botones, tarjeta, barra fija y FAQ). Si el precio
+     cambia otra vez: se toca la constante Y estas dos lineas. No hay una tercera.
+     Y NO dice "COP": la oferta se vende en toda LatAm, el precio es en USD. -->
 <!-- ASSET-MOTOS-PENDIENTE: og:image + favicon + apple-touch-icon.
      Van COMENTADOS a proposito: todavia no existe la imagen social ni el icono,
      y un tag apuntando a un archivo que no esta solo da 404 (y og:image exige
@@ -6,16 +13,17 @@
      4 lineas con el dominio real.
 <meta property="og:image" content="https://DOMINIO/img/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/img/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
 -->
 <!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
      en la pagina (no hay hoja remota, ni preconnect, ni noscript). Son Inter e
      Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
      se baja siempre, el latin-ext SOLO si el texto trae un caracter de ese rango.
-     ASSET-MOTOS-PENDIENTE: hay que copiar ./fonts/{inter,inter-ext,inter-tight,
-     inter-tight-ext}.woff2. Mientras no esten, font-display:swap deja el texto
-     en la pila del sistema (Roboto en Android) y no se rompe nada. -->
+     Los 4 archivos YA estan en ./fonts/{inter,inter-ext,inter-tight,
+     inter-tight-ext}.woff2 (variables, eje wght 100-900, subsets latin y
+     latin-ext oficiales). Si faltaran, font-display:swap deja el texto en la
+     pila del sistema (Roboto en Android) y no se rompe nada. -->
 <link rel="preload" as="font" type="font/woff2" href="fonts/inter.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="fonts/inter-tight.woff2" crossorigin>
 <!-- el poster del hero NO se precarga porque no es un archivo: es un SVG en
      linea (data URI), o sea ya viene dentro de este HTML. -->
@@ -225,7 +233,16 @@
   .price-list{list-style:none;text-align:left;margin:26px 0;display:grid;gap:11px}
   .price-list li{padding-left:30px;position:relative;color:var(--tx);font-size:1.05rem}
   .price-list li::before{content:"\2713";position:absolute;left:0;color:var(--acc);font-weight:900;text-shadow:0 0 12px rgba(225,6,0,.75)}
-  .price-card .btn{width:100%}
+  /* D/5: el padding lateral de .btn.big (46px por lado = 92px) tiene sentido en
+     un boton que se encoge a su texto, pero en ESTE va a lo ancho de la tarjeta
+     y no hace mas que robarle renglon al rotulo. Se nota justo ahora: el precio
+     crecio de "$15.000" a "US$12.99" y el texto paso de 461 a 473px de ancho
+     natural contra los 470 utiles del boton -- por 3px la flecha se caia sola a
+     un segundo renglon y el CTA principal quedaba con un "→" huerfano debajo.
+     Con 20px por lado quedan 430px para un texto que pide 381: vuelve a un solo
+     renglon y le sobra sitio para que el dia de manana el precio cambie otra vez
+     (o se le pegue una moneda mas larga) sin repetir el mismo susto. */
+  .price-card .btn{width:100%;padding-left:20px;padding-right:20px}
 
   .bumps{margin:2px 0 20px;display:grid;gap:10px;text-align:left}
   .bump{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s}
@@ -400,12 +417,639 @@
     .ancla s{font-size:1.2rem}
   }
 
-.hero-trust,.trust-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
-.hero-trust span,.trust-row span{font-size:.78rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#efd8d4;padding:5px 11px;border-radius:999px;white-space:nowrap;line-height:1}
-.trust-row{margin-top:10px}
-#reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* ===== CINTA DE LOGOS (marquee infinito) ===== */.cinta{padding:26px 0;border-top:1px solid rgba(107,60,60,.5);border-bottom:1px solid rgba(107,60,60,.5);background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15))}.cinta .cinta-lbl{text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);margin:0 0 16px}.cinta-vp{overflow:hidden;contain:content}.cinta-pista{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px;margin:0;padding:0;list-style:none}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:64px;width:132px;padding:8px 10px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.93);filter:grayscale(1);opacity:.9;transition:filter .3s ease,opacity .3s ease,transform .3s ease}.cinta-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}/* Normalizacion optica: los escudos cuadrados llenan toda la altura y dominan
+/* v12: .trust-row se fue del HTML (la reemplazan los SELLOS DE PAGO y el BADGE
+   DE GARANTIA de la orden C1/4, que dicen lo mismo con dibujo propio en vez de
+   emojis) => sus selectores salen tambien. .hero-trust, que es el mismo estilo
+   arriba en el hero, se queda. */
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.hero-trust span{font-size:.78rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#efd8d4;padding:5px 11px;border-radius:999px;white-space:nowrap;line-height:1}
+#reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* ===== CINTA DE LOGOS (marquee infinito) ===== */.cinta{padding:34px 0 30px;border-top:1px solid rgba(107,60,60,.5);border-bottom:1px solid rgba(107,60,60,.5);background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15))}.cinta-hd{text-align:center;max-width:700px;margin:0 auto 24px;padding:0 20px}.cinta-hd h2{font-size:clamp(1.45rem,3.6vw,2.05rem);margin:0}.cinta-hd h2 em{font-style:normal;color:var(--acc)}.cinta-rule{display:block;width:58px;height:3px;border-radius:2px;background:var(--acc);margin:13px auto 0;box-shadow:0 0 14px rgba(225,6,0,.6)}.cinta-sub{margin:13px 0 0;font-size:.95rem;line-height:1.5;color:var(--mut)}.cinta-sub b{color:var(--acc2);font-weight:800}.cinta-vp{overflow:hidden;contain:content}.cinta-pista{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:0;padding:12px 0;list-style:none}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:66px;width:134px;padding:9px 12px;box-sizing:border-box;border-radius:14px;background:linear-gradient(180deg,#fff,#f3ecec);box-shadow:0 3px 12px -4px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.28),0 0 18px -10px rgba(225,6,0,.5);transition:box-shadow .3s ease,transform .3s ease}.cinta-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}/* Normalizacion optica: los escudos cuadrados llenan toda la altura y dominan
    frente a los wordmarks anchos; se les recorta la altura para que el peso
-   visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{filter:none;opacity:1;transform:translateY(-2px)}@keyframes cinta-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}@supports (animation-name:cinta-scroll){.cinta-vp{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}.cinta-pista{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;will-change:transform;animation:cinta-scroll 40s linear infinite}.cinta-grupo,.cinta-grupo.dup{display:flex;align-items:center;gap:14px;padding-right:14px}.cinta:hover .cinta-pista,.cinta-pista:focus-within{animation-play-state:paused}}@media (prefers-reduced-motion:reduce){.cinta-vp{-webkit-mask-image:none;mask-image:none}.cinta-pista{flex-wrap:wrap;justify-content:center;width:auto;gap:14px;animation:none;will-change:auto}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{transition:none}.cinta-item:hover,.cinta-item:focus-within{transform:none}}@media (max-width:640px){.cinta-item{height:56px;width:112px;padding:6px 8px}.cinta-pista,.cinta-grupo,.cinta-grupo.dup{gap:10px}@supports (animation-name:cinta-scroll){.cinta-grupo,.cinta-grupo.dup{padding-right:10px}.cinta-pista{gap:0}}}</style>
+   visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="lifan"],.cinta-item img[src*="zongshen"],.cinta-item img[src*="bera"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{transform:translateY(-3px);box-shadow:0 8px 20px -6px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.45),0 0 26px -6px rgba(225,6,0,.65)}@keyframes cinta-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}@supports (animation-name:cinta-scroll){.cinta-vp{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}.cinta-pista{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:0;will-change:transform;animation:cinta-scroll 40s linear infinite}.cinta-grupo,.cinta-grupo.dup{display:flex;align-items:center;gap:18px;padding-right:18px}.cinta:hover .cinta-pista,.cinta-pista:focus-within{animation-play-state:paused}}@media (prefers-reduced-motion:reduce){.cinta-vp{-webkit-mask-image:none;mask-image:none}.cinta-pista{flex-wrap:wrap;justify-content:center;width:auto;gap:18px;animation:none;will-change:auto}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{transition:none}.cinta-item:hover,.cinta-item:focus-within{transform:none}}@media (max-width:640px){.cinta-hd{margin-bottom:20px}.cinta-sub{font-size:.88rem}.cinta-item{height:58px;width:116px;padding:7px 9px;border-radius:12px}.cinta-pista,.cinta-grupo,.cinta-grupo.dup{gap:12px}@supports (animation-name:cinta-scroll){.cinta-grupo,.cinta-grupo.dup{padding-right:12px}.cinta-pista{gap:0}}}
+
+  /* ══════════════ v9 · PIEL RACING ═══════════════════════════════════════════
+     SOLO LA PIEL. Aca no se movio: ni una etiqueta de estructura, ni una palabra
+     de copy, ni el precio, ni el reloj, ni la cinta de marcas, ni el FAQ, ni la
+     garantia, ni el checkout, ni el pixel, ni el hero-video, ni la galeria.
+     La paleta es la MISMA (--acc #e10600 sobre --bg #100a0a): lo que cambia es
+     la TIPOGRAFIA (apretada y en mayusculas), el CORTE de los bordes (diagonal
+     de pista) y el ACABADO de los botones.
+     ── EL GRADO DEL CORTE ──────────────────────────────────────────────────────
+     --sk es la CAIDA en px del borde diagonal de punta a punta. A 1280 px de
+     ancho son 46 px => atan(46/1280) = 2,06 grados; a 390 px son 20 px =>
+     atan(20/390) = 2,94 grados. O sea el corte se queda DENTRO de la banda de
+     2-3 grados en TODO el rango de pantalla, sin un solo breakpoint nuevo.     */
+  :root{--sk:clamp(20px,3.6vw,46px)}
+
+  /* ── 1 · TIPOGRAFIA "ENGINEERED" ──────────────────────────────────────────
+     Mayusculas + interletra NEGATIVA: el titular se lee como un dorsal, no como
+     un parrafo. El cuerpo BAJA lo que sube la caja de las mayusculas (que ocupan
+     ~10% mas de ancho que la caja baja), asi que el bloque del hero mide en
+     pantalla lo mismo que en la v8 y el movil no gana ni un renglon. */
+  header h1{font-size:clamp(1.9rem,5.5vw,3.5rem);text-transform:uppercase;letter-spacing:-.046em;line-height:1.02}
+  /* LA VELOCIDAD ES LA ITALICA: van inclinadas las 2 piezas clave del H1 ("el
+     TORQUE" y "ARMA LA MOTO"), no el titular entero -- inclinado todo se vuelve
+     ruido y deja de marcar nada. Inter Tight no trae corte italico propio, asi
+     que el navegador la sintetiza (font-synthesis va en auto): esa oblicua es
+     exactamente la del carenado. Con la pila del sistema (Roboto en Android,
+     mientras el woff2 baja) la italica es REAL y el efecto es el mismo. */
+  header h1 .it,header h1 .cut{font-style:italic}
+  /* el subrayado rojo sesgado del .cut ya existia en el molde y se queda: con la
+     palabra inclinada ahora los dos sesgos van en el MISMO sentido. */
+  h2.title{font-size:clamp(1.65rem,4.35vw,2.6rem);text-transform:uppercase;letter-spacing:-.04em}
+  .cinta-hd h2,.band h2{text-transform:uppercase;letter-spacing:-.04em}
+  .badge .n,.price-now{letter-spacing:-.05em}
+
+  /* ── 2 · CORTES DIAGONALES ENTRE SECCIONES ────────────────────────────────
+     El corte NO recorta la seccion: recortar la seccion es comerse el texto y
+     cortarle las sombras a las tarjetas de adentro. Se recorta un ::before que
+     SOLO pinta el fondo, y el contenido sube a z-index 1. Dos consecuencias
+     buenas: (a) si clip-path no existiera, el fondo queda recto y no se rompe
+     nada; (b) cada seccion cortada suma --sk de relleno arriba y abajo, asi que
+     ni en 390 px la punta del corte llega al texto (sobran >60 px).
+     El fondo es el MISMO degradado que ya tenia la cinta (--panel al 60% sobre
+     --bg): el contraste de los textos contra el sustrato no se movio. */
+  .cinta,#comprar,footer{position:relative}
+  .cinta>*,#comprar>*,footer>*{position:relative;z-index:1}
+  .cinta::before,#comprar::before,footer::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15));clip-path:polygon(0 var(--sk),100% 0,100% calc(100% - var(--sk)),0 100%)}
+  /* LA COSTURA: hilo rojo fino de 2 px pegado al corte de arriba. Va solo en el
+     borde superior (uno por seccion) a proposito: con los 4 cortes subrayados la
+     pagina se volvia una bandera a cuadros. */
+  .cinta::after,#comprar::after,footer::after{content:"";position:absolute;left:0;right:0;top:0;height:calc(var(--sk) + 2px);z-index:0;pointer-events:none;background:var(--acc);opacity:.6;clip-path:polygon(0 var(--sk),100% 0,100% 2px,0 calc(var(--sk) + 2px))}
+  /* los bordes RECTOS de la cinta y del pie se apagan: el corte diagonal ES
+     ahora el borde. Y el relleno absorbe la caida del sesgo. */
+  .cinta{background:none;border-top:none;border-bottom:none;padding:calc(34px + var(--sk)) 0 calc(30px + var(--sk))}
+  #comprar{padding:calc(66px + var(--sk)) 0 calc(66px + var(--sk))}
+  footer{border-top:none;padding:calc(40px + var(--sk)) 0 110px}
+
+  /* ── 3 · ACENTOS DE PISTA EN LOS EYEBROW ──────────────────────────────────
+     Barrita roja sesgada + franja diagonal fina de rayas. Va en inline-flex y NO
+     en flex: asi el eyebrow sigue obedeciendo al text-align del contenedor (en
+     #comprar el .wrap esta centrado, en las demas secciones va a la izquierda) y
+     no hace falta una regla por seccion. */
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;line-height:1;vertical-align:middle}
+  .eyebrow::before{content:"";flex:0 0 24px;height:4px;background:var(--acc);transform:skewX(-24deg);box-shadow:0 0 12px rgba(225,6,0,.6)}
+  .eyebrow::after{content:"";flex:0 0 16px;height:12px;opacity:.75;background:repeating-linear-gradient(112deg,var(--acc) 0 2px,transparent 2px 7px)}
+
+  /* ── 4 · CTA CON CORTE RACING ─────────────────────────────────────────────
+     El corte se hace con clip-path, y el resplandor pasa de box-shadow a
+     drop-shadow PORQUE clip-path recorta tambien las sombras de caja: con filter
+     la sombra sigue la forma cortada en vez de desaparecer. El anillo de 1 px que
+     hacia el box-shadow se reemplaza por un BORDE de verdad, que es lo que pedia
+     "bordes mas definidos".
+     CONTRASTE: el degradado va de #f21c11 a #c90500, los DOS mas oscuros que el
+     #e10600 plano de la v8 => el texto --ink (casi blanco) contrasta MAS que
+     antes, no menos. El piso del molde (4,70:1 sobre #e10600) no se toca. */
+  .btn{--notch:12px;border:1.5px solid #ff4133;border-radius:3px;background:linear-gradient(180deg,#f21c11,#c90500);text-transform:uppercase;letter-spacing:.005em;box-shadow:none;clip-path:polygon(0 0,calc(100% - var(--notch)) 0,100% var(--notch),100% 100%,var(--notch) 100%,0 calc(100% - var(--notch)));filter:drop-shadow(0 8px 16px rgba(225,6,0,.55)) drop-shadow(0 0 22px rgba(225,6,0,.35));transition:transform .15s ease,filter .15s ease,background .15s ease,border-color .15s ease}
+  .btn:hover{transform:translateY(-2px);background:linear-gradient(180deg,#ff2f22,#e10600);border-color:#ff8a75;box-shadow:none;filter:drop-shadow(0 13px 20px rgba(225,6,0,.8)) drop-shadow(0 0 36px rgba(225,6,0,.6))}
+  .btn.big{--notch:16px}
+  nav .btn,.buybar .btn{--notch:10px}
+  .btn.ghost{background:transparent;border-color:rgba(255,138,117,.75);filter:none}
+  .btn.ghost:hover{background:rgba(225,6,0,.12);border-color:var(--acc);filter:none}
+  .btn[aria-disabled="true"]{background:var(--panel2);border-color:var(--line);filter:none}
+
+  /* ── 5 · MOVIMIENTO: prefers-reduced-motion ───────────────────────────────
+     Quien pidio menos movimiento no recibe ninguno de los efectos nuevos (ni el
+     scroll suave del molde). La piel se ve igual: lo que se apaga es el viaje. */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn,.card,.fx,.bump,.vr.vb{transition:none}
+    .btn:hover,.card:hover,.fx:hover{transform:none}
+  }
+  @media(max-width:820px){
+    /* la barra de compra paga las mayusculas del boton con menos relleno: el
+       boton queda en ~199 px contra los 224 px de la v8, o sea el precio de la
+       izquierda gana lugar en vez de perderlo. */
+    .buybar .btn{padding:12px 15px;font-size:1rem}
+  }
+
+  /* ══════════════ v10 · EL CORTE DEL HERO + RAYAS DE PISTA ═══════════════════
+     Cierra lo unico que la v9 dejo afuera de la piel: el HERO no estaba cortado
+     (los 3 cortes vivian en .cinta, #comprar y footer) y las rayas de pista
+     existian solo dentro de los eyebrow. Igual que la v9: SOLO PIEL. Aca no se
+     movio ni una etiqueta, ni una palabra de copy, ni un link de pago.
+
+     ── POR QUE NO SE RECORTA EL FONDO DEL HERO ─────────────────────────────────
+     El fondo del header son 2 resplandores MEDIDOS (rojo al 16% + amarillo al 8%:
+     esos numeros son los que dejan al peor texto de la zona en AAA). Moverlo a un
+     ::before para recortarlo obligaria a re-medir el hero entero. Asi que no se
+     toca: el corte lo hace una PIEZA NUEVA que vive completa en el relleno de
+     abajo del hero, donde no hay un solo caracter. Dos consecuencias: el
+     contraste del hero queda identico al de la v9, y si clip-path no existiera la
+     pieza se ve recta y no se rompe nada.
+
+     ── EL GRADO ES EL MISMO ────────────────────────────────────────────────────
+     Reusa --sk, o sea la cuna cae los MISMOS 2-3 grados que los otros 3 cortes y
+     en el MISMO sentido (sube hacia la derecha) que el corte de arriba de la
+     cinta, que va justo debajo: los dos sesgos se leen como UNA sola costura.
+     Por eso la cuna va SIN hilo rojo propio: el hilo de la cinta ya esta a --sk
+     de distancia y dos hairlines paralelos se ven como un error, no como una
+     costura.
+
+     ── LA CAIDA SE PAGA CON RELLENO ────────────────────────────────────────────
+     El hero suma --sk abajo (el mismo trato que .cinta/#comprar/footer) y la cuna
+     mide --sk + 26 px: a 1280 px son 72 px dentro de un relleno de 106, y a
+     390 px son 46 dentro de 80. La punta del corte NUNCA alcanza a las cifras
+     (.badges), que son el ultimo contenido del hero.                           */
+  header{padding-bottom:calc(60px + var(--sk))}
+  header>*{position:relative;z-index:1}
+  header::before{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--sk) + 26px);z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--deep),rgba(8,5,5,.35));clip-path:polygon(0 var(--sk),100% 0,100% 100%,0 100%)}
+  /* LAS RAYAS. Son ROJAS y no amarillas por la misma regla de la paleta que ya
+     gobierna la pagina: amarillo = lo que te REGALAN (bono, garantia), rojo = lo
+     que PAGAS y todo lo demas. Un rayado amarillo decorativo le robaria la senal
+     a la garantia.
+     Van al MISMO angulo (112deg) que las rayas de los eyebrow, y solo contra el
+     borde DERECHO: es un bloque de velocidad, no un rayado parejo de punta a
+     punta. El mask las disuelve hacia adentro para que no quede el canto vertical
+     de donde arranca el pack (si mask no existe, el rayado va de lado a lado y
+     tampoco se rompe nada). Viven DENTRO de la cuna -- la unica franja de la
+     pagina sin una letra encima -- asi que su 42% no entra en ninguna medicion
+     de contraste. */
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--sk) + 26px);z-index:0;pointer-events:none;background:repeating-linear-gradient(112deg,rgba(225,6,0,.42) 0 3px,transparent 3px 13px);-webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 58%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,transparent 58%,#000 100%);clip-path:polygon(0 var(--sk),100% 0,100% 100%,0 100%)}
+
+  /* ══════════════ v11 · EQUIVALENCIAS POR PAIS ═══════════════════════════════
+     MATA-OBJECIONES de la cinta de logos. La objecion real del comprador de
+     LATAM es "mi moto es una AKT / Italika / Bera, esa marca no tiene manual de
+     fabrica". La respuesta honesta: el logo del tanque no es quien diseno la
+     maquina. Buena parte de lo que rueda en la region son plataformas de un OEM
+     chino (Zongshen, Loncin, Lifan, Shineray) importadas o ensambladas con
+     emblema local.
+
+     ── LA REGLA DE VERDAD (esto es lo que gobierna el copy) ────────────────────
+     Se afirma SOLO a nivel PLATAFORMA: marca local = logo sobre maquina de un
+     OEM chino. Eso es lo verificable y es lo que hace util al manual.
+     NO se publica ninguna tabla modelo-a-modelo: no toda marca local usa la
+     misma plataforma en todos sus modelos, y una equivalencia exacta inventada
+     es una devolucion asegurada. La UNICA equivalencia exacta de la pagina es
+     la documentada (Zongshen RX3 = AKT TT 250 AdvenTour, Colombia) y por eso
+     vive en su PROPIA caja, fuera de la rejilla y rotulada como caso
+     documentado. Si manana se documenta otra, entra ahi; la rejilla no cambia.
+
+     ── PIEL ────────────────────────────────────────────────────────────────────
+     Cero tokens nuevos: --panel/--panel2/--line/--acc/--acc2 y el borde
+     izquierdo de acento que ya usa .ob. El rojo nunca se usa como texto chico
+     (mide 3,95:1): el texto de acento va en --acc2, que sobre --panel con el
+     rojo al 10% queda en 7,05:1 (AAA), la misma medicion que ya gobierna .bump.
+     El amarillo NO aparece: en esta pagina amarillo = lo que te REGALAN (bono,
+     garantia), y esta seccion no regala nada, explica.
+     SIN corte diagonal: los 4 sesgos de la v9/v10 (hero, cinta, #comprar, pie)
+     ya reparten el ritmo; un 5o vuelve la pagina un cuadriculado.
+     Las BANDERAS van en caja propia con line-height:1 por la misma medicion que
+     manda en .vr .vi: el emoji suelto en el renglon se pinta ~60% mas grande que
+     la mayuscula que acompana y desalinea la fila. Son indicadores regionales,
+     asi que donde no hay fuente de banderas (Windows) degradan al par de letras
+     del pais -- se sigue leyendo, no queda un tofu. */
+  .eqv-lead{max-width:720px}
+  .eqv-lead b{color:var(--tx)}
+
+  /* LA CADENA: 3 eslabones con la flecha afuera. En movil la flecha gira 90
+     grados con el MISMO caracter: no se carga un segundo glifo para bajarla. */
+  .eqv-cad{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:28px 0 4px}
+  .eqv-esl{flex:1 1 210px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:12px;padding:14px 17px;box-shadow:-6px 0 22px -16px rgba(225,6,0,.9)}
+  .eqv-esl b{display:block;font-family:var(--disp);font-weight:900;font-size:1.02rem;letter-spacing:-.02em}
+  .eqv-esl span{display:block;color:var(--mut);font-size:.95rem;margin-top:4px;line-height:1.4}
+  .eqv-ar{display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--acc2);font-weight:900;font-size:1.35rem;line-height:1}
+
+  .eqv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+  .eqv-c{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 0 0 1px rgba(225,6,0,.08),0 14px 34px -24px rgba(225,6,0,.7)}
+  .eqv-pais{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:1.06rem;letter-spacing:-.025em;text-transform:uppercase;margin-bottom:13px}
+  .eqv-fl{flex:0 0 28px;width:28px;height:28px;font-size:21px;line-height:1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+  /* la tarjeta de Bolivia y Peru lleva DOS banderas: la caja se ensancha en vez
+     de encoger el glifo, asi el dibujo mide lo mismo que en las otras 5. */
+  .eqv-fl.dos{flex:0 0 52px;width:52px;gap:3px}
+  /* rotulo de fila: --dim sobre --panel da 9,17:1, muy arriba del piso AAA de 7
+     aun siendo texto chico. No va en --acc3 a proposito (ver PIEL). */
+  .eqv-rot{font-size:.72rem;font-weight:800;line-height:1;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+  .eqv-chips{display:flex;flex-wrap:wrap;gap:7px}
+  .eqv-ch{font-size:.92rem;font-weight:700;line-height:1.25;padding:5px 12px;border-radius:999px;background:var(--panel2);border:1px solid var(--steel);color:var(--tx)}
+  /* la marca LOCAL es la que el comprador reconoce: se pinta con el acento */
+  .eqv-ch.loc{background:rgba(225,6,0,.10);border-color:rgba(225,6,0,.55);color:var(--acc2)}
+  .eqv-baja{color:var(--acc2);font-weight:900;font-size:1.05rem;line-height:1;margin:11px 0 9px}
+  .eqv-pie{color:var(--mut);font-size:.95rem;line-height:1.45;margin-top:12px;border-top:1px solid var(--line);padding-top:11px}
+
+  /* EL CASO DOCUMENTADO: la unica equivalencia exacta de modelo de la pagina */
+  .eqv-caso{margin-top:26px;background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:14px;padding:22px 24px;box-shadow:-6px 0 22px -16px rgba(225,6,0,.9),0 12px 30px -24px rgba(225,6,0,.6)}
+  .eqv-caso h3{font-family:var(--disp);font-size:1.12rem;text-transform:uppercase;letter-spacing:-.03em}
+  .eqv-caso p{color:var(--mut);font-size:1.02rem;margin-top:11px}
+  .eqv-caso p b{color:var(--tx)}
+  .eqv-par{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:13px}
+  .eqv-par .eqv-ig{color:var(--acc2);font-weight:900;font-size:1.15rem;line-height:1}
+  .eqv-par .eqv-pa{font-size:.95rem;color:var(--mut)}
+
+  .eqv-nota{margin-top:18px;background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px 17px;color:var(--mut);font-size:.98rem;line-height:1.5}
+  .eqv-nota b{color:var(--acc2)}
+
+  @media(max-width:820px){
+    .eqv-grid{grid-template-columns:repeat(2,1fr)}
+    /* la cadena se apila y la flecha baja girada: un solo glifo, dos usos */
+    .eqv-esl{flex:1 1 100%}
+    .eqv-ar{flex:1 1 100%;transform:rotate(90deg);margin:-3px 0}
+  }
+  @media(max-width:520px){
+    .eqv-grid{grid-template-columns:1fr;gap:14px}
+    .eqv-c{padding:16px 17px}
+    .eqv-caso{padding:19px 17px}
+    /* el par no cabe en un renglon a 390 px y el "=" quedaba colgando al final
+       de la primera linea, como si sobrara. Apilado se lee como la cadena de
+       arriba: plataforma / = / emblema local. */
+    .eqv-par{flex-direction:column;align-items:flex-start;gap:7px}
+  }
+  @media (prefers-reduced-motion:reduce){.eqv-c{transition:none}}
+
+  /* ══════════════ v12 · LOOK OFICIAL + CONFIANZA ═════════════════════════════
+     ORDEN C1/4. Cuatro piezas de CONFIANZA con el remate de una marca oficial
+     (referencia: la barra y el pie de un sitio de fabrica tipo Yamaha):
+       1) la BARRA de arriba deja de ser un ancla y pasa a llevar el CTA DE COMPRA
+       2) SELLOS DE PAGO + candado SSL pegados al boton
+       3) BADGE DE GARANTIA visible (de por vida + soporte + satisfaccion)
+       4) PIE serio (contacto, WhatsApp de soporte, Terminos, Privacidad)
+     mas el cierre tipografico: la mayuscula condensada baja al ultimo nivel de
+     titulo que faltaba y a los rotulos de las cifras.
+
+     ── CERO TERCEROS, DE VERDAD ────────────────────────────────────────────────
+     No sale UN solo request nuevo de esta pagina. Los sellos de pago no son
+     imagenes bajadas de la red ni un kit de marca: son DIBUJO PROPIO, CSS y SVG
+     en linea sobre la tipografia que ya se auto-hospeda en ./fonts/. Por eso los
+     wordmarks (VISA, mastercard, Amex, PayPal, Mercado Pago) van como TEXTO VIVO
+     y no como path: el texto escala, pesa 0 bytes extra y no es la reproduccion
+     de un logotipo.
+     -> ANTES DE PUBLICAR: cada red de pago tiene su propio manual de marca. Lo
+        de aca es un marcador honesto y consistente, NO el kit oficial. Y los
+        sellos que la pasarela no acepte de verdad se borran de los <li> del
+        .pay-row (un solo lugar, en la seccion #comprar).                        */
+
+  /* ── 1 · LA BARRA OFICIAL ──────────────────────────────────────────────────
+     Ya era sticky en el molde (position:sticky;top:0). Lo que cambia:
+     (a) el boton de la derecha era un ANCLA a #comprar y ahora es un CTA DE
+         COMPRA de verdad: lleva data-buy, o sea lo cablea el MISMO up() que a
+         los otros cuatro, con el mismo link, el mismo precio y el mismo valor
+         de pixel. Un solo lugar, igual que siempre.
+     (b) hilo de acento de 2px pegado al canto de arriba: es el gesto con el que
+         las barras de fabrica firman la pagina. Va SOLIDO y en --acc, no en
+         degradado al amarillo, porque en esta pagina el amarillo esta reservado
+         (amarillo = lo que te protege/regala) y un adorno no se lo gasta.
+     (c) el fondo sube de .88 a .94 de opacidad: por debajo de la barra desfilan
+         las rayas de pista del hero (rojo al 42%) y a .88 se transparentaban
+         contra el wordmark de la marca.                                       */
+  nav{background:rgba(16,10,10,.94)}
+  nav::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--acc);opacity:.85;pointer-events:none}
+  nav .wrap{height:66px;gap:16px}
+  .nav-der{display:flex;align-items:center;gap:16px;flex-shrink:0}
+  nav .btn{flex-shrink:0}
+  /* "PAGO SEGURO" con candado: el unico refuerzo que entra en la barra, y solo
+     en escritorio (a 390px competiria por los px del boton). --acc2 mide 8,54:1
+     sobre --bg, o sea aguanta texto chico en AAA. */
+  .nav-seg{display:flex;align-items:center;gap:7px;font-size:.82rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--acc2);white-space:nowrap}
+  /* el precio dentro del boton de la barra se esconde en movil: alla el precio
+     ya lo canta la .buybar de abajo, y sin esconderlo el boton mas la marca se
+     pasaban de los 320px utiles que quedan a 360 de pantalla (medido: 339). */
+  .nav-p::before{content:"\00b7";margin-right:7px;opacity:.7}
+
+  /* ── 2 · SELLOS DE PAGO + CANDADO SSL ─────────────────────────────────────
+     EL CHIP ES BLANCO a proposito y no una pastilla oscura: es el mismo trato
+     que ya reciben los 34 logos de la cinta (.cinta-item), o sea esta pagina ya
+     resolvio antes "como se ve una marca ajena sobre el sustrato negro". Y las
+     marcas de pago se publican sobre fondo claro en todos sus manuales.       */
+  .ico-lock{flex:0 0 18px;width:18px;height:18px;display:block}
+  .nav-seg .ico-lock{flex-basis:16px;width:16px;height:16px}
+  .pay{margin-top:18px}
+  .pay-hd{display:flex;align-items:flex-start;justify-content:center;gap:9px;text-align:left;color:var(--mut);font-size:.95rem;line-height:1.4;margin-bottom:13px}
+  .pay-hd .ico-lock{color:var(--acc2);margin-top:2px}
+  .pay-hd b{color:var(--tx)}
+  /* EL ANCHO TOPE ES LO QUE DECIDE DONDE PARTE EL RENGLON. Con 5 sellos ya no
+     caben en una linea (miden 531px sumados y la tarjeta da 470), asi que van a
+     partirse igual: la unica pregunta es DONDE. Sin tope, en escritorio quedaba
+     4 + 1 y Mercado Pago se quedaba solo y huerfano abajo. Con 340px parte en
+     3 + 2 (Visa/Mastercard/Amex arriba = 286px, PayPal/Mercado Pago abajo =
+     237px), que es EXACTAMENTE como ya partia solo en movil, donde el ancho
+     disponible es 308. O sea: el tope no cambia el movil (308 < 340, no llega a
+     morder) y hace que escritorio se vea igual que el. */
+  .pay-row{list-style:none;display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:0 auto;padding:0;max-width:340px}
+  .pay-b{flex:0 0 auto;height:38px;padding:0 12px;display:flex;align-items:center;justify-content:center;gap:7px;border-radius:8px;background:linear-gradient(180deg,#fff,#f3ecec);box-shadow:0 3px 12px -5px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.30)}
+  .pay-w{font-family:var(--disp);font-weight:900;line-height:1;white-space:nowrap}
+  /* ORDEN D/5 · LOS SELLOS SE VUELVEN LATAM ────────────────────────────────
+     SALEN pse y nequi (eran COLOMBIA y nada mas: un mecanico de Lima, Quito o
+     Guadalajara no tiene ni lo uno ni lo otro, y un sello que el visitante no
+     puede usar no da confianza, la quita). ENTRAN los cuatro que si cruzan el
+     continente: Visa, Mastercard, American Express y PayPal son de alcance
+     internacional, y Mercado Pago es la billetera propia de la region.
+     Se mantiene el molde: chip blanco + wordmark en el color de SU marca, todo
+     texto vivo y CSS/SVG en linea. CERO requests nuevos, igual que antes.
+     Contraste medido sobre el canto mas oscuro del chip (#f3ecec, L=0,851):
+       visa #1434cb 7,6:1 · mastercard #231f20 15,6:1 · paypal #003087 10,2:1
+       · mercado pago #2d3277 9,8:1.
+     AMEX es la excepcion y por una razon medible: su azul #006fcf sobre el chip
+     da 4,3:1, o sea NO llega al 4,5:1 de texto normal. La marca de verdad es una
+     PLACA azul con la letra en blanco -- y asi medido es #fff sobre #006fcf =
+     5,0:1, que si pasa. O sea el dibujo fiel es tambien el accesible.           */
+  .pay-b.visa .pay-w{color:#1434cb;font-style:italic;font-size:1.05rem;letter-spacing:.02em;text-transform:uppercase}
+  .pay-b.mc .pay-w{color:#231f20;font-size:.72rem;letter-spacing:-.01em;text-transform:lowercase}
+  /* AMEX: la placa azul de la tarjeta. El chip le baja el padding porque la
+     placa ya trae el suyo, si no el sello quedaba mas ancho que los otros 4. */
+  .pay-b.amex{padding:0 8px}
+  .pay-b.amex .amx{display:flex;align-items:center;justify-content:center;height:24px;padding:0 8px;border-radius:3px;background:#006fcf}
+  .pay-b.amex .pay-w{color:#fff;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase}
+  .pay-b.pp .pay-w{color:#003087;font-size:1.02rem;letter-spacing:-.025em}
+  .pay-b.mp .pay-w{color:#2d3277;font-size:.92rem;letter-spacing:-.015em}
+  .pay-g{flex:0 0 16px;width:16px;height:16px;display:block}
+  /* el sello dice "AMEX" (es lo que dice la propia tarjeta y es lo que cabe en
+     un chip de 38px); el nombre completo va aca para el lector de pantalla, que
+     de otro modo leeria una sigla suelta en una lista rotulada "Medios de pago". */
+  .pay-row .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+  /* el renglon LatAm: va en --dim (10,4:1 sobre --bg, o sea AAA aun a .85rem)
+     igual que la nota de moneda de la tarjeta, porque es la misma clase de letra
+     chica y no debe competir con los sellos que tiene justo encima. */
+  .pay-latam{margin:12px 0 0;color:var(--dim);font-size:.85rem;line-height:1.45;text-align:center}
+  .pay-latam b{color:var(--mut)}
+  /* LOS DOS DISCOS DE MASTERCARD, en CSS y sin una sola imagen. Geometria: caja
+     de 26x17, disco de 17 pegado a cada canto => los centros quedan a 9px y la
+     lente del cruce mide 8px de ancho. El cruce NO se hace con mix-blend (el
+     multiply de #eb001b por #f79e1b da rojo oscuro, no el naranja de la marca):
+     es un TERCER disco naranja recortado por clip-path con la circunferencia del
+     disco derecho, asi que la lente sale con sus DOS arcos de verdad y no con un
+     canto vertical. Si clip-path faltara se ven 2 discos juntos y la marca se
+     sigue leyendo. */
+  .mc-d{position:relative;flex:0 0 26px;width:26px;height:17px}
+  .mc-d i{position:absolute;top:0;width:17px;height:17px;border-radius:50%}
+  .mc-d i.a{left:0;background:#eb001b}
+  .mc-d i.b{right:0;background:#f79e1b}
+  .mc-d i.c{left:0;background:#ff5f00;clip-path:circle(8.5px at 17.5px 8.5px)}
+
+  /* ── 3 · BADGE DE GARANTIA ────────────────────────────────────────────────
+     Va AMARILLO y eso no es gusto: en esta pagina el amarillo ya significa "lo
+     que te protege / lo que te regalan" (lo dice la paleta, lo cumplen .guar y
+     los bonos) y el rojo significa "lo que PAGAS". Un badge de garantia en rojo
+     se leeria como un cargo mas. --acc3 mide 13,7:1 sobre --bg.
+     Los 3 sellos (de por vida · soporte · satisfaccion) salen DOS veces a
+     proposito: compacto pegado al boton (donde se decide) y completo en su
+     propia seccion (donde se confirma).                                       */
+  .gbadge{margin:16px 0 0;display:flex;align-items:flex-start;gap:13px;text-align:left;background:linear-gradient(135deg,rgba(255,212,0,.10),rgba(255,212,0,.04));border:1px solid rgba(255,212,0,.55);border-radius:14px;padding:14px 16px}
+  .gb-s{flex:0 0 34px;width:34px;height:34px;display:block;color:var(--acc3)}
+  /* C1b · EL ROTULO DEL SELLO. El badge ya decia las tres promesas pero no se
+     nombraba: al lado del boton se leia como una lista de bullets mas, no como
+     un SELLO. Dos palabras en la tipografia de display y mayuscula espaciada
+     (el mismo tratamiento de .eyebrow y .res-rot) es lo que lo convierte en
+     sello. Sigue amarillo por la misma razon que el resto del badge: amarillo =
+     lo que te protege. --acc3 sobre --bg mide 13,7:1.                         */
+  .gb-b{min-width:0}
+  .gb-t{font-family:var(--disp);font-weight:900;font-size:.82rem;line-height:1;letter-spacing:.1em;text-transform:uppercase;color:var(--acc3);display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  /* el punto medio se dibuja, no se escribe: un &middot; entre dos mayusculas
+     espaciadas queda pegado a la palabra de la izquierda. */
+  .gb-t i{width:5px;height:5px;border-radius:99px;background:var(--acc3);flex:none;opacity:.8}
+  .gbadge ul{list-style:none;display:grid;gap:4px;margin:0;padding:0;min-width:0}
+  .gbadge li{position:relative;padding-left:18px;color:var(--mut);font-size:.95rem;line-height:1.32;overflow-wrap:anywhere}
+  .gbadge li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--acc3);font-weight:900}
+  .gbadge li b{color:var(--tx)}
+  /* el sello dibujado reemplaza al emoji escudo del molde: el emoji lo pintaba
+     cada sistema con su propio dibujo (y con su propio tamano, la medicion de
+     .vr .vi), el SVG se ve igual en los tres. */
+  .guar-seal{width:78px;height:78px;display:block;margin:0 auto 14px;color:var(--acc3)}
+  .guar-3{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 0;padding:0;text-align:left}
+  .guar-3 li{background:var(--panel);border:1px solid rgba(255,212,0,.35);border-radius:14px;padding:17px 18px}
+  .guar-3 .g-ic{width:26px;height:26px;display:block;color:var(--acc3);margin-bottom:10px}
+  .guar-3 b{display:block;font-family:var(--disp);font-weight:900;font-size:1rem;text-transform:uppercase;letter-spacing:-.025em;line-height:1.1;margin-bottom:6px}
+  .guar-3 span{display:block;color:var(--mut);font-size:.95rem;line-height:1.42}
+
+  /* ── 4 · EL PIE SERIO ─────────────────────────────────────────────────────
+     REVIERTE una decision del molde, que decia textualmente: "el pie no lleva
+     renglon de enlaces legales; las PAGINAS de legales se publican y responden
+     200, lo que no va es el renglon". La orden C1/4 pide lo contrario y en este
+     contexto tiene razon: sin contacto ni legales a la vista, una pagina de pago
+     unico se lee como desechable -- y la pasarela los va a exigir igual.
+
+     ── PERO NO SE PUBLICA UN 404 ──────────────────────────────────────────────
+     El correo, el WhatsApp y las dos paginas de legales TODAVIA NO EXISTEN, y
+     esta pagina ya tiene doctrina para eso (el og:image comentado, el src de
+     video vacio, el link de pago en '#STRIPE-PENDIENTE'): un tag que apunta a
+     un archivo que no esta solo da 404. Asi que los 4 destinos viven en UN solo
+     bloque de constantes (script PIE-PENDIENTE) y mientras valgan null el enlace
+     se pinta apagado, SIN href -- o sea no navega, no ensucia la URL con un hash
+     muerto y no se puede enfocar -- y muestra su "(pendiente)" a la vista. El
+     dia que se llenen las 4 constantes se encienden solos.                    */
+  /* ── C1b · LAS DOS COLUMNAS QUE FALTABAN ──────────────────────────────────
+     El pie serio de C1/4 quedo a medias (la orden murio por timeout): tenia
+     marca + contacto + legal, le faltaban PRODUCTO y REDES, y le faltaba el
+     bloque de constantes que prometia su propio comentario. Aca se cierran las
+     tres cosas.
+       - PRODUCTO no inventa ni un destino: son los CINCO anclas que ya existen
+         en el cuerpo (#contenido, #equivalencias, #resenas, #faq, #garantia),
+         las mismas cuatro de la barra mas garantia. Si una seccion se borra del
+         HTML, el script del pie apaga su enlace (no se publica un ancla muerta).
+       - REDES son fichas de icono, no renglones: tres cuentas en una columna
+         angosta como lista con texto no caben, y un pie de marca oficial las
+         pone asi. Nacen APAGADAS igual que el resto del pie -- las cuentas
+         todavia no existen y una red falsa es peor que ninguna.
+     EL ANCHO: --max es 1080px, o sea 1040 utiles. Cinco pistas con 24px de
+     calle dejan 944px repartidos 1.5/1/1.1/1.05/.8 = 260/173/190/181/138. Las
+     tres fichas de red miden 3x36 + 2x9 = 126px, entran en 138. Debajo de
+     1040px el pie ya no cabe en cinco y pasa a dos columnas con la marca
+     cruzada; a 820px cae a una sola (regla que ya existia).                   */
+  footer{text-align:left}
+  .ft-top{display:grid;grid-template-columns:1.5fr 1fr 1.1fr 1.05fr .8fr;gap:30px 24px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+  .ft-marca .logo{gap:14px;margin-bottom:14px}
+  .ft-que{color:var(--mut);font-size:.98rem;line-height:1.5;max-width:340px}
+  .ft-h{font-family:var(--sans);font-size:.72rem;font-weight:800;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2);margin-bottom:14px}
+  .ft-l{list-style:none;display:grid;gap:11px;margin:0;padding:0}
+  .ft-l a{display:inline-flex;align-items:flex-start;gap:9px;color:var(--tx);font-size:.98rem;line-height:1.35;border-bottom:1px solid transparent;overflow-wrap:anywhere}
+  .ft-l a[href]:hover{color:var(--acc2);border-bottom-color:rgba(255,138,117,.6)}
+  .ft-ic{flex:0 0 17px;width:17px;height:17px;margin-top:2px}
+  .ft-wa .ft-ic{color:#25d366}   /* 9,89:1 sobre --bg: de sobra para un glifo */
+  /* el enlace todavia sin destino: apagado y sin subrayado, la misma senal que
+     el .btn[aria-disabled] del molde. */
+  .ft-l a[aria-disabled="true"]{color:var(--dim);cursor:not-allowed}
+  .ft-pend{font-style:normal;color:var(--acc2);font-size:.82rem;font-weight:700;white-space:nowrap}
+  /* PRODUCTO: la misma lista, sin icono (son secciones de ESTA pagina, no
+     canales de contacto; un icono por renglon ahi solo hace ruido). */
+  .ft-l.ft-sec a{gap:0}
+  /* REDES: ficha cuadrada. El area tactil es de 36px y va sobre --panel, o sea
+     el mismo relieve de .guar-3 li -- no un boton nuevo. */
+  .ft-red{list-style:none;display:flex;flex-wrap:wrap;gap:9px;margin:0;padding:0}
+  .ft-red a{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:var(--panel);border:1px solid var(--line);color:var(--tx)}
+  .ft-red a[href]:hover{border-color:var(--acc);color:var(--acc)}
+  .ft-red a[aria-disabled="true"]{color:var(--dim);cursor:not-allowed}
+  .ft-red svg{width:19px;height:19px;display:block}
+  .ft-nota{color:var(--dim);font-size:.85rem;line-height:1.35;margin:11px 0 0}
+  .ft-bar{display:flex;flex-wrap:wrap;gap:9px 22px;align-items:center;justify-content:space-between;padding-top:22px;color:var(--dim);font-size:.92rem}
+  .ft-seg{display:inline-flex;align-items:flex-start;gap:8px}
+  .ft-seg .ico-lock{flex-basis:16px;width:16px;height:16px;margin-top:1px;color:var(--steel)}
+
+  /* ── 5 · EL CIERRE TIPOGRAFICO ────────────────────────────────────────────
+     La v9 puso la mayuscula condensada en h1, h2.title y los h2 de la cinta y de
+     la banda. Faltaba el ULTIMO nivel de titulo (los h3 de tarjeta y de paso) y
+     los rotulos de las cifras, que son justo los que hacen que una pagina se lea
+     como una ficha de fabrica.
+     "Condensada" aca NO es un eje de ancho: los 4 woff2 de ./fonts/ son
+     variables SOLO en peso (font-weight:100 900, sin eje wdth). La condensacion
+     sale de Inter TIGHT mas interletra negativa, que es exactamente lo que ya
+     hace la v9 -- no hay una 5a fuente que bajar.
+     TRES titulos quedan AFUERA a proposito:
+       - summary (FAQ e indice de contenido) son PREGUNTAS y renglones largos: en
+         mayuscula pierden la silueta de palabra y se leen a gritos. Y encima el
+         target de esta pagina tiene 45+ anos (por eso la base es 17px).
+       - .ob h3 es una CITA del comprador, con sus comillas tipograficas: en
+         mayuscula deja de ser alguien hablando.
+       - .eqv-caso h3 ya venia en mayuscula desde la v11.
+     Los rotulos de .badges pasan a mayuscula CON el cuerpo intacto (1rem = 17px,
+     la regla de presbicia de la v4 no se negocia): el unico que no cabe en un
+     renglon es "manuales de taller" y baja a dos, que en una rejilla de 4 donde
+     manda la cifra no desalinea nada (las 4 tarjetas comparten fila de grid). */
+  .card h3,.step h3{text-transform:uppercase;letter-spacing:-.03em}
+  .badge .l{text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+  /* v13 · ENLACE DE TEXTO. La hoja pone a{color:inherit;text-decoration:none}
+     para los enlaces-boton y los del pie, asi que un enlace DENTRO de un
+     parrafo (el del FAQ que manda a la tabla de equivalencias) seria invisible:
+     ni color ni subrayado. Este es el unico enlace de cuerpo de la pagina y va
+     con las DOS senales, color Y subrayado, porque el color solo no basta con
+     ~6% del publico que no separa rojo de verde. --acc2 mide 8,54:1. */
+  .lnk{color:var(--acc2);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+  .lnk:hover{color:var(--tx)}
+
+  /* v13 · RESENAS (orden C2/4) ──────────────────────────────────────────────
+     La seccion nace en modo BORRADOR y se VE que es un borrador. Eso no es
+     descuido: es la unica forma honesta de dejar armado el hueco de la prueba
+     social antes de tener un solo testimonio real.
+     Por eso el estilo del borrador es DELIBERADAMENTE distinto al de una
+     tarjeta terminada (borde punteado, amarillo de aviso, estrellas VACIAS) en
+     vez de parecerse a una: si el placeholder se viera como una resena de
+     verdad, cualquiera -- Esteban incluido -- podria olvidarlo puesto y estaria
+     mintiendole al comprador. El amarillo ya tiene esa funcion en esta paleta
+     (--acc3 = lo que NO se cobra / lo que se advierte), asi que no se inventa
+     un color nuevo para avisar.
+     Las ESTRELLAS del borrador van con trazo y sin relleno a proposito: cinco
+     estrellas pintadas ya son una afirmacion ("nos califican 5/5") aunque el
+     texto de al lado diga PENDIENTE. Vacias no afirman nada. El dia que la
+     resena sea real, .res-c.real las rellena. */
+  .res-grid{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:34px 0 0;padding:0}
+  .res-c{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px}
+  /* el borrador: punteado + un pelo de tinte amarillo, para que se lea "obra
+     en curso" de un golpe de ojo y no "testimonio". */
+  .res-c.borrador{border:1.5px dashed rgba(255,212,0,.55);background:linear-gradient(180deg,rgba(255,212,0,.045),transparent 60%),var(--panel)}
+  .res-est{display:flex;gap:4px;align-items:center}
+  /* la estrella se dibuja UNA vez (symbol #ic-est) y se instancia con <use>:
+     fill/stroke son propiedades HEREDADAS, asi que se controlan desde aca y
+     entran al shadow tree del <use>. Por eso el <path> del symbol no lleva
+     ningun atributo fill: un fill="none" en el propio path le ganaria a esta
+     hoja y el estado .real no podria rellenarlas nunca. */
+  .res-est svg{width:19px;height:19px;color:var(--acc3);flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round}
+  .res-c.borrador .res-est svg{opacity:.75}          /* vacias: solo trazo */
+  .res-c.real .res-est svg{fill:var(--acc3)}         /* rellenas: solo con resena real */
+  .res-rot{font-family:var(--disp);font-weight:900;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acc3);display:inline-flex;align-items:center;gap:7px}
+  .res-rot::before{content:"";width:8px;height:8px;border-radius:99px;background:var(--acc3);flex:none}
+  .res-q{color:var(--mut);font-size:1.05rem;line-height:1.5;margin:0}
+  .res-c.borrador .res-q{color:var(--dim);font-style:italic}
+  .res-pie{display:flex;align-items:center;gap:11px;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+  /* la inicial del avatar tambien queda vacia en borrador: una letra concreta
+     ya insinua una persona concreta. */
+  .res-av{width:38px;height:38px;border-radius:99px;flex:none;display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:1.05rem;background:var(--panel2);border:1px solid var(--line);color:var(--dim)}
+  .res-c.real .res-av{background:var(--acc);border-color:var(--acc);color:var(--ink)}
+  .res-quien{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+  .res-quien b{font-family:var(--disp);font-weight:800;font-size:1rem;color:var(--tx);letter-spacing:-.01em}
+  .res-quien span{font-size:.92rem;color:var(--dim)}
+  /* AVISO de la seccion. Es lo primero que se lee y dice exactamente en que
+     estado esta la seccion. No se maquilla. */
+  .res-aviso{display:flex;gap:13px;align-items:flex-start;margin:24px 0 0;padding:15px 18px;border:1.5px solid var(--acc3);border-radius:14px;background:rgba(255,212,0,.07)}
+  .res-aviso svg{width:24px;height:24px;flex:none;color:var(--acc3);margin-top:1px}
+  .res-aviso p{margin:0;color:var(--mut);font-size:1rem;line-height:1.48}
+  .res-aviso b{color:var(--acc3)}
+
+  /* C1b · el escalon intermedio del pie. Entre 821 y 1040px las cinco pistas
+     ya no caben (los rotulos de legal partirian en tres renglones), asi que el
+     pie pasa a dos columnas y la marca cruza las dos. */
+  @media(max-width:1040px){
+    .ft-top{grid-template-columns:1fr 1fr;gap:28px 24px}
+    .ft-marca{grid-column:1/-1}
+    .ft-que{max-width:none}
+    /* EL PRODUCTO tiene 5 renglones y CONTACTO dos: si las cuatro columnas
+       comparten fila, al lado de la lista larga queda un hueco muerto del alto
+       de tres renglones. La lista larga cruza las dos filas y las cortas se
+       apilan a su derecha. */
+    .ft-top>div:nth-child(2){grid-row:span 2}   /* :nth-child, no :nth-of-type: los 5 hijos son div */
+  }
+
+  @media(max-width:820px){
+    nav .wrap{height:60px;gap:10px}
+    .nav-seg{display:none}
+    .nav-p{display:none}
+    nav .btn{padding:10px 15px;font-size:.95rem}
+    /* .guar tenia 44px de relleno: a 390px de pantalla eso dejaba 262px utiles
+       dentro de la tarjeta. Con 20px quedan 310. */
+    .guar{padding:32px 20px}
+    .guar-3{grid-template-columns:1fr}
+    .res-grid{grid-template-columns:1fr}
+    .res-c{padding:18px}
+    .ft-top{grid-template-columns:1fr;gap:28px}
+    .ft-top>div:nth-child(2){grid-row:auto}   /* en una sola columna no cruza nada */
+    .ft-bar{justify-content:flex-start}
+  }
+
+  /* ══════════════ C1a · LA NAVEGACION OFICIAL ═════════════════════
+     Piel + un cable. Aca no se movio ni una palabra de copy, ni un precio, ni
+     un marcador (STRIPE / ASSET / PIXEL quedan donde estaban).
+
+     (1) LA BARRA CON NAVEGACION. Pegajosa ya era desde el molde; lo que le
+         faltaba para leerse como barra de fabrica (el patron de las paginas
+         oficiales de moto) eran las TRES piezas en una sola linea: marca a la
+         izquierda, SECCIONES al centro, CTA rojo a la derecha. Los links no
+         inventan destinos: apuntan a secciones que YA existen en el cuerpo
+         (#contenido, #equivalencias, #resenas, #faq). A las dos que no tenian
+         ancla se les puso un id y nada mas. Cuantos caben no se estimo: se
+         midio con el navegador, y el numero es CUATRO (ver mas abajo).
+     (2) SOMBRA AL BAJAR. En el tope la barra va limpia y pegada al hero; en
+         cuanto el scroll pasa de 8px se despega: sombra suave y el fondo de
+         .94 a .97. Es el unico estado nuevo (.nav-scr) y lo pone un listener
+         PASIVO con rAF (script del final), o sea cero reflow por evento.
+     (3) EL HUECO DEL ANCLA. Con barra fija de 66px y el scroll-behavior:smooth
+         del molde, cualquier #ancla aterrizaba DEBAJO de la barra y el titulo
+         quedaba tapado. scroll-padding-top en <html> lo arregla de una vez
+         para todos los links, incluido el que llega con hash desde fuera.
+     CONTRASTE: el link en reposo es --dim (10,4:1 sobre --bg) y en hover/foco
+     sube a --acc2 (8,54:1). Los dos por encima del piso AAA de 7, o sea el
+     estado activo no se paga con legibilidad.                                */
+  html{scroll-padding-top:84px}
+  nav{transition:background .2s ease,box-shadow .2s ease}
+  nav.nav-scr{background:rgba(16,10,10,.97);box-shadow:0 14px 34px -16px rgba(0,0,0,.95),0 2px 14px -6px rgba(225,6,0,.5)}
+
+  .nav-links{display:flex;align-items:center;gap:clamp(10px,1.7vw,22px);min-width:0;margin:0 auto}
+  .nav-links a{position:relative;display:block;padding:7px 2px;font-family:var(--disp);font-weight:800;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);text-decoration:none;white-space:nowrap;transition:color .15s ease}
+  /* el subrayado nace del centro, va en --acc y mide 2px: es EL MISMO hilo que
+     ya firma el canto de arriba de la barra, no un adorno nuevo. */
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:50% 50%;transition:transform .18s ease}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--acc2)}
+  .nav-links a:hover::after,.nav-links a:focus-visible::after{transform:scaleX(1)}
+  @media (prefers-reduced-motion:reduce){nav,.nav-links a,.nav-links a::after{transition:none}}
+
+  /* CUANTOS LINKS CABEN — medido, no estimado. El .wrap topa en --max:1080px,
+     asi que por ancha que sea la pantalla el renglon SIEMPRE tiene los mismos
+     1040px utiles. Adentro ya viven el lockup (156px) y el bloque derecho
+     "PAGO SEGURO" + CTA (382px), mas los 2 huecos de 16px: quedan 470px.
+     Con CINCO links el natural daba 470 CLAVADOS = holgura CERO, y cero
+     holgura no es que quepa: es que el dia que el navegador pinte el primer
+     frame con Roboto (la fallback, antes de que cargue Inter Tight) el ultimo
+     link se le monta al boton de compra. Por eso son CUATRO. "Garantia" es el
+     que sale, y es el que menos duele: no es un destino que se busque, es una
+     tranquilidad, y ya la dan el hero, la lista de precio, su propia seccion y
+     la ultima pregunta del FAQ. Con 4 el natural cae a ~376px => 94px de
+     holgura real.
+     Por debajo de 1040px se esconden: lo que se sacrifica es la NAVEGACION,
+     nunca el boton de compra. En movil la accion la lleva la barra flotante de
+     abajo, que desde esta version no se esconde jamas. */
+  @media(max-width:1040px){.nav-links{display:none}}
+  @media(max-width:820px){html{scroll-padding-top:74px}}
+
+  /* ── CTA FLOTANTE PERSISTENTE ──────────────────────────────────────
+     Antes la .buybar se APAGABA (display:none via IntersectionObserver)
+     mientras #comprar estaba en pantalla. Ahora no se apaga nunca en movil:
+     esta desde el primer pintado y se queda. La presencia no depende de JS
+     (la pone el display:flex del media query), asi que si el script muere el
+     boton sigue ahi.
+     El costo de que no se vaya es que tapa el final del documento, y se paga
+     con relleno abajo del <body>: alto de la barra + el area segura del
+     iPhone. Sin esto la ultima linea del footer queda debajo de la barra. */
+  @media(max-width:820px){
+    body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  }
+</style>
 <script>
 /* PIXEL DE META — TODO PIXEL-MOTOS-PENDIENTE ─────────────────────────────
    El pixel de ESTA oferta todavia no existe y lo decide Esteban. NO se hereda
@@ -428,31 +1072,165 @@ if (PIXEL_ID) {
 }
 </script>
 </head><body>
-<nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><a href="#comprar" class="btn">Ver el pack</a></div></nav>
+<nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><div class="nav-links"><a href="#contenido">Contenido</a><a href="#equivalencias">Marcas</a><a href="#resenas">Rese&ntilde;as</a><a href="#faq">Preguntas</a></div><div class="nav-der"><span class="nav-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>Pago seguro</span><a href="#STRIPE-PENDIENTE" class="btn" id="btn-nav" data-buy="1"><span>Comprar</span><span class="nav-p" id="btn-nav-p"></span></a></div></div></nav>
 
-<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el torque.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="device" aria-hidden="true"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><span class="tag">Con especificaciones</span><span class="rec">+900 manuales</span></div><div class="tl"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
+<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><div class="hero-trust"><span>&#9989; Pago &uacute;nico</span><span>&#9889; Acceso inmediato</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="device" aria-hidden="true"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><span class="tag">Con especificaciones</span><span class="rec">+900 manuales</span></div><div class="tl"><div class="tools"><i></i><i></i><i></i><i></i><i></i></div><div class="track"><div class="clip a"></div><div class="scrub"></div><div class="clip b"></div><div class="clip c"></div><div class="clip d"></div></div></div></div></div></div></div><div class="badges"><div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div><div class="badge"><div class="n">+40</div><div class="l">marcas cubiertas</div></div><div class="badge"><div class="n">25 GB</div><div class="l">de contenido</div></div><div class="badge"><div class="n">2T y 4T</div><div class="l">curso incluido</div></div></div></div></header>
 
-<!-- CINTA DE LOGOS: marquee CSS infinito con los 26 logos de img/logos/.
+<!-- CINTA DE LOGOS: marquee CSS infinito con los 34 logos de img/logos/.
      La lista va DUPLICADA (2do grupo aria-hidden) para que el bucle no tenga costura.
      Fallback sin animacion y prefers-reduced-motion: grilla estatica centrada. -->
-<section class="cinta" aria-label="Marcas cubiertas"><p class="cinta-lbl">M&aacute;s de 40 marcas cubiertas</p><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
+<section class="cinta" aria-label="Marcas cubiertas"><div class="cinta-hd"><h2>&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub"><b>+40 marcas</b> &middot; 34 en la cinta &middot; Honda &middot; Yamaha &middot; Italika &middot; AKT &middot; Bera &middot; Zanella y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="Logo Zanella" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="Logo Motomel" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bera.png" alt="Logo Bera Motorcycles" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="Logo Shineray" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="Logo Zongshen" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="Logo Loncin" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="Logo Lifan" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="Logo Keeway" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="Logo Vento" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bera.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
+
+<!-- EQUIVALENCIAS POR PAIS: el mata-objeciones que va pegado a la cinta de
+     logos ("no vi MI marca"). La REGLA DE VERDAD que gobierna este copy esta
+     escrita entera en el bloque "v11 · EQUIVALENCIAS POR PAIS" de la hoja:
+     se afirma a nivel PLATAFORMA y la unica equivalencia EXACTA de modelo es la
+     documentada, que vive en su propia caja. No agregar pares modelo-a-modelo
+     aca sin una fuente que los sostenga. -->
+<section id="equivalencias"><div class="wrap"><div class="eyebrow">Marcas de LATAM</div><h2 class="title">Tu moto puede tener otro nombre en tu pa&iacute;s</h2><p class="lead eqv-lead">Varias de las marcas que se venden en Latinoam&eacute;rica no dise&ntilde;an la moto: <b>le ponen su logo a una plataforma de un fabricante chino</b> &mdash; Zongshen, Loncin, Lifan o Shineray. Misma base de motor, mismo despiece, mismos torques. Por eso el manual de la <b>m&aacute;quina original de f&aacute;brica te sirve aunque el tanque diga otra cosa</b>.</p>
+
+<div class="eqv-cad"><div class="eqv-esl"><b>1 &middot; El fabricante</b><span>El OEM chino dise&ntilde;a y produce la plataforma: motor, chasis y el&eacute;ctrico.</span></div><div class="eqv-ar" aria-hidden="true">&rarr;</div><div class="eqv-esl"><b>2 &middot; La marca local</b><span>Importa o ensambla esa misma m&aacute;quina en tu pa&iacute;s.</span></div><div class="eqv-ar" aria-hidden="true">&rarr;</div><div class="eqv-esl"><b>3 &middot; El emblema</b><span>Cambia el logo y a veces el nombre del modelo. La mec&aacute;nica de adentro no cambia.</span></div></div>
+
+<div class="eqv-grid">
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl" aria-hidden="true">&#127474;&#127485;</span>M&eacute;xico</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">Italika</span><span class="eqv-ch loc">Vento</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Loncin</span><span class="eqv-ch">Lifan</span><span class="eqv-ch">Shineray</span></div><p class="eqv-pie">Marcas mexicanas de ensamble: el emblema es local, la plataforma viene del cat&aacute;logo de los OEM chinos.</p></div>
+
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl" aria-hidden="true">&#127464;&#127476;</span>Colombia</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">AKT</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Loncin</span><span class="eqv-ch">Lifan</span><span class="eqv-ch">Shineray</span></div><p class="eqv-pie">Es el caso mejor documentado de la regi&oacute;n, y est&aacute; abajo con nombre y apellido.</p></div>
+
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl" aria-hidden="true">&#127462;&#127479;</span>Argentina</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">Zanella</span><span class="eqv-ch loc">Motomel</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Loncin</span><span class="eqv-ch">Lifan</span><span class="eqv-ch">Shineray</span></div><p class="eqv-pie">Marcas argentinas con d&eacute;cadas de calle, hoy montadas en buena parte sobre plataformas chinas.</p></div>
+
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl" aria-hidden="true">&#127466;&#127464;</span>Ecuador</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">Shineray</span><span class="eqv-ch loc">Daytona</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Shineray</span><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Loncin</span><span class="eqv-ch">Lifan</span></div><p class="eqv-pie">Ac&aacute; Shineray vende con su <b>propio</b> nombre de f&aacute;brica: el logo del tanque ya es el del fabricante.</p></div>
+
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl" aria-hidden="true">&#127483;&#127466;</span>Venezuela</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">Bera</span><span class="eqv-ch loc">Keeway</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Loncin</span><span class="eqv-ch">Lifan</span><span class="eqv-ch">Shineray</span></div><p class="eqv-pie">Bera ensambla en Venezuela sobre plataformas chinas; Keeway es marca del grupo chino Qianjiang.</p></div>
+
+<div class="eqv-c"><div class="eqv-pais"><span class="eqv-fl dos" aria-hidden="true">&#127463;&#127476;&#127477;&#127466;</span>Bolivia y Per&uacute;</div><div class="eqv-rot">Lo que ves en la calle</div><div class="eqv-chips"><span class="eqv-ch loc">Zongshen</span><span class="eqv-ch loc">Lifan</span></div><div class="eqv-baja" aria-hidden="true">&darr;</div><div class="eqv-rot">Lo que hay debajo</div><div class="eqv-chips"><span class="eqv-ch">Zongshen</span><span class="eqv-ch">Lifan</span></div><p class="eqv-pie">Los dos renglones son el mismo: el OEM vende directo, sin emblema intermedio. Busca el manual por ese nombre.</p></div>
+</div>
+
+<div class="eqv-caso"><h3>Caso documentado</h3><div class="eqv-par"><span class="eqv-ch">Zongshen RX3</span><span class="eqv-ig" aria-hidden="true">=</span><span class="eqv-ch loc">AKT TT 250 AdvenTour</span><span class="eqv-pa">Colombia</span></div><p>La <b>AKT TT 250 AdvenTour</b> que se vende en Colombia es la <b>Zongshen RX3</b> con otro emblema: misma plataforma, mismo motor 250 y mismo despiece. Es la <b>&uacute;nica</b> equivalencia exacta de modelo que afirmamos en esta p&aacute;gina.</p></div>
+
+<div class="eqv-nota"><b>C&oacute;mo leer esta secci&oacute;n:</b> lo de arriba se afirma a nivel de <b>plataforma</b> &mdash; el logo cambia, la m&aacute;quina de f&aacute;brica es la misma familia. <b>No publicamos una tabla modelo por modelo</b>, porque una marca local no usa la misma plataforma en todos sus modelos y una equivalencia inventada te hace apretar un tornillo con el torque equivocado. Si tu moto es de ensamble, busca en la biblioteca por el <b>fabricante original</b>, por la cilindrada y por la familia de motor: ah&iacute; est&aacute; el manual que te sirve. Y si no lo encuentras, tienes <b>3 d&iacute;as de garant&iacute;a</b>.</div>
+</div></section>
 
 <!-- GALERIA DE VIDEO (misma mecanica del molde: poster + <video> detras, de a TOPE por IntersectionObserver) -->
 <section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Los mismos clips que ves en nuestros anuncios, servidos desde esta p&aacute;gina:</p><div class="gallery"><div class="fx g1" data-v="v1.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v1.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Despiece<br>del motor</span></div><div class="fx g2" data-v="v2.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v2.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3" data-v="v3.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v3.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4" data-v="v4.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v4.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5" data-v="v5.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v5.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6" data-v="v6.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v6.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Torques y<br>medidas</span></div><div class="fx g7" data-v="v7.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v7.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8" data-v="v8.mp4"><video class="fx-th" poster="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" width="432" height="576"><!-- ASSET-MOTOS-PENDIENTE: src="video/v8.mp4" — el clip todavia no existe, por eso el src va VACIO y solo se ve el poster placeholder --></video><span class="ply"></span><span>Curso 2T<br>y 4T</span></div></div></div></section>
 
 <!-- PRECIO / CTA -->
-<section id="comprar"><div class="wrap" style="text-align:center"><div class="eyebrow">Empieza hoy</div><h2 class="title">Un solo pago, acceso de por vida</h2><div class="price-card"><div style="color:var(--mut);font-size:.9rem">Precio de hoy</div><div class="price-now" id="precio-grande">&nbsp;</div><div style="color:var(--mut);margin-top:2px">pago &uacute;nico &middot; acceso de por vida</div><div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--:--</b></div><div style="color:var(--dim);font-size:.85rem;margin-top:10px">Precio en pesos colombianos (COP).</div><ul class="price-list"><li><b>+900 manuales de taller</b> de motos</li><li><b>+40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s</li><li><b>Despiece y montaje</b> paso a paso</li><li><b>Diagramas el&eacute;ctricos</b> y especificaciones</li><li><b>Mantenimiento y diagn&oacute;stico</b> por sistemas</li><li><b>Incluido</b>: Curso de Mec&aacute;nica de Motores 2T y 4T</li><li><b>25 GB</b> de contenido, 100% digital y descargable</li><li>Se usa <b>sin internet</b> y sin ocupar espacio en tu equipo</li><li>Garant&iacute;a de 3 d&iacute;as sin preguntas</li></ul><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Activa tu acceso hoy</a><div class="cta-note">Pago seguro &middot; Acceso inmediato al confirmar</div><div class="trust-row"><span>&#128274; Pago cifrado</span><span>&#128179; Visa &middot; Mastercard</span><span>&#128737;&#65039; Garant&iacute;a 3 d&iacute;as</span></div></div><div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>P&aacute;gina en preparaci&oacute;n:</b> el checkout todav&iacute;a no est&aacute; conectado. Por ahora el bot&oacute;n no cobra nada.</div></div></section>
+<section id="comprar"><div class="wrap" style="text-align:center"><div class="eyebrow">Empieza hoy</div><h2 class="title">Un solo pago, acceso de por vida</h2><div class="price-card"><div style="color:var(--mut);font-size:.9rem">Precio de hoy</div><div class="price-now" id="precio-grande">&nbsp;</div><div style="color:var(--mut);margin-top:2px">pago &uacute;nico &middot; acceso de por vida</div><div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--:--</b></div><!-- LA MONEDA, DOS VECES Y A PROPOSITO, pero cada una diciendo LO SUYO: aca,
+     pegado al numero, solo QUE MONEDA ES (es la duda del segundo en que se lee
+     el precio); y abajo, pegado a los sellos, COMO SE PAGA desde cada pais (es
+     la duda del segundo en que se mira con que tarjeta). Repetir la frase
+     entera en los dos sitios era ruido: se leia dos veces lo mismo con 40px de
+     diferencia. -->
+<div style="color:var(--dim);font-size:.85rem;margin-top:10px" id="precio-moneda">Precio en <b>d&oacute;lares estadounidenses (USD)</b>.</div><ul class="price-list"><li><b>+900 manuales de taller</b> de motos</li><li><b>+40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s</li><li><b>Despiece y montaje</b> paso a paso</li><li><b>Diagramas el&eacute;ctricos</b> y especificaciones</li><li><b>Mantenimiento y diagn&oacute;stico</b> por sistemas</li><li><b>Incluido</b>: Curso de Mec&aacute;nica de Motores 2T y 4T</li><li><b>25 GB</b> de contenido, 100% digital y descargable</li><li>Se usa <b>sin internet</b> y sin ocupar espacio en tu equipo</li><li>Garant&iacute;a de 3 d&iacute;as sin preguntas</li></ul><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Activa tu acceso hoy</a><div class="cta-note">Acceso inmediato al confirmar el pago</div>
 
-<!-- GARANTIA -->
-<section><div class="wrap"><div class="guar"><div class="shield">&#128737;&#65039;</div><h2 class="title" style="margin-bottom:10px">Garant&iacute;a de 3 d&iacute;as</h2><p class="lead" style="margin:0 auto">Si en 3 d&iacute;as no es lo que esperabas, se devuelve el <b>100%</b>. Sin preguntas.</p></div></div></section>
+<!-- SELLOS DE PAGO (orden C1/4, re-hechos LATAM por la orden D/5) — DIBUJO
+     PROPIO, cero requests: los wordmarks son TEXTO vivo con la fuente que ya se
+     auto-hospeda, y los unicos graficos son SVG en linea y CSS. No hay ni un
+     archivo de imagen ni un kit de marca, ni un request nuevo.
+     ── QUE CAMBIO (D/5 punto 4) ─────────────────────────────────────────────
+     Estaban pse y nequi, que son SOLO Colombia. La oferta se vende en toda
+     Latinoamerica, asi que el renglon pasa a los medios que valen en los 20
+     paises: Visa, Mastercard, American Express, PayPal y Mercado Pago.
+     ── DOS COSAS QUE HAY QUE MIRAR ANTES DE PUBLICAR ────────────────────────
+     (1) Los sellos tienen que coincidir con lo que la pasarela acepta DE VERDAD.
+         Este renglon es ahora COMPATIBLE con Stripe de una vez (las 3 redes de
+         tarjeta entran en un payment link), pero PayPal y Mercado Pago NO son
+         metodos de Stripe: o se habilitan aparte, o esos dos <li> se borran el
+         dia que se elija la pasarela. Es UN solo lugar: este .pay-row.
+     (2) La frase del candado habla del cifrado de la PASARELA, que es donde
+         pasa de verdad. Para que sea cierta de punta a punta el sitio tiene que
+         servirse por HTTPS al desplegar. -->
+<div class="pay"><div class="pay-hd"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg><span><b>Pago 100% seguro.</b> Tus datos de pago los cifra (SSL) y los procesa la pasarela: esta p&aacute;gina no los ve ni los guarda.</span></div><ul class="pay-row" aria-label="Medios de pago"><li class="pay-b visa" data-pago="visa"><span class="pay-w">Visa</span></li><li class="pay-b mc" data-pago="mastercard"><span class="mc-d" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></span><span class="pay-w">mastercard</span></li><li class="pay-b amex" data-pago="american-express"><span class="amx"><span class="pay-w">Amex</span></span><span class="vh">American Express</span></li><li class="pay-b pp" data-pago="paypal"><span class="pay-w">PayPal</span></li><li class="pay-b mp" data-pago="mercado-pago"><svg class="pay-g" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#009ee3"/><path d="M4.6 10.7c2.3-1.7 4.1-1.6 6.1.3l1.3 1.2" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/><path d="M19.4 13.3c-2.3 1.7-4.1 1.6-6.1-.3L12 11.8" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg><span class="pay-w">Mercado Pago</span></li></ul>
+<!-- EL RENGLON LATAM, pegado a los sellos: la pagina acaba de quitar los medios
+     colombianos, asi que aca DICE por que: que se compra desde cualquier pais
+     y en que moneda se cobra. Es tambien el gancho de la multi-moneda que va a
+     venir (D/5 punto 3): el dia que exista el conversor, esta frase es la que
+     cambia de "se cobra en USD" a "se cobra en tu moneda", y no hay que buscar
+     el texto por toda la pagina. -->
+<p class="pay-latam" id="pay-latam">Compras desde <b>cualquier pa&iacute;s de Latinoam&eacute;rica</b>. El cobro se hace en <b>d&oacute;lares (USD)</b> y tu banco lo pasa a tu moneda local.</p></div>
+
+<!-- BADGE DE GARANTIA, version compacta: va pegado al boton porque es ahi donde
+     se decide. La version completa vive en la seccion #garantia. -->
+<div class="gbadge"><svg class="gb-s" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="2" stroke-dasharray="1.6 4.1" stroke-linecap="round" opacity=".85"/><circle cx="24" cy="24" r="16.4" stroke="currentColor" stroke-width="2.2"/><path d="M16.6 24.5l5.1 5.1 10-10.4" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="gb-b"><div class="gb-t">Garant&iacute;a<i aria-hidden="true"></i>Compra segura</div><ul><li><b>Acceso de por vida.</b> Un solo pago, no se renueva.</li><li><b>Soporte por WhatsApp.</b> Te ayudamos a encontrar tu manual.</li><li><b>Garant&iacute;a de satisfacci&oacute;n.</b> 3 d&iacute;as, devoluci&oacute;n del 100%.</li></ul></div></div></div><div class="aviso" id="aviso-checkout">&#9888;&#65039; <b>P&aacute;gina en preparaci&oacute;n:</b> el checkout todav&iacute;a no est&aacute; conectado. Por ahora el bot&oacute;n no cobra nada.</div></div></section>
+
+<!-- GARANTIA (orden C1/4): el badge completo con sus TRES sellos. El titular
+     pasa de "Garantia de 3 dias" a "Compras sin riesgo" porque ahora la caja
+     sostiene tres promesas y no una; los 3 dias no se diluyen, siguen con
+     nombre y numero en la bajada y en el 3er sello.
+     El SOPORTE se afirma aca por primera vez en la pagina, y su unico canal es
+     el WhatsApp del pie: si ese numero no existe al desplegar, este sello es una
+     promesa sin telefono. Van juntos o no van. -->
+<section id="garantia"><div class="wrap"><div class="guar"><svg class="guar-seal" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.4 3.8" stroke-linecap="round" opacity=".8"/><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="1.8"/><circle cx="24" cy="24" r="15.4" stroke="currentColor" stroke-width="1" opacity=".55"/><path d="M16.4 24.6l5.2 5.2 10.2-10.6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><h2 class="title" style="margin-bottom:10px">Compras sin riesgo</h2><p class="lead" style="margin:0 auto">Un solo pago, un acceso que no vence y <b>3 d&iacute;as</b> para pedir la devoluci&oacute;n del <b>100%</b> si no es lo que esperabas. Sin preguntas y sin letra chica.</p><ul class="guar-3"><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="11" width="15" height="10.5" rx="2.4"/><path d="M7.3 11V7.6a4.2 4.2 0 0 1 8.2-1.2"/><path d="M11 15.2v2.2"/></svg><b>Acceso de por vida</b><span>Pagas una vez. El acceso no vence, no se renueva y no es una suscripci&oacute;n.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.6a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.6-.4L4 21.6l1.7-4.3A8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.4z"/><path d="M8.8 11.6h6.4M8.8 8.4h4.2"/></svg><b>Soporte por WhatsApp</b><span>Si no encuentras el manual de tu moto, escribes y lo buscamos contigo.</span></li><li><svg class="g-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg><b>Garant&iacute;a de satisfacci&oacute;n</b><span>Tienes 3 d&iacute;as para probarlo. Si no te sirve, se devuelve el 100%.</span></li></ul></div></div></section>
+
+<!-- RESENAS (orden C2/4) ─────────────────────────────────────────────────────
+     REGLA DURA DE HONESTIDAD, escrita aca para que no se pierda:
+     NINGUNA de estas 4 tarjetas es una resena. Son HUECOS marcados
+     (RESENA-PENDIENTE / NOMBRE-PENDIENTE / CIUDAD-PENDIENTE) para que Esteban
+     pegue testimonios REALES de compradores reales. Esta PROHIBIDO inventar
+     una resena y presentarla como verdadera: es lo mismo que mentirle al
+     mecanico que va a pagar, y ademas es publicidad enganosa.
+     Cada hueco trae, en el propio texto, QUE TIPO de testimonio conviene ahi
+     (el que encontro su manual, el del taller, el que dudaba del precio, el
+     que lo usa en el celular). Es una guia de curaduria, no un guion para
+     ponerle en la boca a nadie: si el testimonio real dice otra cosa, manda el
+     testimonio real.
+     TRES CANDADOS, no uno:
+       1) se VE que es borrador (punteado amarillo, estrellas vacias, la
+          palabra PENDIENTE en cada tarjeta y un aviso arriba);
+       2) el aviso y el modo borrador se apagan SOLOS cuando las tarjetas pasan
+          a real (ver script RESENAS-PENDIENTE del final: un solo lugar);
+       3) FAIL-CLOSED: si esta pagina se publica en un dominio de verdad
+          estando todavia en borrador, el script BORRA la seccion entera. Un
+          visitante real jamas ve un placeholder de prueba social. -->
+<section id="resenas" data-borrador="1"><div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="ic-est" viewBox="0 0 24 24"><path d="M12 2.9l2.85 5.78 6.38.93-4.61 4.5 1.09 6.35L12 17.46l-5.71 3l1.09-6.35-4.61-4.5 6.38-.93z"/></symbol></svg>
+<div class="eyebrow">Rese&ntilde;as de compradores</div><h2 class="title">Lo que dicen quienes ya lo tienen</h2>
+<div class="res-aviso" id="res-aviso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4l9 15.6H3z"/><path d="M12 9.6v4.1"/><path d="M12 16.4v.1"/></svg><p><b>Secci&oacute;n en borrador &mdash; no publicar as&iacute;.</b> Las 4 tarjetas de abajo son <b>huecos marcados</b>, no rese&ntilde;as: van a reemplazarse por testimonios <b>reales</b> de compradores reales, con su nombre y su ciudad, y con permiso de la persona. Mientras diga PENDIENTE, aqu&iacute; no hay ninguna opini&oacute;n de nadie.</p></div>
+<ul class="res-grid">
+<li class="res-c borrador" data-res><div class="res-est" role="img" aria-label="Calificaci&oacute;n pendiente"><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg></div><span class="res-rot">Rese&ntilde;a-pendiente 1</span><p class="res-q">RESE&Ntilde;A-PENDIENTE. Hueco para el comprador que <b>encontr&oacute; el manual de su moto</b> (modelo y a&ntilde;o concretos). Pegar aqu&iacute; sus palabras tal como las escribi&oacute;.</p><div class="res-pie"><div class="res-av" aria-hidden="true">?</div><div class="res-quien"><b>NOMBRE-PENDIENTE</b><span>CIUDAD-PENDIENTE</span></div></div></li>
+<li class="res-c borrador" data-res><div class="res-est" role="img" aria-label="Calificaci&oacute;n pendiente"><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg></div><span class="res-rot">Rese&ntilde;a-pendiente 2</span><p class="res-q">RESE&Ntilde;A-PENDIENTE. Hueco para el <b>mec&aacute;nico de taller</b>: para qu&eacute; lo usa en el d&iacute;a a d&iacute;a (diagramas, torques, despiece). Pegar aqu&iacute; sus palabras tal como las escribi&oacute;.</p><div class="res-pie"><div class="res-av" aria-hidden="true">?</div><div class="res-quien"><b>NOMBRE-PENDIENTE</b><span>CIUDAD-PENDIENTE</span></div></div></li>
+<li class="res-c borrador" data-res><div class="res-est" role="img" aria-label="Calificaci&oacute;n pendiente"><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg></div><span class="res-rot">Rese&ntilde;a-pendiente 3</span><p class="res-q">RESE&Ntilde;A-PENDIENTE. Hueco para quien <b>dudaba antes de pagar</b> y cuenta qu&eacute; se encontr&oacute; despu&eacute;s. Pegar aqu&iacute; sus palabras tal como las escribi&oacute;.</p><div class="res-pie"><div class="res-av" aria-hidden="true">?</div><div class="res-quien"><b>NOMBRE-PENDIENTE</b><span>CIUDAD-PENDIENTE</span></div></div></li>
+<li class="res-c borrador" data-res><div class="res-est" role="img" aria-label="Calificaci&oacute;n pendiente"><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg><svg><use href="#ic-est"/></svg></div><span class="res-rot">Rese&ntilde;a-pendiente 4</span><p class="res-q">RESE&Ntilde;A-PENDIENTE. Hueco para quien lo abre <b>en el celular con la moto al frente</b>. Pegar aqu&iacute; sus palabras tal como las escribi&oacute;.</p><div class="res-pie"><div class="res-av" aria-hidden="true">?</div><div class="res-quien"><b>NOMBRE-PENDIENTE</b><span>CIUDAD-PENDIENTE</span></div></div></li>
+</ul>
+</div></section>
 
 <!-- CONTENIDO COMPLETO -->
-<section><div class="wrap"><div class="eyebrow">Contenido completo</div><h2 class="title">Bloque por bloque, sin relleno</h2><p class="lead">Esto es lo que entra con tu acceso.</p><div class="acc"><details><summary><span>1 &middot; Manuales de taller, marca por marca</span><span class="meta">+900 manuales &middot; +40 marcas</span></summary><div class="acc-body"><ul><li>Honda</li><li>Yamaha</li><li>Suzuki</li><li>Kawasaki</li><li>Bajaj</li><li>AKT</li><li>KTM</li><li>Ducati</li><li>BMW</li><li>Royal Enfield</li><li>Benelli</li><li>TVS</li><li>Hero</li><li>CF Moto</li><li>Italika</li><li>SYM</li><li>Vento</li><li>Victory</li></ul><p style="margin-top:12px">Y el resto hasta pasar las <b>40 marcas</b>, entre japonesas, europeas, indias, chinas y de ensamble en LATAM.</p></div></details><details><summary><span>2 &middot; Despiece y montaje, paso a paso</span><span class="meta">motor y chasis</span></summary><div class="acc-body">El manual de f&aacute;brica no te cuenta la teor&iacute;a: te muestra la pieza, el orden en que sale y el orden en que vuelve. Vista de despiece de cada conjunto, montaje paso a paso y el torque de cada tornillo.</div></details><details><summary><span>3 &middot; Diagramas el&eacute;ctricos y especificaciones</span><span class="meta">sistema el&eacute;ctrico</span></summary><div class="acc-body">El diagrama completo con sus colores de cable, y la tabla de especificaciones: luces de v&aacute;lvula, bandas de servicio, capacidades, medidas de desgaste y presiones. El n&uacute;mero exacto, no el "m&aacute;s o menos".</div></details><details><summary><span>4 &middot; Mantenimiento y diagn&oacute;stico por sistemas</span><span class="meta">servicio</span></summary><div class="acc-body">Ordenado por sistema: motor, encendido, alimentaci&oacute;n (carburador e inyecci&oacute;n), transmisi&oacute;n y embrague, frenos, suspensi&oacute;n y direcci&oacute;n. Cada uno con su rutina de mantenimiento y su tabla de fallas: s&iacute;ntoma, causa probable y qu&eacute; revisar primero.</div></details><details><summary><span>5 &middot; Incluido: Curso de Mec&aacute;nica de Motores 2T y 4T</span><span class="meta">curso completo</span></summary><div class="acc-body">El curso que ordena todo lo anterior: c&oacute;mo funciona un motor de <b>2 tiempos</b> y uno de <b>4 tiempos</b>, en qu&eacute; se parecen, en qu&eacute; no y qu&eacute; se hace distinto al desarmarlos. Va incluido, no se paga aparte.</div></details><details><summary><span>6 &middot; C&oacute;mo llega y c&oacute;mo se usa</span><span class="meta">25 GB &middot; 100% digital</span></summary><div class="acc-body">Apenas se confirma el pago recibes el link a tu carpeta privada, ordenada por marca y por sistema. Son <b>25 GB</b> en PDF: los abres desde la carpeta <b>sin ocupar espacio en tu equipo</b>, o te descargas solo los de tu moto y los usas en el taller <b>sin internet</b>.</div></details></div></div></section>
+<section id="contenido"><div class="wrap"><div class="eyebrow">Contenido completo</div><h2 class="title">Bloque por bloque, sin relleno</h2><p class="lead">Esto es lo que entra con tu acceso.</p><div class="acc"><details><summary><span>1 &middot; Manuales de taller, marca por marca</span><span class="meta">+900 manuales &middot; +40 marcas</span></summary><div class="acc-body"><ul><li>Honda</li><li>Yamaha</li><li>Suzuki</li><li>Kawasaki</li><li>Bajaj</li><li>AKT</li><li>KTM</li><li>Ducati</li><li>BMW</li><li>Royal Enfield</li><li>Benelli</li><li>TVS</li><li>Hero</li><li>CF Moto</li><li>Italika</li><li>SYM</li><li>Vento</li><li>Victory</li></ul><p style="margin-top:12px">Y el resto hasta pasar las <b>40 marcas</b>, entre japonesas, europeas, indias, chinas y de ensamble en LATAM.</p></div></details><details><summary><span>2 &middot; Despiece y montaje, paso a paso</span><span class="meta">motor y chasis</span></summary><div class="acc-body">El manual de f&aacute;brica no te cuenta la teor&iacute;a: te muestra la pieza, el orden en que sale y el orden en que vuelve. Vista de despiece de cada conjunto, montaje paso a paso y el torque de cada tornillo.</div></details><details><summary><span>3 &middot; Diagramas el&eacute;ctricos y especificaciones</span><span class="meta">sistema el&eacute;ctrico</span></summary><div class="acc-body">El diagrama completo con sus colores de cable, y la tabla de especificaciones: luces de v&aacute;lvula, bandas de servicio, capacidades, medidas de desgaste y presiones. El n&uacute;mero exacto, no el "m&aacute;s o menos".</div></details><details><summary><span>4 &middot; Mantenimiento y diagn&oacute;stico por sistemas</span><span class="meta">servicio</span></summary><div class="acc-body">Ordenado por sistema: motor, encendido, alimentaci&oacute;n (carburador e inyecci&oacute;n), transmisi&oacute;n y embrague, frenos, suspensi&oacute;n y direcci&oacute;n. Cada uno con su rutina de mantenimiento y su tabla de fallas: s&iacute;ntoma, causa probable y qu&eacute; revisar primero.</div></details><details><summary><span>5 &middot; Incluido: Curso de Mec&aacute;nica de Motores 2T y 4T</span><span class="meta">curso completo</span></summary><div class="acc-body">El curso que ordena todo lo anterior: c&oacute;mo funciona un motor de <b>2 tiempos</b> y uno de <b>4 tiempos</b>, en qu&eacute; se parecen, en qu&eacute; no y qu&eacute; se hace distinto al desarmarlos. Va incluido, no se paga aparte.</div></details><details><summary><span>6 &middot; C&oacute;mo llega y c&oacute;mo se usa</span><span class="meta">25 GB &middot; 100% digital</span></summary><div class="acc-body">Apenas se confirma el pago recibes el link a tu carpeta privada, ordenada por marca y por sistema. Son <b>25 GB</b> en PDF: los abres desde la carpeta <b>sin ocupar espacio en tu equipo</b>, o te descargas solo los de tu moto y los usas en el taller <b>sin internet</b>.</div></details></div></div></section>
 
 <!-- FAQ -->
-<section><div class="wrap"><div class="eyebrow">Preguntas frecuentes</div><h2 class="title">Lo que todos preguntan</h2><div class="acc"><details><summary><span>&iquest;Necesito experiencia en mec&aacute;nica?</span></summary><div class="acc-body">No. El manual es el mismo que usa el taller oficial: te muestra la pieza y el orden. Y el Curso de Motores 2T y 4T arranca desde c&oacute;mo funciona el motor, as&iacute; que sirve igual si reci&eacute;n empiezas.</div></details><details><summary><span>&iquest;En qu&eacute; formato viene?</span></summary><div class="acc-body">En <b>PDF descargable</b>. Se abre en el celular, en la tablet o en el computador, sin instalar nada y sin programas raros.</div></details><details><summary><span>&iquest;Sirve para mi moto?</span></summary><div class="acc-body">Son <b>m&aacute;s de 40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s. Entre <b>+900 manuales</b> est&aacute; el de tu modelo o el de la familia de motor que comparte.</div></details><details><summary><span>&iquest;Es un pago mensual?</span></summary><div class="acc-body">No. Es un <b>pago &uacute;nico</b> de $15.000 COP. No se renueva, no es suscripci&oacute;n y el acceso <b>no vence</b>: es de por vida.</div></details><details><summary><span>&iquest;C&oacute;mo recibo el acceso?</span></summary><div class="acc-body">Apenas se confirma el pago te llega el <b>link a la carpeta de Drive</b> con todo el material, ordenado por marca y por sistema. Entras y empiezas a usarlo el mismo d&iacute;a.</div></details><details><summary><span>&iquest;Necesito internet para usarlo?</span></summary><div class="acc-body">Solo la primera vez, para entrar a la carpeta. Lo que descargues queda en tu equipo y se abre <b>sin internet</b>, que es como se trabaja en el taller.</div></details><details><summary><span>&iquest;25 GB no me van a llenar el celular?</span></summary><div class="acc-body">No hace falta bajar los 25 GB. La carpeta se abre y se lee <b>sin ocupar espacio en tu equipo</b>: descargas &uacute;nicamente el manual de la moto que tienes al frente.</div></details><details><summary><span>&iquest;Y si no me sirve?</span></summary><div class="acc-body">Tienes <b>3 d&iacute;as</b> de garant&iacute;a. Si el material no es lo que esperabas escribes y se devuelve el 100%, sin preguntas y sin letra chica.</div></details></div><div style="margin-top:34px;text-align:center"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-faq" data-buy="1">Activa tu acceso hoy &rarr;</a></div></div></section>
+<section id="faq"><div class="wrap"><div class="eyebrow">Preguntas frecuentes</div><h2 class="title">Lo que todos preguntan</h2><div class="acc"><details><summary><span>&iquest;Necesito experiencia en mec&aacute;nica?</span></summary><div class="acc-body">No. El manual es el mismo que usa el taller oficial: te muestra la pieza y el orden. Y el Curso de Motores 2T y 4T arranca desde c&oacute;mo funciona el motor, as&iacute; que sirve igual si reci&eacute;n empiezas.</div></details><details><summary><span>&iquest;En qu&eacute; formato viene?</span></summary><div class="acc-body">En <b>PDF descargable</b>: el archivo que ya abre cualquier aparato sin instalar nada y sin programas raros. Es un archivo, no una plataforma: no hay clave que se venza ni app que deje de funcionar.</div></details><details><summary><span>&iquest;Funciona en el celular?</span></summary><div class="acc-body">S&iacute;, y es como m&aacute;s se usa. El PDF se abre con el lector que ya trae tu celular, sea <b>Android o iPhone</b>: haces zoom con los dedos sobre el diagrama y giras la pantalla para ver el despiece completo. Sirve igual en tablet y en computador. Lo normal en el taller es tener el celular al lado de la moto con el manual abierto &mdash; y una vez descargado, <b>sin gastar datos</b>.</div></details><details><summary><span>&iquest;Sirve para mi moto?</span></summary><div class="acc-body">Son <b>m&aacute;s de 40 marcas</b>: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, SYM, Vento, Victory y m&aacute;s. Entre <b>+900 manuales</b> est&aacute; el de tu modelo o el de la familia de motor que comparte.</div></details><details><summary><span>&iquest;Y si mi moto es de otra marca, o tiene otro nombre aqu&iacute;?</span></summary><div class="acc-body">Es lo m&aacute;s com&uacute;n en LATAM: la misma moto se vende con <b>otro nombre &mdash; y a veces con otra marca en el tanque &mdash; seg&uacute;n el pa&iacute;s</b>. Lo que manda no es el logo: es la plataforma. El manual de la moto equivalente te sirve igual, porque es el mismo motor y el mismo chasis. Arriba tienes la tabla de <a class="lnk" href="#equivalencias">equivalencias por pa&iacute;s</a> con los cruces m&aacute;s frecuentes, y si no logras ubicar la tuya, se busca contigo por soporte.</div></details><details><summary><span>&iquest;Es un pago mensual?</span></summary><div class="acc-body">No. Es un <b>pago &uacute;nico</b> de <b id="faq-precio">US$12.99</b>, en d&oacute;lares. No se renueva, no es suscripci&oacute;n y el acceso <b>no vence</b>: es de por vida. Da igual en qu&eacute; pa&iacute;s de Latinoam&eacute;rica est&eacute;s: tu banco lo cobra en tu moneda al cambio del d&iacute;a.</div></details><details><summary><span>&iquest;C&oacute;mo recibo el acceso?</span></summary><div class="acc-body">Apenas se confirma el pago te llega el <b>link a la carpeta de Drive</b> con todo el material, ordenado por marca y por sistema. Entras y empiezas a usarlo el mismo d&iacute;a.</div></details><details><summary><span>&iquest;Necesito internet para usarlo?</span></summary><div class="acc-body">Solo la primera vez, para entrar a la carpeta. Lo que descargues queda en tu equipo y se abre <b>sin internet</b>, que es como se trabaja en el taller.</div></details><details><summary><span>&iquest;25 GB no me van a llenar el celular?</span></summary><div class="acc-body">No hace falta bajar los 25 GB. La carpeta se abre y se lee <b>sin ocupar espacio en tu equipo</b>: descargas &uacute;nicamente el manual de la moto que tienes al frente.</div></details><details><summary><span>&iquest;Y si me trabo? &iquest;Qu&eacute; tal el soporte?</span></summary><div class="acc-body">Escribes por <b>WhatsApp</b> y contesta una persona. El soporte est&aacute; para lo que de verdad pasa: <b>no dar con el manual de tu moto</b>. Dices qu&eacute; modelo y qu&eacute; a&ntilde;o tienes y se busca contigo dentro de la biblioteca. El contacto te llega junto con el link de acceso, as&iacute; que no se pierde.</div></details><details><summary><span>&iquest;Y si no me sirve?</span></summary><div class="acc-body">Tienes <b>3 d&iacute;as</b> de garant&iacute;a. Si el material no es lo que esperabas escribes y se devuelve el 100%, sin preguntas y sin letra chica.</div></details></div><div style="margin-top:34px;text-align:center"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-faq" data-buy="1">Activa tu acceso hoy &rarr;</a></div></div></section>
 
-<footer><div class="wrap"><div class="logo" style="justify-content:center;margin-bottom:12px;gap:14px"><img class="mark big" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="66" height="66" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><p>&copy; 2026 &middot; Motos Pro</p></div></footer>
+<!-- PIE SERIO (orden C1/4). Revierte a proposito la decision del molde de NO
+     poner renglon de enlaces legales: la razon esta escrita entera en el bloque
+     "v12 · 4 · EL PIE SERIO" de la hoja de estilo.
+     LOS 7 ENLACES SIN DESTINO NACEN APAGADOS Y SIN href. Sus destinos (correo,
+     WhatsApp, Terminos, Privacidad + las 3 redes que anadio C1b) viven en UN
+     solo bloque de constantes en el script PIE-PENDIENTE del final. Mientras
+     valgan null: no navegan, no ensucian la URL con un hash muerto, no se
+     pueden enfocar y muestran su "(pendiente)".
+     NO se inventa aca ningun dato de contacto: un correo o un numero falso en el
+     pie es peor que un pie vacio.
+     La columna EL PRODUCTO es la excepcion y no contradice nada: sus 5 enlaces
+     apuntan a secciones de ESTA misma pagina, que ya existen. -->
+<footer><div class="wrap"><div class="ft-top"><div class="ft-marca"><div class="logo"><img class="mark big" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="66" height="66" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><p class="ft-que">La biblioteca de mec&aacute;nica de motos de LATAM: m&aacute;s de 900 manuales de taller de m&aacute;s de 40 marcas, m&aacute;s el Curso de Motores 2T y 4T. 100% digital, pago &uacute;nico, acceso de por vida.</p></div>
+
+<!-- PRODUCTO (C1b). CERO destinos nuevos: son las anclas que ya existen en el
+     cuerpo. Llevan href de una (no son "pendientes", existen) pero el script
+     PIE-PENDIENTE las verifica contra el DOM y apaga la que se quede huerfana
+     si alguna seccion se borra mas adelante. -->
+<div class="ft-col"><div class="ft-h">El producto</div><ul class="ft-l ft-sec"><li><a href="#contenido" data-ancla="contenido">Qu&eacute; hay adentro</a></li><li><a href="#equivalencias" data-ancla="equivalencias">Marcas y equivalencias</a></li><li><a href="#resenas" data-ancla="resenas">Rese&ntilde;as</a></li><li><a href="#faq" data-ancla="faq">Preguntas frecuentes</a></li><li><a href="#garantia" data-ancla="garantia">Garant&iacute;a</a></li></ul></div>
+
+<div class="ft-col"><div class="ft-h">Contacto y soporte</div><ul class="ft-l"><li><a id="ft-mail" aria-disabled="true"><svg class="ft-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.6"/><path d="M3.2 6.4l8.8 6.4 8.8-6.4"/></svg><span id="ft-mail-t">Correo de soporte <em class="ft-pend">(pendiente)</em></span></a></li><li class="ft-wa"><a id="ft-wa" aria-disabled="true" rel="noopener"><svg class="ft-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.6a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.6-.4L4 21.6l1.7-4.3A8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.4z"/></svg><span id="ft-wa-t">WhatsApp de soporte <em class="ft-pend">(pendiente)</em></span></a></li></ul></div>
+
+<div class="ft-col"><div class="ft-h">Legal</div><ul class="ft-l"><li><a id="ft-ter" aria-disabled="true"><svg class="ft-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2.8H6.6A2.1 2.1 0 0 0 4.5 4.9v14.2a2.1 2.1 0 0 0 2.1 2.1h10.8a2.1 2.1 0 0 0 2.1-2.1V8.4z"/><path d="M14 2.8v5.6h5.5M8.2 13h7.6M8.2 16.6h5.2"/></svg><span id="ft-ter-t">T&eacute;rminos y condiciones <em class="ft-pend">(pendiente)</em></span></a></li><li><a id="ft-pri" aria-disabled="true"><svg class="ft-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M12 10v3.4"/></svg><span id="ft-pri-t">Pol&iacute;tica de privacidad <em class="ft-pend">(pendiente)</em></span></a></li></ul></div>
+
+<!-- REDES (C1b). Misma doctrina que el resto del pie: las cuentas TODAVIA NO
+     EXISTEN, asi que las tres fichas nacen sin href, apagadas y con el aviso
+     "(pendiente)" debajo. No se inventa ni un usuario: un perfil que no existe
+     es un 404 con la cara de la marca. Sus destinos viven en el MISMO bloque de
+     constantes que el correo y los legales (script PIE-PENDIENTE). -->
+<div class="ft-col"><div class="ft-h">Redes</div><ul class="ft-red"><li><a id="ft-yt" aria-disabled="true" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.2" y="5.2" width="19.6" height="13.6" rx="4.2"/><path d="M10.3 9.4l4.7 2.8-4.7 2.8z"/></svg></a></li><li><a id="ft-ig" aria-disabled="true" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><circle cx="12" cy="12" r="4.1"/><path d="M17.1 6.9h.01"/></svg></a></li><li><a id="ft-fb" aria-disabled="true" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><path d="M15.4 8.1h-1.6a2 2 0 0 0-2 2v10.8"/><path d="M9.2 13.1h5"/></svg></a></li></ul><p class="ft-nota" id="ft-red-nota">Cuentas oficiales <em class="ft-pend">(pendiente)</em></p></div></div>
+
+<div class="ft-bar"><span>&copy; 2026 Motos Pro &middot; Todos los derechos reservados.</span><span class="ft-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>El cobro lo procesa la pasarela de pago sobre conexi&oacute;n cifrada.</span></div></div></footer>
 
 <div class="buybar" id="buybar"><div class="p"><span id="buybar-precio">&nbsp;</span><small>pago &uacute;nico &middot; acceso de por vida</small></div><a href="#STRIPE-PENDIENTE" class="btn" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
 
@@ -533,12 +1311,27 @@ if (PIXEL_ID) {
 </script>
 <script>
 (function(){
-  var bar=document.getElementById('buybar'), comprar=document.getElementById('comprar');
-  if(bar && comprar && 'IntersectionObserver' in window){
-    new IntersectionObserver(function(en){
-      bar.style.display = en[0].isIntersecting ? 'none' : '';
-    }).observe(comprar);
+  /* C1a · SOMBRA DE LA BARRA AL BAJAR.
+     Listener PASIVO + requestAnimationFrame: el handler no toca layout fuera
+     del frame, asi que el scroll no se traba en un celular de gama baja.
+     El umbral son 8px y no 0 para que el rebote elastico de iOS no haga
+     parpadear la sombra en el tope.
+     La .buybar de abajo YA NO se esconde: era este mismo bloque el que la
+     apagaba con un IntersectionObserver sobre #comprar. Ahora el CTA flotante
+     es PERSISTENTE en movil y su presencia la decide solo el CSS, o sea
+     sobrevive aunque este script no corra. */
+  var nv = document.querySelector('nav');
+  if(!nv) return;
+  var pedido = false;
+  function pinta(){
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    nv.classList.toggle('nav-scr', y > 8);
+    pedido = false;
   }
+  window.addEventListener('scroll', function(){
+    if(!pedido){ pedido = true; requestAnimationFrame(pinta); }
+  }, {passive:true});
+  pinta();
 })();
 </script>
 <script>
@@ -552,12 +1345,45 @@ if (PIXEL_ID) {
      preparacion" se apaga solo al dejar de ser el placeholder.             */
   var LK = '#STRIPE-PENDIENTE';
 
-  /* PRECIO: un solo numero, en COP, pago unico. Si algun dia se cobra en mas
-     monedas, este es el unico lugar donde vive el precio del front -- y NO se
-     toca sin tocar Stripe en el mismo commit, ni al reves. */
-  var PRECIO  = '$15.000';
-  var IC_VAL  = 15000;      /* lo que el pixel manda como value en el clic */
-  var IC_CUR  = 'COP';
+  /* == PRECIO (orden D/5, 28-sep) ==========================================
+     Un solo numero, en USD, pago unico. Este es el UNICO lugar donde vive el
+     precio del front -- y NO se toca sin tocar Stripe en el mismo commit, ni al
+     reves.
+     ── POR QUE SE FUE EL COP ─────────────────────────────────────────────────
+     La oferta se vende en TODA Latinoamerica, no en Colombia. El esquema
+     COP-first de C1 ($15.000 COP) le mostraba a 19 de 20 paises un numero en una
+     moneda que no es la suya: el peruano no sabe si son 15 soles o 4, y en el
+     mejor de los casos tiene que ir a buscarlo. 12,99 USD lo entiende el
+     continente entero de una sola lectura.
+     ── POR QUE 'US$' Y NO UN '$' PELADO ──────────────────────────────────────
+     Porque en casi toda LatAm el signo '$' YA ES la moneda local: '$12.99' lo
+     lee un mexicano como 13 pesos mexicanos, un chileno como 13 pesos chilenos y
+     un argentino como 13 pesos argentinos. Todos numeros falsos, y el mas barato
+     de ellos vale centavos -- o sea el visitante llega al checkout sintiendose
+     enganado. El prefijo 'US$' es lo unico que hace que el mismo string
+     signifique lo mismo en los 20 paises, y es la razon de que vaya pegado al
+     numero (en el hero, en los 4 botones, en la tarjeta, en la barra y en el
+     FAQ) y no escondido en la letra chica.
+     ── MULTI-MONEDA: NO se implementa todavia (D/5 punto 3) ──────────────────
+     Queda DESBLOQUEADA, no construida. El dia que se cobre en moneda local, el
+     conversor escribe estas tres constantes y vuelve a llamar a up(): eso repinta
+     hero, 4 botones, tarjeta, barra fija y FAQ de una sola pasada. Lo unico que
+     NO alcanza up() son los dos <meta> del head (un rastreador los lee antes de
+     que corra un script) y ahi hay un comentario que lo dice. Cero precios
+     sueltos en el HTML: ese fue el bug que dejo el FAQ con los $15.000 viejos. */
+  var PRECIO  = 'US$12.99';
+  var IC_VAL  = 12.99;      /* lo que el pixel manda como value en el clic */
+  var IC_CUR  = 'USD';
+
+  /* BONOS / complementos (D/5 punto 2): 1,99 USD cada uno, pago unico igual.
+     OJO -- TODAVIA NO HAY BLOQUE DE BONOS EN ESTA PAGINA. El molde arrastra el
+     CSS (.bumps / .bump / .bump .bp) pero ni una casilla se pinta: el order-bump
+     nunca se armo aca. La constante vive desde ya para que el dia que se arme NO
+     nazca con el numero escrito a mano -- cada casilla pone data-bono-p en su
+     hueco de precio y up() se lo pinta desde este mismo lugar, exactamente como
+     hace con el precio base. */
+  var BONO     = 'US$1.99';
+  var BONO_VAL = 1.99;
 
   var REF=null;
   try{
@@ -612,13 +1438,43 @@ if (PIXEL_ID) {
     pon('btn-pago','Activa tu acceso hoy · '+PRECIO+' →');
     pon('btn-faq', 'Activa tu acceso hoy · '+PRECIO+' →');
     pon('buybar-btn','Activa · '+PRECIO+' →');
+    /* EL BOTON DE LA BARRA DE ARRIBA, que venia MUDO: C1 le puso a #btn-nav su
+       hueco de precio (<span class="nav-p" id="btn-nav-p">) y .nav-p::before le
+       dibuja el separador "·", pero up() nunca lo llenaba. O sea en escritorio
+       el boton de la barra decia literalmente "Comprar ·" y se quedaba ahi: un
+       separador colgando de la nada. Se ve en la foto vieja del hero. Ahora lo
+       pinta la MISMA constante que los otros cuatro, que era la intencion desde
+       el principio (en movil el CSS lo esconde y lo canta la barra de abajo). */
+    pon('btn-nav-p', PRECIO);
     pon('precio-grande', PRECIO);
     pon('buybar-precio', PRECIO);
+    /* el FAQ tambien: "es un pago unico de ___" era el unico precio escrito a
+       mano fuera de aca y por eso se quedo en COP cuando el resto ya no. El
+       texto que trae el HTML es el mismo valor, asi que sin JS igual se lee
+       bien; con JS lo gobierna la constante. */
+    pon('faq-precio', PRECIO);
+    /* BONOS: cuando exista el order-bump, cada casilla marca su hueco de precio
+       con data-bono-p y lo recibe de aca. Hoy no hay ninguno y el bucle no hace
+       nada -- es el enganche listo, no una promesa. */
+    [].slice.call(document.querySelectorAll('[data-bono-p]')).forEach(function(e){ e.textContent=BONO; });
     /* el aviso de pagina en preparacion se apaga SOLO cuando LK deja de ser
        el placeholder: no hay que acordarse de bajar una bandera a mano. */
     var av=document.getElementById('aviso-checkout');
     if(av && LK.charAt(0)!=='#') av.style.display='none';
   }
+
+  /* Los precios quedan LEGIBLES desde fuera del closure: es lo que le permite al
+     futuro conversor de moneda (D/5 punto 3) escribirlos y repintar sin tocar
+     este bloque, y es tambien lo que deja que el banco de pruebas verifique el
+     precio de verdad en vez de leer pixeles. Misma via que window.__motosIC. */
+  window.__motosPrecio = {
+    base:PRECIO, baseVal:IC_VAL, moneda:IC_CUR, bono:BONO, bonoVal:BONO_VAL,
+    set:function(o){ if(o.base) PRECIO=o.base; if(o.baseVal) IC_VAL=o.baseVal;
+                     if(o.moneda) IC_CUR=o.moneda; if(o.bono) BONO=o.bono;
+                     if(o.bonoVal) BONO_VAL=o.bonoVal;
+                     this.base=PRECIO; this.baseVal=IC_VAL; this.moneda=IC_CUR;
+                     this.bono=BONO; this.bonoVal=BONO_VAL; up(); }
+  };
 
   reloj(); up();
 })();
@@ -638,7 +1494,13 @@ if (PIXEL_ID) {
    falso si ensucia la optimizacion de la campana.
    El valor NO va clavado: sale del PROPIO BOTON en ese momento
    (data-icv/data-icc los pinta up()). Si faltaran, se parsea el numero del
-   texto del boton; y si tampoco, cae en el precio de lista.
+   texto del boton; y si tampoco, cae en el precio de lista (12.99 USD desde la
+   orden D/5; antes era 15000 COP).
+   OJO CON EL PARSEO, que ahora el precio TIENE DECIMALES: num() ya sabia leer
+   dos decimales ("12.99" -> 12.99, rama d===1||d===2), asi que 'US$12.99 →'
+   se lee bien. Lo que NO hay que hacer es cambiar el separador a la coma
+   europea sin re-medir esto, ni meter un segundo numero DESPUES del precio en
+   el texto del boton: num() se queda con el ULTIMO numero del string.
    FAIL-SAFE (primero cobrar, despues medir): si no hay fbq, si fbq revienta,
    si el clic trae modificador (ctrl/cmd/medio = abrir en pestana nueva) o si
    el anchor apunta a otra pestana, NO se toca la navegacion. Y hay un
@@ -687,9 +1549,9 @@ if (PIXEL_ID) {
     var t=ahora();
     if(ULT && ULT.a===a && (t-ULT.t)<VENTANA) return ULT.t;   /* ya salio */
     var v=parseFloat(a.getAttribute('data-icv'));
-    var cur=a.getAttribute('data-icc') || 'COP';
+    var cur=a.getAttribute('data-icc') || 'USD';
     if(!(isFinite(v) && v>0)){ v=num(a.textContent); }
-    if(!(isFinite(v) && v>0)){ v=15000; cur='COP'; }
+    if(!(isFinite(v) && v>0)){ v=12.99; cur='USD'; }
     var id='ic-'+t+'-'+Math.random().toString(36).slice(2,10);
     try{ fbq('track','InitiateCheckout',{value:v,currency:cur},{eventID:id}); }
     catch(err){ return null; }
@@ -716,6 +1578,154 @@ if (PIXEL_ID) {
     setTimeout(ir, falta);
     setTimeout(ir, falta+750);            /* escape: si algo falla, igual navega */
   }, true);
+})();
+</script>
+<script>
+/* == RESENAS-PENDIENTE (orden C2/4) ======================================
+   Este bloque NO escribe resenas: solo decide en que ESTADO esta la seccion y
+   cierra la puerta si el estado es "borrador".
+
+   COMO SE PUBLICA UNA RESENA REAL (el unico procedimiento valido):
+     1) pegar el testimonio real dentro del <p class="res-q"> (sin la palabra
+        PENDIENTE), el nombre real en el <b> y la ciudad real en el <span>;
+     2) poner la inicial real en .res-av;
+     3) cambiar la clase de ESA tarjeta: class="res-c borrador" -> class="res-c real";
+     4) borrar las tarjetas que sobren (3 resenas reales valen mas que 4 con
+        una inventada).
+   Cuando TODAS las tarjetas que queden esten en 'real', el aviso amarillo y el
+   modo borrador se apagan solos: no hay bandera que haya que acordarse de
+   bajar, y tampoco hay forma de bajarla "a medias".
+
+   DOS CANDADOS, y los dos son fail-closed:
+   A) MEDIA VUELTA: una tarjeta marcada real que todavia diga PENDIENTE no
+      cuenta como real. Es el error tipico de pegar el nombre y olvidar el
+      texto. Ademas grita por consola.
+   B) PUBLICACION ACCIDENTAL: si esta pagina termina servida desde un dominio
+      de verdad estando todavia en borrador, la seccion se BORRA del DOM. Un
+      comprador nunca ve un placeholder de prueba social: preferimos que le
+      falte la seccion a que le sobre algo que parece un testimonio.
+      En local (file:// o localhost) SI se muestra el borrador, que es como se
+      revisa y como se le toma la foto.
+   SIN JAVASCRIPT no pasa nada malo: la seccion queda tal cual esta en el HTML,
+   o sea en modo borrador VISIBLE (punteado, estrellas vacias y la palabra
+   PENDIENTE en cada tarjeta). Se ve fea a proposito; lo que no puede pasar es
+   que se vea creible.                                                       */
+(function(){
+  var sec = document.getElementById('resenas');
+  if(!sec) return;
+  var tarjetas = [].slice.call(sec.querySelectorAll('[data-res]'));
+
+  var reales = 0;
+  tarjetas.forEach(function(c){
+    var marcada = c.classList.contains('real') && !c.classList.contains('borrador');
+    var sucia   = /PENDIENTE/i.test(c.textContent || '');
+    if(marcada && sucia){                       /* candado A: media vuelta */
+      c.classList.remove('real'); c.classList.add('borrador');
+      if(window.console && console.warn) console.warn(
+        'RESENAS-PENDIENTE: hay una tarjeta marcada como real que todavia dice ' +
+        'PENDIENTE. Se devuelve a borrador: se completa el testimonio o se borra la tarjeta.');
+      return;
+    }
+    if(marcada) reales++;
+  });
+
+  var borrador = (tarjetas.length === 0) || (reales !== tarjetas.length);
+
+  var h = location.hostname;
+  var local = location.protocol === 'file:' || !h ||
+              h === 'localhost' || h === '127.0.0.1' || h === '[::1]' || h === '::1';
+
+  if(borrador && !local){                       /* candado B: fail-closed */
+    if(sec.parentNode) sec.parentNode.removeChild(sec);
+    return;
+  }
+  if(!borrador){
+    sec.removeAttribute('data-borrador');
+    var av = document.getElementById('res-aviso');
+    if(av) av.style.display = 'none';
+  }
+})();
+
+/* PIE-PENDIENTE — LOS DESTINOS DEL PIE, EN UN SOLO LUGAR ─────────────────
+   El comentario del pie promete este bloque desde la orden C1/4 y no existia
+   (esa orden murio por timeout antes de escribirlo): los enlaces estaban
+   apagados a mano en el HTML y no habia donde encenderlos. Aca esta.
+
+   PARA ENCENDER EL PIE: se llena la constante y no se toca NADA mas -- ni el
+   HTML, ni el CSS. El enlace se pinta encendido solo, le sale el href, se
+   vuelve enfocable y se le borra el "(pendiente)".
+
+   TRES CANDADOS, la misma doctrina del resto de la pagina:
+     1) FAIL-CLOSED por forma: un destino que no empiece por https: / mailto: /
+        tel: se IGNORA y el enlace se queda apagado. Asi un 'wa.me/57...' a
+        medio pegar (sin esquema) no publica un enlace roto.
+     2) FAIL-CLOSED por DOM: los 5 enlaces de EL PRODUCTO son anclas a secciones
+        de esta pagina; si una seccion se borra (p.ej. #resenas, que su propio
+        script BORRA en dominio real mientras siga en borrador), su renglon del
+        pie se va con ella. El pie nunca ofrece un ancla muerta.
+     3) GRITA: lo que quede pendiente sale por consola con su nombre.
+   SIN JAVASCRIPT no pasa nada malo: el pie queda tal cual nace en el HTML, o
+   sea con los destinos apagados y con su "(pendiente)" a la vista, que es la
+   verdad.                                                                   */
+(function(){
+  /* ── LAS CONSTANTES. Es el UNICO lugar que se edita. ── */
+  var PIE = {
+    'ft-mail': null,   /* 'mailto:soporte@dominio.com'        */
+    'ft-wa'  : null,   /* 'https://wa.me/57XXXXXXXXXX'        */
+    'ft-ter' : null,   /* 'terminos.html' -> va con https:// o ruta ./ */
+    'ft-pri' : null,   /* 'privacidad.html'                   */
+    'ft-yt'  : null,   /* 'https://youtube.com/@cuenta'       */
+    'ft-ig'  : null,   /* 'https://instagram.com/cuenta'      */
+    'ft-fb'  : null    /* 'https://facebook.com/cuenta'       */
+  };
+
+  var OK = /^(https:\/\/|mailto:|tel:|\.\/|\/)/;   /* candado 1 */
+  var pendientes = [];
+
+  Object.keys(PIE).forEach(function(id){
+    var a = document.getElementById(id);
+    if(!a) return;
+    var u = PIE[id];
+    if(!u || !OK.test(u)){                         /* nace apagado: se queda apagado */
+      pendientes.push(id);
+      return;
+    }
+    a.setAttribute('href', u);
+    a.removeAttribute('aria-disabled');
+    if(u.indexOf('https://') === 0){
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+    var pend = a.querySelector('.ft-pend');        /* se le borra el "(pendiente)" */
+    if(pend && pend.parentNode) pend.parentNode.removeChild(pend);
+  });
+
+  /* el aviso de las redes se va cuando las TRES estan puestas: con una sola
+     encendida el bloque sigue incompleto y decirlo es lo honesto. */
+  var redes = ['ft-yt','ft-ig','ft-fb'];
+  var redesOk = redes.every(function(id){ return pendientes.indexOf(id) === -1; });
+  var nota = document.getElementById('ft-red-nota');
+  if(nota && redesOk) nota.parentNode.removeChild(nota);
+
+  /* candado 2: ancla del pie que apunte a una seccion que ya no esta */
+  var huerfanas = [];
+  [].slice.call(document.querySelectorAll('.ft-sec a[data-ancla]')).forEach(function(a){
+    if(document.getElementById(a.getAttribute('data-ancla'))) return;
+    a.removeAttribute('href');
+    a.setAttribute('aria-disabled','true');
+    huerfanas.push(a.getAttribute('data-ancla'));
+    if(a.parentNode) a.parentNode.style.display = 'none';
+  });
+
+  if(window.console && console.warn){
+    if(pendientes.length) console.warn(
+      'PIE-PENDIENTE: ' + pendientes.length + ' destino(s) del pie sin llenar (' +
+      pendientes.join(', ') + '). Se quedan apagados a proposito: se llenan en el ' +
+      'bloque PIE del script y se encienden solos.');
+    if(huerfanas.length) console.warn(
+      'PIE-PENDIENTE: enlace(s) del pie a seccion inexistente (' + huerfanas.join(', ') +
+      '). Se apagaron para no publicar un ancla muerta.');
+  }
 })();
 </script>
 </body></html>
