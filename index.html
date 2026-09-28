@@ -18,10 +18,12 @@
 -->
 <!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
      en esta capa (no hay hoja remota, ni preconnect, ni noscript). Los UNICOS
-     terceros de toda la pagina son iframes de YouTube, y al ABRIR la pagina hay
-     UNO SOLO: el del hero (orden N). Los 8 de la galeria (orden O) pasaron a
-     FACHADA en la orden U -- no existen hasta que el visitante hace clic, y
-     entonces vive uno a la vez. Cada uno autorizado a mano en su orden.
+     terceros de toda la pagina son de YouTube: UN (1) iframe al abrir -- el del
+     hero (orden N) --, los 8 de la galeria en FACHADA desde la orden U (no
+     existen hasta el clic y vive uno a la vez) y, desde la orden W, las 8
+     MINIATURAS de i.ytimg.com que esos tiles usan de fondo (imagenes, con
+     loading="lazy": se piden recien cuando la seccion se acerca, y en movil
+     son 6 porque g7/g8 no se dibujan). Cada uno autorizado a mano en su orden.
      Ninguno lleva preconnect (ver esos comentarios). Son Inter e
      Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
      se baja siempre, el latin-ext SOLO si el texto trae un caracter de ese rango.
@@ -171,56 +173,86 @@
   .card h3{font-size:1.15rem;margin-bottom:8px;letter-spacing:-.02em}
   .card p{color:var(--mut);font-size:1.05rem}
 
-  /* GALERIA DE VIDEO · ORDEN U — FACHADA (click-to-load).
-     EN REPOSO NO HAY NADA DE YOUTUBE EN EL TILE: ni un pixel ni un byte. El
-     tile es una tarjeta NUESTRA -- degrade de la paleta (--panel2 -> --bg),
-     halo rojo de marca, el play DIBUJADO por nosotros (SVG en linea) y el
-     rotulo abajo. El <iframe> lo inyecta el JS RECIEN al hacer clic, y vive
-     UNO SOLO a la vez (ver el bloque de la galeria al final del archivo).
-     Por que se fue el embed cebado de la orden O: cada uno mostraba el ARTE
-     DEL CANAL (miniaturas de clickbait, tipografias y colores ajenos, el play
-     rojo de YouTube) => 8 estilos distintos peleando entre si y con el resto
-     de la pagina. Ahora los 8 son IGUALES entre si y hablan el idioma de las
-     otras secciones: mismo borde --line, mismo radio, misma sombra roja. */
-  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
-  /* TRES capas de fondo, de arriba hacia abajo (asi las apila el CSS):
-     1) el FILETE de carrera del borde superior -- rojo que pasa a amarillo,
-        los dos acentos de la marca, los mismos que el logo;
-     2) la TEXTURA de carbono: rayas a 135 grados al 2,8% de blanco calido.
-        Es lo que evita que el tile se lea como un hueco vacio. Al 2,8% no
-        aparece como "rayas": aparece como material;
-     3) el degrade base de la paleta. */
-  .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(90deg,rgba(225,6,0,0),rgba(225,6,0,.6) 34%,rgba(255,212,0,.4) 62%,rgba(225,6,0,0)) top/100% 2px no-repeat,repeating-linear-gradient(135deg,rgba(255,244,240,.028) 0 2px,transparent 2px 9px),linear-gradient(158deg,var(--panel2),var(--panel) 46%,var(--bg));box-shadow:0 0 0 1px rgba(225,6,0,.10),0 10px 28px -22px rgba(225,6,0,.8);isolation:isolate;transition:transform .2s ease,border-color .2s,box-shadow .2s}
-  /* dos capas sobre el degrade: el HALO rojo (sube al pasar el mouse) y el
-     VELO de abajo, que es el que sostiene el contraste del rotulo blanco. */
-  .fx::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(78% 52% at 50% 30%,rgba(225,6,0,.26),transparent 64%);opacity:.8;transition:opacity .2s}
-  .fx::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,transparent 42%,rgba(0,0,0,.78))}
-  /* hover sutil: 1,2% de zoom, 3px de levante y el brillo rojo del borde. */
-  .fx:hover{border-color:var(--acc);transform:translateY(-3px) scale(1.012);box-shadow:0 0 0 1px rgba(225,6,0,.45),0 16px 38px -14px rgba(225,6,0,.95)}
-  .fx:hover::before{opacity:1}
+  /* GALERIA DE VIDEO · ORDEN W — EL MOLDE DE LA LANDING DE CAPCUT, EN ROJO.
+     Se copia la receta que a Esteban le gusto alla (capcut-utec: .gallery/.fx/
+     .fx-th/.ply): la MINIATURA de YouTube va de fondo, pero TAPADA por dos
+     velos -- un degrade propio por tile (la rampa g1..g8) y un ::after con
+     brillo arriba + oscuro fuerte abajo. Resultado: se ve que adentro hay un
+     video de verdad, pero el arte de clickbait del canal queda APAGADO y los
+     8 tiles se leen como UNA familia, no como 8 posters ajenos peleando.
+     Lo que cambia respecto de CapCut: donde alla el acento es BLANCO (el
+     anillo del play, el triangulo, el brillo de arriba) aca es el ROJO de
+     marca #e10600. El negro se queda igual.
+     Lo que se MANTIENE de la orden U: el tile sigue siendo una FACHADA -- el
+     <iframe> no existe hasta el clic y vive UNO SOLO a la vez. Lo que se
+     PIERDE de la orden U, dicho sin adornos: en reposo la galeria vuelve a
+     pedirle 8 miniaturas a i.ytimg.com (imagenes, ~8-12 KB cada una, con
+     loading="lazy" => solo cuando la seccion se acerca). Cero reproductores
+     igual: eso no vuelve. */
+  .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:36px}
+  /* SEIS pistas, cada tile ocupa DOS => 3 POR FILA, como el molde. Las pistas
+     son 6 y no 3 por un motivo concreto: los videos son 8, o sea la ultima
+     fila lleva 2 y con 3 columnas quedaria un hueco pegado a la derecha. Con
+     6 pistas el 7o arranca en la pista 2 y el 8o cae en la 4 => ultima fila
+     CENTRADA y con tiles del mismo ancho exacto que los de arriba. */
+  .fx{grid-column:span 2;position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0b0505;isolation:isolate;transition:transform .18s ease,border-color .18s,box-shadow .18s}
+  .fx:nth-child(7){grid-column:2/span 2}
+  /* LA MINIATURA. z-index -2 = debajo de los dos velos (que van en -1) pero
+     arriba del fondo del tile, gracias al isolation:isolate de .fx. El filtro
+     es la mitad del trabajo de uniformar: le saca 62% del color y baja el
+     brillo, asi ningun thumb amarillo-fluor grita mas que los otros siete. */
+  .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:grayscale(.85) contrast(.88) brightness(.52)}
+  /* VELO 1 · la rampa por tile (g1..g8): del rojo de marca al carbon, un paso
+     por tarjeta. Es semitransparente A PROPOSITO -- tapa lo suficiente para
+     que el thumb no mande, y deja ver la foto lo suficiente para que el tile
+     no sea un rectangulo muerto. */
+  .fx::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--g);transition:opacity .18s}
+  /* VELO 2 · el mismo de CapCut: brillo radial arriba-izquierda (alla blanco,
+     aca rojo) + el degrade oscuro de abajo, que es lo que sostiene el
+     contraste del rotulo blanco sin importar que foto haya debajo. */
+  .fx::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(90% 60% at 30% 18%,rgba(225,6,0,.20),transparent 55%),linear-gradient(180deg,transparent 30%,rgba(0,0,0,.78))}
+  /* LA RAMPA g1..g8. CapCut la barre de gris claro a gris casi negro; aca va
+     COMPRIMIDA a proposito: del rojo de marca a la brasa apagada, un paso por
+     tile, todos parados en el mismo nivel de oscuridad. El motivo es que alla
+     la rampa vive TAPADA por un reproductor que corre solo (no se ve), y aca
+     se ve: una rampa abierta dejaria la primera fila encendida y la ultima
+     negra, que es justo lo contrario de "uniforme". */
+  .fx.g1{--g:linear-gradient(150deg,rgba(225,6,0,.46),rgba(14,5,5,.90))}
+  .fx.g2{--g:linear-gradient(150deg,rgba(212,10,6,.48),rgba(13,5,5,.90))}
+  .fx.g3{--g:linear-gradient(150deg,rgba(198,13,9,.50),rgba(12,5,5,.91))}
+  .fx.g4{--g:linear-gradient(150deg,rgba(184,16,11,.52),rgba(12,4,4,.91))}
+  .fx.g5{--g:linear-gradient(150deg,rgba(170,18,13,.54),rgba(11,4,4,.92))}
+  .fx.g6{--g:linear-gradient(150deg,rgba(156,19,14,.56),rgba(10,4,4,.92))}
+  .fx.g7{--g:linear-gradient(150deg,rgba(142,20,15,.58),rgba(10,4,4,.93))}
+  .fx.g8{--g:linear-gradient(150deg,rgba(128,20,15,.60),rgba(9,3,3,.93))}
+  /* hover sutil: 3px de levante y el brillo rojo del borde. Sin el zoom del
+     1,2% de la orden U: ahora adentro hay una FOTO, y escalar el tile la
+     resamplea y la deja sucia. */
+  .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(225,6,0,.35),0 16px 38px -18px rgba(225,6,0,.9)}
   /* EL DISPARADOR tapa el tile entero => el area tactil es el tile completo,
      no el circulito del play. Es un <a> de verdad: sin JS abre el video en
-     YouTube en vez de no hacer nada. */
-  .fx-btn{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;padding:14px;color:var(--tx);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+     YouTube en vez de no hacer nada. align-items:flex-end deja el rotulo
+     ABAJO-IZQUIERDA, que es donde lo pone el molde. */
+  .fx-btn{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;padding:14px;color:var(--tx);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .fx-btn:focus-visible{outline:2px solid var(--acc2);outline-offset:-4px;border-radius:13px}
-  /* el play es NUESTRO y se nota: anillo rojo de marca sobre vidrio oscuro, no
-     el pastillon rojo de YouTube. El halo exterior (el 2o box-shadow, 7px) lo
-     despega del fondo sin encender el tile entero. */
-  .fx-ply{position:absolute;left:50%;top:41%;transform:translate(-50%,-50%);width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(16,10,10,.5);border:1.5px solid rgba(225,6,0,.62);box-shadow:0 0 0 7px rgba(225,6,0,.07),0 10px 26px -12px rgba(0,0,0,.95);transition:transform .2s ease,background .2s,border-color .2s,box-shadow .2s}
-  .fx-ply svg{width:19px;height:19px;margin-left:3px;fill:var(--tx)}
-  .fx:hover .fx-ply,.fx-btn:focus-visible .fx-ply{transform:translate(-50%,-50%) scale(1.1);background:var(--acc);border-color:rgba(255,247,245,.72);box-shadow:0 0 0 9px rgba(225,6,0,.14),0 0 30px -2px rgba(225,6,0,.95)}
+  /* EL PLAY: chiquito y ARRIBA-DERECHA, como el molde. Ya no es el pastillon
+     centrado de la orden U -- con la miniatura de fondo, un circulo de 54 px
+     en el medio tapa justamente la imagen que ahora si vale la pena ver.
+     Anillo y triangulo en rojo de marca (en CapCut son blancos). */
+  .fx-ply{position:absolute;top:12px;right:12px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,.42);border:1.5px solid rgba(225,6,0,.85);box-shadow:0 2px 10px -2px rgba(0,0,0,.9);transition:background .18s,border-color .18s,box-shadow .18s}
+  .fx-ply svg{width:11px;height:11px;margin-left:1px;fill:var(--acc)}
+  .fx:hover .fx-ply,.fx-btn:focus-visible .fx-ply{background:var(--acc);border-color:rgba(255,247,245,.8);box-shadow:0 0 20px -3px rgba(225,6,0,.95)}
   .fx:hover .fx-ply svg,.fx-btn:focus-visible .fx-ply svg{fill:var(--ink)}
   .fx-tt{font-family:var(--disp);font-weight:800;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.85)}
-  /* --acc2 y no --acc: el rojo puro mide 3,95:1 y no alcanza para texto chico
-     (la misma regla que ya gobierna el resto de la pagina). */
-  .fx-cap{font-size:.64rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--acc2)}
   /* EL REPRODUCTOR. Solo existe DESPUES del clic; lo inyecta el JS. Un iframe
      NO obedece object-fit, asi que se ENCUADRA igual que el hero: ancho
      completo del tile y su propio 16/9, centrado vertical dentro del 3/4. */
   .fx .yt-mini{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:auto;aspect-ratio:16/9;border:0;z-index:2}
-  /* TILE SONANDO: la fachada se va entera y la tarjeta se queda QUIETA (sin
-     hover), para que no baile debajo del video que estas mirando. */
+  /* TILE SONANDO: la fachada se va ENTERA (rotulo, play, los dos velos y la
+     miniatura) y la tarjeta se queda QUIETA (sin hover), para que no baile
+     debajo del video que estas mirando. */
   .fx.on .fx-btn{display:none}
+  .fx.on .fx-th{display:none}
   .fx.on::before,.fx.on::after{opacity:0}
   .fx.on,.fx.on:hover{transform:none;border-color:var(--acc)}
   .fx-note{color:var(--dim);font-size:1rem;margin-top:16px;max-width:760px}
@@ -341,29 +373,36 @@
     header p.sub{margin-left:auto;margin-right:auto}
     .cta-row{justify-content:center}
     .device{width:225px;margin-top:4px}
-    .gallery{grid-template-columns:repeat(3,1fr);gap:8px}
+    /* MOVIL = LAS MISMAS 3 COLUMNAS, mas chicas (igual que el molde de
+       CapCut): siguen siendo 6 pistas de a 2, solo se cierra el gap. */
+    .gallery{gap:8px}
     .fx{border-radius:11px}
-    .fx-btn{padding:10px;gap:3px}
-    .fx-tt{font-size:.72rem;line-height:1.12}
-    .fx-cap{font-size:.56rem;letter-spacing:.12em}
-    .fx-ply{width:40px;height:40px;border-width:1.2px}
-    .fx-ply svg{width:14px;height:14px;margin-left:2px}
+    .fx-btn{padding:9px}
+    .fx-tt{font-size:.68rem;line-height:1.12}
+    /* el play se APAGA en movil, igual que alla: en un tile de ~110 px el
+       circulito no se toca ni se lee, y el tile entero ya es el boton. */
+    .fx-ply{display:none}
     /* 6 tiles quedan a la vista; los 2 ultimos son solo de escritorio.
-       Con la fachada esto ya no decide trafico (en reposo no se baja NADA
-       de YouTube): decide cuantas filas ve el pulgar. */
+       Ahora esto SI decide trafico otra vez (cada tile visible pide su
+       miniatura a i.ytimg.com): son 6 imagenes, no 8. */
     .fx.g7,.fx.g8{display:none}
+    /* EL TILE QUE SUENA SE LLEVA LA FILA ENTERA. Sin esto, en 3 columnas
+       sobre un telefono de 390 px el reproductor queda de ~118x66 px y sus
+       controles no se pueden tocar con el dedo. Al abrirse ocupa las 6
+       pistas y se pone 16/9 => un player de ancho completo, usable, y la
+       grilla vuelve a cerrarse sola al apagarlo. */
+    .fx.on{grid-column:1/-1;aspect-ratio:16/9}
     .band .wrap{padding:48px 20px}
     .bump{flex-wrap:wrap;row-gap:2px}
     .bump .bp{order:3;flex-basis:100%;padding-left:34px}
     .buybar{display:flex}
   }
-  /* ORDEN O/U · ABAJO DE 560 px LA GRILLA BAJA A 2 COLUMNAS. No es gusto: en
-     3 columnas sobre un telefono de 390 px cada tile mide ~111 px, y ahi no
-     entran el play ni el rotulo sin apretarse; y cuando el tile SUENA, adentro
-     vive un reproductor de 111x62 px cuyos controles no se pueden tocar. A 2
-     columnas el tile queda de ~171 px y las dos cosas se usan. Con g7/g8
-     ocultos son 6 tiles = 3 filas exactas. */
-  @media(max-width:560px){.gallery{grid-template-columns:repeat(2,1fr)}}
+  /* ORDEN W · ABAJO DE 560 px LA GRILLA SE QUEDA EN 3 COLUMNAS (antes bajaba
+     a 2). Lo que hacia falta arreglar de aquel diagnostico -- el tile de ~111
+     px donde no entraban el play ni el reproductor -- ya esta resuelto de otra
+     forma: el play no se dibuja en movil, y el tile que suena se lleva la fila
+     entera (ver .fx.on de arriba). Lo unico que queda apretado es el rotulo,
+     y por eso baja a .68rem. Con g7/g8 ocultos son 6 tiles = 2 filas exactas. */
 
   /* ══════════════ v7 ══════════════════════════════════════════════════════
      1) LOCKUP. El "PRO" no se alinea por LINEA BASE (asi se veia caido en el
@@ -595,13 +634,12 @@
     html{scroll-behavior:auto}
     .btn,.card,.fx,.bump,.vr.vb{transition:none}
     .btn:hover,.card:hover,.fx:hover{transform:none}
-    /* ORDEN U · el play de la galeria: se apaga el VIAJE (el zoom del circulo
-       y el fundido del halo), NO el encendido rojo. Encenderse al pasar por
-       encima no es movimiento, es informacion -- la misma doctrina que ya
-       gobierna la cinta de marcas. El translate queda porque no es el efecto:
-       es lo que lo mantiene centrado. */
+    /* ORDEN U/W · el play de la galeria: se apaga el VIAJE, NO el encendido
+       rojo. Encenderse al pasar por encima no es movimiento, es informacion --
+       la misma doctrina que ya gobierna la cinta de marcas. (El play de la W
+       ya no viaja ni escala: esta clavado arriba-derecha. Lo que queda por
+       apagar aca es solo el fundido.) */
     .fx-ply,.fx::before{transition:none}
-    .fx:hover .fx-ply,.fx-btn:focus-visible .fx-ply{transform:translate(-50%,-50%)}
   }
   @media(max-width:820px){
     /* la barra de compra paga las mayusculas del boton con menos relleno: el
@@ -1398,7 +1436,7 @@ if (PIXEL_ID) {
      lo acota todavia mas -- solo se rompe si el visitante lo pide con un clic.
      PENDIENTE-VETO: los 8 ids estan en la ficha de la orden O. Cambiar un
      video es cambiar UN id: data-yt, el href y el aria-label de su tile. -->
-<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1" data-yt="KKSEE5ApKso" data-tt="Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><a class="fx-btn" href="https://www.youtube.com/watch?v=KKSEE5ApKso" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Despiece<br>del motor</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g2" data-yt="Tdp9uo6uzxY" data-tt="Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><a class="fx-btn" href="https://www.youtube.com/watch?v=Tdp9uo6uzxY" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g3" data-yt="cRhqfWuhqpE" data-tt="Frenos &middot; Limpieza y engrase del freno delantero de la moto"><a class="fx-btn" href="https://www.youtube.com/watch?v=cRhqfWuhqpE" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Frenos &middot; Limpieza y engrase del freno delantero de la moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g4" data-yt="CUFzNiQOynU" data-tt="Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><a class="fx-btn" href="https://www.youtube.com/watch?v=CUFzNiQOynU" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g5" data-yt="RFNfKlG-Qs8" data-tt="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><a class="fx-btn" href="https://www.youtube.com/watch?v=RFNfKlG-Qs8" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g6" data-yt="qnfSIW9EN2k" data-tt="Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><a class="fx-btn" href="https://www.youtube.com/watch?v=qnfSIW9EN2k" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Torques y<br>medidas</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g7" data-yt="XZ8oY3q0Hqk" data-tt="Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><a class="fx-btn" href="https://www.youtube.com/watch?v=XZ8oY3q0Hqk" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div><div class="fx g8" data-yt="4FPUS5CwhUo" data-tt="Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><a class="fx-btn" href="https://www.youtube.com/watch?v=4FPUS5CwhUo" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Curso 2T<br>y 4T</span><span class="fx-cap" aria-hidden="true">Ver video</span></a></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1" data-yt="KKSEE5ApKso" data-tt="Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><img class="fx-th" src="https://i.ytimg.com/vi/KKSEE5ApKso/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=KKSEE5ApKso" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Despiece<br>del motor</span></a></div><div class="fx g2" data-yt="Tdp9uo6uzxY" data-tt="Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><img class="fx-th" src="https://i.ytimg.com/vi/Tdp9uo6uzxY/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=Tdp9uo6uzxY" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagramas<br>el&eacute;ctricos</span></a></div><div class="fx g3" data-yt="cRhqfWuhqpE" data-tt="Frenos &middot; Limpieza y engrase del freno delantero de la moto"><img class="fx-th" src="https://i.ytimg.com/vi/cRhqfWuhqpE/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=cRhqfWuhqpE" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Frenos &middot; Limpieza y engrase del freno delantero de la moto"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Frenos y<br>suspensi&oacute;n</span></a></div><div class="fx g4" data-yt="CUFzNiQOynU" data-tt="Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><img class="fx-th" src="https://i.ytimg.com/vi/CUFzNiQOynU/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=CUFzNiQOynU" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Transmisi&oacute;n<br>y embrague</span></a></div><div class="fx g5" data-yt="RFNfKlG-Qs8" data-tt="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><img class="fx-th" src="https://i.ytimg.com/vi/RFNfKlG-Qs8/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=RFNfKlG-Qs8" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Carburador<br>e inyecci&oacute;n</span></a></div><div class="fx g6" data-yt="qnfSIW9EN2k" data-tt="Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><img class="fx-th" src="https://i.ytimg.com/vi/qnfSIW9EN2k/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=qnfSIW9EN2k" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Torques y<br>medidas</span></a></div><div class="fx g7" data-yt="XZ8oY3q0Hqk" data-tt="Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><img class="fx-th" src="https://i.ytimg.com/vi/XZ8oY3q0Hqk/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=XZ8oY3q0Hqk" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Diagn&oacute;stico<br>por sistemas</span></a></div><div class="fx g8" data-yt="4FPUS5CwhUo" data-tt="Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><img class="fx-th" src="https://i.ytimg.com/vi/4FPUS5CwhUo/mqdefault.jpg" alt="" loading="lazy" decoding="async" width="320" height="180"><a class="fx-btn" href="https://www.youtube.com/watch?v=4FPUS5CwhUo" target="_blank" rel="noopener noreferrer" aria-label="Reproducir el video: Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias"><span class="fx-ply" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.8 6.9 17.6 12l-8.8 5.1z"/></svg></span><span class="fx-tt">Curso 2T<br>y 4T</span></a></div></div></div></section>
 
 <!-- ═══════ ORDEN S · DESPIECE DINAMICO "ENCUENTRA TU PIEZA" ═════════════════
      SUSTITUYE al despiece dibujado a mano de la orden P. Aquel era un <svg> de
@@ -1846,12 +1884,15 @@ if (PIXEL_ID) {
      vivio un IntersectionObserver que inyectaba <video> del mismo origen
      (video/v1..v8.mp4, archivos que nunca existieron); la orden O lo borro y
      puso 8 <iframe loading="lazy">; la U los saca y deja el click-to-load.
-     LO QUE ESTO RECUPERA, medido: al abrir la pagina la galeria no pide NADA
-     a YouTube (antes, al llegar a la seccion, 8 reproductores). Y como solo
-     vive UNO a la vez, no hay forma de terminar con 8 players en memoria.
-     LO QUE SIGUE SIN HABER, dicho sin adornos: no hay corte por saveData ni
-     por effectiveType=2g -- pero ya casi no hace falta, porque sin clic no se
-     baja un byte. -->
+     LO QUE ESTO RECUPERA: al abrir la pagina la galeria no baja NI UN
+     REPRODUCTOR (antes, al llegar a la seccion, 8). Y como solo vive UNO a la
+     vez, no hay forma de terminar con 8 players en memoria.
+     LO QUE LA ORDEN W LE DEVUELVE AL COSTO, dicho sin adornos: los tiles
+     ahora llevan la MINIATURA de YouTube de fondo => 8 imagenes (6 en movil)
+     a i.ytimg.com, diferidas con loading="lazy". Son imagenes, no players:
+     ni JS de terceros, ni cookies, ni autoplay.
+     LO QUE SIGUE SIN HABER: no hay corte por saveData ni por
+     effectiveType=2g. El JS de aca abajo no cambio ni una linea en la W. -->
 <script>
 (function(){
   /* FACHADA / click-to-load, UN SOLO REPRODUCTOR.
