@@ -998,194 +998,285 @@
     body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
   }
 
-  /* ══════════════ ORDEN P · DESPIECE INTERACTIVO ════════════════════════════
-     El GANCHO: una moto dibujada POR NOSOTROS que se DESARMA con el scroll y va
-     diciendo como se llama cada pieza. Es la promesa del producto hecha demo:
-     "cada manual te muestra tu moto pieza por pieza, como aqui".
+  /* ══════════════ ORDEN S · DESPIECE DINAMICO CON IMAGEN REAL ═══════════════
+     Reemplaza al dibujo SVG de la orden P. Lo que hay ahora es UNA foto
+     (img/despiece-hero.jpg, 1280x720, ~122 KB, material propio) y encima una
+     capa de interaccion hecha a mano: cero librerias, cero requests aparte de
+     la imagen.
 
-     CERO TERCEROS, y aca la frase es literal: la moto es un <svg> en linea
-     dibujado a mano en este archivo (paths, no imagenes), el movimiento es CSS
-     y ~120 lineas de JS propio. No entra ni un diagrama con copyright, ni una
-     libreria de scroll, ni una request. Si el JS no corre, la seccion se ve
-     DESPIECADA Y ROTULADA (--t vale 1 por defecto): sigue siendo informativa.
+     ── POR QUE UNA FOTO Y NO EL DIBUJO ────────────────────────────────────────
+     El dibujo cumplia la regla "cero terceros" pero se leia como un esquema de
+     pizarra. La foto es material PROPIO (generada para esta pagina), asi que la
+     razon que sostenia el dibujo -- un despiece de manual SIEMPRE tiene dueno --
+     sigue respetada: no se copio el despiece de nadie.
 
-     ── COMO SE MUEVE ───────────────────────────────────────────────────────────
-     Una sola variable manda: --t (0 = moto armada · 1 = moto abierta del todo).
-     El JS la escribe UNA vez por frame en .dp-scene y de ahi hereda todo.
-     Cada pieza tiene su propio --s (cuando le toca salir) y saca su --lt local
-     con un clamp() de CSS puro, o sea el escalonado NO cuesta JS: son 10 piezas
-     saliendo en cascada con 1 sola escritura de estilo por frame.
+     ── UN SOLO SISTEMA DE COORDENADAS ─────────────────────────────────────────
+     La escena tiene aspect-ratio 1280/720, EXACTAMENTE el de la imagen, y la
+     imagen va object-fit:cover. Al coincidir las dos proporciones no hay
+     letterbox: el 37% de ancho de la escena es el 37% de ancho de la foto,
+     siempre. Por eso cada zona se declara en % (--x/--y/--w/--h) y no hace
+     falta la matematica de preserveAspectRatio que pedia el SVG. Re-calibrar
+     una zona = cambiar cuatro numeros en su <button>.
 
-     ── POR QUE LOS ROTULOS SON HTML Y NO <text> DEL SVG ────────────────────────
-     Un <text> dentro del viewBox se encoge con el dibujo: en un telefono de
-     390px los 10 nombres quedarian en ~4px. Los rotulos son <button> de HTML
-     con tamano de fuente REAL, y el JS los coloca resolviendo a mano el
-     preserveAspectRatio del SVG (--sc = escala, --ox/--oy0 = franjas del
-     letterbox). Asi el nombre se lee igual en 390px que en 1280px. Y al ser
-     <button> son alcanzables con el teclado, que un <text> no lo es.
+     ── EL FOCO VIAJA (y por que hay @property) ────────────────────────────────
+     El "spotlight" es un radial-gradient cuyo centro son --hx/--hy. Sin
+     registrar, esas variables son TEXTO para el navegador y el foco salta de
+     una pieza a otra. Registradas como <length-percentage> se interpolan, o sea
+     el circulo de luz se DESLIZA. En un navegador sin @property el salto sigue
+     siendo correcto: degradacion, no rotura.
 
-     ── CONTRASTE ───────────────────────────────────────────────────────────────
-     El dibujo es GRAFICO, o sea su piso es 3:1 (WCAG 1.4.11), no 4,5:1.
-     --dp-mtl #a08d8d mide 6,0:1 contra --bg y --dp-rub #2e1d1d va SIEMPRE
-     encima de un trazo claro, nunca solo. Los rotulos SI son texto y van en
-     --tx sobre pastilla --panel2: ahi el piso que se respeta es el de texto. */
+     ── CONTRASTE ──────────────────────────────────────────────────────────────
+     Los rotulos y la lista son TEXTO, asi que respetan piso de texto (4,5:1):
+     --tx sobre pastilla #251616 y sobre --panel. El rojo --acc se usa como
+     FONDO de pastilla y como halo, nunca como texto chico. */
   #despiece{position:relative;padding:74px 0 10px;background:
     radial-gradient(64% 46% at 50% 38%,rgba(225,6,0,.13),transparent 70%),
     linear-gradient(180deg,transparent 0,var(--deep) 16%,var(--deep) 84%,transparent 100%)}
   #despiece .wrap{position:relative;z-index:2}
-  /* el riel es el que da el VIAJE: su alto de mas es la distancia de scroll que
-     el JS traduce a --t. El escenario va pegado (sticky) debajo de la barra. */
+
+  @property --hx{syntax:"<length-percentage>";inherits:true;initial-value:50%}
+  @property --hy{syntax:"<length-percentage>";inherits:true;initial-value:50%}
+  @property --hrx{syntax:"<length-percentage>";inherits:true;initial-value:22%}
+  @property --hry{syntax:"<length-percentage>";inherits:true;initial-value:30%}
+
+  /* el riel da el VIAJE: su alto de mas es la distancia de scroll que el JS
+     traduce a --t (0 = recien entra · 1 = seccion recorrida). El escenario va
+     pegado (sticky) arriba del todo y respira con padding, NO con top:<alto de
+     la barra>: asi los 67/61px de la barra y los 80 del pie de compra no quedan
+     escritos aqui. */
   .dp-rail{position:relative;height:250vh}
-  /* top:0 + padding, y NO top:<alto de la barra>. Aca hay tres alturas ajenas
-     en juego: la barra de arriba mide 67px en escritorio y 61 en movil, y el
-     pie fijo de compra existe SOLO en movil y mide 80. Pegando el escenario
-     arriba del todo y respirando con padding, ninguno de esos tres numeros
-     queda escrito aqui: si manana cambian, esta seccion no se entera. */
-  .dp-stage{position:sticky;top:0;height:100vh;min-height:460px;
+  .dp-stage{position:sticky;top:0;height:100vh;min-height:470px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:10px;padding:80px 14px 26px;--t:1}
-  /* aspect-ratio = la caja del escenario mide LO MISMO que el dibujo. Sin esto,
-     en un telefono el SVG (que es apaisado) se dibujaba a 374x247 dentro de una
-     caja de 374x600 y sobraban 350px de negro en medio de la pantalla. */
-  .dp-scene{position:relative;width:100%;max-width:1160px;aspect-ratio:1300/860;
-    flex:0 1 auto;min-height:0;
-    --sc:1;--ox:0;--oy0:0;--zf:1.26;
-    --dp-mtl:#a08d8d;--dp-mtl2:#e4d2d2;--dp-rub:#2e1d1d;--dp-dark:#1a1010}
-  .dp-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-  /* ZOOM DE ENTRADA: con la moto armada el dibujo llena el cuadro (126%) y se
-     aleja al 100% para dejar sitio a las piezas que vuelan. Se apaga en --t .18
-     A PROPOSITO: los rotulos son HTML y NO estan dentro de este <g>, o sea no
-     se enteran del zoom. Mientras haya un nombre en pantalla (el primero sale
-     en .26) el zoom ya tiene que valer 1 exacto, o el nombre queda corrido. */
-  .dp-zoom{transform-box:view-box;transform-origin:50% 50%;
-    transform:scale(calc(var(--zf) - (var(--zf) - 1) * clamp(0,calc(var(--t) / .22),1)))}
+    gap:14px;padding:80px 14px 26px;--t:1;--p:1}
 
-  /* ── LA PIEZA: una sola regla mueve las 10 ─────────────────────────────────
-     --dx/--dy = a donde vuela (unidades del viewBox, que en CSS sobre SVG son
-     px de usuario) · --s = en que punto de --t arranca · .48 = lo que dura. */
-  .dp-pz{--dx:0;--dy:0;--s:0;
-    --lt:clamp(0,calc((var(--t) - var(--s)) / .48),1);
-    transform:translate(calc(var(--dx) * var(--lt) * 1px),calc(var(--dy) * var(--lt) * 1px));
-    transition:opacity .22s ease;cursor:pointer}
-  .dp-hit{fill:transparent;stroke:none}
-  /* al senalar una pieza las demas se APAGAN (no se esconden): el ojo va a una
-     sola y el esqueleto sigue dando contexto. */
-  .dp-scene[data-hot] .dp-pz{opacity:.26}
-  .dp-scene[data-hot] .dp-pz.hot{opacity:1}
-  .dp-scene[data-hot] .dp-frame{opacity:.4}
-  .dp-pz.hot .dp-glow{opacity:1}
-  .dp-glow{opacity:0;transition:opacity .22s ease;fill:none;stroke:var(--acc);
-    stroke-width:13;stroke-linecap:round;stroke-linejoin:round;
-    filter:drop-shadow(0 0 10px rgba(225,6,0,.95))}
+  /* DOS RELOJES, y la diferencia importa:
+       --t es el viaje CON CURVA (easeInOutCubic). Manda la cascada de piezas:
+           queremos que salgan con calma, no a tiron.
+       --p es el viaje CRUDO, lineal. Manda la ENTRADA (encendido, zoom, luz).
+     Si la entrada colgara de --t, la curva -- que arranca casi plana -- dejaria
+     la foto casi negra durante medio scroll: se veia un rectangulo apagado y
+     parecia rota. Con --p la foto prende en cuanto entras, que es justo lo que
+     tiene que sentirse. Las dos las escribe el JS en el mismo frame.
+     --e = encendido+zoom (el 22% inicial) · --sw = el barrido de luz (el 34%). */
+  .dp-box{width:100%;max-width:1160px;display:grid;
+    grid-template-columns:minmax(0,1fr) 250px;gap:20px;align-items:center;
+    --e:clamp(0,calc(var(--p) / .22),1);
+    --sw:clamp(0,calc(var(--p) / .34),1)}
 
-  /* trazos del dibujo */
-  .dp-tube,.dp-fork,.dp-shock{fill:none;stroke:var(--dp-mtl);stroke-width:7;
-    stroke-linecap:round;stroke-linejoin:round}
-  .dp-fork{stroke-width:9}
-  .dp-shock{stroke:var(--acc3);stroke-width:9;opacity:.85}
-  .dp-swing{fill:var(--dp-dark);stroke:var(--dp-mtl);stroke-width:4}
-  .dp-ground{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:3 13;
-    stroke-linecap:round;opacity:calc(.85 - .85 * var(--t))}
-  .dp-tire{fill:none;stroke:var(--dp-rub);stroke-width:24}
-  .dp-tread{fill:none;stroke:var(--dp-mtl);stroke-width:24;stroke-dasharray:7 15;opacity:.3}
-  .dp-rim{fill:none;stroke:var(--dp-mtl2);stroke-width:6}
-  .dp-spoke{fill:none;stroke:var(--dp-mtl);stroke-width:5;stroke-linecap:round}
-  .dp-hub{fill:var(--dp-mtl2);stroke:none}
-  .dp-metal{fill:var(--panel2);stroke:var(--dp-mtl);stroke-width:5;
-    stroke-linejoin:round;stroke-linecap:round}
-  .dp-line{fill:none;stroke:var(--dp-mtl);stroke-width:4;stroke-linecap:round}
-  .dp-fin{fill:none;stroke:var(--dp-mtl2);stroke-width:3;stroke-linecap:round;opacity:.75}
-  .dp-pipe{fill:none;stroke:var(--dp-mtl2);stroke-width:13;
-    stroke-linecap:round;stroke-linejoin:round}
-  .dp-can{fill:var(--panel2);stroke:var(--dp-mtl2);stroke-width:5}
-  .dp-chain{fill:none;stroke:var(--dp-mtl2);stroke-width:7;stroke-dasharray:8 6;stroke-linecap:butt}
-  .dp-sproc{fill:none;stroke:var(--dp-mtl);stroke-width:9;stroke-dasharray:6 7}
-  .dp-disc{fill:none;stroke:var(--dp-mtl2);stroke-width:5}
-  .dp-disc2{fill:none;stroke:var(--dp-mtl);stroke-width:3;stroke-dasharray:5 11;opacity:.9}
-  .dp-tank{fill:url(#dpTank);stroke:#ff8a75;stroke-width:3}
-  .dp-seat{fill:url(#dpSeat);stroke:var(--dp-mtl);stroke-width:4;stroke-linejoin:round}
-  .dp-lamp{fill:url(#dpLamp);stroke:var(--dp-mtl2);stroke-width:4}
-  .dp-frame{transition:opacity .22s ease}
+  .dp-scene{position:relative;width:100%;aspect-ratio:1280/720;overflow:hidden;
+    border-radius:18px;border:1px solid var(--line);background:#000;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.04) inset;
+    /* el foco se DESLIZA entre piezas: la transicion va en el elemento donde el
+       JS escribe las variables, no en el que las pinta. */
+    transition:--hx .42s cubic-bezier(.22,.7,.2,1),--hy .42s cubic-bezier(.22,.7,.2,1),
+               --hrx .42s ease,--hry .42s ease}
 
-  /* ── EL ROTULO ─────────────────────────────────────────────────────────────
-     Va colocado por el JS: --ax/--ay es el centro de la pieza ARMADA (ya con el
-     origen del viewBox sumado) y se desplaza con el mismo --lt que la pieza, o
-     sea el nombre VIAJA pegado a su pieza. --oy lo baja para no taparla. */
-  .dp-lb{position:absolute;left:0;top:0;--ax:0;--ay:0;--oy:0;--dx:0;--dy:0;--s:0;
-    --lt:clamp(0,calc((var(--t) - var(--s)) / .48),1);
-    transform:translate(
-      calc(var(--ox) * 1px + (var(--ax) + var(--dx) * var(--lt)) * var(--sc) * 1px - 50%),
-      calc(var(--oy0) * 1px + (var(--ay) + var(--oy) + var(--dy) * var(--lt)) * var(--sc) * 1px - 50%));
-    opacity:clamp(0,calc((var(--lt) - .6) * 3.6),1);
-    font-family:var(--disp);font-weight:800;font-size:.82rem;letter-spacing:.02em;
-    color:var(--tx);background:rgba(37,22,22,.92);border:1px solid var(--line);
-    border-radius:999px;padding:5px 13px;white-space:nowrap;cursor:pointer;
-    backdrop-filter:blur(6px);transition:background .2s ease,border-color .2s ease,color .2s ease}
-  .dp-lb::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  /* LA PLACA: imagen + zonas + halo, todo junto. Se mueve como UNA pieza, asi
+     que el zoom de entrada no descoloca ni un hotspot (todos son % de la misma
+     caja). transform-origin un poco arriba del centro porque la moto armada
+     pesa hacia arriba: centrando en 50% el zoom se comia el motor. */
+  .dp-plate{position:absolute;inset:0;transform-origin:50% 46%;
+    --zf:1.14;
+    transform:translateY(calc((.5 - var(--p)) * 16px))
+              scale(calc(var(--zf) - (var(--zf) - 1) * var(--e)))}
+  .dp-img{width:100%;height:100%;display:block;object-fit:cover}
+
+  /* CORTINA DE ENTRADA: la foto nace casi negra y "prende" con el scroll. Es un
+     div con opacity y no un filter:brightness sobre la imagen A PROPOSITO: la
+     opacidad la compone la GPU, el filter obliga a repintar 1280px de foto en
+     cada frame del scroll. */
+  .dp-fade{position:absolute;inset:0;background:var(--deep);pointer-events:none;
+    opacity:calc((1 - var(--e)) * .78)}
+  /* vineta fija: mete el ojo al centro y despega la foto del fondo */
+  .dp-vig{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(78% 78% at 50% 48%,transparent 52%,rgba(8,5,5,.62) 100%)}
+
+  /* BARRIDO DE LUZ: cruza una sola vez, durante la entrada. La opacidad es una
+     parabola (sube y baja sola) para que no aparezca ni desaparezca de golpe. */
+  .dp-sweep{position:absolute;top:-12%;bottom:-12%;left:-40%;right:-40%;
+    pointer-events:none;mix-blend-mode:screen;
+    background:linear-gradient(104deg,transparent 40%,rgba(255,244,240,.07) 46%,
+      rgba(255,138,117,.30) 50%,rgba(255,244,240,.07) 54%,transparent 60%);
+    opacity:calc(var(--sw) * (1 - var(--sw)) * 3.4);
+    transform:translateX(calc(-58% + var(--sw) * 116%))}
+
+  /* EL VELO: oscurece TODO menos un ovalo sobre la pieza senalada. Un solo
+     elemento hace el "spotlight": no hay 10 mascaras ni 10 recortes. */
+  .dp-veil{position:absolute;inset:0;pointer-events:none;opacity:0;
+    transition:opacity .3s ease;
+    background:radial-gradient(ellipse var(--hrx) var(--hry) at var(--hx) var(--hy),
+      rgba(8,5,5,0) 0%,rgba(8,5,5,0) 52%,rgba(8,5,5,.55) 76%,rgba(8,5,5,.88) 100%)}
+  .dp-scene[data-hot] .dp-veil{opacity:1}
+
+  /* EL HALO: el rectangulo rojo que encierra la pieza viva. Es UNO solo y viaja
+     de zona en zona (left/top/width/height con transicion), en vez de diez
+     marcos encendiendose y apagandose. */
+  .dp-ring{position:absolute;pointer-events:none;opacity:0;border-radius:14px;
+    border:2px solid var(--acc);
+    left:var(--hl,40%);top:var(--ht,40%);width:var(--hw,20%);height:var(--hh,20%);
+    background:radial-gradient(60% 60% at 50% 50%,rgba(225,6,0,.12),transparent 72%);
+    box-shadow:0 0 0 1px rgba(255,244,240,.16) inset,
+               0 0 26px 3px rgba(225,6,0,.55),0 0 110px 14px rgba(225,6,0,.22);
+    transition:opacity .25s ease,left .42s cubic-bezier(.22,.7,.2,1),
+      top .42s cubic-bezier(.22,.7,.2,1),width .42s cubic-bezier(.22,.7,.2,1),
+      height .42s cubic-bezier(.22,.7,.2,1)}
+  .dp-scene[data-hot] .dp-ring{opacity:1}
+
+  /* ── LA ZONA ───────────────────────────────────────────────────────────────
+     Un <button> transparente por pieza. Invisible pero alcanzable con el dedo,
+     el raton y el teclado. --s es en que punto de --t aparece su punto. */
+  .dp-hs{position:absolute;left:calc(var(--x) * 1%);top:calc(var(--y) * 1%);
+    width:calc(var(--w) * 1%);height:calc(var(--h) * 1%);
+    --lt:clamp(0,calc((var(--t) - var(--s)) / .40),1);
+    background:none;border:0;padding:0;margin:0;cursor:pointer;
+    -webkit-tap-highlight-color:transparent}
+  .dp-hs:focus{outline:none}
+  .dp-hs:focus-visible{outline:2px solid var(--acc3);outline-offset:2px;border-radius:12px}
+  /* CANDADO: mientras dura el zoom de entrada (--p < .22) la placa todavia se
+     esta moviendo; encender un foco ahi pintaria el halo corrido respecto de su
+     pieza. data-ab lo pone el JS. */
+  .dp-scene[data-ab="0"] .dp-hs{pointer-events:none}
+
+  /* el PUNTO: la marca que dice "aca hay algo". Sale en cascada con --lt, que
+     es lo que da la sensacion de que las piezas se van revelando. */
+  .dp-pt{position:absolute;left:50%;top:50%;width:12px;height:12px;border-radius:50%;
+    background:var(--acc);border:2px solid rgba(255,244,240,.85);
+    box-shadow:0 0 13px 2px rgba(225,6,0,.6);
+    /* tope .72: diez puntos a plena luz competian con la foto. El punto dice
+       "aca hay algo", no tiene que gritarlo; al senalar sube a 1. */
+    transform:translate(var(--tx0),-50%) scale(var(--lt));opacity:calc(var(--lt) * .72);
+    transition:background .2s ease,opacity .2s ease,box-shadow .2s ease}
+  .dp-pt::after{content:"";position:absolute;inset:-7px;border-radius:50%;
+    border:1px solid rgba(225,6,0,.55);opacity:0;transition:opacity .25s ease,transform .25s ease;
+    transform:scale(.6)}
+  .dp-hs.act .dp-pt,.dp-hs:hover .dp-pt{opacity:var(--lt)}
+  /* con una pieza aislada, los otros nueve puntos se apagan casi del todo: si
+     no, quedan brillando sobre la zona oscurecida y le disputan el ojo a la
+     unica pieza que se esta mirando. */
+  .dp-scene[data-hot] .dp-hs:not(.hot) .dp-pt{opacity:calc(var(--lt) * .2)}
+  .dp-hs.hot .dp-pt{background:var(--ink);opacity:1;box-shadow:0 0 18px 5px rgba(225,6,0,.85)}
+  .dp-hs.hot .dp-pt::after{opacity:1;transform:scale(1)}
+
+  /* el ROTULO: sale SOLO en la pieza viva (la que acaba de revelarse) o en la
+     que estas senalando. Diez pastillas a la vez encima de la foto tapaban la
+     foto; los diez nombres ya viven, quietos y legibles, en la lista de al lado. */
+  .dp-tag{position:absolute;left:var(--tl,50%);top:100%;--tg:8px;--tx0:-50%;
+    transform:translate(var(--tx0),var(--tg)) scale(.94);
+    transform-origin:50% 0;opacity:0;pointer-events:none;white-space:nowrap;
+    font-family:var(--disp);font-weight:800;font-size:.82rem;letter-spacing:.01em;
+    color:var(--tx);background:rgba(37,22,22,.94);border:1px solid var(--line);
+    border-radius:999px;padding:5px 13px;backdrop-filter:blur(6px);
+    box-shadow:0 10px 26px -12px #000;
+    transition:opacity .22s ease,transform .22s ease,background .22s ease,
+      border-color .22s ease,color .22s ease}
+  .dp-tag::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
     background:var(--acc2);margin-right:7px;vertical-align:middle;transform:translateY(-1px)}
-  .dp-lb.hot,.dp-lb.act{opacity:1;background:var(--acc);border-color:var(--acc);color:var(--ink)}
-  .dp-lb.hot::before,.dp-lb.act::before{background:var(--ink)}
-  /* .act es "la pieza que acaba de salir" y .hot es "la que estas senalando".
-     Mientras haya una senalada, la roja tiene que ser UNA: dos pastillas rojas
-     a la vez dicen dos cosas distintas y el ojo no sabe cual le esta hablando. */
-  .dp-scene[data-hot] .dp-lb.act:not(.hot){background:rgba(37,22,22,.92);
-    border-color:var(--line);color:var(--tx)}
-  .dp-scene[data-hot] .dp-lb.act:not(.hot)::before{background:var(--acc2)}
-  .dp-lb:focus-visible{outline:2px solid var(--acc3);outline-offset:3px}
-  /* CANDADO DEL ZOOM. data-ab lo pone el JS y vale 0 mientras --t < .22, o sea
-     exactamente mientras el zoom de entrada sigue vivo. En esa ventana NINGUN
-     rotulo puede verse ni recibir clicks: los rotulos son HTML y no se enteran
-     del zoom, asi que un toque sobre una pieza a --t .1 (que enciende .hot y
-     forzaria opacity:1) habria pintado el nombre corrido respecto de su pieza.
-     Gana por especificidad a .dp-lb.hot / .dp-lb.act, que es justo el caso. */
-  .dp-scene[data-ab="0"] .dp-lb{pointer-events:none;opacity:0}
+  /* zonas pegadas al borde de abajo: el rotulo va ARRIBA o no se ve */
+  .dp-hs.up .dp-tag{top:auto;bottom:100%;transform:translate(var(--tx0),calc(var(--tg) * -1)) scale(.94);
+    transform-origin:50% 100%}
+  .dp-hs.act .dp-tag{opacity:1;transform:translate(var(--tx0),var(--tg)) scale(1)}
+  .dp-hs.up.act .dp-tag{transform:translate(var(--tx0),calc(var(--tg) * -1)) scale(1)}
+  .dp-hs.hot .dp-tag{opacity:1;transform:translate(var(--tx0),var(--tg)) scale(1);
+    background:var(--acc);border-color:var(--acc);color:var(--ink)}
+  .dp-hs.up.hot .dp-tag{transform:translate(var(--tx0),calc(var(--tg) * -1)) scale(1)}
+  .dp-hs.hot .dp-tag::before{background:var(--ink)}
+  /* Las piezas de los extremos no pueden llevar el rotulo centrado: la pastilla
+     de "Rueda trasera" mide casi un tercio del ancho de la foto en un telefono,
+     asi que centrada sobre una zona que ya toca el borde se salia del marco.
+     En esas, el rotulo se alinea con el borde de SU zona en vez de con su
+     centro -- sigue senalando lo mismo y entra entero. */
+  .dp-hs.izq .dp-tag{--tl:0;--tx0:0}
+  .dp-hs.der .dp-tag{--tl:100%;--tx0:-100%}
+  /* mientras hay una pieza senalada, la roja tiene que ser UNA: dos pastillas
+     rojas a la vez dicen dos cosas distintas y el ojo no sabe cual le habla. */
+  .dp-scene[data-hot] .dp-hs.act:not(.hot) .dp-tag{opacity:.35}
+  .dp-scene[data-ab="0"] .dp-tag{opacity:0}
+
+  /* ── LA LISTA ──────────────────────────────────────────────────────────────
+     La segunda puerta de entrada: los diez nombres siempre visibles, ordenados,
+     legibles. Senalar un renglon enciende su zona en la foto (y al reves). Es
+     tambien el plan B de accesibilidad: quien no puede "cazar" una zona con el
+     raton tiene la misma informacion en una lista normal. */
+  /* la lista entera tiene que caber en la pantalla PEGADA (100vh menos la barra
+     y el pie del escenario): por eso los renglones son compactos y la linea de
+     detalle va a .72rem. Si crece, el primer renglon se mete debajo de la barra. */
+  .dp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+  .dp-it{display:block;width:100%;text-align:left;background:transparent;
+    border:1px solid transparent;border-radius:10px;padding:5px 10px;cursor:pointer;
+    color:var(--dim);font-family:var(--sans);transition:background .18s ease,
+      border-color .18s ease,color .18s ease,transform .18s ease}
+  .dp-it .dp-n{display:block;font-family:var(--disp);font-weight:800;font-size:.86rem;
+    color:var(--tx);letter-spacing:-.01em;line-height:1.25}
+  .dp-it .dp-d{display:block;font-size:.72rem;line-height:1.25;margin-top:1px;color:var(--dim)}
+  .dp-it::before{content:"";float:left;width:6px;height:6px;border-radius:50%;
+    background:var(--line);margin:6px 8px 0 0;transition:background .18s ease,box-shadow .18s ease}
+  .dp-it:hover,.dp-it.hot{background:var(--panel);border-color:var(--line);transform:translateX(2px)}
+  .dp-it.hot::before{background:var(--acc);box-shadow:0 0 10px 2px rgba(225,6,0,.75)}
+  .dp-it:focus-visible{outline:2px solid var(--acc3);outline-offset:2px}
 
   /* pie del escenario: el nombre GRANDE de la pieza viva + la barra de avance */
-  .dp-cap{min-height:2.9em;text-align:center;font-size:1.02rem;color:var(--mut);
-    max-width:640px;line-height:1.35}
+  .dp-cap{min-height:2.6em;text-align:center;font-size:1.02rem;color:var(--mut);
+    max-width:660px;line-height:1.35;margin:0}
   .dp-cap b{color:var(--tx);font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
   .dp-cap .sep{color:var(--acc2);margin:0 7px}
   .dp-bar{width:min(320px,70%);height:4px;border-radius:999px;background:var(--panel2);
     overflow:hidden;flex:0 0 auto}
   .dp-bar i{display:block;height:100%;border-radius:999px;background:var(--acc);
     width:calc(var(--t) * 100%);box-shadow:0 0 14px rgba(225,6,0,.9)}
-  .dp-pie{color:var(--dim);font-size:.96rem;text-align:center;margin:18px auto 0;max-width:640px}
-  .dp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
-    clip-path:inset(50%);white-space:nowrap}
+  .dp-pie{color:var(--dim);font-size:.96rem;text-align:center;margin:18px auto 0;max-width:660px}
 
+  @media(max-width:900px){
+    .dp-box{grid-template-columns:minmax(0,1fr);gap:12px}
+    /* En vertical la columna de diez renglones con su linea de detalle no cabe
+       debajo de la foto. Pero una TIRA horizontal tampoco servia: dejaba seis
+       de las diez piezas escondidas fuera de pantalla, o sea escondia justo lo
+       que la lista viene a resolver. Rejilla de DOS: las diez se ven de una,
+       cada pastilla es un blanco comodo para el dedo y de paso llena el hueco
+       que deja una foto apaisada en una pantalla vertical. */
+    .dp-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .dp-it{padding:7px 12px;border-radius:999px;background:var(--panel);
+      border-color:var(--line);white-space:nowrap;overflow:hidden;
+      text-overflow:ellipsis}
+    .dp-it .dp-d{display:none}
+    .dp-it .dp-n{font-size:.8rem;overflow:hidden;text-overflow:ellipsis}
+    .dp-it.hot{background:var(--acc);border-color:var(--acc);transform:none}
+    .dp-it.hot .dp-n{color:var(--ink)}
+    .dp-it.hot::before{background:var(--ink);box-shadow:none}
+  }
   @media(max-width:720px){
     #despiece{padding-top:56px}
     .dp-rail{height:210vh}
-    /* los 96px de abajo son el pie fijo de compra (80) mas aire: sin ellos el
-       pie del escenario quedaba TAPADO por la barra de US$12.99 */
-    .dp-stage{gap:8px;padding:74px 8px 96px}
-    /* en 390px de ancho la moto entera ocupaba el 51% del viewBox = 190px de
-       dibujo. Con el zoom al 175% llena la pantalla mientras esta armada, que
-       es el fotograma que todo el mundo ve primero. */
-    .dp-scene{--zf:1.75}
-    /* en el telefono el dibujo cabe pero 10 pastillas a la vez NO: se muestra
-       SOLO la de la pieza viva (la que acaba de salir o la que tocaste) y el
-       resto de la informacion la da el pie, que ahi si se lee. */
-    .dp-lb{font-size:.7rem;padding:3px 9px;letter-spacing:0;display:none}
-    .dp-lb::before{width:5px;height:5px;margin-right:5px}
-    .dp-lb.act,.dp-lb.hot{display:block}
-    .dp-cap{font-size:.96rem;min-height:3.4em}
-    .dp-glow{stroke-width:16}
+    /* los 96px de abajo son el pie fijo de compra (80) mas aire */
+    .dp-stage{gap:10px;padding:74px 8px 96px}
+    /* la foto entra a 374px de ancho: el zoom de entrada se hace mas grande
+       para que la moto ARMADA llene la pantalla, que es el primer fotograma
+       que todo el mundo ve. */
+    .dp-plate{--zf:1.26}
+    .dp-scene{border-radius:14px}
+    .dp-pt{width:11px;height:11px}
+    /* la foto mide 210px de alto en un telefono: el rotulo de la pieza mas baja
+       (la caja, que empieza en el 88%) se salia del marco con 8px de separacion. */
+    .dp-tag{font-size:.7rem;padding:3px 9px;--tg:4px}
+    .dp-cap{font-size:.94rem;min-height:3.2em}
   }
   /* pantallas bajas (o movil apaisado): el escenario no puede comerse la altura */
-  @media(max-height:620px){.dp-stage{min-height:0;height:auto;position:static;padding:20px 12px}
-    .dp-scene{flex:0 0 auto;max-width:760px}.dp-rail{height:auto}}
+  @media(max-height:620px){
+    .dp-stage{min-height:0;height:auto;position:static;padding:20px 12px}
+    .dp-rail{height:auto}
+    .dp-box{max-width:820px}
+  }
 
   /* ── MOVIMIENTO ────────────────────────────────────────────────────────────
-     Quien pidio menos movimiento no recibe el viaje: ve la moto YA despiezada y
-     con los 10 nombres puestos, que es exactamente la informacion que la
-     animacion iba a entregar. El JS ni siquiera engancha el scroll. */
+     Quien pidio menos movimiento no recibe el viaje: ve la foto YA encendida,
+     con los diez puntos puestos y la lista completa, que es exactamente la
+     informacion que la animacion iba a entregar. El JS ni engancha el scroll. */
   @media (prefers-reduced-motion:reduce){
     .dp-rail{height:auto}
     .dp-stage{position:static;height:auto;min-height:0;padding:20px 12px 26px}
-    .dp-scene{flex:0 0 auto;max-width:min(100%,900px)}
-    .dp-pz,.dp-lb,.dp-frame,.dp-glow{transition:none}
-    .dp-lb{display:block}
+    .dp-plate{transform:none}
+    .dp-sweep{display:none}
+    .dp-ring,.dp-tag,.dp-veil,.dp-it,.dp-pt{transition:none}
+    .dp-scene{transition:none}
   }
 </style>
 <script>
@@ -1262,193 +1353,83 @@ if (PIXEL_ID) {
      es cambiar UN id en su /embed/<id> y su title; nada mas. -->
 <section><div class="wrap"><div class="eyebrow">Qu&eacute; hay adentro</div><h2 class="title">Lo que se abre y se arregla todos los d&iacute;as</h2><p class="lead">Motor, el&eacute;ctrico, frenos, suspensi&oacute;n, transmisi&oacute;n y carburaci&oacute;n. Mira en video el tipo de trabajo que los manuales explican paso a paso:</p><div class="gallery"><div class="fx g1"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/KKSEE5ApKso?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Despiece del motor &middot; C&oacute;mo desarmar y armar un motor 4 tiempos de motocicleta (125, 150, 200, 250)" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Despiece<br>del motor</span></div><div class="fx g2"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/Tdp9uo6uzxY?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Diagramas el&eacute;ctricos &middot; C&oacute;mo leer los diagramas del sistema el&eacute;ctrico de una moto" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Diagramas<br>el&eacute;ctricos</span></div><div class="fx g3"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/cRhqfWuhqpE?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Frenos &middot; Limpieza y engrase del freno delantero de la moto" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Frenos y<br>suspensi&oacute;n</span></div><div class="fx g4"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/CUFzNiQOynU?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Transmisi&oacute;n y embrague &middot; Desarme del embrague, la varilla de cambios y la transmisi&oacute;n" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Transmisi&oacute;n<br>y embrague</span></div><div class="fx g5"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/RFNfKlG-Qs8?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Carburador &middot; C&oacute;mo limpiar el carburador de una motocicleta" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Carburador<br>e inyecci&oacute;n</span></div><div class="fx g6"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/qnfSIW9EN2k?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Torques y medidas &middot; C&oacute;mo dar torque a la culata de motores de motocicleta" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Torques y<br>medidas</span></div><div class="fx g7"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/XZ8oY3q0Hqk?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Diagn&oacute;stico por sistemas &middot; Las 3 pruebas principales cuando la moto no enciende" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Diagn&oacute;stico<br>por sistemas</span></div><div class="fx g8"><img class="fx-th" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="432" height="576" decoding="async"><iframe class="yt-mini" src="https://www.youtube-nocookie.com/embed/4FPUS5CwhUo?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Curso 2T y 4T &middot; C&oacute;mo funcionan los motores de 2 y 4 tiempos y sus diferencias" loading="lazy" width="640" height="360" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe><span>Curso 2T<br>y 4T</span></div></div></div></section>
 
-<!-- ═══════ ORDEN P · DESPIECE INTERACTIVO "ARMA TU MOTO" ════════════════════
-     La moto de abajo es un DIBUJO PROPIO: ~90 paths escritos a mano en este
-     mismo archivo. No es una foto, no es un diagrama bajado de ningun lado y no
-     hay una sola request extra (ni imagen, ni fuente, ni libreria). Esa es la
-     razon de fondo para dibujarla y no copiarla: un despiece de manual de
-     taller SIEMPRE tiene dueno, y esta pagina vende manuales — publicar el
-     despiece de otro en la portada seria el peor sitio posible para tropezar.
+<!-- ═══════ ORDEN S · DESPIECE DINAMICO "ENCUENTRA TU PIEZA" ═════════════════
+     SUSTITUYE al despiece dibujado a mano de la orden P. Aquel era un <svg> de
+     ~90 paths que cumplia la regla de cero-terceros pero se leia como un
+     esquema de pizarra. Aqui la base es una FOTO: img/despiece-hero.jpg, una
+     moto abierta en canal sobre fondo negro con acentos rojos, 1280x720,
+     ~122 KB, MATERIAL PROPIO generado para esta pagina.
 
-     Las 10 piezas rotuladas son las que el comprador busca en un manual:
-     tanque, asiento, manubrio, faro, motor, escape, cadena, freno, rueda
-     delantera y rueda trasera. El CHASIS no se rotula a proposito: se queda
-     quieto como esqueleto para que el ojo entienda de donde sale cada parte.
+     La razon de fondo del dibujo sigue respetada: un despiece de manual de
+     taller SIEMPRE tiene dueno, y esta pagina vende manuales. No se copio el
+     despiece de nadie -- la imagen es nuestra. Y sigue sin entrar una sola
+     libreria: todo el movimiento es CSS + el JS de abajo.
 
-     Toda la coreografia esta en los style="--dx:..;--dy:..;--s:.." de cada
-     grupo: --dx/--dy es a donde vuela la pieza (unidades del viewBox) y --s es
-     en que punto del scroll le toca salir. Se re-coreografia cambiando numeros,
-     sin tocar ni el dibujo ni el JS. -->
+     ── LAS DIEZ ZONAS ─────────────────────────────────────────────────────────
+     Cada pieza es un <button> transparente colocado en PORCENTAJE sobre la
+     foto (--x/--y = esquina, --w/--h = tamano). La escena tiene el mismo
+     aspect-ratio que la imagen (1280/720) y la imagen va object-fit:cover, o
+     sea no hay letterbox: el 37% de la escena es el 37% de la foto en
+     cualquier ancho. Las coordenadas se calibraron MIRANDO la imagen con
+     Playwright (_s_calib.js dibuja las cajas encima y saca la captura).
+     Recalibrar una zona = cambiar cuatro numeros de su style.
+
+     --s es en que punto del scroll aparece su punto rojo: las piezas se
+     revelan en cascada de adelante hacia atras.
+
+     ── DOS PUERTAS A LA MISMA INFORMACION ─────────────────────────────────────
+     La foto (senalar/tocar la zona) y la LISTA de al lado (senalar el renglon).
+     Las dos encienden lo mismo. La lista no es decoracion: es el plan B de
+     quien no puede cazar una zona con el raton, y en el telefono es la tira de
+     pastillas que se arrastra con el dedo. -->
 <section id="despiece">
 <div class="wrap">
-  <div class="eyebrow">Arma tu moto</div>
+  <div class="eyebrow">Encuentra tu pieza</div>
   <h2 class="title">Conoce cada pieza</h2>
-  <p class="lead">Cada manual te muestra tu moto <b>pieza por pieza</b>, como aqu&iacute;. Baja despacio: la moto se abre sola y cada parte dice c&oacute;mo se llama.</p>
+  <p class="lead">Una moto abierta en canal. Baja despacio: la foto se enciende y las piezas se van marcando solas. <b>Se&ntilde;ala una</b> &mdash; o t&oacute;cala, en el celular &mdash; y te dice c&oacute;mo se llama y qu&eacute; trae de ella un manual.</p>
 </div>
 
 <div class="dp-rail" id="dp-rail">
 <div class="dp-stage" id="dp-stage">
+<div class="dp-box">
+
 <div class="dp-scene" id="dp-scene" data-ab="0">
-<svg class="dp-svg" viewBox="-110 -70 1300 860" role="img" aria-label="Despiece de una moto de perfil: las piezas se separan del chasis y cada una lleva su nombre. Tanque, asiento, manubrio, faro, motor, escape, cadena, freno, rueda delantera y rueda trasera.">
-  <defs>
-    <linearGradient id="dpTank" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4a3c"/><stop offset=".55" stop-color="#e10600"/><stop offset="1" stop-color="#7d0300"/></linearGradient>
-    <linearGradient id="dpSeat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3c2828"/><stop offset="1" stop-color="#170e0e"/></linearGradient>
-    <radialGradient id="dpLamp" cx=".36" cy=".34" r=".78"><stop offset="0" stop-color="#fffbe6"/><stop offset=".5" stop-color="#ffd400"/><stop offset="1" stop-color="#9c7c00"/></radialGradient>
-  </defs>
+  <!-- LA PLACA: foto + zonas + halo se mueven como UNA sola pieza, asi el zoom
+       de entrada no descoloca ni un hotspot. loading="eager" a proposito: es el
+       contenido de la seccion, no un adorno; si llega tarde se ve el hueco. -->
+  <div class="dp-plate">
+    <img class="dp-img" src="img/despiece-hero.jpg" width="1280" height="720" loading="eager" decoding="async" alt="Despiece fotogr&aacute;fico de una moto sobre fondo negro: rueda delantera, horquilla y faro, tanque, asiento, cuadro, motor abierto con cilindro y pist&oacute;n, caja y embrague, cadena, rueda trasera y escape, separados y ordenados como en la l&aacute;mina de un manual de taller.">
+    <div class="dp-fade" aria-hidden="true"></div>
+    <div class="dp-veil" aria-hidden="true"></div>
+    <div class="dp-ring" aria-hidden="true"></div>
+    <button type="button" class="dp-hs" data-p="tanque" data-n="Tanque" data-d="sellos, llave de paso, aforo y capacidad exacta" aria-label="Pieza: Tanque" style="--x:32.5;--y:7;--w:20;--h:20;--s:0"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Tanque</span></button>
+    <button type="button" class="dp-hs" data-p="asiento" data-n="Asiento y col&iacute;n" data-d="anclajes y desmontaje sin romper las pesta&ntilde;as" aria-label="Pieza: Asiento y col&iacute;n" style="--x:55.5;--y:9;--w:34;--h:18;--s:0.05"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Asiento y col&iacute;n</span></button>
+    <button type="button" class="dp-hs" data-p="horquilla" data-n="Horquilla y faro" data-d="barras, retenedores, reglaje del faro y su circuito" aria-label="Pieza: Horquilla y faro" style="--x:15;--y:1;--w:14;--h:45;--s:0.1"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Horquilla y faro</span></button>
+    <button type="button" class="dp-hs" data-p="cuadro" data-n="Cuadro (chasis)" data-d="el esqueleto: cotas, amortiguadores y torque de cada anclaje" aria-label="Pieza: Cuadro (chasis)" style="--x:49;--y:27;--w:31;--h:19;--s:0.2"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cuadro (chasis)</span></button>
+    <button type="button" class="dp-hs" data-p="motor" data-n="Motor: cilindro y pist&oacute;n" data-d="despiece completo, holguras de pist&oacute;n y torques de culata" aria-label="Pieza: Motor: cilindro y pist&oacute;n" style="--x:32;--y:27;--w:16.5;--h:43;--s:0.25"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Motor: cilindro y pist&oacute;n</span></button>
+    <button type="button" class="dp-hs" data-p="cadena" data-n="Cadena y pi&ntilde;ones" data-d="tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y l&iacute;mite de desgaste" aria-label="Pieza: Cadena y pi&ntilde;ones" style="--x:58;--y:46.5;--w:17;--h:13.5;--s:0.35"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cadena y pi&ntilde;ones</span></button>
+    <button type="button" class="dp-hs up izq" data-p="rueda-delantera" data-n="Rueda delantera" data-d="rodamientos, radios, presi&oacute;n y medidas de la llanta" aria-label="Pieza: Rueda delantera" style="--x:0.8;--y:32;--w:14;--h:36;--s:0.4"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda delantera</span></button>
+    <button type="button" class="dp-hs up der" data-p="rueda-trasera" data-n="Rueda trasera" data-d="corona, eje, rodamientos y alineaci&oacute;n" aria-label="Pieza: Rueda trasera" style="--x:78;--y:34;--w:18;--h:30;--s:0.45"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda trasera</span></button>
+    <button type="button" class="dp-hs up der" data-p="escape" data-n="Escape" data-d="junta del m&uacute;ltiple, ruta del tubo y montaje del silenciador" aria-label="Pieza: Escape" style="--x:71;--y:64;--w:28.5;--h:15.5;--s:0.5"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Escape</span></button>
+    <button type="button" class="dp-hs" data-p="caja" data-n="Caja y embrague" data-d="orden de los discos, juego del embrague y ejes de cambios" aria-label="Pieza: Caja y embrague" style="--x:5;--y:63;--w:27;--h:25;--s:0.55"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Caja y embrague</span></button>
+  </div>
+  <div class="dp-vig" aria-hidden="true"></div>
+  <div class="dp-sweep" aria-hidden="true"></div>
+</div>
 
-  <!-- TODO EL DIBUJO va dentro de .dp-zoom. El viewBox tiene margenes anchos
-       porque las piezas tienen a donde volar, pero con la moto ARMADA esos
-       margenes la dejaban chiquita en medio de un cuadro vacio. El zoom la
-       agranda al 126% mientras esta entera y la devuelve al 100% ANTES de que
-       salga el primer rotulo (los rotulos son HTML y no viven en el viewBox:
-       si el zoom siguiera vivo mientras hay nombres en pantalla, quedarian
-       corridos). Por eso el zoom muere en --t .18 y el primer nombre no
-       aparece hasta .26. -->
-  <g class="dp-zoom">
-  <!-- el piso: referencia visual de que esto es una moto de pie, no un dibujo
-       flotando. Se desvanece con --t: con la moto abierta ya no hay suelo que
-       valga, y una raya cruzando el despiece solo estorba. -->
-  <path class="dp-ground" d="M40 492H1000"/>
+<ul class="dp-list" id="dp-list" aria-label="Piezas de la moto">
+  <li><button type="button" class="dp-it" data-p="tanque"><span class="dp-n">Tanque</span><span class="dp-d">sellos, llave de paso, aforo y capacidad exacta</span></button></li>
+  <li><button type="button" class="dp-it" data-p="asiento"><span class="dp-n">Asiento y col&iacute;n</span><span class="dp-d">anclajes y desmontaje sin romper las pesta&ntilde;as</span></button></li>
+  <li><button type="button" class="dp-it" data-p="horquilla"><span class="dp-n">Horquilla y faro</span><span class="dp-d">barras, retenedores, reglaje del faro y su circuito</span></button></li>
+  <li><button type="button" class="dp-it" data-p="cuadro"><span class="dp-n">Cuadro (chasis)</span><span class="dp-d">el esqueleto: cotas, amortiguadores y torque de cada anclaje</span></button></li>
+  <li><button type="button" class="dp-it" data-p="motor"><span class="dp-n">Motor: cilindro y pist&oacute;n</span><span class="dp-d">despiece completo, holguras de pist&oacute;n y torques de culata</span></button></li>
+  <li><button type="button" class="dp-it" data-p="cadena"><span class="dp-n">Cadena y pi&ntilde;ones</span><span class="dp-d">tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y l&iacute;mite de desgaste</span></button></li>
+  <li><button type="button" class="dp-it" data-p="rueda-delantera"><span class="dp-n">Rueda delantera</span><span class="dp-d">rodamientos, radios, presi&oacute;n y medidas de la llanta</span></button></li>
+  <li><button type="button" class="dp-it" data-p="rueda-trasera"><span class="dp-n">Rueda trasera</span><span class="dp-d">corona, eje, rodamientos y alineaci&oacute;n</span></button></li>
+  <li><button type="button" class="dp-it" data-p="escape"><span class="dp-n">Escape</span><span class="dp-d">junta del m&uacute;ltiple, ruta del tubo y montaje del silenciador</span></button></li>
+  <li><button type="button" class="dp-it" data-p="caja"><span class="dp-n">Caja y embrague</span><span class="dp-d">orden de los discos, juego del embrague y ejes de cambios</span></button></li>
+</ul>
 
-  <!-- ── RUEDA TRASERA ───────────────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="rueda-trasera" style="--dx:-191;--dy:-216;--s:.52">
-    <circle class="dp-glow" cx="300" cy="380" r="97"/>
-    <circle class="dp-tire" cx="300" cy="380" r="84"/>
-    <circle class="dp-tread" cx="300" cy="380" r="84"/>
-    <circle class="dp-rim" cx="300" cy="380" r="62"/>
-    <circle class="dp-rim" cx="300" cy="380" r="53" style="stroke-width:3;opacity:.5"/>
-    <path class="dp-spoke" d="M320 380H360 M310 397L330 432 M290 397L270 432 M280 380H240 M290 363L270 328 M310 363L330 328"/>
-    <circle class="dp-hub" cx="300" cy="380" r="15"/>
-    <rect class="dp-hit" x="204" y="284" width="192" height="192"/>
-  </g>
-
-  <!-- ── RUEDA DELANTERA ─────────────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="rueda-delantera" style="--dx:-145;--dy:236;--s:.46">
-    <circle class="dp-glow" cx="770" cy="380" r="97"/>
-    <circle class="dp-tire" cx="770" cy="380" r="84"/>
-    <circle class="dp-tread" cx="770" cy="380" r="84"/>
-    <circle class="dp-rim" cx="770" cy="380" r="62"/>
-    <circle class="dp-rim" cx="770" cy="380" r="53" style="stroke-width:3;opacity:.5"/>
-    <path class="dp-spoke" d="M790 380H830 M780 397L800 432 M760 397L740 432 M750 380H710 M760 363L740 328 M780 363L800 328"/>
-    <circle class="dp-hub" cx="770" cy="380" r="15"/>
-    <path class="dp-line" d="M698 308A102 102 0 0 1 842 308" style="stroke:var(--dp-mtl2);stroke-width:9"/>
-    <rect class="dp-hit" x="674" y="284" width="192" height="192"/>
-  </g>
-
-  <!-- ── CADENA + CORONA + PINON ─────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="cadena" style="--dx:-322;--dy:-52;--s:.34">
-    <path class="dp-glow" d="M300 336L487 361 M300 424L487 405"/>
-    <circle class="dp-sproc" cx="300" cy="380" r="40"/>
-    <circle class="dp-sproc" cx="487" cy="383" r="18" style="stroke-width:7;stroke-dasharray:5 5"/>
-    <path class="dp-chain" d="M300 336L487 361 M300 424L487 405 M300 336A44 44 0 0 0 300 424 M487 361A22 22 0 0 1 487 405"/>
-    <rect class="dp-hit" x="332" y="330" width="182" height="104"/>
-  </g>
-
-  <!-- ── CHASIS: el unico grupo SIN rotulo y SIN viaje. Es el esqueleto. ──── -->
-  <g class="dp-frame" aria-hidden="true">
-    <path class="dp-swing" d="M468 364L302 372L302 392L470 384Z"/>
-    <path class="dp-tube" d="M700 228L562 244L478 290"/>
-    <path class="dp-tube" d="M708 254L624 318L524 356"/>
-    <path class="dp-tube" d="M478 290L470 372"/>
-    <path class="dp-tube" d="M500 264L368 238"/>
-    <path class="dp-tube" d="M692 204L716 270"/>
-    <path class="dp-shock" d="M482 298L440 366"/>
-    <path class="dp-fork" d="M704 258L758 368"/>
-    <path class="dp-fork" d="M722 250L780 366"/>
-    <path class="dp-line" d="M714 228H744" style="stroke-width:5"/>
-    <circle class="dp-hub" cx="470" cy="374" r="9"/>
-  </g>
-
-  <!-- ── ESCAPE: multiple + silenciador ──────────────────────────────────── -->
-  <g class="dp-pz" data-p="escape" style="--dx:-405;--dy:105;--s:.22">
-    <path class="dp-glow" d="M650 292C686 320 688 366 664 396C638 428 578 440 536 424C512 414 504 380 504 352"/>
-    <path class="dp-pipe" d="M650 292C686 320 688 366 664 396C638 428 578 440 536 424C512 414 504 380 504 352" style="stroke:var(--dp-mtl);stroke-width:11"/>
-    <g transform="rotate(-8 426 334)">
-      <rect class="dp-can" x="352" y="312" width="150" height="44" rx="21"/>
-      <path class="dp-line" d="M372 316V352 M386 317V351" style="opacity:.45"/>
-      <ellipse class="dp-line" cx="354" cy="334" rx="6" ry="17" style="fill:var(--deep)"/>
-    </g>
-    <rect class="dp-hit" x="350" y="306" width="156" height="60"/>
-  </g>
-
-  <!-- ── MOTOR: carter + cilindro inclinado + culata + aletas ────────────── -->
-  <g class="dp-pz" data-p="motor" style="--dx:-190;--dy:270;--s:.28">
-    <path class="dp-glow" d="M556 352L594 268L652 292L614 376Z"/>
-    <rect class="dp-metal" x="485" y="332" width="128" height="88" rx="16"/>
-    <path class="dp-metal" d="M556 352L594 268L652 292L614 376Z"/>
-    <path class="dp-metal" d="M592 272L604 244L662 268L650 296Z"/>
-    <path class="dp-fin" d="M572 324L630 348 M580 304L638 328 M588 284L646 308"/>
-    <circle class="dp-metal" cx="522" cy="382" r="30" style="stroke-width:4"/>
-    <path class="dp-line" d="M500 350H542" style="opacity:.55"/>
-    <rect class="dp-hit" x="482" y="240" width="184" height="184"/>
-  </g>
-
-  <!-- ── ASIENTO (con colin) ─────────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="asiento" style="--dx:-80;--dy:-176;--s:.05">
-    <path class="dp-glow" d="M338 226L362 234C368 218 388 210 414 208L508 206C522 206 528 216 524 230C520 246 506 254 486 255L398 255C376 255 364 249 362 240L340 248C334 250 332 230 338 226Z"/>
-    <path class="dp-seat" d="M338 226L362 234C368 218 388 210 414 208L508 206C522 206 528 216 524 230C520 246 506 254 486 255L398 255C376 255 364 249 362 240L340 248C334 250 332 230 338 226Z"/>
-    <path class="dp-line" d="M392 232H498" style="opacity:.4;stroke-width:3"/>
-    <rect class="dp-hit" x="330" y="200" width="204" height="62"/>
-  </g>
-
-  <!-- ── TANQUE (la pieza con el color de la marca) ──────────────────────── -->
-  <g class="dp-pz" data-p="tanque" style="--dx:20;--dy:-196;--s:0">
-    <path class="dp-glow" d="M518 262C514 232 540 208 586 200C630 193 668 200 686 212C692 222 688 244 672 258C656 272 620 278 580 278L540 278C526 278 519 272 518 262Z"/>
-    <path class="dp-tank" d="M518 262C514 232 540 208 586 200C630 193 668 200 686 212C692 222 688 244 672 258C656 272 620 278 580 278L540 278C526 278 519 272 518 262Z"/>
-    <path class="dp-line" d="M552 220C590 208 640 210 670 220" style="stroke:#ffd8d0;opacity:.45;stroke-width:5"/>
-    <circle class="dp-metal" cx="600" cy="207" r="11" style="stroke-width:3"/>
-    <rect class="dp-hit" x="512" y="190" width="182" height="94"/>
-  </g>
-
-  <!-- ── FRENO: disco + mordaza ──────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="freno" style="--dx:100;--dy:172;--s:.40">
-    <circle class="dp-glow" cx="770" cy="380" r="52"/>
-    <circle class="dp-disc" cx="770" cy="380" r="52"/>
-    <circle class="dp-disc2" cx="770" cy="380" r="40"/>
-    <circle class="dp-disc" cx="770" cy="380" r="21" style="stroke-width:4;opacity:.7"/>
-    <path class="dp-metal" d="M794 330L826 341L816 372L788 360Z" style="stroke-width:4"/>
-    <path class="dp-line" d="M798 344L816 350" style="opacity:.55;stroke-width:3"/>
-    <rect class="dp-hit" x="716" y="326" width="122" height="110"/>
-  </g>
-
-  <!-- ── MANUBRIO: tija, barra, punos y maneta ───────────────────────────── -->
-  <g class="dp-pz" data-p="manubrio" style="--dx:228;--dy:-46;--s:.15">
-    <path class="dp-glow" d="M648 190L694 180L722 176L764 166"/>
-    <path class="dp-line" d="M702 212L706 186" style="stroke-width:8"/>
-    <path class="dp-pipe" d="M648 190L694 180L722 176L764 166" style="stroke:var(--dp-mtl);stroke-width:9"/>
-    <path class="dp-pipe" d="M650 190L676 185 M738 170L764 166" style="stroke:#5c4242;stroke-width:17"/>
-    <path class="dp-line" d="M650 190L676 185 M738 170L764 166" style="stroke:var(--dp-mtl2);stroke-width:2;opacity:.5"/>
-    <path class="dp-line" d="M732 177L766 182" style="stroke-width:5"/>
-    <rect class="dp-hit" x="640" y="156" width="142" height="64"/>
-  </g>
-
-  <!-- ── FARO ────────────────────────────────────────────────────────────── -->
-  <g class="dp-pz" data-p="faro" style="--dx:288;--dy:100;--s:.10">
-    <ellipse class="dp-glow" cx="776" cy="226" rx="24" ry="30"/>
-    <path class="dp-metal" d="M744 202L764 198L766 254L746 250Z" style="stroke-width:4"/>
-    <ellipse class="dp-lamp" cx="776" cy="226" rx="24" ry="30"/>
-    <ellipse class="dp-disc" cx="776" cy="226" rx="24" ry="30" style="stroke-width:4"/>
-    <path class="dp-line" d="M756 226H796" style="stroke:#8a6e00;opacity:.6;stroke-width:3"/>
-    <path class="dp-line" d="M765 210C771 205 781 206 786 212" style="stroke:#fffbe6;opacity:.9;stroke-width:4"/>
-    <rect class="dp-hit" x="736" y="192" width="70" height="70"/>
-  </g>
-  </g>
-</svg>
-
-<!-- LOS 10 ROTULOS. Son <button> de HTML (no <text> del SVG) para que el nombre
-     se lea igual en un telefono que en un monitor y para que el teclado pueda
-     recorrerlos. El JS les resuelve la posicion; --ax/--ay es el centro de la
-     pieza ARMADA con el origen del viewBox (-110,-70) ya sumado. -->
-<button type="button" class="dp-lb" data-p="tanque" data-d="sellos, llave de paso y capacidad exacta" aria-label="Pieza: tanque" style="--ax:712;--ay:306;--oy:66;--dx:20;--dy:-196;--s:0">Tanque</button>
-<button type="button" class="dp-lb" data-p="asiento" data-d="anclajes y desmontaje sin romper las pesta&ntilde;as" aria-label="Pieza: asiento" style="--ax:540;--ay:302;--oy:52;--dx:-80;--dy:-176;--s:.05">Asiento</button>
-<button type="button" class="dp-lb" data-p="faro" data-d="conexi&oacute;n, reglaje y diagrama del circuito" aria-label="Pieza: faro" style="--ax:879;--ay:297;--oy:52;--dx:288;--dy:100;--s:.10">Faro</button>
-<button type="button" class="dp-lb" data-p="manubrio" data-d="mandos, cables y torque de las abrazaderas" aria-label="Pieza: manubrio" style="--ax:817;--ay:258;--oy:50;--dx:228;--dy:-46;--s:.15">Manubrio</button>
-<button type="button" class="dp-lb" data-p="escape" data-d="junta, ruta del m&uacute;ltiple y montaje" aria-label="Pieza: escape" style="--ax:537;--ay:420;--oy:48;--dx:-405;--dy:105;--s:.22">Escape</button>
-<button type="button" class="dp-lb" data-p="motor" data-d="despiece completo, holguras y torques" aria-label="Pieza: motor" style="--ax:670;--ay:402;--oy:112;--dx:-190;--dy:270;--s:.28">Motor</button>
-<button type="button" class="dp-lb" data-p="cadena" data-d="tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y desgaste" aria-label="Pieza: cadena" style="--ax:492;--ay:452;--oy:66;--dx:-322;--dy:-52;--s:.34">Cadena</button>
-<button type="button" class="dp-lb" data-p="freno" data-d="disco, pastillas y purga del sistema" aria-label="Pieza: freno" style="--ax:880;--ay:450;--oy:76;--dx:100;--dy:172;--s:.40">Freno</button>
-<button type="button" class="dp-lb" data-p="rueda-delantera" data-d="rodamientos, presi&oacute;n y medidas" aria-label="Pieza: rueda delantera" style="--ax:880;--ay:450;--oy:116;--dx:-145;--dy:236;--s:.46">Rueda delantera</button>
-<button type="button" class="dp-lb" data-p="rueda-trasera" data-d="corona, eje y alineaci&oacute;n" aria-label="Pieza: rueda trasera" style="--ax:410;--ay:450;--oy:116;--dx:-191;--dy:-216;--s:.52">Rueda trasera</button>
 </div>
 
 <p class="dp-cap" id="dp-cap" aria-live="polite"></p>
@@ -1459,24 +1440,42 @@ if (PIXEL_ID) {
 <div class="wrap"><p class="dp-pie">Eso son <b>10 piezas</b> de una moto de ejemplo. Un manual de taller trae el mismo despiece de <b>la tuya</b>, con el n&uacute;mero de cada parte, el orden de armado y el torque de cada tornillo.</p></div>
 </section>
 <script>
-/* == ORDEN P · EL MOTOR DEL DESPIECE =======================================
-   Todo el movimiento de la seccion sale de UNA variable: --t (0 = moto armada,
-   1 = moto abierta del todo). Este bloque solo hace tres cosas:
+/* == ORDEN S · EL MOTOR DEL DESPIECE =======================================
+   Todo el movimiento sale de DOS numeros que valen lo mismo (0 = la seccion
+   acaba de entrar · 1 = ya se recorrio entera) y se diferencian en la curva:
 
-     1) ESCALA  - resuelve a mano el preserveAspectRatio del SVG para poder
-                  colocar los rotulos, que son HTML y no viven en el viewBox.
-     2) VIAJE   - traduce cuanto se ha recorrido el riel en un --t, UNA sola
-                  escritura de estilo por frame. El escalonado de las 10 piezas
-                  NO se calcula aca: cada pieza saca su propio --lt con un
-                  clamp() de CSS. Por eso hay 1 escritura y no 20.
-     3) FOCO    - senalar/tocar una pieza la aisla y el pie dice que trae el
-                  manual de esa parte.
+     --p  el viaje CRUDO, lineal. Manda la ENTRADA: el encendido de la foto, el
+          zoom y el barrido de luz.
+     --t  el mismo viaje CON CURVA (easeInOutCubic). Manda la cascada de piezas.
+
+   La curva arranca casi plana a proposito (las piezas salen con calma), y por
+   eso mismo NO puede mandar el encendido: colgado de --t, medio scroll se iba
+   en una foto casi negra y la seccion parecia rota. Es la unica razon por la
+   que hay dos numeros y no uno.
+
+   Este bloque hace tres cosas y ninguna mas:
+
+     1) VIAJE  - traduce cuanto se llevaba recorrido el riel en --p y --t, en
+                 UN solo frame y sobre UN solo elemento. El zoom, el barrido de
+                 luz y la cascada de los diez puntos NO se calculan aqui: cada
+                 uno saca su numero con un clamp() de CSS. Por eso son 2
+                 escrituras por frame y no 20.
+     2) FOCO   - senalar (raton), tocar (dedo) o tabular (teclado) una pieza
+                 mueve el ovalo de luz y el halo rojo hasta ella, apaga el
+                 resto y escribe en el pie que trae el manual de esa parte.
+     3) ESPEJO - la zona de la foto y el renglon de la lista son la MISMA
+                 pieza: encender una enciende la otra, en los dos sentidos.
+
+   NO HACE FALTA CALCULAR ESCALAS. La escena tiene el aspect-ratio de la foto y
+   la foto va object-fit:cover: un % de la escena es el mismo % de la foto en
+   cualquier ancho de pantalla. (El SVG de la orden P si lo necesitaba, porque
+   sus rotulos eran HTML fuera del viewBox.)
 
    POR QUE VA AQUI Y NO AL FINAL DEL <body>: el CSS deja --t en 1 a proposito
-   (sin JS la seccion se ve despiezada y rotulada, que sigue siendo util). Si
-   este script corriera al final, el visitante veria un parpadeo de la moto ya
-   abierta antes de que se cerrara. Corriendo pegado a su seccion, --t pasa a 0
-   durante el parseo y no hay frame intermedio.
+   (sin JS la seccion se ve encendida, con los diez puntos y la lista, que
+   sigue siendo util). Si este script corriera al final, el visitante veria un
+   parpadeo de la foto ya encendida antes de que se apagara. Corriendo pegado a
+   su seccion, --t pasa a 0 durante el parseo y no hay frame intermedio.
 
    prefers-reduced-motion: no se engancha el scroll. Se queda en --t:1, que es
    exactamente la informacion que la animacion iba a entregar, sin el viaje. */
@@ -1486,27 +1485,27 @@ if (PIXEL_ID) {
   var scene = document.getElementById('dp-scene');
   var rail  = document.getElementById('dp-rail');
   var cap   = document.getElementById('dp-cap');
-  if(!stage || !scene || !rail || !cap) return;
-  var svg = scene.querySelector('.dp-svg');
-  if(!svg) return;
+  var lista = document.getElementById('dp-list');
+  if(!stage || !scene || !rail || !cap || !lista) return;
 
-  var VBW = 1300, VBH = 860;          /* el viewBox del dibujo, y nada mas */
-
-  /* pieza <-> rotulo: los une el mismo data-p, no hay una segunda lista que
-     mantener sincronizada. Agregar una pieza = un <g> + un <button>. */
-  var piezas = {};
-  [].slice.call(scene.querySelectorAll('.dp-pz')).forEach(function(g){
-    piezas[g.getAttribute('data-p')] = g;
+  /* zona <-> renglon: los une el mismo data-p. No hay una segunda lista que
+     mantener sincronizada; si manana se agrega una pieza son un <button> mas
+     en la foto y un <li> mas en la lista, y este JS no se toca. */
+  var items = {};
+  [].slice.call(lista.querySelectorAll('.dp-it')).forEach(function(b){
+    items[b.getAttribute('data-p')] = b;
   });
   var por = {};
-  var fichas = [].slice.call(scene.querySelectorAll('.dp-lb')).map(function(b){
+  var fichas = [].slice.call(scene.querySelectorAll('.dp-hs')).map(function(b){
+    var num = function(k){ return parseFloat(b.style.getPropertyValue(k)) || 0; };
     var f = {
       id: b.getAttribute('data-p'),
-      nombre: b.textContent,
+      nombre: b.getAttribute('data-n') || '',
       desc: b.getAttribute('data-d') || '',
-      s: parseFloat(b.style.getPropertyValue('--s')) || 0,
-      lb: b,
-      pz: piezas[b.getAttribute('data-p')] || null
+      x: num('--x'), y: num('--y'), w: num('--w'), h: num('--h'),
+      s: num('--s'),
+      hs: b,
+      it: items[b.getAttribute('data-p')] || null
     };
     por[f.id] = f;
     return f;
@@ -1518,23 +1517,9 @@ if (PIXEL_ID) {
   var BASE = conRaton ? 'Pasa el cursor por una pieza para aislarla.'
                       : 'Toca una pieza para aislarla.';
 
-  var t = -1, hot = null, act = null, fijo = false, pedido = false;
+  var t = -1, p = 1, hot = null, act = null, fijo = false, pedido = false;
 
-  /* ── 1 · ESCALA ──────────────────────────────────────────────────────────
-     El SVG conserva su proporcion dentro de su caja, o sea puede sobrar franja
-     arriba/abajo o a los lados. --sc es la escala real y --ox/--oy0 esas
-     franjas: con los tres, un punto del viewBox y un rotulo de HTML caen en el
-     mismo pixel en cualquier ancho de pantalla. */
-  function escalar(){
-    var r = svg.getBoundingClientRect();
-    if(!r.width || !r.height) return;
-    var sc = Math.min(r.width / VBW, r.height / VBH);
-    scene.style.setProperty('--sc',  sc.toFixed(5));
-    scene.style.setProperty('--ox',  ((r.width  - VBW * sc) / 2).toFixed(2));
-    scene.style.setProperty('--oy0', ((r.height - VBH * sc) / 2).toFixed(2));
-  }
-
-  /* ── 2 · EL PIE QUE HABLA ────────────────────────────────────────────────
+  /* ── 1 · EL PIE QUE HABLA ────────────────────────────────────────────────
      Se arma con nodos, no con innerHTML: el texto trae acentos y enes y no hay
      ninguna razon para volver a pasarlo por el parser. */
   var capB = document.createElement('b');
@@ -1550,16 +1535,35 @@ if (PIXEL_ID) {
     capT.nodeValue = f.desc;
   }
 
+  /* ── 2 · EL FOCO ─────────────────────────────────────────────────────────
+     El ovalo de luz y el halo son UN elemento cada uno, no diez: lo que cambia
+     son cuatro variables en la escena y el CSS los desliza hasta la pieza. El
+     ovalo se agranda un 15% sobre la caja para que la pieza quede DENTRO de la
+     luz y no justo en el borde. */
+  function foco(f){
+    if(!f) return;
+    var cx = f.x + f.w / 2, cy = f.y + f.h / 2;
+    scene.style.setProperty('--hx',  cx.toFixed(2) + '%');
+    scene.style.setProperty('--hy',  cy.toFixed(2) + '%');
+    scene.style.setProperty('--hrx', (f.w * 1.15).toFixed(2) + '%');
+    scene.style.setProperty('--hry', (f.h * 1.15).toFixed(2) + '%');
+    scene.style.setProperty('--hl',  f.x.toFixed(2) + '%');
+    scene.style.setProperty('--ht',  f.y.toFixed(2) + '%');
+    scene.style.setProperty('--hw',  f.w.toFixed(2) + '%');
+    scene.style.setProperty('--hh',  f.h.toFixed(2) + '%');
+  }
+
   function marcar(id){
     if(hot === id) return;
     if(hot && por[hot]){
-      por[hot].lb.classList.remove('hot');
-      if(por[hot].pz) por[hot].pz.classList.remove('hot');
+      por[hot].hs.classList.remove('hot');
+      if(por[hot].it) por[hot].it.classList.remove('hot');
     }
     hot = id;
     if(hot && por[hot]){
-      por[hot].lb.classList.add('hot');
-      if(por[hot].pz) por[hot].pz.classList.add('hot');
+      foco(por[hot]);
+      por[hot].hs.classList.add('hot');
+      if(por[hot].it) por[hot].it.classList.add('hot');
       scene.setAttribute('data-hot', hot);
     } else {
       scene.removeAttribute('data-hot');
@@ -1567,78 +1571,95 @@ if (PIXEL_ID) {
     texto(hot ? por[hot] : (act ? por[act] : null));
   }
 
-  /* ── 3 · EL VIAJE ────────────────────────────────────────────────────────
-     Una escritura por frame. El .08/.80 son el respiro de entrada y de salida:
-     la moto se deja ver armada un momento antes de empezar a abrirse, y abierta
-     del todo un momento antes de que la seccion se vaya. */
+  /* ── 3 · EL VIAJE ──────────────────────────────────────────────────────── */
   function pintar(){
     pedido = false;
     stage.style.setProperty('--t', t.toFixed(4));
-    /* .22 NO es un numero suelto: es el final del zoom de entrada. Hasta ahi
-       el dibujo esta agrandado y los rotulos (que son HTML, fuera del viewBox)
-       no lo saben, asi que el CSS los apaga mientras data-ab valga 0. */
-    var ab = t > 0.22 ? '1' : '0';
+    stage.style.setProperty('--p', p.toFixed(4));
+    /* .22 no es un numero suelto: es el final del zoom de entrada (el mismo .22
+       de --e en la hoja, y por eso se mide contra --p, no contra --t). Hasta
+       ahi la placa se sigue moviendo, asi que las zonas no aceptan el raton: el
+       halo se pintaria corrido respecto de su pieza. */
+    var ab = p > 0.22 ? '1' : '0';
     if(scene.getAttribute('data-ab') !== ab) scene.setAttribute('data-ab', ab);
 
     var nuevo = null;
     for(var i = 0; i < fichas.length; i++){
-      if(t >= fichas[i].s + 0.30) nuevo = fichas[i].id; else break;
+      if(t >= fichas[i].s + 0.26) nuevo = fichas[i].id; else break;
     }
     if(nuevo !== act){
-      if(act && por[act]) por[act].lb.classList.remove('act');
+      if(act && por[act]) por[act].hs.classList.remove('act');
       act = nuevo;
-      if(act && por[act]) por[act].lb.classList.add('act');
+      if(act && por[act]){
+        por[act].hs.classList.add('act');
+        if(!hot) foco(por[act]);
+      }
       if(!hot) texto(act ? por[act] : null);
     }
   }
 
   function medir(){
-    var v = 1;
+    var v = 1, lin = 1;
     if(!fijo && !(quieto && quieto.matches)){
       var rr = rail.getBoundingClientRect();
       var rs = stage.getBoundingClientRect();
-      /* viaje = lo que el escenario pegado puede recorrer dentro del riel.
-         Si es <= 0 (pantalla baja, riel de alto automatico) no hay animacion
-         posible y la seccion se queda abierta: el fallback, no un bug. */
+      /* viaje = lo que el escenario pegado puede recorrer dentro del riel. Si
+         es <= 0 (pantalla baja, riel de alto automatico) no hay animacion
+         posible y la seccion se queda encendida: el fallback, no un bug. */
       var viaje = rr.height - rs.height;
       if(viaje > 0){
-        var p = (rs.top - rr.top) / viaje;
-        p = (p - 0.08) / 0.80;
-        p = p < 0 ? 0 : (p > 1 ? 1 : p);
-        v = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;  /* easeInOutCubic */
+        var q = (rs.top - rr.top) / viaje;
+        /* el .08/.80 es el respiro: la foto se deja ver un momento antes de
+           empezar a marcar piezas, y marcada del todo un momento antes de que
+           la seccion se vaya. */
+        q = (q - 0.08) / 0.80;
+        lin = q < 0 ? 0 : (q > 1 ? 1 : q);
+        v = lin < 0.5 ? 4 * lin * lin * lin
+                      : 1 - Math.pow(-2 * lin + 2, 3) / 2;   /* easeInOutCubic */
       }
     }
-    if(Math.abs(v - t) < 0.0001) return;
-    t = v;
+    if(Math.abs(v - t) < 0.0001 && Math.abs(lin - p) < 0.0001) return;
+    t = v; p = lin;
     if(!pedido){ pedido = true; requestAnimationFrame(pintar); }
   }
 
-  /* ── 4 · SENALAR / TOCAR ─────────────────────────────────────────────────
+  /* ── 4 · SENALAR / TOCAR / TABULAR ───────────────────────────────────────
      Con raton: entrar y salir. Sin raton: SOLO click, porque en tactil el
      pointerenter dispara junto con el tap y el toggle se anularia solo. */
   fichas.forEach(function(f){
-    var objetivos = f.pz ? [f.pz, f.lb] : [f.lb];
+    var objetivos = f.it ? [f.hs, f.it] : [f.hs];
     objetivos.forEach(function(el){
       if(conRaton){
         el.addEventListener('pointerenter', function(){ marcar(f.id); });
         el.addEventListener('pointerleave', function(){ marcar(null); });
       }
       el.addEventListener('click', function(){ marcar(hot === f.id ? null : f.id); });
+      /* teclado: al caer el foco en una zona o en un renglon se ABRE la seccion
+         entera (si no, se estaria describiendo una pieza que todavia no se
+         revelo) y se queda abierta hasta que el foco se vaya.
+         EL :focus-visible NO ES ADORNO. Un tap tambien enfoca, asi que sin el
+         guardia el dedo disparaba focus (enciende) y acto seguido click
+         (apaga): la pieza se apagaba sola y en el telefono no se encendia
+         NADA. Aqui solo entra el foco de teclado. El try/catch es para el
+         navegador que no conozca el selector: ahi el teclado pierde la ayuda,
+         pero el raton y el dedo siguen enteros. */
+      el.addEventListener('focus', function(){
+        try { if(!el.matches(':focus-visible')) return; } catch(e){ return; }
+        fijo = true; medir(); marcar(f.id);
+      });
     });
-    /* teclado: al caer el foco en un rotulo se ABRE la moto entera (si no, el
-       rotulo enfocado seria una pastilla invisible describiendo una pieza que
-       todavia no salio) y se queda abierta hasta que el foco se vaya. */
-    f.lb.addEventListener('focus', function(){ fijo = true; medir(); marcar(f.id); });
   });
-  scene.addEventListener('focusout', function(e){
-    if(e.relatedTarget && scene.contains(e.relatedTarget)) return;
+  function soltar(e){
+    if(e.relatedTarget && (scene.contains(e.relatedTarget) || lista.contains(e.relatedTarget))) return;
     fijo = false;
     marcar(null);
     medir();
-  });
+  }
+  scene.addEventListener('focusout', soltar);
+  lista.addEventListener('focusout', soltar);
 
   /* ── 5 · ARRANQUE ───────────────────────────────────────────────────────── */
-  escalar();
+  foco(fichas[0]);
   texto(null);
   t = (quieto && quieto.matches) ? 1 : 0;
   pintar();
@@ -1646,8 +1667,7 @@ if (PIXEL_ID) {
     window.addEventListener('scroll', medir, { passive: true });
     medir();
   }
-  window.addEventListener('resize', function(){ escalar(); medir(); }, { passive: true });
-  if(window.ResizeObserver) new ResizeObserver(escalar).observe(scene);
+  window.addEventListener('resize', medir, { passive: true });
   /* si el visitante cambia la preferencia de movimiento en caliente */
   if(quieto && quieto.addEventListener) quieto.addEventListener('change', function(){
     if(quieto.matches){ t = 1; pintar(); } else { medir(); }
