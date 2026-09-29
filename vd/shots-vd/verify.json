@@ -1,0 +1,73 @@
+{
+ "scrollCheckInicial": {
+  "innerWidth": 390,
+  "scrollWidth": 390,
+  "bodyScrollWidth": 410
+ },
+ "scrollCheckTrasScroll": {
+  "scrollWidth": 390,
+  "innerWidth": 390
+ },
+ "scrollCheckFinal": {
+  "scrollWidth": 390,
+  "innerWidth": 390
+ },
+ "sinScrollLateral": true,
+ "pesoPrimeraCargaKB": 476.3,
+ "bajo500KB": true,
+ "totalRutasLocales": 58,
+ "rutasRotas": [],
+ "erroresConsola": [],
+ "top10Pesadas": [
+  {
+   "url": "fonts/inter.woff2",
+   "bytes": 48256,
+   "status": 200
+  },
+  {
+   "url": "index.html",
+   "bytes": 48196,
+   "status": 200
+  },
+  {
+   "url": "fonts/inter-tight.woff2",
+   "bytes": 44872,
+   "status": 200
+  },
+  {
+   "url": "img/hero-mob.webp",
+   "bytes": 43362,
+   "status": 200
+  },
+  {
+   "url": "img/logos/royal-enfield.svg",
+   "bytes": 37629,
+   "status": 200
+  },
+  {
+   "url": "img/logos/kymco.svg",
+   "bytes": 29243,
+   "status": 200
+  },
+  {
+   "url": "vid/g4.webp",
+   "bytes": 20816,
+   "status": 200
+  },
+  {
+   "url": "img/logos/bmw.svg",
+   "bytes": 12190,
+   "status": 200
+  },
+  {
+   "url": "vid/g6.webp",
+   "bytes": 12184,
+   "status": 200
+  },
+  {
+   "url": "img/logos/gilera.svg",
+   "bytes": 12161,
+   "status": 200
+  }
+ ]
+}
