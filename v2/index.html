@@ -29,7 +29,12 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ff);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-h1,h2,h3{font-family:var(--fft);text-transform:uppercase;font-weight:800;letter-spacing:-.01em;margin:0;line-height:1.06}
+h1,h2,h3{font-family:var(--fft);text-transform:uppercase;font-weight:700;letter-spacing:.01em;margin:0;line-height:1.1}
+#hero h1{font-weight:800;letter-spacing:-.01em;line-height:1.06}
+.eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px}
+.eyebrow b{font-family:var(--fft);font-weight:700;color:var(--acc);font-size:.78rem;letter-spacing:.06em}
+.eyebrow em{font-style:normal;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+.eyebrow i{height:1px;width:44px;background:var(--line);display:block}
 p{margin:0}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
@@ -55,21 +60,25 @@ ul{margin:0;padding:0;list-style:none}
 #hero .sub{font-size:clamp(1rem,2.3vw,1.28rem);color:#e9e9e9;margin:18px 0 28px;max-width:42ch}
 .note{font-size:.8rem;color:var(--mut);margin-top:16px;letter-spacing:.02em}
 
-#marcas{padding:38px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.marcas-lb{text-align:center;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:24px}
-.cinta{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.cinta-track{display:flex;align-items:center;width:max-content;animation:marq 32s linear infinite}
-.cinta-grp{display:flex;align-items:center;gap:54px;padding-right:54px}
+#marcas{padding:40px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.marcas-lb{text-align:center;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:26px}
+.cinta{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);margin:14px 0}
+.cinta-track{display:flex;align-items:center;width:max-content;animation:marq 52s linear infinite;will-change:transform}
+.cinta-rev .cinta-track{animation-name:marq-rev;animation-duration:58s}
+.cinta-grp{display:flex;align-items:center;gap:42px;padding-right:42px}
 @media(prefers-reduced-motion:reduce){.cinta-track{animation:none}.rv{opacity:1;transform:none;transition:none}}
-.cinta-track img{height:32px;width:auto;filter:brightness(0) invert(1);opacity:.8}
+.cinta-it{display:flex;align-items:center;height:32px;flex:0 0 auto}
+.cinta-track img{height:32px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.75}
+.cinta-tx{font-family:var(--fft);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.86rem;color:#fff;opacity:.75;white-space:nowrap}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marq-rev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
-#cifras{padding:66px 0}
+#cifras{padding:66px 0;border-top:1px solid var(--line)}
 .cifras-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center}
 .cifras-grid b{display:block;font-family:var(--fft);font-weight:900;color:var(--acc);font-size:clamp(2.1rem,6.4vw,3.5rem);line-height:1}
 .cifras-grid span{display:block;margin-top:9px;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
 
-#galeria{padding:74px 0}
+#galeria{padding:74px 0;border-top:1px solid var(--line)}
 #galeria h2{font-size:clamp(1.9rem,5.4vw,3.1rem);text-align:center}
 .g-lead{text-align:center;color:var(--mut);max-width:54ch;margin:16px auto 40px}
 .g-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 16px;margin:0 -20px}
@@ -81,7 +90,7 @@ ul{margin:0;padding:0;list-style:none}
 @media(hover:hover){.g-card{transition:transform .35s ease}.g-card:hover{transform:scale(1.035)}}
 @media(min-width:860px){.g-track{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;padding:4px 0;margin:0}.g-card{max-width:none;flex:auto}}
 
-#beneficios{padding:74px 0}
+#beneficios{padding:74px 0;border-top:1px solid var(--line)}
 .ben-grid{display:grid;gap:38px}
 .ben-list{margin:22px 0 0;display:grid;gap:17px}
 .ben-list li{display:flex;gap:12px;align-items:flex-start;font-size:1.02rem}
@@ -99,11 +108,16 @@ ul{margin:0;padding:0;list-style:none}
 .price-new{display:block;font-family:var(--fft);font-weight:900;font-size:clamp(2.7rem,8.4vw,3.7rem);color:#fff;margin-top:4px}
 .pay-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:24px}
 .pay-chip{border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:.72rem;letter-spacing:.04em;color:var(--mut)}
-.guar{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:.82rem;color:var(--mut)}
+.guar{display:inline-flex;align-items:center;gap:12px;margin-top:24px;text-align:left}
+.guar-seal{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;position:relative}
+.guar-seal:before{content:'';position:absolute;inset:4px;border:1px dashed rgba(255,255,255,.22);border-radius:50%}
+.guar-seal b{font-family:var(--fft);font-weight:800;font-size:.92rem;line-height:1}
+.guar-tt{display:block;font-family:var(--fft);font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:.82rem;color:#fff}
+.guar-dd{display:block;font-size:.78rem;color:var(--mut);margin-top:2px}
 .aviso{display:flex;gap:10px;align-items:flex-start;margin-top:22px;padding:12px 14px;border:1px solid rgba(225,6,0,.4);border-radius:12px;background:rgba(225,6,0,.08);font-size:.8rem;color:#f0c9c9;text-align:left}
 .aviso svg{flex:0 0 auto;color:var(--acc);margin-top:2px}
 
-#faq{padding:74px 0}
+#faq{padding:74px 0;border-top:1px solid var(--line)}
 #faq h2{text-align:center;font-size:clamp(1.9rem,5.4vw,3.1rem);margin-bottom:32px}
 .acc{max-width:720px;margin:0 auto;border-top:1px solid var(--line)}
 .acc details{border-bottom:1px solid var(--line);padding:19px 0}
@@ -155,22 +169,24 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 </div></section>
 
 <section id="marcas"><div class="wrap">
+<div class="eyebrow rv"><i></i><b>01</b><em>Compatibilidad</em><i></i></div>
 <p class="marcas-lb rv">Compatible con más de 40 marcas</p>
-<div class="cinta"><div class="cinta-track">
-<span class="cinta-grp">
-<img src="img/logos/honda.svg" alt="Honda" loading="lazy" decoding="async"><img src="img/logos/yamaha.svg" alt="Yamaha" loading="lazy" decoding="async"><img src="img/logos/suzuki.svg" alt="Suzuki" loading="lazy" decoding="async"><img src="img/logos/kawasaki.svg" alt="Kawasaki" loading="lazy" decoding="async"><img src="img/logos/bajaj.svg" alt="Bajaj" loading="lazy" decoding="async"><img src="img/logos/ktm.svg" alt="KTM" loading="lazy" decoding="async"><img src="img/logos/ducati.svg" alt="Ducati" loading="lazy" decoding="async"><img src="img/logos/bmw.svg" alt="BMW" loading="lazy" decoding="async"><img src="img/logos/royal-enfield.svg" alt="Royal Enfield" loading="lazy" decoding="async"><img src="img/logos/triumph.svg" alt="Triumph" loading="lazy" decoding="async"><img src="img/logos/tvs.svg" alt="TVS" loading="lazy" decoding="async"><img src="img/logos/italika.svg" alt="Italika" loading="lazy" decoding="async"><img src="img/logos/akt.png" alt="AKT" loading="lazy" decoding="async"><img src="img/logos/hero.svg" alt="Hero" loading="lazy" decoding="async"><img src="img/logos/vespa.svg" alt="Vespa" loading="lazy" decoding="async"><img src="img/logos/cfmoto.svg" alt="CF Moto" loading="lazy" decoding="async"><img src="img/logos/aprilia.svg" alt="Aprilia" loading="lazy" decoding="async"><img src="img/logos/harley-davidson.svg" alt="Harley-Davidson" loading="lazy" decoding="async">
-</span><span class="cinta-grp" aria-hidden="true">
-<img src="img/logos/honda.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/yamaha.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/suzuki.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/kawasaki.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/bajaj.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/ktm.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/ducati.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/bmw.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/royal-enfield.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/triumph.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/tvs.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/italika.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/akt.png" alt="" loading="lazy" decoding="async"><img src="img/logos/hero.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/vespa.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/cfmoto.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/aprilia.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/harley-davidson.svg" alt="" loading="lazy" decoding="async">
-</span></div></div>
-</div></section>
+</div>
+<div class="cinta "><div class="cinta-track" id="cinta-a"><span class="cinta-grp"><span class="cinta-it"><img src="img/logos/honda.svg" alt="Honda" width="33" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/suzuki.svg" alt="Suzuki" width="48" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/bajaj.svg" alt="Bajaj" width="150" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/hero.svg" alt="Hero" width="99" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/royal-enfield.svg" alt="Royal Enfield" width="87" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/akt.png" alt="AKT" width="120" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/victory.png" alt="Victory" width="59" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/zanella.png" alt="Zanella" width="74" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Corven</span><span class="cinta-it"><img src="img/logos/keeway.svg" alt="Keeway" width="171" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/shineray.png" alt="Shineray" width="180" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/loncin.png" alt="Loncin" width="187" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Haojue</span><span class="cinta-it cinta-tx">Dayun</span><span class="cinta-it"><img src="img/logos/kymco.svg" alt="Kymco" width="178" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/cfmoto.svg" alt="CFMoto" width="162" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Voge</span><span class="cinta-it"><img src="img/logos/bera.png" alt="Bera" width="65" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Ronco</span><span class="cinta-it cinta-tx">Dinamo</span><span class="cinta-it"><img src="img/logos/bmw.svg" alt="BMW" width="32" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/harley-davidson.svg" alt="Harley-Davidson" width="39" height="32" decoding="async"></span></span><span class="cinta-grp" aria-hidden="true"><span class="cinta-it"><img src="img/logos/honda.svg" alt="" width="33" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/suzuki.svg" alt="" width="48" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/bajaj.svg" alt="" width="150" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/hero.svg" alt="" width="99" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/royal-enfield.svg" alt="" width="87" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/akt.png" alt="" width="120" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/victory.png" alt="" width="59" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/zanella.png" alt="" width="74" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Corven</span><span class="cinta-it"><img src="img/logos/keeway.svg" alt="" width="171" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/shineray.png" alt="" width="180" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/loncin.png" alt="" width="187" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Haojue</span><span class="cinta-it cinta-tx" aria-hidden="true">Dayun</span><span class="cinta-it"><img src="img/logos/kymco.svg" alt="" width="178" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/cfmoto.svg" alt="" width="162" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Voge</span><span class="cinta-it"><img src="img/logos/bera.png" alt="" width="65" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Ronco</span><span class="cinta-it cinta-tx" aria-hidden="true">Dinamo</span><span class="cinta-it"><img src="img/logos/bmw.svg" alt="" width="32" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/harley-davidson.svg" alt="" width="39" height="32" decoding="async"></span></span></div></div>
+<div class="cinta cinta-rev"><div class="cinta-track" id="cinta-b"><span class="cinta-grp"><span class="cinta-it"><img src="img/logos/yamaha.svg" alt="Yamaha" width="139" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/kawasaki.svg" alt="Kawasaki" width="180" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/tvs.svg" alt="TVS" width="178" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/ktm.svg" alt="KTM" width="103" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/italika.svg" alt="Italika" width="150" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Auteco</span><span class="cinta-it"><img src="img/logos/vento.svg" alt="Vento" width="156" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/motomel.png" alt="Motomel" width="69" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/gilera.svg" alt="Gilera" width="22" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Benelli</span><span class="cinta-it"><img src="img/logos/lifan.svg" alt="Lifan" width="32" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/zongshen.png" alt="Zongshen" width="46" height="32" decoding="async"></span><span class="cinta-it cinta-tx">Jialing</span><span class="cinta-it cinta-tx">UM</span><span class="cinta-it"><img src="img/logos/sym.svg" alt="SYM" width="81" height="32" decoding="async"></span><span class="cinta-it cinta-tx">QJ Motor</span><span class="cinta-it cinta-tx">Kove</span><span class="cinta-it cinta-tx">Empire Keeway</span><span class="cinta-it cinta-tx">Carabela</span><span class="cinta-it"><img src="img/logos/vespa.svg" alt="Vespa" width="87" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/ducati.svg" alt="Ducati" width="30" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/triumph.svg" alt="Triumph" width="117" height="32" decoding="async"></span></span><span class="cinta-grp" aria-hidden="true"><span class="cinta-it"><img src="img/logos/yamaha.svg" alt="" width="139" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/kawasaki.svg" alt="" width="180" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/tvs.svg" alt="" width="178" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/ktm.svg" alt="" width="103" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/italika.svg" alt="" width="150" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Auteco</span><span class="cinta-it"><img src="img/logos/vento.svg" alt="" width="156" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/motomel.png" alt="" width="69" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/gilera.svg" alt="" width="22" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Benelli</span><span class="cinta-it"><img src="img/logos/lifan.svg" alt="" width="32" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/zongshen.png" alt="" width="46" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">Jialing</span><span class="cinta-it cinta-tx" aria-hidden="true">UM</span><span class="cinta-it"><img src="img/logos/sym.svg" alt="" width="81" height="32" decoding="async"></span><span class="cinta-it cinta-tx" aria-hidden="true">QJ Motor</span><span class="cinta-it cinta-tx" aria-hidden="true">Kove</span><span class="cinta-it cinta-tx" aria-hidden="true">Empire Keeway</span><span class="cinta-it cinta-tx" aria-hidden="true">Carabela</span><span class="cinta-it"><img src="img/logos/vespa.svg" alt="" width="87" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/ducati.svg" alt="" width="30" height="32" decoding="async"></span><span class="cinta-it"><img src="img/logos/triumph.svg" alt="" width="117" height="32" decoding="async"></span></span></div></div>
+</section>
 
-<section id="cifras"><div class="wrap cifras-grid">
+<section id="cifras"><div class="wrap">
+<div class="eyebrow rv"><i></i><b>02</b><em>En números</em><i></i></div>
+</div>
+<div class="wrap cifras-grid">
 <div class="rv"><b>+900</b><span>Manuales</span></div>
 <div class="rv"><b>+40</b><span>Marcas</span></div>
 <div class="rv"><b>25 GB</b><span>De contenido</span></div>
 </div></section>
 
 <section id="galeria"><div class="wrap">
+<div class="eyebrow rv"><i></i><b>03</b><em>Qué vas a aprender</em><i></i></div>
 <h2 class="rv">Qué vas a aprender</h2>
 <p class="g-lead rv">Motor, eléctrico, frenos, suspensión, transmisión y carburación: toca una tarjeta para ver el módulo completo.</p>
 </div>
@@ -188,6 +204,7 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 <section id="beneficios"><div class="wrap ben-grid">
 <img class="ben-ph rv" src="img/foto-4.webp" alt="Mecánico ajustando un motor de moto en el taller" loading="lazy" decoding="async">
 <div class="rv">
+<div class="eyebrow" style="justify-content:flex-start"><b>04</b><em>Por qué Motos Pro</em><i></i></div>
 <h2>Por qué Motos Pro</h2>
 <ul class="ben-list">
 <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>+900 manuales paso a paso de +40 marcas</span></li>
@@ -200,6 +217,7 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 </div></section>
 
 <section id="incluye"><div class="wrap price-card rv">
+<div class="eyebrow"><i></i><b>05</b><em>Qué incluye</em><i></i></div>
 <h2>Qué incluye</h2>
 <ul class="stack">
 <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>+900 manuales de taller de motos</span></li>
@@ -213,11 +231,12 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 <div class="price-row"><span class="price-old">US$39</span><span class="price-new" id="precio-grande">US$12.99</span></div>
 <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-incluye" data-buy="1">Activa tu acceso hoy</a>
 <div class="pay-row"><span class="pay-chip">Visa</span><span class="pay-chip">Mastercard</span><span class="pay-chip">Amex</span><span class="pay-chip">PayPal</span><span class="pay-chip">Mercado Pago</span></div>
-<div class="guar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/></svg>Garantía de 3 días sin preguntas</div>
+<div class="guar"><span class="guar-seal"><b>3D</b></span><span><span class="guar-tt">Garantía</span><span class="guar-dd">3 días sin preguntas</span></span></div>
 <div class="aviso" id="aviso-checkout"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4l9 15.6H3z"/><path d="M12 9.6v4.1"/><path d="M12 16.4v.1"/></svg><span>Página en preparación: el checkout todavía no está conectado. Por ahora el botón no cobra nada.</span></div>
 </div></section>
 
 <section id="faq"><div class="wrap">
+<div class="eyebrow rv"><i></i><b>06</b><em>Preguntas frecuentes</em><i></i></div>
 <h2 class="rv">Lo que todos preguntan</h2>
 <div class="acc rv">
 <details><summary><span>¿Necesito experiencia en mecánica?</span></summary><p>No. El manual muestra la pieza y el orden, igual que en el taller oficial. Y el Curso de Motores 2T y 4T arranca desde cómo funciona el motor.</p></details>
