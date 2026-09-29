@@ -19,6 +19,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="preload" as="font" type="font/woff2" href="fonts/inter.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/inter-tight.woff2" crossorigin>
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter.woff2) format('woff2')}
 @font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-tight.woff2) format('woff2')}
@@ -234,7 +235,7 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-final" data-buy="1">Quiero acceso · US$12.99</a>
 </div></section>
 
-<footer>MOTOS PRO · <a href="mailto:contacto@dominio.com">contacto@dominio.com</a></footer>
+<footer>MOTOS PRO</footer>
 
 <div id="buybar"><div class="p"><b id="buybar-precio">US$12.99</b><span>pago único · acceso inmediato</span></div><a href="#STRIPE-PENDIENTE" class="btn sm" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
 
@@ -282,7 +283,7 @@ footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);b
 
   var els=[].slice.call(document.querySelectorAll('.rv'));
   if('IntersectionObserver' in window){
-    var rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } }); }, {threshold:.15});
+    var rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } }); }, {threshold:.1, rootMargin:'0px 0px -10% 0px'});
     els.forEach(function(e){ rio.observe(e); });
   } else { els.forEach(function(e){ e.classList.add('in'); }); }
 
