@@ -26,7 +26,8 @@
 :root{--bg:#0a0a0a;--fg:#f2f2f2;--mut:#9c9c9c;--acc:#e10600;--line:rgba(255,255,255,.14);--ff:'Inter',system-ui,sans-serif;--fft:'Inter Tight',var(--ff)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ff);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ff);-webkit-font-smoothing:antialiased}
 img,video{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 h1,h2,h3{font-family:var(--fft);text-transform:uppercase;font-weight:700;letter-spacing:.01em;margin:0;line-height:1.1}
