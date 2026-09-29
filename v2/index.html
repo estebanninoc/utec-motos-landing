@@ -108,8 +108,9 @@ section[id]{scroll-margin-top:88px}
 .g-lead{text-align:center;color:var(--mut);max-width:54ch;margin:16px auto 40px}
 .g-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 16px;margin:0 -20px}
 .g-track::-webkit-scrollbar{display:none}
-.g-card{position:relative;flex:0 0 60vw;max-width:220px;aspect-ratio:9/16;border-radius:18px;overflow:hidden;scroll-snap-align:start;background:#151515;cursor:pointer}
-.g-card video{width:100%;height:100%;object-fit:cover}
+.g-card{position:relative;flex:0 0 60vw;max-width:220px;aspect-ratio:9/16;border-radius:18px;overflow:hidden;scroll-snap-align:start;background:#151515 center/cover no-repeat;cursor:pointer}
+.g-card video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease}
+.g-card video.playing{opacity:1}
 .g-card:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 44%,rgba(0,0,0,.88))}
 .g-tt{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;font-family:var(--fft);font-weight:800;text-transform:uppercase;font-size:.92rem;line-height:1.15}
 @media(hover:hover){.g-card{transition:transform .35s ease}.g-card:hover{transform:scale(1.035)}}
@@ -176,7 +177,9 @@ footer .foot-note{display:block;margin-top:10px;font-size:.76rem}
 #lb{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:26px}
 #lb.on{display:flex}
 .lb-box{position:relative;max-width:420px;width:100%;text-align:center}
-.lb-box video{width:100%;border-radius:16px;aspect-ratio:9/16;object-fit:cover;background:#111}
+.lb-vwrap{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:9/16;background:#111 center/cover no-repeat}
+.lb-vwrap video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease}
+.lb-vwrap video.playing{opacity:1}
 .lb-tt{font-family:var(--fft);font-weight:800;text-transform:uppercase;margin-top:18px;font-size:1.22rem}
 .lb-dd{color:var(--mut);margin:8px 0 22px;font-size:.9rem}
 .lb-x{position:absolute;top:-44px;right:0;font-size:1.9rem;line-height:1;color:#fff}
@@ -299,7 +302,7 @@ footer .foot-note{display:block;margin-top:10px;font-size:.76rem}
 
 <div id="buybar"><div class="p"><b id="buybar-precio">US$12.99</b><span>pago único · acceso inmediato</span></div><a href="#STRIPE-PENDIENTE" class="btn sm" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
 
-<div id="lb"><div class="lb-box"><button class="lb-x" id="lb-x" aria-label="Cerrar">&times;</button><video id="lb-v" muted loop playsinline autoplay></video><div class="lb-tt" id="lb-t"></div><div class="lb-dd" id="lb-d"></div><a href="#STRIPE-PENDIENTE" class="btn" id="btn-lb" data-buy="1">Desbloquear todo · US$12.99</a></div>
+<div id="lb"><div class="lb-box"><button class="lb-x" id="lb-x" aria-label="Cerrar">&times;</button><div class="lb-vwrap" id="lb-vwrap"><video id="lb-v" muted loop playsinline autoplay></video></div><div class="lb-tt" id="lb-t"></div><div class="lb-dd" id="lb-d"></div><a href="#STRIPE-PENDIENTE" class="btn" id="btn-lb" data-buy="1">Desbloquear todo · US$12.99</a></div>
 <button class="lb-nav" id="lb-prev" aria-label="Anterior">&#10094;</button><button class="lb-nav" id="lb-next" aria-label="Siguiente">&#10095;</button></div>
 
 <script>
@@ -357,40 +360,60 @@ footer .foot-note{display:block;margin-top:10px;font-size:.76rem}
     els.forEach(function(e){ rio.observe(e); });
   } else { els.forEach(function(e){ e.classList.add('in'); }); }
 
+  var cards=[].slice.call(document.querySelectorAll('.g-card'));
+  cards.forEach(function(c){ c.style.backgroundImage="url('"+c.getAttribute('data-poster')+"')"; });
+
   var vids=[].slice.call(document.querySelectorAll('.g-card video'));
-  var MAXPLAY=2, active=[];
-  function unload(v){ v.pause(); v.removeAttribute('src'); v.load(); v.dataset.loaded=''; }
+  var MAXPLAY=2, FADE_MS=250, active=[];
+  vids.forEach(function(v){ v.addEventListener('playing', function(){ v.classList.add('playing'); }); });
+  function hardUnload(v){ v.pause(); v.removeAttribute('src'); v.load(); v.dataset.loaded=''; v.classList.remove('playing'); }
+  function softUnload(v){
+    if(v.classList.contains('playing')){ v.classList.remove('playing'); setTimeout(function(){ hardUnload(v); }, FADE_MS); }
+    else { hardUnload(v); }
+  }
+  function preloadNext(v){
+    var n=vids[vids.indexOf(v)+1];
+    if(n && !n.dataset.loaded){ n.preload='metadata'; n.src=n.dataset.src; n.dataset.loaded='1'; }
+  }
   function tryPlay(v){
     if(active.indexOf(v)===-1){
-      if(active.length>=MAXPLAY){ unload(active.shift()); }
+      if(active.length>=MAXPLAY){ softUnload(active.shift()); }
       active.push(v);
     }
     if(!v.dataset.loaded){ v.src=v.dataset.src; v.dataset.loaded='1'; }
     v.play().catch(function(){});
+    preloadNext(v);
   }
   function stopVid(v){
     var i=active.indexOf(v);
-    if(i>-1){ active.splice(i,1); unload(v); } else { v.pause(); }
+    if(i>-1){ active.splice(i,1); }
+    v.classList.remove('playing');
+    v.pause();
   }
   if('IntersectionObserver' in window){
     var vio=new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting){ tryPlay(e.target); } else { stopVid(e.target); } });
-      vids.forEach(function(v){ if(active.indexOf(v)===-1 && v.dataset.loaded){ unload(v); } });
     }, {threshold:.5});
     vids.forEach(function(v){ vio.observe(v); });
   }
 
-  var cards=[].slice.call(document.querySelectorAll('.g-card'));
-  var lb=document.getElementById('lb'), lv=document.getElementById('lb-v'), lt=document.getElementById('lb-t'), ld=document.getElementById('lb-d');
+  var lb=document.getElementById('lb'), lv=document.getElementById('lb-v'), lvWrap=document.getElementById('lb-vwrap'), lt=document.getElementById('lb-t'), ld=document.getElementById('lb-d');
   var idx=0;
+  lv.addEventListener('playing', function(){ lv.classList.add('playing'); });
   function open(i){
     idx=(i+cards.length)%cards.length;
     var c=cards[idx];
-    lv.src=c.getAttribute('data-src'); lv.poster=c.getAttribute('data-poster');
-    lt.textContent=c.getAttribute('data-title'); ld.textContent=c.getAttribute('data-desc');
-    lb.classList.add('on'); lv.play().catch(function(){});
+    var wasOn=lb.classList.contains('on');
+    lvWrap.style.backgroundImage="url('"+c.getAttribute('data-poster')+"')";
+    var swap=function(){
+      lv.pause(); lv.src=c.getAttribute('data-src'); lv.poster=c.getAttribute('data-poster'); lv.load();
+      lt.textContent=c.getAttribute('data-title'); ld.textContent=c.getAttribute('data-desc');
+      lb.classList.add('on'); lv.play().catch(function(){});
+    };
+    if(wasOn && lv.classList.contains('playing')){ lv.classList.remove('playing'); setTimeout(swap, 250); }
+    else { swap(); }
   }
-  function close(){ lb.classList.remove('on'); lv.pause(); lv.removeAttribute('src'); lv.load(); }
+  function close(){ lv.classList.remove('playing'); lb.classList.remove('on'); lv.pause(); lv.removeAttribute('src'); lv.load(); }
   cards.forEach(function(c,i){ c.addEventListener('click', function(){ open(i); }); });
   document.getElementById('lb-x').addEventListener('click', close);
   document.getElementById('lb-prev').addEventListener('click', function(){ open(idx-1); });
