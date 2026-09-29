@@ -42,3 +42,14 @@ lectura directa, apoyada en `./ver` de NVIDIA) para descartar clips con cara de 
 watermark grande o texto superpuesto en el tramo elegido. Recorte final y compresión con
 `ffmpeg` (`scale+crop` a 540×960, `fps=24`, `libx264`, `-an`, `-movflags +faststart`, bitrate
 ajustado hasta caber en ≤350KB).
+
+## ORDEN AR (2026-09-29) — recompresión y grade, mismos clips fuente
+
+Sin cambio de fuentes. Reprocesado con `ffmpeg`: recorte a 480×854 (zoom-crop centrado 520×924→480×854,
+excepto g1 con crop especial 470×850 offset para eliminar un watermark de canal visible en la
+esquina superior derecha), duración recortada a 5.5s, grade uniforme
+(`eq=contrast=1.15:saturation=0.78:brightness=-0.12:gamma=0.85`) + viñeta suave + fade de 0.2s
+in/out para loop limpio, bitrate ~200kbps (`-b:v 200k -maxrate 240k -bufsize 400k`). Resultado:
+116–144KB por clip (antes 228–323KB). Posters cambiaron de `.jpg` a `.webp` extraídos del video
+ya regradeado (4.4–20.8KB c/u). Los 8 originales de ORDEN AQ (pre-grade/crop) quedaron en
+`v2/vid/old-aq/` en la copia de trabajo de la fábrica (no se publican).
