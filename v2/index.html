@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>+900 manuales de taller de motos + curso de mecánica | MOTOS PRO</title>
+<meta name="description" content="La biblioteca de mecánica de motos más completa de LATAM: +900 manuales de +40 marcas, despiece, diagramas eléctricos y el curso de motores 2T/4T. Pago único US$12.99.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="+900 manuales de taller de motos + curso de mecánica | MOTOS PRO">
+<meta property="og:description" content="La biblioteca de mecánica de motos más completa de LATAM: +900 manuales de +40 marcas, despiece, diagramas eléctricos y el curso de motores 2T/4T. Pago único US$12.99.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://estebanninoc.github.io/utec-motos-landing/v2/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Despiece de una moto sobre fondo negro, MOTOS PRO, +900 manuales de taller.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://estebanninoc.github.io/utec-motos-landing/v2/img/og.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter-tight.woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-tight.woff2) format('woff2')}
+:root{--bg:#0a0a0a;--fg:#f2f2f2;--mut:#9c9c9c;--acc:#e10600;--line:rgba(255,255,255,.14);--ff:'Inter',system-ui,sans-serif;--fft:'Inter Tight',var(--ff)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--ff);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fft);text-transform:uppercase;font-weight:800;letter-spacing:-.01em;margin:0;line-height:1.06}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+ul{margin:0;padding:0;list-style:none}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#0d0d0d;font-family:var(--fft);font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:15px 28px;border-radius:999px;box-shadow:0 10px 26px -10px rgba(0,0,0,.65);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -10px rgba(0,0,0,.75)}
+.btn.sm{padding:10px 20px;font-size:.78rem}
+.btn.big{padding:19px 36px;font-size:1.05rem}
+
+#topbar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(180deg,rgba(10,10,10,.9),rgba(10,10,10,0));transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+#topbar.scr{background:rgba(10,10,10,.92);backdrop-filter:blur(8px);border-color:var(--line)}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--fft);font-weight:900;font-size:1.05rem;letter-spacing:.03em}
+.logo em{font-style:normal;color:var(--acc)}
+
+#hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:100px 0 60px}
+#hero picture,#hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+#hero:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0) 28%,rgba(10,10,10,.6) 64%,#0a0a0a 97%);z-index:1}
+.hero-c{position:relative;z-index:2}
+#hero h1{font-size:clamp(2.5rem,9vw,5.4rem)}
+#hero .sub{font-size:clamp(1rem,2.3vw,1.28rem);color:#e9e9e9;margin:18px 0 28px;max-width:42ch}
+.note{font-size:.8rem;color:var(--mut);margin-top:16px;letter-spacing:.02em}
+
+#marcas{padding:38px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.marcas-lb{text-align:center;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:24px}
+.cinta{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.cinta-track{display:flex;align-items:center;width:max-content;animation:marq 32s linear infinite}
+.cinta-grp{display:flex;align-items:center;gap:54px;padding-right:54px}
+@media(prefers-reduced-motion:reduce){.cinta-track{animation:none}.rv{opacity:1;transform:none;transition:none}}
+.cinta-track img{height:32px;width:auto;filter:brightness(0) invert(1);opacity:.8}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+#cifras{padding:66px 0}
+.cifras-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center}
+.cifras-grid b{display:block;font-family:var(--fft);font-weight:900;color:var(--acc);font-size:clamp(2.1rem,6.4vw,3.5rem);line-height:1}
+.cifras-grid span{display:block;margin-top:9px;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+
+#galeria{padding:74px 0}
+#galeria h2{font-size:clamp(1.9rem,5.4vw,3.1rem);text-align:center}
+.g-lead{text-align:center;color:var(--mut);max-width:54ch;margin:16px auto 40px}
+.g-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 16px;margin:0 -20px}
+.g-track::-webkit-scrollbar{display:none}
+.g-card{position:relative;flex:0 0 60vw;max-width:220px;aspect-ratio:9/16;border-radius:18px;overflow:hidden;scroll-snap-align:start;background:#151515;cursor:pointer}
+.g-card video{width:100%;height:100%;object-fit:cover}
+.g-card:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 44%,rgba(0,0,0,.88))}
+.g-tt{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;font-family:var(--fft);font-weight:800;text-transform:uppercase;font-size:.92rem;line-height:1.15}
+@media(hover:hover){.g-card{transition:transform .35s ease}.g-card:hover{transform:scale(1.035)}}
+@media(min-width:860px){.g-track{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;padding:4px 0;margin:0}.g-card{max-width:none;flex:auto}}
+
+#beneficios{padding:74px 0}
+.ben-grid{display:grid;gap:38px}
+.ben-list{margin:22px 0 0;display:grid;gap:17px}
+.ben-list li{display:flex;gap:12px;align-items:flex-start;font-size:1.02rem}
+.ben-list svg{flex:0 0 auto;margin-top:3px;color:var(--acc)}
+.ben-ph{border-radius:18px;overflow:hidden}
+@media(min-width:860px){.ben-grid{grid-template-columns:1fr 1fr;align-items:center}}
+
+#incluye{padding:78px 0;border-top:1px solid var(--line)}
+.price-card{max-width:540px;margin:0 auto;text-align:center}
+.stack{text-align:left;display:grid;gap:13px;margin:26px 0}
+.stack li{display:flex;gap:10px;font-size:.95rem}
+.stack svg{flex:0 0 auto;color:var(--acc);margin-top:3px}
+.price-row{margin:32px 0 8px}
+.price-old{color:var(--mut);text-decoration:line-through;font-size:1.15rem}
+.price-new{display:block;font-family:var(--fft);font-weight:900;font-size:clamp(2.7rem,8.4vw,3.7rem);color:#fff;margin-top:4px}
+.pay-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:24px}
+.pay-chip{border:1px solid var(--line);border-radius:8px;padding:6px 13px;font-size:.72rem;letter-spacing:.04em;color:var(--mut)}
+.guar{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:.82rem;color:var(--mut)}
+.aviso{display:flex;gap:10px;align-items:flex-start;margin-top:22px;padding:12px 14px;border:1px solid rgba(225,6,0,.4);border-radius:12px;background:rgba(225,6,0,.08);font-size:.8rem;color:#f0c9c9;text-align:left}
+.aviso svg{flex:0 0 auto;color:var(--acc);margin-top:2px}
+
+#faq{padding:74px 0}
+#faq h2{text-align:center;font-size:clamp(1.9rem,5.4vw,3.1rem);margin-bottom:32px}
+.acc{max-width:720px;margin:0 auto;border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line);padding:19px 0}
+.acc summary{cursor:pointer;font-weight:700;font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary:after{content:'+';font-size:1.5rem;color:var(--acc);flex:0 0 auto}
+.acc details[open] summary:after{content:'−'}
+.acc p{color:var(--mut);margin-top:14px;font-size:.92rem;line-height:1.62}
+
+#final{position:relative;padding:120px 0;text-align:center}
+#final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+#final:before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.62);z-index:1}
+#final .c{position:relative;z-index:2}
+#final h2{font-size:clamp(2.1rem,6.4vw,3.7rem)}
+#final p{display:block;color:#ddd;margin:16px auto 30px;max-width:42ch}
+
+footer{padding:28px 0 104px;text-align:center;font-size:.8rem;color:var(--mut);border-top:1px solid var(--line)}
+@media(min-width:860px){footer{padding-bottom:28px}}
+
+#buybar{position:fixed;left:0;right:0;bottom:-100px;z-index:45;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;background:rgba(10,10,10,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);transition:bottom .3s ease}
+#buybar.show{bottom:0}
+#buybar b{font-family:var(--fft);display:block;font-size:1.05rem}
+#buybar span{font-size:.72rem;color:var(--mut)}
+@media(min-width:860px){#buybar{display:none}}
+
+#lb{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:26px}
+#lb.on{display:flex}
+.lb-box{position:relative;max-width:420px;width:100%;text-align:center}
+.lb-box video{width:100%;border-radius:16px;aspect-ratio:9/16;object-fit:cover;background:#111}
+.lb-tt{font-family:var(--fft);font-weight:800;text-transform:uppercase;margin-top:18px;font-size:1.22rem}
+.lb-dd{color:var(--mut);margin:8px 0 22px;font-size:.9rem}
+.lb-x{position:absolute;top:-44px;right:0;font-size:1.9rem;line-height:1;color:#fff}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);font-size:2.3rem;padding:10px;color:#fff;opacity:.7}
+.lb-nav:hover{opacity:1}
+#lb-prev{left:10px}#lb-next{right:10px}
+@media(max-width:600px){.lb-nav{display:none}}
+</style>
+</head>
+<body>
+
+<header id="topbar"><div class="logo">MOTOS<em>PRO</em></div><a href="#STRIPE-PENDIENTE" class="btn sm" id="btn-top" data-buy="1">Comprar · US$12.99</a></header>
+
+<section id="hero"><picture><source media="(min-width:860px)" srcset="img/hero-desk.webp"><img src="img/hero-mob.webp" alt="Motociclista listo para arrancar" fetchpriority="high" decoding="async"></picture>
+<div class="wrap hero-c">
+<h1>Arregla tu moto<br>como un profesional</h1>
+<p class="sub">La biblioteca de mecánica de motos más completa de LATAM. Manuales paso a paso de +40 marcas, en tu celular o tu PC.</p>
+<a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Quiero acceso · US$12.99</a>
+<p class="note">Pago único · Acceso inmediato · Garantía 3 días</p>
+</div></section>
+
+<section id="marcas"><div class="wrap">
+<p class="marcas-lb rv">Compatible con más de 40 marcas</p>
+<div class="cinta"><div class="cinta-track">
+<span class="cinta-grp">
+<img src="img/logos/honda.svg" alt="Honda" loading="lazy" decoding="async"><img src="img/logos/yamaha.svg" alt="Yamaha" loading="lazy" decoding="async"><img src="img/logos/suzuki.svg" alt="Suzuki" loading="lazy" decoding="async"><img src="img/logos/kawasaki.svg" alt="Kawasaki" loading="lazy" decoding="async"><img src="img/logos/bajaj.svg" alt="Bajaj" loading="lazy" decoding="async"><img src="img/logos/ktm.svg" alt="KTM" loading="lazy" decoding="async"><img src="img/logos/ducati.svg" alt="Ducati" loading="lazy" decoding="async"><img src="img/logos/bmw.svg" alt="BMW" loading="lazy" decoding="async"><img src="img/logos/royal-enfield.svg" alt="Royal Enfield" loading="lazy" decoding="async"><img src="img/logos/triumph.svg" alt="Triumph" loading="lazy" decoding="async"><img src="img/logos/tvs.svg" alt="TVS" loading="lazy" decoding="async"><img src="img/logos/italika.svg" alt="Italika" loading="lazy" decoding="async"><img src="img/logos/akt.png" alt="AKT" loading="lazy" decoding="async"><img src="img/logos/hero.svg" alt="Hero" loading="lazy" decoding="async"><img src="img/logos/vespa.svg" alt="Vespa" loading="lazy" decoding="async"><img src="img/logos/cfmoto.svg" alt="CF Moto" loading="lazy" decoding="async"><img src="img/logos/aprilia.svg" alt="Aprilia" loading="lazy" decoding="async"><img src="img/logos/harley-davidson.svg" alt="Harley-Davidson" loading="lazy" decoding="async">
+</span><span class="cinta-grp" aria-hidden="true">
+<img src="img/logos/honda.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/yamaha.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/suzuki.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/kawasaki.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/bajaj.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/ktm.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/ducati.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/bmw.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/royal-enfield.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/triumph.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/tvs.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/italika.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/akt.png" alt="" loading="lazy" decoding="async"><img src="img/logos/hero.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/vespa.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/cfmoto.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/aprilia.svg" alt="" loading="lazy" decoding="async"><img src="img/logos/harley-davidson.svg" alt="" loading="lazy" decoding="async">
+</span></div></div>
+</div></section>
+
+<section id="cifras"><div class="wrap cifras-grid">
+<div class="rv"><b>+900</b><span>Manuales</span></div>
+<div class="rv"><b>+40</b><span>Marcas</span></div>
+<div class="rv"><b>25 GB</b><span>De contenido</span></div>
+</div></section>
+
+<section id="galeria"><div class="wrap">
+<h2 class="rv">Qué vas a aprender</h2>
+<p class="g-lead rv">Motor, eléctrico, frenos, suspensión, transmisión y carburación: toca una tarjeta para ver el módulo completo.</p>
+</div>
+<div class="g-track rv">
+<div class="g-card" data-src="vid/g1.mp4" data-poster="vid/g1.jpg" data-title="Despiece del motor" data-desc="Desarmado completo del motor, pieza por pieza, con el orden exacto de armado."><video muted loop playsinline preload="none" poster="vid/g1.jpg" aria-label="Despiece del motor"><source src="vid/g1.mp4" type="video/mp4"></video><span class="g-tt">Despiece<br>del motor</span></div>
+<div class="g-card" data-src="vid/g2.mp4" data-poster="vid/g2.jpg" data-title="Diagramas eléctricos" data-desc="Sistema de carga y el código de colores del CDI, explicado paso a paso."><video muted loop playsinline preload="none" poster="vid/g2.jpg" aria-label="Diagramas eléctricos"><source src="vid/g2.mp4" type="video/mp4"></video><span class="g-tt">Diagramas<br>eléctricos</span></div>
+<div class="g-card" data-src="vid/g3.mp4" data-poster="vid/g3.jpg" data-title="Frenos y suspensión" data-desc="Pastillas de freno que se quedan pegadas: el diagnóstico y la solución."><video muted loop playsinline preload="none" poster="vid/g3.jpg" aria-label="Frenos y suspensión"><source src="vid/g3.mp4" type="video/mp4"></video><span class="g-tt">Frenos y<br>suspensión</span></div>
+<div class="g-card" data-src="vid/g4.mp4" data-poster="vid/g4.jpg" data-title="Transmisión y embrague" data-desc="Discos de embrague de una 125: cuándo cambiarlos y cómo montarlos."><video muted loop playsinline preload="none" poster="vid/g4.jpg" aria-label="Transmisión y embrague"><source src="vid/g4.mp4" type="video/mp4"></video><span class="g-tt">Transmisión<br>y embrague</span></div>
+<div class="g-card" data-src="vid/g5.mp4" data-poster="vid/g5.jpg" data-title="Carburador e inyección" data-desc="Limpieza completa del carburador por dentro, sin dañar una sola pieza."><video muted loop playsinline preload="none" poster="vid/g5.jpg" aria-label="Carburador e inyección"><source src="vid/g5.mp4" type="video/mp4"></video><span class="g-tt">Carburador<br>e inyección</span></div>
+<div class="g-card" data-src="vid/g6.mp4" data-poster="vid/g6.jpg" data-title="Torques y medidas" data-desc="Cómo revisar el ajuste correcto de los balancines con la herramienta justa."><video muted loop playsinline preload="none" poster="vid/g6.jpg" aria-label="Torques y medidas"><source src="vid/g6.mp4" type="video/mp4"></video><span class="g-tt">Torques y<br>medidas</span></div>
+<div class="g-card" data-src="vid/g7.mp4" data-poster="vid/g7.jpg" data-title="Diagnóstico por sistemas" data-desc="El método para hallar la falla real en un motor ya abierto."><video muted loop playsinline preload="none" poster="vid/g7.jpg" aria-label="Diagnóstico por sistemas"><source src="vid/g7.mp4" type="video/mp4"></video><span class="g-tt">Diagnóstico<br>por sistemas</span></div>
+<div class="g-card" data-src="vid/g8.mp4" data-poster="vid/g8.jpg" data-title="Curso 2T y 4T" data-desc="El motor 4T por dentro, con las piezas en movimiento, explicado desde cero."><video muted loop playsinline preload="none" poster="vid/g8.jpg" aria-label="Curso 2T y 4T"><source src="vid/g8.mp4" type="video/mp4"></video><span class="g-tt">Curso 2T<br>y 4T</span></div>
+</div></section>
+
+<section id="beneficios"><div class="wrap ben-grid">
+<img class="ben-ph rv" src="img/foto-4.webp" alt="Mecánico ajustando un motor de moto en el taller" loading="lazy" decoding="async">
+<div class="rv">
+<h2>Por qué Motos Pro</h2>
+<ul class="ben-list">
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>+900 manuales paso a paso de +40 marcas</span></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Diagramas eléctricos completos y despiece detallado</span></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Torques y especificaciones técnicas exactas</span></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Curso completo de mecánica 2T y 4T incluido</span></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Se usa sin internet, en el celular o el PC</span></li>
+</ul>
+</div>
+</div></section>
+
+<section id="incluye"><div class="wrap price-card rv">
+<h2>Qué incluye</h2>
+<ul class="stack">
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>+900 manuales de taller de motos</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>+40 marcas: Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield y más</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Despiece y montaje paso a paso</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Diagramas eléctricos y especificaciones técnicas</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>Curso de Mecánica de Motores 2T y 4T</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span><b>Bonus</b> · checklist imprimible de mantenimiento preventivo — valorado en US$1.99, incluido gratis</span></li>
+<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6"/></svg><span>25 GB de contenido, 100% digital y descargable</span></li>
+</ul>
+<div class="price-row"><span class="price-old">US$39</span><span class="price-new" id="precio-grande">US$12.99</span></div>
+<a href="#STRIPE-PENDIENTE" class="btn big" id="btn-incluye" data-buy="1">Activa tu acceso hoy</a>
+<div class="pay-row"><span class="pay-chip">Visa</span><span class="pay-chip">Mastercard</span><span class="pay-chip">Amex</span><span class="pay-chip">PayPal</span><span class="pay-chip">Mercado Pago</span></div>
+<div class="guar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/></svg>Garantía de 3 días sin preguntas</div>
+<div class="aviso" id="aviso-checkout"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4l9 15.6H3z"/><path d="M12 9.6v4.1"/><path d="M12 16.4v.1"/></svg><span>Página en preparación: el checkout todavía no está conectado. Por ahora el botón no cobra nada.</span></div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+<h2 class="rv">Lo que todos preguntan</h2>
+<div class="acc rv">
+<details><summary><span>¿Necesito experiencia en mecánica?</span></summary><p>No. El manual muestra la pieza y el orden, igual que en el taller oficial. Y el Curso de Motores 2T y 4T arranca desde cómo funciona el motor.</p></details>
+<details><summary><span>¿En qué formato viene?</span></summary><p>En PDF descargable: se abre en cualquier celular o computador sin instalar nada.</p></details>
+<details><summary><span>¿Funciona en el celular?</span></summary><p>Sí, es como más se usa. Se abre igual en Android o iPhone, con zoom sobre el diagrama, y sin gastar datos una vez descargado.</p></details>
+<details><summary><span>¿Sirve para mi moto?</span></summary><p>Son más de 40 marcas y +900 manuales. Si no ubicas la tuya, se busca contigo por soporte.</p></details>
+<details><summary><span>¿Es un pago mensual?</span></summary><p>No. Es un pago único de US$12.99, sin suscripción y con acceso de por vida. Con 3 días de garantía.</p></details>
+</div>
+</div></section>
+
+<section id="final"><img src="img/foto-3.webp" alt="Motociclista rodando al atardecer" loading="lazy" decoding="async">
+<div class="wrap c rv">
+<h2>Tu moto no espera</h2>
+<p>Abre el manual de tu moto hoy mismo y arréglala como un profesional.</p>
+<a href="#STRIPE-PENDIENTE" class="btn big" id="btn-final" data-buy="1">Quiero acceso · US$12.99</a>
+</div></section>
+
+<footer>MOTOS PRO · <a href="mailto:contacto@dominio.com">contacto@dominio.com</a></footer>
+
+<div id="buybar"><div class="p"><b id="buybar-precio">US$12.99</b><span>pago único · acceso inmediato</span></div><a href="#STRIPE-PENDIENTE" class="btn sm" id="buybar-btn" data-buy="1">Activa tu acceso</a></div>
+
+<div id="lb"><div class="lb-box"><button class="lb-x" id="lb-x" aria-label="Cerrar">&times;</button><video id="lb-v" muted loop playsinline autoplay></video><div class="lb-tt" id="lb-t"></div><div class="lb-dd" id="lb-d"></div><a href="#STRIPE-PENDIENTE" class="btn" id="btn-lb" data-buy="1">Desbloquear todo · US$12.99</a></div>
+<button class="lb-nav" id="lb-prev" aria-label="Anterior">&#10094;</button><button class="lb-nav" id="lb-next" aria-label="Siguiente">&#10095;</button></div>
+
+<script>
+(function(){
+  var LK='#STRIPE-PENDIENTE';
+  var PRECIO='US$12.99', IC_VAL=12.99, IC_CUR='USD';
+  var REF=null;
+  try{
+    var q=new URLSearchParams(location.search);
+    REF=q.get('ad')||q.get('utm_content')||null;
+    if(REF){ REF=REF.replace(/[^A-Za-z0-9_-]/g,'').slice(0,60)||null; if(REF) sessionStorage.setItem('motosRef',REF); }
+    if(!REF) REF=sessionStorage.getItem('motosRef');
+    if(!REF && (q.get('fbclid')||/facebook\.com|instagram\.com/.test(document.referrer))) REF='MOTOS-META-SINTAG';
+  }catch(e){}
+  function conRef(u){ if(u.charAt(0)==='#') return u; return REF ? u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF : u; }
+  function up(){
+    [].slice.call(document.querySelectorAll('a[data-buy]')).forEach(function(a){
+      a.setAttribute('data-icv',IC_VAL); a.setAttribute('data-icc',IC_CUR); a.href=conRef(LK);
+    });
+    var av=document.getElementById('aviso-checkout');
+    if(av && LK.charAt(0)!=='#') av.style.display='none';
+  }
+  window.__motosPrecio={base:PRECIO,baseVal:IC_VAL,moneda:IC_CUR,
+    set:function(o){ if(o.base)PRECIO=o.base; if(o.baseVal)IC_VAL=o.baseVal; if(o.moneda)IC_CUR=o.moneda;
+      this.base=PRECIO; this.baseVal=IC_VAL; this.moneda=IC_CUR; up(); }};
+  up();
+})();
+</script>
+<script>
+(function(){
+  var tb=document.getElementById('topbar'), bb=document.getElementById('buybar'), hero=document.getElementById('hero');
+  var pedido=false;
+  function pinta(){
+    var y=window.pageYOffset||document.documentElement.scrollTop||0;
+    tb.classList.toggle('scr', y>8);
+    bb.classList.toggle('show', y>hero.offsetHeight*0.7);
+    pedido=false;
+  }
+  window.addEventListener('scroll', function(){ if(!pedido){ pedido=true; requestAnimationFrame(pinta); } }, {passive:true});
+  pinta();
+
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){
+    var rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } }); }, {threshold:.15});
+    els.forEach(function(e){ rio.observe(e); });
+  } else { els.forEach(function(e){ e.classList.add('in'); }); }
+
+  var vids=[].slice.call(document.querySelectorAll('.g-card video'));
+  if('IntersectionObserver' in window){
+    var vio=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting){ e.target.play().catch(function(){}); } else { e.target.pause(); }
+    }); }, {threshold:.5});
+    vids.forEach(function(v){ vio.observe(v); });
+  }
+
+  var cards=[].slice.call(document.querySelectorAll('.g-card'));
+  var lb=document.getElementById('lb'), lv=document.getElementById('lb-v'), lt=document.getElementById('lb-t'), ld=document.getElementById('lb-d');
+  var idx=0;
+  function open(i){
+    idx=(i+cards.length)%cards.length;
+    var c=cards[idx];
+    lv.src=c.getAttribute('data-src'); lv.poster=c.getAttribute('data-poster');
+    lt.textContent=c.getAttribute('data-title'); ld.textContent=c.getAttribute('data-desc');
+    lb.classList.add('on'); lv.play().catch(function(){});
+  }
+  function close(){ lb.classList.remove('on'); lv.pause(); lv.removeAttribute('src'); lv.load(); }
+  cards.forEach(function(c,i){ c.addEventListener('click', function(){ open(i); }); });
+  document.getElementById('lb-x').addEventListener('click', close);
+  document.getElementById('lb-prev').addEventListener('click', function(){ open(idx-1); });
+  document.getElementById('lb-next').addEventListener('click', function(){ open(idx+1); });
+  lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowRight') open(idx+1);
+    if(e.key==='ArrowLeft') open(idx-1);
+  });
+  var x0=null;
+  lb.addEventListener('touchstart', function(e){ x0=e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend', function(e){
+    if(x0===null) return;
+    var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>40){ dx<0?open(idx+1):open(idx-1); }
+    x0=null;
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
