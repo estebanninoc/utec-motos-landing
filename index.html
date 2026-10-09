@@ -39,7 +39,7 @@
 <!-- Las fuentes son PROPIAS y se sirven desde este mismo sitio: cero terceros
      en esta capa (no hay hoja remota, ni preconnect, ni noscript).
      ORDEN AI · YA NO HAY TERCEROS EN NINGUNA CAPA. Se cayo el ultimo: los 9
-     videos (el del hero + los 8 de la galeria) eran embeds de YouTube y ahora
+     videos (el del hero + los 8 de la galeria) eran embeds de terceros y ahora
      son archivos MP4/WEBM propios en ./video/, mudos y en bucle. Esta pagina
      no le pide UN SOLO BYTE a otro dominio. Son Inter e
      Inter Tight variables, subseteadas, con los unicode-range exactos: el latin
@@ -140,12 +140,14 @@
 
   /* MOCKUP: el telefono en el taller de motos. La tira de abajo no es una
      linea de tiempo de video: son las piezas del despiece sobre el banco. */
-  .device{width:262px;justify-self:center;filter:drop-shadow(0 26px 60px rgba(225,6,0,.45)) drop-shadow(0 0 40px rgba(225,6,0,.25))}
+  /* ORDEN AJ · sin halo rojo detras del celular: fondo negro limpio, solo
+     sombra de profundidad neutra (como edicion-pro). */
+  .device{width:262px;justify-self:center;filter:drop-shadow(0 26px 60px rgba(0,0,0,.6))}
   .phone{background:var(--bg);border:2px solid var(--line);border-radius:42px;padding:11px;position:relative}
   .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:99px;background:var(--line);z-index:3}
   .screen{border-radius:32px;overflow:hidden;background:var(--deep);border:1px solid var(--line)}
   .pv{position:relative;overflow:hidden;aspect-ratio:9/12;background:radial-gradient(120% 75% at 50% 22%,rgba(225,6,0,.30),transparent 62%),linear-gradient(165deg,var(--panel2),var(--bg));display:flex;align-items:center;justify-content:center}
-  /* ORDEN N · EL VIDEO DEL HERO ES UN IFRAME DE YOUTUBE, NO UN <video>.
+  /* ORDEN N · EL VIDEO DEL HERO ERA UN IFRAME DE TERCEROS, NO UN <video>.
      Un iframe NO obedece object-fit (no es un medio reemplazado con contenido
      propio de relacion fija), asi que el "cover" del <video> que vivia aca no
      se podia copiar: se ENCUADRA. El iframe entra con el ancho completo de la
@@ -164,7 +166,7 @@
      pointer-events:none = puro decorado, no se puede ni pausar: el video
      se reproduce solo y no pide nada al visitante. */
   .pv .vd-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;background:var(--bg)}
-  /* el play del molde: se ve mientras el video no ha cargado (y si YouTube
+  /* el play del molde: se ve mientras el video no ha cargado (y si el clip
      no carga, queda el poster con su play en vez de un rectangulo mudo). */
   .pv .play{width:48px;height:48px;border-radius:50%;background:rgba(225,6,0,.22);backdrop-filter:blur(4px);border:1.5px solid rgba(255,138,117,.75);display:flex;align-items:center;justify-content:center}
   .pv .play::after{content:"";border-left:14px solid var(--tx);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
@@ -211,7 +213,7 @@
 
   /* GALERIA DE VIDEO · ORDEN W — EL MOLDE DE LA LANDING DE CAPCUT, EN ROJO.
      Se copia la receta que a Esteban le gusto alla (capcut-utec: .gallery/.fx/
-     .fx-th/.ply): la MINIATURA de YouTube va de fondo, pero TAPADA por dos
+     .fx-th/.ply): la MINIATURA del video va de fondo, pero TAPADA por dos
      velos -- un degrade propio por tile (la rampa g1..g8) y un ::after con
      brillo arriba + oscuro fuerte abajo. Resultado: se ve que adentro hay un
      video de verdad, pero el arte de clickbait del canal queda APAGADO y los
@@ -279,7 +281,7 @@
   .fx:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 0 0 1px rgba(225,6,0,.35),0 16px 38px -18px rgba(225,6,0,.9)}
   /* EL DISPARADOR tapa el tile entero => el area tactil es el tile completo,
      no el circulito del play. Es un <a> de verdad: sin JS abre el video en
-     YouTube en vez de no hacer nada. align-items:flex-end deja el rotulo
+     su fuente en vez de no hacer nada. align-items:flex-end deja el rotulo
      ABAJO-IZQUIERDA, que es donde lo pone el molde. */
   /* ORDEN AI · El rotulo ya no es un <a>: no hay nada que clickear (los
      videos corren solos). Queda la MISMA caja y el mismo padding para que
@@ -295,7 +297,7 @@
      solo es mentirle al visitante.) */
   .fx-tt{font-family:var(--disp);font-weight:800;font-size:.95rem;line-height:1.15;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.85)}
   /* ORDEN AI · AQUI VIVIAN .fx .yt-mini, .fx.on y .fx.on .yt-mini: todo el
-     andamiaje de encuadre del iframe de YouTube que se inyectaba al hacer
+     andamiaje de encuadre del iframe de terceros que se inyectaba al hacer
      clic (ordenes W / AB3). Ya no hay iframe ni hay clic -- cada tile es un
      <video> local que llena su propio 3/4 con object-fit:cover -- asi que
      el encuadre se resolvio solo y estas reglas quedaron sin sujeto. */
@@ -303,8 +305,8 @@
   /* reja de encuadre: si entra un 16:9 se ve CHICO Y BIEN, nunca grande y roto */
   .fx.h16{aspect-ratio:16/9}
   .pv.h16{aspect-ratio:16/9}
-  /* (la linea de .pv.h16 .vd-hero se fue con el <video> del hero: el iframe de
-     YouTube ya viene con su 16/9 puesto y se encuadra solo, ver .pv .yt-hero) */
+  /* (la linea de .pv.h16 .vd-hero se fue con el <video> del hero: ese <video>
+     ya viene con su 16/9 puesto y se encuadra solo) */
   .pv.h16 .pv-poster{object-fit:contain;background:var(--bg)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
@@ -557,10 +559,9 @@
 
 /* v12: .trust-row se fue del HTML (la reemplazan los SELLOS DE PAGO y el BADGE
    DE GARANTIA de la orden C1/4, que dicen lo mismo con dibujo propio en vez de
-   emojis) => sus selectores salen tambien. .hero-trust, que es el mismo estilo
-   arriba en el hero, se queda. */
-.hero-trust{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
-.hero-trust span{font-size:.78rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#efd8d4;padding:5px 11px;border-radius:999px;white-space:nowrap;line-height:1}
+   emojis) => sus selectores salen tambien.
+   ORDEN AJ · .hero-trust (los 3 sellos aparte del hero) tambien se fue del
+   HTML: la unica linea de cta-note dice lo mismo, y sus reglas salen. */
 #reloj{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px;background:linear-gradient(180deg,rgba(255,90,50,.16),rgba(255,60,60,.10));border:1px solid rgba(255,110,80,.55);border-radius:14px;padding:10px 20px}#reloj .rl{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#ffc2ad}#reloj-d{font-size:1.95rem;font-weight:900;color:#ff6b4a;font-variant-numeric:tabular-nums;letter-spacing:.06em;line-height:1;font-family:'Inter Tight',ui-monospace,monospace}/* ===== CINTA DE LOGOS (marquee infinito) ===== */.cinta{padding:34px 0 30px;border-top:1px solid rgba(107,60,60,.5);border-bottom:1px solid rgba(107,60,60,.5);background:linear-gradient(180deg,rgba(26,16,16,.6),rgba(16,10,10,.15))}.cinta-hd{text-align:center;max-width:700px;margin:0 auto 24px;padding:0 20px}.cinta-hd h2{font-size:clamp(1.45rem,3.6vw,2.05rem);margin:0}.cinta-hd h2 em{font-style:normal;color:var(--acc)}.cinta-rule{display:block;width:58px;height:3px;border-radius:2px;background:var(--acc);margin:13px auto 0;box-shadow:0 0 14px rgba(225,6,0,.6)}.cinta-sub{margin:13px 0 0;font-size:.95rem;line-height:1.5;color:var(--mut)}.cinta-sub b{color:var(--acc2);font-weight:800}.cinta-vp{overflow:hidden;contain:content}.cinta-pista{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:0;padding:12px 0;list-style:none}.cinta-grupo{display:contents}.cinta-grupo.dup{display:none}.cinta-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:66px;width:134px;padding:9px 12px;box-sizing:border-box;border-radius:14px;background:linear-gradient(180deg,#fff,#f3ecec);box-shadow:0 3px 12px -4px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.28),0 0 18px -10px rgba(225,6,0,.5);transition:box-shadow .3s ease,transform .3s ease}.cinta-item img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}/* Normalizacion optica: los escudos cuadrados llenan toda la altura y dominan
    frente a los wordmarks anchos; se les recorta la altura para que el peso
    visual quede parejo a lo largo de la cinta. */.cinta-item img[src*="honda"],.cinta-item img[src*="bmw"],.cinta-item img[src*="ducati"],.cinta-item img[src*="harley"],.cinta-item img[src*="mv-agusta"],.cinta-item img[src*="piaggio"],.cinta-item img[src*="lifan"],.cinta-item img[src*="zongshen"],.cinta-item img[src*="bera"],.cinta-item img[src*="suzuki"]{max-height:80%}/* SYM (palo muy grueso) y Piaggio (caja gris maciza) pesan de mas aun a lo ancho. */.cinta-item img[src*="sym"]{max-height:72%}.cinta-item img[src*="piaggio"]{max-height:70%}.cinta-item:hover,.cinta-item:focus-within{transform:translateY(-3px);box-shadow:0 8px 20px -6px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.45),0 0 26px -6px rgba(225,6,0,.65)}/* ORDEN I - CHIPS DE TEXTO: las marcas de LatAm que no tienen logo propio
@@ -670,6 +671,12 @@
   nav .btn,.buybar .btn{--notch:10px}
   .btn.ghost{background:transparent;border-color:rgba(255,138,117,.75);filter:none}
   .btn.ghost:hover{background:rgba(225,6,0,.12);border-color:var(--acc);filter:none}
+  /* ORDEN AJ · el CTA principal del hero sale del acabado racing (notch +
+     gradiente rojo): pastilla blanca de verdad, texto negro. El rojo se queda
+     de acento en el resto de la pagina (subrayado del h1, numeros de stats),
+     no en el boton que mas se repite en pantalla. */
+  #btn-hero{--notch:0px;border:none;border-radius:999px;background:#fff;color:#150c0c;text-transform:none;letter-spacing:-.01em;clip-path:none;filter:none;box-shadow:0 10px 28px -8px rgba(0,0,0,.6)}
+  #btn-hero:hover{background:#fff;color:#150c0c;border:none;filter:none;box-shadow:0 14px 34px -8px rgba(0,0,0,.7)}
   .btn[aria-disabled="true"]{background:var(--panel2);border-color:var(--line);filter:none}
 
   /* ── 5 · MOVIMIENTO: prefers-reduced-motion ───────────────────────────────
@@ -1185,7 +1192,7 @@
     --e:clamp(0,calc(var(--p) / .22),1);
     --sw:clamp(0,calc(var(--p) / .34),1)}
 
-  .dp-scene{position:relative;width:100%;aspect-ratio:1280/720;overflow:hidden;
+  .dp-scene{position:relative;width:100%;aspect-ratio:1280/732;overflow:hidden;
     border-radius:18px;border:1px solid var(--line);background:#000;
     box-shadow:0 30px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.04) inset;
     /* el foco se DESLIZA entre piezas: la transicion va en el elemento donde el
@@ -1246,17 +1253,21 @@
 
   /* ── LA ZONA ───────────────────────────────────────────────────────────────
      Un <button> transparente por pieza. Invisible pero alcanzable con el dedo,
-     el raton y el teclado. --s es en que punto de --t aparece su punto. */
+     el raton y el teclado. --s es en que punto de --t aparece su punto.
+     VENTANA .09 (orden AK, antes .40): con la moto todavia abriendose hasta
+     --t:.9, una ventana de .40 encendia el primer punto a medio abrir. Las
+     diez ahora viven apretadas entre --s:.90 y --s:.99 y la ventana se achico
+     a juego, si no la ultima pieza nunca llegaba a opacity:1. */
   .dp-hs{position:absolute;left:calc(var(--x) * 1%);top:calc(var(--y) * 1%);
     width:calc(var(--w) * 1%);height:calc(var(--h) * 1%);
-    --lt:clamp(0,calc((var(--t) - var(--s)) / .40),1);
+    --lt:clamp(0,calc((var(--t) - var(--s)) / .09),1);
     background:none;border:0;padding:0;margin:0;cursor:pointer;
     -webkit-tap-highlight-color:transparent}
   .dp-hs:focus{outline:none}
   .dp-hs:focus-visible{outline:2px solid var(--acc3);outline-offset:2px;border-radius:12px}
-  /* CANDADO: mientras dura el zoom de entrada (--p < .22) la placa todavia se
-     esta moviendo; encender un foco ahi pintaria el halo corrido respecto de su
-     pieza. data-ab lo pone el JS. */
+  /* CANDADO: hasta que la moto no termina de abrirse (--p < .80) las zonas no
+     reciben foco ni click -- antes de eso apuntan a un cuadro a medio abrir y
+     ademas estan invisibles (ver --lt arriba). data-ab lo pone el JS. */
   .dp-scene[data-ab="0"] .dp-hs{pointer-events:none}
 
   /* el PUNTO: la marca que dice "aca hay algo". Sale en cascada con --lt, que
@@ -1432,12 +1443,13 @@
        sigue estando -- es el `inset 0 0 0 1px` que ya trae la sombra. */
     .dp-scene{border:0;border-radius:0;
       aspect-ratio:auto;height:max(56.25vw,min(31vh,64vw))}
-    /* LA PLACA CUBRE: mantiene su 1280/720 y se cuelga del alto de la escena.
-       Queda mas ancha que el marco a proposito -- ese sobrante es el recorte.
-       El translate(-50%,-50%) la centra; el resto de la transformacion es la
+    /* LA PLACA CUBRE: mantiene su 1280/732 (el tama&ntilde;o real de los
+       cuadros, orden AK) y se cuelga del alto de la escena. Queda mas ancha
+       que el marco a proposito -- ese sobrante es el recorte. El
+       translate(-50%,-50%) la centra; el resto de la transformacion es la
        misma de siempre (parallax de entrada + zoom). */
     .dp-plate{top:50%;left:50%;right:auto;bottom:auto;
-      height:100%;width:auto;aspect-ratio:1280/720;
+      height:100%;width:auto;aspect-ratio:1280/732;
       transform:translate(-50%,-50%)
                 translateY(calc((.5 - var(--p)) * 12px))
                 scale(calc(var(--zf) - (var(--zf) - 1) * var(--e)))}
@@ -1454,8 +1466,8 @@
     .dp-bar{order:1}
     .dp-cap{order:2}
     .dp-pt{width:11px;height:11px}
-    /* la foto mide 210px de alto en un telefono: el rotulo de la pieza mas baja
-       (la caja, que empieza en el 88%) se salia del marco con 8px de separacion. */
+    /* la escena mide ~210px de alto en un telefono: con pastillas de tama&ntilde;o
+       de escritorio la mas baja se salia del marco con 8px de separacion. */
     .dp-tag{font-size:.7rem;padding:3px 9px;--tg:4px}
     /* ROTULOS DE LOS EXTREMOS, RECALIBRADOS POR EL RECORTE. En la escena 16:9
        "izq/der" alineaban el rotulo con el borde de SU zona, porque ese borde
@@ -1467,11 +1479,9 @@
        telefono, sin dejar de apuntar a su pieza. */
     .dp-hs.izq .dp-tag{--tl:55%}
     .dp-hs.der .dp-tag{--tl:75%}
-    /* la caja y embrague no es de los extremos, pero es la pastilla ANCHA cuyo
-       centro cae mas a la izquierda (18,5% de la placa): centrada ahi se salia
-       por el filo recortado. Corrida hacia adentro de su propia zona entra
-       entera y sigue cayendo sobre las tapas del motor. */
-    .dp-hs[data-p="caja"] .dp-tag{--tl:68%}
+    /* el override de --tl de "caja" que vivia aca se cayo en la orden AK: su
+       zona se recalibro sobre el cuadro abierto, quedo centrada (ya no pegada
+       al filo recortado) y entra sin ajuste con el 50% de siempre. */
     .dp-cap{font-size:.94rem;min-height:3.2em}
   }
   /* pantallas bajas (o movil apaisado): el escenario no puede comerse la altura */
@@ -1660,18 +1670,8 @@
   #reloj .rl{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2)}
   #reloj-d{font-size:1.85rem;color:var(--tx)}
 
-  /* ── AC/7 · LOS SELLOS DE CONFIANZA DEL HERO ──────────────────────────────
-     Eran tres emojis (verde, amarillo y azul) en pastillas de blanco crudo al
-     6% -- el unico sitio de la pagina que no usa tokens, y tres colores que la
-     paleta no tiene. Pasan al dibujo propio que esta pagina ya usa en todas
-     partes (SVG en linea, ver el candado de la barra y los sellos de garantia)
-     y a la superficie de ficha estandar. El texto no cambia. */
-  .hero-trust{gap:10px;margin-top:18px}
-  .hero-trust span{display:inline-flex;align-items:center;gap:7px;
-    font-size:.86rem;font-weight:700;color:var(--mut);
-    background:var(--panel);border:1px solid var(--line);padding:7px 14px;
-    border-radius:999px;line-height:1.1}
-  .hero-trust svg{width:15px;height:15px;flex:none;color:var(--acc2)}
+  /* ── AC/7 · LOS SELLOS DE CONFIANZA DEL HERO se fueron con la ORDEN AJ
+     (hero mas corto): la unica linea de cta-note dice lo mismo. */
 
   /* ── AC/8 · EL AVISO DE CHECKOUT NO SE BORRA, SE EDUCA ────────────────────
      El texto es VERDAD y se queda palabra por palabra: el boton no cobra. Lo
@@ -1744,7 +1744,6 @@
        18px de relleno pide 306 y entra. El texto no se toco. */
     .btn.big{font-size:.98rem;padding:16px 18px;--notch:12px}
     .cinta-hd{padding:0 20px}
-    .hero-trust{justify-content:center}
     /* en una sola columna la lista del despiece vuelve a ser pastillas sueltas
        (regla de la orden Z): el envase de tarjeta sobra y comeria ancho. */
     .dp-list{background:none;border:0;box-shadow:none;padding:0}
@@ -1775,13 +1774,9 @@ if (PIXEL_ID) {
 </head><body>
 <nav><div class="wrap"><div class="logo"><img class="mark" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='%23e10600'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='45'%20fill='none'%20stroke='%23ffd400'%20stroke-width='8'/%3E%3Ccircle%20cx='64'%20cy='66'%20r='14'%20fill='%23150c0c'/%3E%3Cpath%20d='M30%2066h16M82%2066h16'%20stroke='%23150c0c'%20stroke-width='8'/%3E%3C/svg%3E" width="42" height="42" alt="Motos Pro" decoding="async"><span class="wm">MOTOS<span class="sub">PRO</span></span></div><div class="nav-links"><a href="#contenido">Contenido</a><a href="#marcas">Marcas</a><a href="#resenas">Rese&ntilde;as</a><a href="#faq">Preguntas</a></div><div class="nav-der"><span class="nav-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>Pago seguro</span><a href="#STRIPE-PENDIENTE" class="btn" id="btn-nav" data-buy="1"><span>Comprar</span><span class="nav-p" id="btn-nav-p"></span></a></div></div></nav>
 
-<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><div class="pill">&#128295; +900 manuales de taller &middot; <b>Celular + PC</b></div><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Despiece y montaje paso a paso, diagramas el&eacute;ctricos y especificaciones de m&aacute;s de 40 marcas. Incluido, el <b>Curso de Mec&aacute;nica de Motores 2T y 4T</b>.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><div class="cta-note">Pago &uacute;nico &middot; Acceso de por vida</div><!-- ORDEN AC · los tres sellos del hero dejan de ser EMOJIS. El texto es el
-     mismo; lo que cambia es que el dibujo lo pone la pagina y no el sistema
-     operativo: un emoji lo pinta cada aparato con su propio estilo y su propio
-     color (el ✅ verde y el ⚡ amarillo metian dos colores que esta paleta no
-     tiene), y encima cambia de tamano entre Android, iPhone y Windows. Estos
-     tres SVG son los mismos que ya firman la barra y la garantia. -->
-<div class="hero-trust"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.6l5 5L20 6.4"/></svg>Pago &uacute;nico</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.4 2.6L4.6 13.6h6.1l-1.1 7.8 8.8-11h-6.1z"/></svg>Acceso inmediato</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l8.4 3.1v6.4c0 4.9-3.4 8.6-8.4 10.2-5-1.6-8.4-5.3-8.4-10.2V5.9z"/><path d="M8.6 12.3l2.7 2.7 4.5-5"/></svg>Garant&iacute;a 3 d&iacute;as</span></div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
+<header><div class="wrap"><div class="hero-grid"><div class="hero-copy"><div class="pill">&#128295; +900 manuales de taller &middot; <b>Celular + PC</b></div><h1>No adivines el <span class="it">torque</span>.<br>Abre el manual y <span class="cut">arma la moto</span>.</h1><p class="sub"><b>La biblioteca de mec&aacute;nica de motos m&aacute;s completa de LATAM.</b> Manuales paso a paso de +40 marcas.</p><div class="cta-row"><a href="#STRIPE-PENDIENTE" class="btn big" id="btn-hero" data-buy="1">Activa tu acceso hoy &rarr;</a></div><!-- ORDEN AJ · hero mas corto: los tres sellos aparte (.hero-trust, ORDEN AC)
+     se fueron. Dicen lo mismo que esta sola linea, que ya estaba aca. -->
+<div class="cta-note">Pago &uacute;nico &middot; Acceso inmediato &middot; Garant&iacute;a 3 d&iacute;as</div></div><!-- ORDEN N · el aria-hidden="true" que envolvia TODO el mock salio de aca y
      bajo a los adornos de adentro (las dos pastillas y la tira de piezas).
      ORDEN AI · el motivo original era el iframe (ENFOCA CON TAB, y contenido
      enfocable colgado de un aria-hidden es el bug clasico de accesibilidad).
@@ -1789,10 +1784,10 @@ if (PIXEL_ID) {
      ademas lleva tabindex="-1" + aria-hidden: para el teclado y para el lector
      de pantalla el mock volvio a ser lo que siempre fue, un dibujo. -->
 <div class="device"><div class="phone"><div class="screen"><div class="pv"><!-- ASSET-MOTOS-PENDIENTE: el poster del hero es un SVG en linea (placeholder). Cuando exista el material propio: cambiar por <picture> con video/hero.webp + video/hero.jpg. --><img class="pv-poster" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20432%20576'%3E%3Crect%20width='432'%20height='576'%20fill='%23150c0c'/%3E%3Cpath%20d='M0%20452%20432%20356%20432%20576%200%20576z'%20fill='%23e10600'%20opacity='.22'/%3E%3Ccircle%20cx='216'%20cy='268'%20r='62'%20fill='none'%20stroke='%23ffd400'%20stroke-width='7'%20opacity='.45'/%3E%3C/svg%3E" alt="" width="720" height="960" fetchpriority="high" decoding="async"><!-- ORDEN AI · VIDEO DEL HERO = ARCHIVO PROPIO. Aca vivia el unico embed de
-     YouTube autorizado de la pagina (orden N, iframe a youtube-nocookie con
-     autoplay=1&mute=1&loop=1). Se cayo por dos motivos:
-     1. YouTube le puso a ese embed el muro "sign in to confirm you're not a
-        bot", asi que el hero podia quedar en un rectangulo muerto.
+     terceros autorizado de la pagina (orden N, iframe a un reproductor externo
+     con autoplay=1&mute=1&loop=1). Se cayo por dos motivos:
+     1. Ese proveedor le puso al embed el muro "sign in to confirm you're not
+        a bot", asi que el hero podia quedar en un rectangulo muerto.
      2. Con el archivo local la regla de CERO TERCEROS de esta pagina por fin
         es cierta de punta a punta.
      El clip es un recorte MUDO de ~7s en bucle del mismo video (despiece y
@@ -1822,18 +1817,18 @@ if (PIXEL_ID) {
 <div class="cinta-hd"><div class="eyebrow">Marcas cubiertas</div><h2 class="title">&iquest;Tu moto <em>est&aacute; incluida</em>?</h2><span class="cinta-rule" aria-hidden="true"></span><p class="cinta-sub lead"><b>+40 marcas</b> &middot; 44 en la cinta &middot; Honda &middot; Yamaha &middot; Bajaj &middot; Italika &middot; AKT &middot; Auteco &middot; Victory &middot; Corven &middot; Bera y m&aacute;s</p></div><div class="cinta-vp"><div class="cinta-pista"><div class="cinta-grupo"><div class="cinta-item"><img src="img/logos/honda.svg" alt="Logo Honda" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="Logo Yamaha" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="Logo Suzuki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="Logo Kawasaki" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="Logo Bajaj" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="Logo AKT" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="Logo Italika" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="Logo KTM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="Logo Ducati" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="Logo BMW Motorrad" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="Logo Royal Enfield" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="Logo TVS" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="Logo Hero" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="Logo CFMoto" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="Logo Zanella" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="Logo Motomel" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="Logo Bera Motorcycles" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="Logo SYM" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="Logo Aprilia" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="Logo Triumph" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="Logo Harley-Davidson" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="Logo Shineray" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="Logo Zongshen" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="Logo Loncin" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="Logo Lifan" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="Logo Husqvarna" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="Logo Indian Motorcycle" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="Logo Kymco" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="Logo Keeway" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="Logo Vento" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="Logo Moto Guzzi" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="Logo MV Agusta" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="Logo Piaggio" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="Logo Vespa" loading="eager" decoding="async"></div></div><div class="cinta-grupo dup" aria-hidden="true"><div class="cinta-item"><img src="img/logos/honda.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/yamaha.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/suzuki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kawasaki.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bajaj.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/akt.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Auteco</span></div><div class="cinta-item"><img src="img/logos/italika.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/ktm.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Victory</span></div><div class="cinta-item"><img src="img/logos/ducati.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/bmw.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/royal-enfield.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/tvs.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/hero.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo s2">UM</span></div><div class="cinta-item"><img src="img/logos/cfmoto.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zanella.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo">Corven</span></div><div class="cinta-item"><img src="img/logos/motomel.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-rojo l8">Guerrero</span></div><div class="cinta-item"><img src="img/logos/bera.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Gilera</span></div><div class="cinta-item"><img src="img/logos/sym.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul">Empire</span></div><div class="cinta-item"><img src="img/logos/aprilia.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-verde">Benelli</span></div><div class="cinta-item"><img src="img/logos/triumph.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/harley-davidson.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/shineray.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/zongshen.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-graf">Ronco</span></div><div class="cinta-item"><img src="img/logos/loncin.png" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/lifan.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/husqvarna.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/indian.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/kymco.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/keeway.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vento.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item txt"><span class="cinta-wm c-azul l8">Carabela</span></div><div class="cinta-item"><img src="img/logos/moto-guzzi.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/mv-agusta.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/piaggio.svg" alt="" loading="eager" decoding="async"></div><div class="cinta-item"><img src="img/logos/vespa.svg" alt="" loading="eager" decoding="async"></div></div></div></div></section>
 
 <!-- GALERIA DE VIDEO · ORDEN U — 8 FACHADAS, UNA POR TILE.
-     CERO YOUTUBE EN REPOSO: al abrir la pagina la galeria no pide un byte.
-     Cada tile es una tarjeta NUESTRA (degrade de marca + play en SVG + rotulo)
-     con un <a> que lo tapa entero. El JS del final del archivo intercepta el
-     clic e inyecta ahi mismo el <iframe> de youtube-nocookie con autoplay=1;
-     si el JS no corre, ese <a> abre el video en YouTube y nadie queda con un
-     boton muerto. Los datos viven en data-yt (el id) y data-tt (el titulo, que
-     pasa a ser el title= del iframe inyectado).
+     CERO EMBEDS DE TERCEROS EN REPOSO: al abrir la pagina la galeria no pide
+     un byte. Cada tile es una tarjeta NUESTRA (degrade de marca + play en SVG
+     + rotulo) con un <a> que lo tapa entero. El JS del final del archivo
+     intercepta el clic e inyecta ahi mismo el <iframe> del proveedor con
+     autoplay=1; si el JS no corre, ese <a> abre el video en su fuente y nadie
+     queda con un boton muerto. Los datos viven en data-yt (el id) y data-tt
+     (el titulo, que pasa a ser el title= del iframe inyectado).
      Historia: hasta la orden O aca habia un poster SVG + un <video> del mismo
      origen (video/v1..v8.mp4, ASSET-MOTOS-PENDIENTE que nunca existieron); la
      O los cambio por 8 <iframe loading="lazy">, que cargaban de verdad pero
      mostraban el ARTE DE CADA CANAL -- 8 clickbaits disparejos con el play
-     rojo de YouTube encima, justo lo que esta orden vino a sacar.
+     rojo del proveedor encima, justo lo que esta orden vino a sacar.
      Los 8 videos son de TERCEROS (canales de mecanica), no material propio: la
      orden O autorizo romper el cero-terceros SOLO para estos iframes, y la U
      lo acota todavia mas -- solo se rompe si el visitante lo pide con un clic.
@@ -1844,26 +1839,30 @@ if (PIXEL_ID) {
 <!-- ═══════ ORDEN S · DESPIECE DINAMICO "ENCUENTRA TU PIEZA" ═════════════════
      SUSTITUYE al despiece dibujado a mano de la orden P. Aquel era un <svg> de
      ~90 paths que cumplia la regla de cero-terceros pero se leia como un
-     esquema de pizarra. Aqui la base es una FOTO: img/despiece-hero.jpg, una
-     moto abierta en canal sobre fondo negro con acentos rojos, 1280x720,
-     ~122 KB, MATERIAL PROPIO generado para esta pagina.
+     esquema de pizarra. Aqui la base ERA una FOTO fija (img/despiece-hero.jpg,
+     1280x720) -- la orden AK la cambio por una SECUENCIA animada, ver el
+     bloque ORDEN AK mas abajo, pegado al <canvas>.
 
      La razon de fondo del dibujo sigue respetada: un despiece de manual de
      taller SIEMPRE tiene dueno, y esta pagina vende manuales. No se copio el
-     despiece de nadie -- la imagen es nuestra. Y sigue sin entrar una sola
-     libreria: todo el movimiento es CSS + el JS de abajo.
+     despiece de nadie -- el material es nuestro (Higgsfield, generado para
+     esta pagina). Y sigue sin entrar una sola libreria: todo el movimiento es
+     CSS + el JS de abajo (mas un <canvas> 2D sin libreria, ver ORDEN AK).
 
      ── LAS DIEZ ZONAS ─────────────────────────────────────────────────────────
      Cada pieza es un <button> transparente colocado en PORCENTAJE sobre la
-     foto (--x/--y = esquina, --w/--h = tamano). La escena tiene el mismo
-     aspect-ratio que la imagen (1280/720) y la imagen va object-fit:cover, o
-     sea no hay letterbox: el 37% de la escena es el 37% de la foto en
-     cualquier ancho. Las coordenadas se calibraron MIRANDO la imagen con
-     Playwright (_s_calib.js dibuja las cajas encima y saca la captura).
-     Recalibrar una zona = cambiar cuatro numeros de su style.
+     escena (--x/--y = esquina, --w/--h = tamano). La escena tiene el mismo
+     aspect-ratio que los cuadros (1280/732) y el <canvas> va object-fit:cover,
+     o sea no hay letterbox: el 37% de la escena es el 37% del cuadro en
+     cualquier ancho. Las coordenadas se calibraron MIRANDO el ULTIMO cuadro
+     (la moto ya abierta, v2-boxer-abierta.png) con una rejilla porcentual
+     dibujada encima (ver FICHA-AK.md). Recalibrar una zona = cambiar cuatro
+     numeros de su style.
 
-     --s es en que punto del scroll aparece su punto rojo: las piezas se
-     revelan en cascada de adelante hacia atras.
+     --s es en que punto del scroll aparece su punto rojo: desde la orden AK
+     las diez salen MUY juntas, al final del todo (--s entre .90 y .99) porque
+     antes de eso la moto todavia se esta abriendo y no tiene sentido marcar
+     piezas sobre un cuadro a medio abrir.
 
      ── DOS PUERTAS A LA MISMA INFORMACION ─────────────────────────────────────
      La foto (senalar/tocar la zona) y la LISTA de al lado (senalar el renglon).
@@ -1874,32 +1873,59 @@ if (PIXEL_ID) {
 <div class="wrap">
   <div class="eyebrow">Encuentra tu pieza</div>
   <h2 class="title">Conoce cada pieza</h2>
-  <p class="lead">Una moto abierta en canal. Baja despacio: la foto se enciende y las piezas se van marcando solas. <b>Se&ntilde;ala una</b> &mdash; o t&oacute;cala, en el celular &mdash; y te dice c&oacute;mo se llama y qu&eacute; trae de ella un manual.</p>
+  <p class="lead">Una moto armada que se abre en despiece mientras bajas. Sigue bajando: al terminar de abrirse, las piezas se van marcando solas. <b>Se&ntilde;ala una</b> &mdash; o t&oacute;cala, en el celular &mdash; y te dice c&oacute;mo se llama y qu&eacute; trae de ella un manual.</p>
 </div>
 
 <div class="dp-rail" id="dp-rail">
 <div class="dp-stage" id="dp-stage">
 <div class="dp-box">
 
+<!-- ═══════ ORDEN AK · LA MOTO AZUL QUE SE ABRE SOLA ═══════════════════════
+     Cambia la FOTO fija por una SECUENCIA de 71 cuadros WebP (0 a 4.42s de
+     assets-boxer/v2-boxer.mp4, que es donde termina de moverse: el resto del
+     clip -- hasta los 5.17s -- quedaba quieto y se descarto. La orden pedia
+     "aprox 0-3.2s" a ojo; el video real sigue abriendose hasta ~4.4s (medido
+     con diferencia de frames, ver FICHA-AK.md) y cortar a los 3.2s dejaba la
+     animacion congelada a medio abrir.
+
+     Un <canvas> (no <img>) pinta el cuadro que toca segun --p (el viaje
+     CRUDO 0-1 de mas abajo, el mismo que ya movia el zoom/barrido de luz):
+     cuadro = round(clamp(p/.82,0,1) * 70). O sea la moto se termina de abrir
+     al 82% del viaje, y el 18% final que queda es SOLO para que las diez
+     piezas se revelen sobre el ULTIMO cuadro (ver --s en los <button> de
+     abajo). object-fit:cover en el canvas se banca solo, como antes con la
+     foto -- ningun calculo de escala nuevo.
+
+     DOS SETS de cuadros, uno por ancho (img/dp-frames/desk 1280px y
+     img/dp-frames/mob 720px, el que pesa <3MB completo): el JS elige uno
+     SOLO al cargar la pagina (matchMedia 720px, el mismo corte que ya usaba
+     el CSS movil) y no cambia si la ventana cruza el corte despues -- iria
+     contra el espiritu liviano de la seccion recargar 71 cuadros a mitad de
+     scroll. Los cuadros 1 y 71 llevan fetchPriority="high" (arrancada y
+     frame final visibles de inmediato); el resto carga de fondo y mientras
+     tanto se pinta el ultimo cuadro YA cargado como no se tenga el exacto.
+
+     prefers-reduced-motion: ni siquiera se piden los 71 cuadros -- se carga
+     SOLO el 71 (la moto ya abierta) y se pinta una vez. Coherente con que
+     esa media query ya deja --t/--p en 1 y se salta el scroll entero. -->
 <div class="dp-scene" id="dp-scene" data-ab="0">
-  <!-- LA PLACA: foto + zonas + halo se mueven como UNA sola pieza, asi el zoom
-       de entrada no descoloca ni un hotspot. loading="eager" a proposito: es el
-       contenido de la seccion, no un adorno; si llega tarde se ve el hueco. -->
+  <!-- LA PLACA: canvas + zonas + halo se mueven como UNA sola pieza, asi el
+       zoom de entrada no descoloca ni un hotspot. -->
   <div class="dp-plate">
-    <img class="dp-img" src="img/despiece-hero.jpg" width="1280" height="720" loading="eager" decoding="async" alt="Despiece fotogr&aacute;fico de una moto sobre fondo negro: rueda delantera, horquilla y faro, tanque, asiento, cuadro, motor abierto con cilindro y pist&oacute;n, caja y embrague, cadena, rueda trasera y escape, separados y ordenados como en la l&aacute;mina de un manual de taller.">
+    <canvas class="dp-img" id="dp-canvas" width="1280" height="732" role="img" aria-label="Animaci&oacute;n: una moto armada en negro y azul se abre en despiece y quedan a la vista el tanque, el asiento, la horquilla, el cuadro, el motor, la cadena, las dos ruedas, el escape y la caja de cambios, cada uno por separado."></canvas>
     <div class="dp-fade" aria-hidden="true"></div>
     <div class="dp-veil" aria-hidden="true"></div>
     <div class="dp-ring" aria-hidden="true"></div>
-    <button type="button" class="dp-hs" data-p="tanque" data-n="Tanque" data-d="sellos, llave de paso, aforo y capacidad exacta" aria-label="Pieza: Tanque" style="--x:32.5;--y:7;--w:20;--h:20;--s:0"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Tanque</span></button>
-    <button type="button" class="dp-hs" data-p="asiento" data-n="Asiento y col&iacute;n" data-d="anclajes y desmontaje sin romper las pesta&ntilde;as" aria-label="Pieza: Asiento y col&iacute;n" style="--x:55.5;--y:9;--w:34;--h:18;--s:0.05"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Asiento y col&iacute;n</span></button>
-    <button type="button" class="dp-hs" data-p="horquilla" data-n="Horquilla y faro" data-d="barras, retenedores, reglaje del faro y su circuito" aria-label="Pieza: Horquilla y faro" style="--x:15;--y:1;--w:14;--h:45;--s:0.1"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Horquilla y faro</span></button>
-    <button type="button" class="dp-hs" data-p="cuadro" data-n="Cuadro (chasis)" data-d="el esqueleto: cotas, amortiguadores y torque de cada anclaje" aria-label="Pieza: Cuadro (chasis)" style="--x:49;--y:27;--w:31;--h:19;--s:0.2"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cuadro (chasis)</span></button>
-    <button type="button" class="dp-hs" data-p="motor" data-n="Motor: cilindro y pist&oacute;n" data-d="despiece completo, holguras de pist&oacute;n y torques de culata" aria-label="Pieza: Motor: cilindro y pist&oacute;n" style="--x:32;--y:27;--w:16.5;--h:43;--s:0.25"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Motor: cilindro y pist&oacute;n</span></button>
-    <button type="button" class="dp-hs" data-p="cadena" data-n="Cadena y pi&ntilde;ones" data-d="tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y l&iacute;mite de desgaste" aria-label="Pieza: Cadena y pi&ntilde;ones" style="--x:58;--y:46.5;--w:17;--h:13.5;--s:0.35"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cadena y pi&ntilde;ones</span></button>
-    <button type="button" class="dp-hs up izq" data-p="rueda-delantera" data-n="Rueda delantera" data-d="rodamientos, radios, presi&oacute;n y medidas de la llanta" aria-label="Pieza: Rueda delantera" style="--x:0.8;--y:32;--w:14;--h:36;--s:0.4"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda delantera</span></button>
-    <button type="button" class="dp-hs up der" data-p="rueda-trasera" data-n="Rueda trasera" data-d="corona, eje, rodamientos y alineaci&oacute;n" aria-label="Pieza: Rueda trasera" style="--x:78;--y:34;--w:18;--h:30;--s:0.45"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda trasera</span></button>
-    <button type="button" class="dp-hs up der" data-p="escape" data-n="Escape" data-d="junta del m&uacute;ltiple, ruta del tubo y montaje del silenciador" aria-label="Pieza: Escape" style="--x:71;--y:64;--w:28.5;--h:15.5;--s:0.5"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Escape</span></button>
-    <button type="button" class="dp-hs" data-p="caja" data-n="Caja y embrague" data-d="orden de los discos, juego del embrague y ejes de cambios" aria-label="Pieza: Caja y embrague" style="--x:5;--y:63;--w:27;--h:25;--s:0.55"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Caja y embrague</span></button>
+    <button type="button" class="dp-hs" data-p="tanque" data-n="Tanque" data-d="sellos, llave de paso, aforo y capacidad exacta" aria-label="Pieza: Tanque" style="--x:39;--y:8;--w:19;--h:23;--s:0.90"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Tanque</span></button>
+    <button type="button" class="dp-hs" data-p="asiento" data-n="Asiento y col&iacute;n" data-d="anclajes y desmontaje sin romper las pesta&ntilde;as" aria-label="Pieza: Asiento y col&iacute;n" style="--x:57;--y:12;--w:23;--h:22;--s:0.91"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Asiento y col&iacute;n</span></button>
+    <button type="button" class="dp-hs izq" data-p="horquilla" data-n="Horquilla y faro" data-d="barras, retenedores, reglaje del faro y su circuito" aria-label="Pieza: Horquilla y faro" style="--x:1;--y:0;--w:27;--h:80;--s:0.92"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Horquilla y faro</span></button>
+    <button type="button" class="dp-hs" data-p="cuadro" data-n="Cuadro (chasis)" data-d="el esqueleto: cotas, amortiguadores y torque de cada anclaje" aria-label="Pieza: Cuadro (chasis)" style="--x:30;--y:30;--w:30;--h:13;--s:0.93"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cuadro (chasis)</span></button>
+    <button type="button" class="dp-hs" data-p="motor" data-n="Motor: cilindro y pist&oacute;n" data-d="despiece completo, holguras de pist&oacute;n y torques de culata" aria-label="Pieza: Motor: cilindro y pist&oacute;n" style="--x:29;--y:39;--w:21;--h:30;--s:0.94"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Motor: cilindro y pist&oacute;n</span></button>
+    <button type="button" class="dp-hs" data-p="cadena" data-n="Cadena y pi&ntilde;ones" data-d="tensi&oacute;n, relaci&oacute;n de pi&ntilde;ones y l&iacute;mite de desgaste" aria-label="Pieza: Cadena y pi&ntilde;ones" style="--x:63;--y:59;--w:26;--h:16;--s:0.95"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Cadena y pi&ntilde;ones</span></button>
+    <button type="button" class="dp-hs up izq" data-p="rueda-delantera" data-n="Rueda delantera" data-d="rodamientos, radios, presi&oacute;n y medidas de la llanta" aria-label="Pieza: Rueda delantera" style="--x:0;--y:36;--w:19;--h:56;--s:0.96"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda delantera</span></button>
+    <button type="button" class="dp-hs up der" data-p="rueda-trasera" data-n="Rueda trasera" data-d="corona, eje, rodamientos y alineaci&oacute;n" aria-label="Pieza: Rueda trasera" style="--x:79;--y:36;--w:20;--h:56;--s:0.97"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Rueda trasera</span></button>
+    <button type="button" class="dp-hs up" data-p="escape" data-n="Escape" data-d="junta del m&uacute;ltiple, ruta del tubo y montaje del silenciador" aria-label="Pieza: Escape" style="--x:27;--y:75;--w:29;--h:20;--s:0.98"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Escape</span></button>
+    <button type="button" class="dp-hs up" data-p="caja" data-n="Caja y embrague" data-d="orden de los discos, juego del embrague y ejes de cambios" aria-label="Pieza: Caja y embrague" style="--x:35;--y:63;--w:45;--h:35;--s:0.99"><i class="dp-pt" aria-hidden="true"></i><span class="dp-tag" aria-hidden="true">Caja y embrague</span></button>
   </div>
   <div class="dp-vig" aria-hidden="true"></div>
   <div class="dp-sweep" aria-hidden="true"></div>
@@ -2005,6 +2031,66 @@ if (PIXEL_ID) {
   var BASE = conRaton ? 'Pasa el cursor por una pieza para aislarla.'
                       : 'Toca una pieza para aislarla.';
 
+  /* ── 0 · LOS CUADROS (orden AK) ───────────────────────────────────────────
+     71 WebP (f_001..f_071, 1-based porque asi los numero ffmpeg) en dos
+     anchos: img/dp-frames/desk (1280) y .../mob (720, el set liviano <3MB).
+     Se elige UNO SOLO aqui, al arrancar -- no se recalcula en el resize, ver
+     el comentario largo pegado al <canvas> en el HTML. cuadros.pintar(i) es
+     la UNICA funcion que toca el canvas: si el cuadro i todavia no cargo,
+     pinta el mas cercano que SI este listo (de ahi para atras o adelante) en
+     vez de dejar un hueco, y no vuelve a pintar si i es el mismo de antes. */
+  var cuadros = null;
+  (function(){
+    var canvas = document.getElementById('dp-canvas');
+    var ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
+    if(!ctx) return;
+    var N = 71;
+    var movil = window.matchMedia && window.matchMedia('(max-width:720px)').matches;
+    var dir = movil ? 'img/dp-frames/mob/' : 'img/dp-frames/desk/';
+    canvas.width = movil ? 720 : 1280;
+    canvas.height = movil ? 412 : 732;
+    function pad3(n){ return (n < 10 ? '00' : n < 100 ? '0' : '') + n; }
+    function ruta(i){ return dir + 'f_' + pad3(i) + '.webp'; }
+    var listos = [], actual = -1;
+    function pintar(i){
+      if(i === actual) return;
+      var im = listos[i];
+      for(var d = 1; !im && d < N; d++){ im = listos[i - d] || listos[i + d]; }
+      if(!im) return;
+      actual = i;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(im, 0, 0, canvas.width, canvas.height);
+    }
+    function cargar(i, prioridad){
+      var im = new Image();
+      if(prioridad) im.fetchPriority = 'high';
+      im.decoding = 'async';
+      im.onload = function(){
+        listos[i] = im;
+        if(i === N && quieto && quieto.matches) pintar(i);
+      };
+      im.src = ruta(i);
+    }
+    cuadros = { pintar: pintar, total: N };
+    if(quieto && quieto.matches){
+      /* menos movimiento: ni se piden los otros 70, solo el ultimo */
+      cargar(N, true);
+      return;
+    }
+    cargar(1, true);
+    cargar(N, true);
+    /* el resto entra de a tandas chicas en el tiempo libre del navegador,
+       para no competir con el primer/ultimo cuadro ni con el resto de la
+       pagina por el ancho de banda. */
+    var i = 2;
+    var pedirOciosa = window.requestIdleCallback || function(fn){ setTimeout(fn, 60); };
+    (function tanda(){
+      var fin = Math.min(i + 5, N - 1);
+      for(; i <= fin; i++) cargar(i, false);
+      if(i < N) pedirOciosa(tanda);
+    })();
+  })();
+
   var t = -1, p = 1, hot = null, act = null, fijo = false, pedido = false;
 
   /* ── 1 · EL PIE QUE HABLA ────────────────────────────────────────────────
@@ -2064,16 +2150,19 @@ if (PIXEL_ID) {
     pedido = false;
     stage.style.setProperty('--t', t.toFixed(4));
     stage.style.setProperty('--p', p.toFixed(4));
-    /* .22 no es un numero suelto: es el final del zoom de entrada (el mismo .22
-       de --e en la hoja, y por eso se mide contra --p, no contra --t). Hasta
-       ahi la placa se sigue moviendo, asi que las zonas no aceptan el raton: el
-       halo se pintaria corrido respecto de su pieza. */
-    var ab = p > 0.22 ? '1' : '0';
+    /* EL CUADRO: .82 es cuanto del viaje tarda la moto en abrirse del todo
+       (orden AK) -- el 18% final que queda es solo para la cascada de piezas
+       de aqui abajo, sobre el ultimo cuadro ya quieto. */
+    if(cuadros) cuadros.pintar(1 + Math.round(Math.min(1, p / 0.82) * (cuadros.total - 1)));
+    /* .80 no es un numero suelto: es (con margen) cuando la moto ya termino
+       de abrirse. Antes de eso las zonas no aceptan el raton -- apuntarian a
+       un cuadro a medio abrir y ademas estan invisibles (--lt en la hoja). */
+    var ab = p > 0.80 ? '1' : '0';
     if(scene.getAttribute('data-ab') !== ab) scene.setAttribute('data-ab', ab);
 
     var nuevo = null;
     for(var i = 0; i < fichas.length; i++){
-      if(t >= fichas[i].s + 0.26) nuevo = fichas[i].id; else break;
+      if(t >= fichas[i].s + 0.06) nuevo = fichas[i].id; else break;
     }
     if(nuevo !== act){
       if(act && por[act]) por[act].hs.classList.remove('act');
@@ -2285,7 +2374,7 @@ if (PIXEL_ID) {
      "(pendiente)" debajo. No se inventa ni un usuario: un perfil que no existe
      es un 404 con la cara de la marca. Sus destinos viven en el MISMO bloque de
      constantes que el correo y los legales (script PIE-PENDIENTE). -->
-<div class="ft-col"><div class="ft-h">Redes</div><ul class="ft-red"><li><a id="ft-yt" aria-disabled="true" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.2" y="5.2" width="19.6" height="13.6" rx="4.2"/><path d="M10.3 9.4l4.7 2.8-4.7 2.8z"/></svg></a></li><li><a id="ft-ig" aria-disabled="true" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><circle cx="12" cy="12" r="4.1"/><path d="M17.1 6.9h.01"/></svg></a></li><li><a id="ft-fb" aria-disabled="true" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><path d="M15.4 8.1h-1.6a2 2 0 0 0-2 2v10.8"/><path d="M9.2 13.1h5"/></svg></a></li></ul><p class="ft-nota" id="ft-red-nota">Cuentas oficiales <em class="ft-pend">(pendiente)</em></p></div></div>
+<div class="ft-col"><div class="ft-h">Redes</div><ul class="ft-red"><li><a id="ft-yt" aria-disabled="true" aria-label="Video" title="Video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.2" y="5.2" width="19.6" height="13.6" rx="4.2"/><path d="M10.3 9.4l4.7 2.8-4.7 2.8z"/></svg></a></li><li><a id="ft-ig" aria-disabled="true" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><circle cx="12" cy="12" r="4.1"/><path d="M17.1 6.9h.01"/></svg></a></li><li><a id="ft-fb" aria-disabled="true" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.1" y="3.1" width="17.8" height="17.8" rx="5"/><path d="M15.4 8.1h-1.6a2 2 0 0 0-2 2v10.8"/><path d="M9.2 13.1h5"/></svg></a></li></ul><p class="ft-nota" id="ft-red-nota">Cuentas oficiales <em class="ft-pend">(pendiente)</em></p></div></div>
 
 <div class="ft-bar"><span>&copy; 2026 Motos Pro &middot; Todos los derechos reservados.</span><span class="ft-seg"><svg class="ico-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.4" width="16" height="11.1" rx="2.6"/><path d="M8 10.4V7.5a4 4 0 0 1 8 0v2.9"/><path d="M12 14.8v2.6"/></svg>El cobro lo procesa la pasarela de pago sobre conexi&oacute;n cifrada.</span></div></div></footer>
 
@@ -2294,8 +2383,8 @@ if (PIXEL_ID) {
 <!-- ORDEN AI · EL MURO DE REELS. Historia de este hueco, que dio la vuelta
      entera: primero vivio un IntersectionObserver que inyectaba <video> del
      mismo origen (video/v1..v8.mp4, archivos que NUNCA existieron); la orden O
-     lo borro y puso 8 <iframe loading="lazy"> de YouTube; la U los cambio por
-     click-to-load; la W les colgo las miniaturas de i.ytimg.com de fondo.
+     lo borro y puso 8 <iframe loading="lazy"> de terceros; la U los cambio por
+     click-to-load; la W les colgo las miniaturas del proveedor de fondo.
      La AI cierra el circulo: vuelve el IntersectionObserver, pero esta vez los
      archivos SI existen -- ./video/g1..g8.{mp4,webm}, recortes mudos de ~7s
      bajados y re-encodeados a mano -- y ademas ya no hay que clickear nada.
@@ -2310,7 +2399,7 @@ if (PIXEL_ID) {
 <script>
 (function(){
   /* ORDEN AI · MURO DE REELS: los clips se reproducen SOLOS, sin un clic.
-     Aca vivia la fachada click-to-load que inyectaba un iframe de YouTube.
+     Aca vivia la fachada click-to-load que inyectaba un iframe de terceros.
      Ya no hay terceros: cada tile es un <video> local y mudo.
 
      POR QUE UN IntersectionObserver Y NO EL autoplay DEL HTML:
@@ -2752,7 +2841,7 @@ if (PIXEL_ID) {
   /* ── LAS CONSTANTES. Es el UNICO lugar que se edita. ── */
   var PIE = {
     'ft-mail': null,   /* 'mailto:contacto@dominio.com'       */
-    'ft-yt'  : null,   /* 'https://youtube.com/@cuenta'       */
+    'ft-yt'  : null,   /* URL del canal de video de la marca  */
     'ft-ig'  : null,   /* 'https://instagram.com/cuenta'      */
     'ft-fb'  : null    /* 'https://facebook.com/cuenta'       */
   };
