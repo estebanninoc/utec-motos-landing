@@ -109,7 +109,7 @@
   .card p{color:var(--mut);font-size:.95rem}
 
   /* GALERÍA DE EFECTOS (monocromo CapCut) */
-  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
   .fx{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:flex-end;padding:14px;isolation:isolate;transition:transform .18s ease,border-color .18s}
   .fx .yt-live{position:absolute;top:50%;left:50%;width:101%;height:135%;transform:translate(-50%,-50%);border:0;pointer-events:none;z-index:-1}
   .fx .fx-th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
@@ -127,6 +127,13 @@
   .fx.g7{--g:linear-gradient(150deg,#41414a,#09090c)}
   .fx.g8{--g:linear-gradient(150deg,#2f2f37,#060608)}
   .fx-note{color:var(--dim);font-size:.85rem;margin-top:16px}
+  /* tarjetas "pack": título fijo arriba + lista de piezas que aparece al final del clip */
+  .fx-pack{display:block}
+  .fx-pack>span{position:absolute;left:13px;top:12px;z-index:3}
+  .fx-labels{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:13px 12px;background:linear-gradient(180deg,transparent 32%,rgba(0,0,0,.94) 66%);opacity:0;transition:opacity .55s ease;pointer-events:none}
+  .fx-labels.show{opacity:1}
+  .fx-labels ul{list-style:none;columns:2;column-gap:10px;width:100%}
+  .fx-labels li{font-family:var(--sans);font-weight:700;font-size:.72rem;line-height:1.6;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.95);break-inside:avoid}
 
   /* PASOS */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
@@ -213,10 +220,11 @@
     header p.sub{margin-left:auto;margin-right:auto}
     .cta-row{justify-content:center}
     .device{width:225px;margin-top:4px}
-    .gallery{grid-template-columns:repeat(3,1fr);gap:8px}
+    .gallery{grid-template-columns:repeat(2,1fr);gap:8px}
     .fx{padding:9px;border-radius:11px}
     .fx span{font-size:.68rem}
     .fx .ply{display:none}
+    .fx-labels li{font-size:.66rem;line-height:1.5}
     .showcase{grid-template-columns:1fr}
     .band .wrap{padding:48px 20px}
     .buybar{display:flex}
@@ -359,10 +367,10 @@ document.addEventListener('click',function(ev){
 <!-- QUÉ VAS A APRENDER -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">Qué vas a aprender</div>
-    <h2 class="title">Los sistemas de tu moto, uno por uno</h2>
-    <p class="lead">Motor, parte eléctrica, frenos, suspensión, transmisión y carburación: <b>lo que hoy le pagas al mecánico</b>, explicado para que lo hagas tú.</p>
-    <div class="gallery"><div class="fx g1"><img class="fx-th" src="vid/g1.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g1.mp4" poster="vid/g1.webp"></video><span>Despiece<br>del motor</span></div><div class="fx g2"><img class="fx-th" src="vid/g2.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g2.mp4" poster="vid/g2.webp"></video><span>Diagramas<br>eléctricos</span></div><div class="fx g3"><img class="fx-th" src="vid/g3.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g3.mp4" poster="vid/g3.webp"></video><span>Frenos y<br>suspensión</span></div><div class="fx g4"><img class="fx-th" src="vid/g4.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g4.mp4" poster="vid/g4.webp"></video><span>Transmisión<br>y embrague</span></div><div class="fx g5"><img class="fx-th" src="vid/g5.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g5.mp4" poster="vid/g5.webp"></video><span>Carburador<br>e inyección</span></div><div class="fx g8"><img class="fx-th" src="vid/g8.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g8.mp4" poster="vid/g8.webp"></video><span>Motores<br>2T y 4T</span></div></div>
+    <div class="eyebrow">Así es el contenido</div>
+    <h2 class="title">Lo que hay dentro del pack</h2>
+    <p class="lead">Mira de cerca cada sistema de tu moto, pieza por pieza y con su nombre. <b>Así de claro</b> te lo muestra el manual de tu moto, para tu marca y tu modelo.</p>
+    <div class="gallery"><div class="fx fx-pack g1"><img class="fx-th" src="vid-ax/motor.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/motor.mp4" poster="vid-ax/motor.webp"></video><span>Motor</span><div class="fx-labels"><ul><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul></div></div><div class="fx fx-pack g3"><img class="fx-th" src="vid-ax/carburador.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/carburador.mp4" poster="vid-ax/carburador.webp"></video><span>Carburador</span><div class="fx-labels"><ul><li>Tapa</li><li>Campana</li><li>Aguja</li><li>Chiclés</li><li>Flotador</li><li>Cuba</li></ul></div></div><div class="fx fx-pack g4"><img class="fx-th" src="vid-ax/freno.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/freno.mp4" poster="vid-ax/freno.webp"></video><span>Frenos</span><div class="fx-labels"><ul><li>Disco</li><li>Caliper</li><li>Pastillas</li><li>Pistones</li><li>Purgador</li></ul></div></div><div class="fx g2"><img class="fx-th" src="vid/g2.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g2.mp4" poster="vid/g2.webp"></video><span>Diagramas<br>eléctricos</span></div></div>
     <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
   </div>
 </section>
@@ -535,6 +543,21 @@ document.addEventListener('click',function(ev){
   },{threshold:.25});
   vids.forEach(function(v){ io.observe(v); });
   var hv=document.getElementById('hero-v'); if(hv) hv.play().catch(function(){});
+})();
+
+/* tarjetas "pack": la lista de piezas aparece (fade-in) al final del clip y se oculta al reiniciar el loop */
+(function(){
+  [].slice.call(document.querySelectorAll('.fx-pack')).forEach(function(item){
+    var v=item.querySelector('video'), ov=item.querySelector('.fx-labels');
+    if(!v||!ov) return;
+    var shown=false;
+    v.addEventListener('timeupdate',function(){
+      if(!v.duration) return;
+      if(v.duration - v.currentTime < .3){ if(!shown){ shown=true; ov.classList.add('show'); } }
+      else if(v.currentTime < .4){ if(shown){ shown=false; ov.classList.remove('show'); } }
+    });
+    v.addEventListener('ended',function(){ if(!shown){ shown=true; ov.classList.add('show'); } });
+  });
 })();
 
 /* despiece: el cuadro sigue la posición de la moto en pantalla (sin pin):
