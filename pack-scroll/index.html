@@ -407,6 +407,20 @@ document.addEventListener('click',function(ev){
   <ul class="dp-piezas"><li>Frenos</li><li>Disco</li><li>Caliper</li><li>Pastillas</li><li>Pistones</li><li>Purgador</li></ul>
 </section>
 
+<section class="dp dp-mini" id="escena-embrague">
+  <div class="dp-stage-mini" id="scr-embrague-stage">
+    <canvas id="scr-embrague-canvas" width="778" height="1400" role="img" aria-label="Embrague de motocicleta que se desarma pieza por pieza: campana, discos de fricción, platos de acero, plato de presión, muelles, tornillos."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Embrague</li><li>Campana</li><li>Discos</li><li>Platos</li><li>Muelles</li><li>Buje central</li><li>Tornillos</li></ul>
+</section>
+
+<section class="dp dp-mini" id="escena-horquilla">
+  <div class="dp-stage-mini" id="scr-horquilla-stage">
+    <canvas id="scr-horquilla-canvas" width="206" height="1400" role="img" aria-label="Horquilla de motocicleta que se desarma pieza por pieza: tapón, resorte, barra, retén, buje, barral."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Horquilla</li><li>Tapón</li><li>Resorte</li><li>Barra</li><li>Retén</li><li>Buje</li><li>Barral</li></ul>
+</section>
+
 <section>
   <div class="wrap">
     <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
@@ -684,6 +698,10 @@ initDespiece({stage:'scr-carburador-stage',canvas:'scr-carburador-canvas',n:50,w
   dirMob:'img/scroll-frames/carburador/mob/',dirDesk:'img/scroll-frames/carburador/desk/'});
 initDespiece({stage:'scr-freno-stage',canvas:'scr-freno-canvas',n:50,w:1093,h:1400,
   dirMob:'img/scroll-frames/freno/mob/',dirDesk:'img/scroll-frames/freno/desk/'});
+initDespiece({stage:'scr-embrague-stage',canvas:'scr-embrague-canvas',n:50,w:778,h:1400,
+  dirMob:'img/scroll-frames/embrague/mob/',dirDesk:'img/scroll-frames/embrague/desk/'});
+initDespiece({stage:'scr-horquilla-stage',canvas:'scr-horquilla-canvas',n:50,w:206,h:1400,
+  dirMob:'img/scroll-frames/horquilla/mob/',dirDesk:'img/scroll-frames/horquilla/desk/'});
 </script>
 </body>
 </html>
