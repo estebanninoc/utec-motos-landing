@@ -90,3 +90,83 @@ html[data-ev-barra] .buybar { display: flex; }
   html[data-ev-barra] .buybar { padding-left: 32px; padding-right: 32px; }
   html[data-ev-barra] .buybar .btn { flex: 0 0 auto; }
 }
+
+/* 6 — C5: LA BANDA DE PRUEBA SOCIAL (2026-10-10) ----------------------
+   CERO COLOR NUEVO: --mut para el texto, --line para el separador,
+   --tx para los números. Misma tipografía, mismo radio. Es una línea de
+   datos, no una tarjeta: no compite con el CTA que tiene al lado.
+   Reversa: EV.prueba.mostrar = false (o borrar este bloque). */
+.ev-prueba {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 8px;
+  margin: 14px auto 0;
+  max-width: 480px;
+  color: var(--mut);
+  font-family: var(--sans);
+  font-size: .82rem;
+  line-height: 1.45;
+  text-align: center;
+}
+.ev-prueba b {
+  color: var(--tx);
+  font-family: var(--disp);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.ev-prueba .ev-sep { color: var(--line); }
+/* pegada al precio respira un poco más: ahí sí es la señal que decide */
+[data-ev-inyectado="prueba-precio"] { margin-bottom: 14px; }
+@media (max-width: 420px) {
+  .ev-prueba { font-size: .76rem; gap: 6px; }
+  /* a 360 px cada dato en su renglón: dos datos en una línea se parten mal */
+  .ev-prueba .ev-sep { display: none; }
+  .ev-prueba .ev-pz { flex: 1 0 100%; }
+}
+
+/* 7 — C6: UN SOLO VERBO Y EL NAV SIGUE ENTERO -------------------------
+   Con un_solo_verbo el botón del nav deja de ser excepción y ya no
+   lleva data-ev-corto, así que hereda las reglas de arriba. La etiqueta
+   ahora va sin precio ni flecha ('QUIERO EL PACK'), pero sigue
+   necesitando techo de ancho: sin esto, a 360 px vuelve a comerse el
+   logo. Mismo techo que tenía el verbo corto. Reversa: borrar bloque. */
+nav .btn {
+  white-space: nowrap;
+  max-width: 44%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;
+}
+@media (max-width: 420px) {
+  nav .btn { padding-left: 12px; padding-right: 12px; font-size: .72rem; }
+}
+
+/* 8 — C7: EL ESPEJO DEL CONTADOR, ARRIBA DEL PLIEGUE ------------------
+   Reusa .reloj tal cual lo definió el diseño (misma caja, mismo borde
+   punteado, misma tipografía). Lo único propio es el margen: arriba del
+   CTA tiene que ir más apretado que el del 78% de la página.
+   Reversa: EV.inyectar = false (o borrar este bloque). */
+.ev-reloj-top { margin: 0 auto 14px; max-width: 420px; }
+@media (max-width: 420px) {
+  .ev-reloj-top { padding: 8px 12px; }
+  .ev-reloj-top .rl { font-size: .78rem; }
+}
+
+/* 9 — C6b: EL PRECIO AL LADO DEL BOTÓN, NO DENTRO --------------------
+   Vuelve al pliegue el precio que el verbo único se llevó. Mismos
+   tokens que el diseño ya usa para el precio grande (--tx, --disp para
+   el número; --mut, --sans para la nota). Reversa: borrar bloque. */
+.ev-precio-top {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 9px; flex-wrap: wrap;
+  margin: 0 auto 12px; max-width: 420px; text-align: center;
+}
+.ev-precio-top b {
+  color: var(--tx); font-family: var(--disp); font-weight: 900;
+  font-size: 1.6rem; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ev-precio-top span { color: var(--mut); font-family: var(--sans); font-size: .8rem; }
+@media (max-width: 420px) {
+  .ev-precio-top { gap: 7px; }
+  .ev-precio-top b { font-size: 1.45rem; }
+  .ev-precio-top span { font-size: .74rem; }
+}
