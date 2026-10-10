@@ -138,6 +138,11 @@
   .fx-labels.show{opacity:1}
   .fx-labels ul{list-style:none;columns:2;column-gap:10px;width:100%}
   .fx-labels li{font-family:var(--sans);font-weight:700;font-size:.72rem;line-height:1.6;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.95);break-inside:avoid}
+  @media(min-width:768px){
+    .gallery-big{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:start}
+    .gallery-big .fx{aspect-ratio:9/16;max-height:80vh;width:100%;height:auto}
+    .gallery-big .fx .fx-th,.gallery-big .fx video{object-fit:contain}
+  }
 
   /* PASOS */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
