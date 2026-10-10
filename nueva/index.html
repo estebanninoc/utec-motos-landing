@@ -262,13 +262,6 @@
   .aviso{margin-top:18px;padding:11px 14px;border:1px dashed #3a3a40;border-radius:12px;font-size:.8rem;color:var(--mut)}
   .entrega{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
   @media(max-width:820px){.entrega{grid-template-columns:1fr}}
-  /* GALERÍA "LO QUE HAY DENTRO DEL PACK" */
-  .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
-  .pack-item{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0a0a0c}
-  .pack-item video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-  .pack-item::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.78));pointer-events:none}
-  .pack-item span{position:absolute;left:11px;right:11px;bottom:10px;z-index:2;font-family:var(--disp);font-weight:800;font-size:.85rem;line-height:1.2;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.8)}
-  @media(max-width:820px){.pack-grid{grid-template-columns:repeat(2,1fr);gap:10px}.pack-item span{font-size:.78rem}}
 </style>
 <!-- Meta Pixel (pendiente ID real) -->
 <script>
@@ -369,25 +362,8 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Qué vas a aprender</div>
     <h2 class="title">Los sistemas de tu moto, uno por uno</h2>
     <p class="lead">Motor, parte eléctrica, frenos, suspensión, transmisión y carburación: <b>lo que hoy le pagas al mecánico</b>, explicado para que lo hagas tú.</p>
-    <div class="gallery"><div class="fx g1"><img class="fx-th" src="vid/g1.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g1.mp4" poster="vid/g1.webp"></video><span>Despiece<br>del motor</span></div><div class="fx g2"><img class="fx-th" src="vid/g2.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g2.mp4" poster="vid/g2.webp"></video><span>Diagramas<br>eléctricos</span></div><div class="fx g3"><img class="fx-th" src="vid/g3.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g3.mp4" poster="vid/g3.webp"></video><span>Frenos y<br>suspensión</span></div><div class="fx g4"><img class="fx-th" src="vid/g4.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g4.mp4" poster="vid/g4.webp"></video><span>Transmisión<br>y embrague</span></div><div class="fx g5"><img class="fx-th" src="vid/g5.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g5.mp4" poster="vid/g5.webp"></video><span>Carburador<br>e inyección</span></div><div class="fx g8"><img class="fx-th" src="vid/g8.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g8.mp4" poster="vid/g8.webp"></video><span>Curso<br>2T y 4T</span></div></div>
+    <div class="gallery"><div class="fx g1"><img class="fx-th" src="vid/g1.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g1.mp4" poster="vid/g1.webp"></video><span>Despiece<br>del motor</span></div><div class="fx g2"><img class="fx-th" src="vid/g2.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g2.mp4" poster="vid/g2.webp"></video><span>Diagramas<br>eléctricos</span></div><div class="fx g3"><img class="fx-th" src="vid/g3.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g3.mp4" poster="vid/g3.webp"></video><span>Frenos y<br>suspensión</span></div><div class="fx g4"><img class="fx-th" src="vid/g4.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g4.mp4" poster="vid/g4.webp"></video><span>Transmisión<br>y embrague</span></div><div class="fx g5"><img class="fx-th" src="vid/g5.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g5.mp4" poster="vid/g5.webp"></video><span>Carburador<br>e inyección</span></div><div class="fx g8"><img class="fx-th" src="vid/g8.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid/g8.mp4" poster="vid/g8.webp"></video><span>Motores<br>2T y 4T</span></div></div>
     <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
-  </div>
-</section>
-
-<!-- LO QUE HAY DENTRO DEL PACK -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Así es el material</div>
-    <h2 class="title">Lo que hay dentro del pack</h2>
-    <p class="lead">Una muestra del tipo de página que vas a abrir en tu celular: diagramas, despieces, paso a paso y tablas de torque.</p>
-    <div class="pack-grid">
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p1.mp4" poster="vid-pack/p1.webp"></video><span>Diagrama eléctrico</span></div>
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p2.mp4" poster="vid-pack/p2.webp"></video><span>Despiece de motor</span></div>
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p3.mp4" poster="vid-pack/p3.webp"></video><span>Paso a paso</span></div>
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p4.mp4" poster="vid-pack/p4.webp"></video><span>Tabla de torques</span></div>
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p5.mp4" poster="vid-pack/p5.webp"></video><span>Frenos y suspensión</span></div>
-      <div class="pack-item"><video muted loop playsinline autoplay preload="none" loading="lazy" data-src="vid-pack/p6.mp4" poster="vid-pack/p6.webp"></video><span>Carburador</span></div>
-    </div>
   </div>
 </section>
 
@@ -548,7 +524,7 @@ document.addEventListener('click',function(ev){
 
 /* galería: cada video arranca cuando se ve (son clips livianos de ~130 KB) */
 (function(){
-  var vids=[].slice.call(document.querySelectorAll('.fx video, .pack-item video'));
+  var vids=[].slice.call(document.querySelectorAll('.fx video'));
   if(!('IntersectionObserver' in window)) return;
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){
