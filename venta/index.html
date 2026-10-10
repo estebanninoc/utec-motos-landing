@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOTOS PRO: +900 manuales de taller de 30 marcas · repara tu moto tú mismo</title>
-<meta name="description" content="Deja de pagarle al taller: +900 manuales paso a paso de 30 marcas, despiece, diagramas eléctricos y tablas de torque. Pago único US$12.99.">
+<title>MOTOS PRO: 962 manuales de taller de 30 marcas · repara tu moto tú mismo</title>
+<meta name="description" content="Deja de pagarle al taller: 962 manuales paso a paso de 30 marcas, despiece, diagramas eléctricos y tablas de torque. Pago único $15.000 COP.">
 <meta name="theme-color" content="#000000">
 <meta property="og:title" content="MOTOS PRO: repara tu moto tú mismo">
-<meta property="og:description" content="+900 manuales de taller de 30 marcas. Pago único $15.000 COP.">
+<meta property="og:description" content="962 manuales de taller de 30 marcas. Pago único $15.000 COP.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://estebanninoc.github.io/utec-motos-landing/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -280,20 +280,18 @@
   .entrega{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
   @media(max-width:820px){.entrega{grid-template-columns:1fr}}
 </style>
-<!-- Meta Pixel (pendiente ID real) -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','PIXEL_ID_PENDIENTE');
-fbq('track','PageView');
-document.addEventListener('click',function(ev){
-  var a = ev.target.closest ? ev.target.closest('[data-buy]') : null;
-  if(a){ fbq('track','InitiateCheckout',{value:parseFloat(window.__precioUSD)||12.99,currency:'USD'}); }
-},true);
-</script>
+<!-- ===================================================================
+     PÍXEL — lo maneja estructura-venta.js, NO esta etiqueta.
+     Lo que había acá pedía fbevents.js a connect.facebook.net en CADA
+     visita y mandaba PageView e InitiateCheckout a un dataset que no
+     existe (el ID era un marcador de posición). Cero medición, una
+     petición externa por visita, y Meta optimizando a ciegas.
+     Candidatos de ID medidos en la cuenta el 2026-10-10:
+       1372300278375775  pixel "WH" — last_fired_time: NUNCA disparó
+       1476648010591444  dataset "WH ... Event Data" — vivo, pero es el
+                         que hoy mide las conversaciones de WhatsApp
+     El ID lo decide Esteban y se pega en EV.pixel. Vacío = 0 peticiones.
+     =================================================================== -->
 <link rel="stylesheet" href="estructura-venta.css">
 </head>
 <body>
@@ -301,7 +299,7 @@ document.addEventListener('click',function(ev){
 <nav>
   <div class="wrap">
     <div class="logo"><span class="mark"><img src="img/logo-mark.svg" alt="" width="30" height="30"></span>MOTOS<span class="sub">PRO</span></div>
-    <a href="#comprar" class="btn">Quiero los manuales</a>
+    <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn" rel="noopener">QUIERO EL PACK</a>
   </div>
 </nav>
 
@@ -311,9 +309,9 @@ document.addEventListener('click',function(ev){
       <div class="hero-copy">
         <div class="pill">🏍️ Biblioteca de taller MOTOS PRO · <b>Celular + PC</b></div>
         <h1>Deja de pagarle al taller.<br>Repara tu moto <span class="cut">tú mismo</span>.</h1>
-        <p class="sub"><b>Más de 900 manuales de taller</b> de <b>30 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
+        <p class="sub"><b>962 manuales de taller</b> de <b>30 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
         <div class="cta-row">
-          <a href="#comprar" class="btn big" id="btn-hero">Empezar hoy · US$12.99 →</a>
+          <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn big" id="btn-hero" rel="noopener">QUIERO EL PACK · $15.000 →</a>
         </div>
         <div class="cta-note">Pago único · Acceso inmediato · Es tuyo para siempre</div>
       </div>
@@ -350,9 +348,9 @@ document.addEventListener('click',function(ev){
 
   <div class="wrap">
     <div class="badges">
-      <div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div>
+      <div class="badge"><div class="n">962</div><div class="l">manuales de taller</div></div>
       <div class="badge"><div class="n">30</div><div class="l">marcas de motos</div></div>
-      <div class="badge"><div class="n">25<span style="font-size:.9rem"> GB</span></div><div class="l">de contenido</div></div>
+      <div class="badge"><div class="n">5<span style="font-size:.9rem"> GB</span></div><div class="l">de contenido</div></div>
       <div class="badge"><div class="n">2T·4T</div><div class="l">motores cubiertos</div></div>
     </div>
   </div>
@@ -391,10 +389,10 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Empieza hoy</div>
     <h2 class="title">Arma tu pack, un solo pago</h2>
     <div class="price-card">
-      <div class="price-now" id="precio-grande">US$12.99</div>
+      <div class="price-now" id="precio-grande">$15.000</div>
       <div class="price-per">pago único · <b>acceso de por vida</b></div>
       <ul class="price-list">
-        <li><b>+900 manuales</b> de taller de 30 marcas</li>
+        <li><b>962 manuales</b> de taller de 30 marcas</li>
         <li>Despiece, montaje y diagramas eléctricos</li>
         <li>Curso completo de Mecánica 2T y 4T</li>
         <li>Acceso inmediato a tu carpeta privada</li>
@@ -405,7 +403,7 @@ document.addEventListener('click',function(ev){
         <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
         <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
       </div>
-      <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Quiero mi acceso ahora · US$12.99 →</a>
+      <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn big" id="btn-pago" data-buy="1" rel="noopener">QUIERO EL PACK · $15.000 →</a>
       <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
   <div class="pay-row">
     <span class="pay-chip"><svg width="30" height="16" viewBox="0 0 30 16" role="img" aria-label="Visa"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="900" font-size="15" letter-spacing="-.5" fill="currentColor">VISA</text></svg></span>
@@ -415,7 +413,7 @@ document.addEventListener('click',function(ev){
     <span class="pay-chip"><svg width="98" height="16" viewBox="0 0 98 16" role="img" aria-label="Mercado Pago"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="13" fill="currentColor">Mercado Pago</text></svg></span>
   </div>
 
-      <div class="aviso" id="aviso-checkout">Página en preparación: el pago todavía no está conectado.</div>
+      <div class="aviso" id="aviso-checkout" style="display:none"></div>
     </div>
   </div>
 </section>
@@ -439,7 +437,7 @@ document.addEventListener('click',function(ev){
     <p class="lead">Lo que ves es lo que hay.</p>
     <div class="acc">
       <details open>
-        <summary><span>1 · Manuales de taller por marca</span><span class="meta">+900 manuales · 30 marcas</span></summary>
+        <summary><span>1 · Manuales de taller por marca</span><span class="meta">962 manuales · 30 marcas</span></summary>
         <div class="acc-body"><p>Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, Aprilia, Piaggio, Harley-Davidson y las marcas chinas e indias de mayor circulación en Latinoamérica. Despiece, montaje y diagramas eléctricos.</p></div>
       </details>
       <details>
@@ -459,7 +457,7 @@ document.addEventListener('click',function(ev){
     </div>
 
     <div class="entrega">
-      <div class="step"><div class="num">1</div><h3>Pagas una sola vez</h3><p>US$12.99, sin mensualidades. Con tarjeta, PayPal o Mercado Pago.</p></div>
+      <div class="step"><div class="num">1</div><h3>Pagas una sola vez</h3><p>$15.000 COP, sin mensualidades. Por Nequi, Daviplata, Llaves o Bancolombia.</p></div>
       <div class="step"><div class="num">2</div><h3>Recibes el acceso al instante</h3><p>Te llega el enlace a tu carpeta privada apenas se confirma el pago.</p></div>
       <div class="step"><div class="num">3</div><h3>Buscas tu moto y la arreglas</h3><p>PDF por marca y modelo. Se abre en el celular, incluso sin internet.</p></div>
     </div>
@@ -472,9 +470,9 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Preguntas frecuentes</div>
     <h2 class="title">Lo que todos preguntan</h2>
     <div class="acc">
-<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son 30 marcas y +900 manuales. Si no ubicas la tuya, se busca contigo por soporte.</div></details>
+<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son 30 marcas y 962 manuales. Si no ubicas la tuya, se busca contigo por soporte.</div></details>
   <details><summary><span>¿Necesito experiencia en mecánica?</span></summary><div class="acc-body">No. El manual muestra la pieza y el orden, igual que en el taller oficial. Empiezas por las fallas más comunes y avanzas a tu ritmo con el paso a paso de cada manual.</div></details>
-  <details><summary><span>¿Es un pago único o tiene mensualidad?</span></summary><div class="acc-body">Es un pago único de <b id="faq-precio">US$12.99</b>, sin suscripción y con acceso de por vida. Con 7 días de garantía.</div></details>
+  <details><summary><span>¿Es un pago único o tiene mensualidad?</span></summary><div class="acc-body">Es un pago único de <b id="faq-precio">$15.000</b>, sin suscripción y con acceso de por vida. Con 7 días de garantía.</div></details>
   <details><summary><span>¿Cómo llega el acceso después de pagar?</span></summary><div class="acc-body">Al confirmar el pago te llega el acceso para descargar todo de inmediato, sin esperas.</div></details>
   <details><summary><span>¿Funciona desde el celular?</span></summary><div class="acc-body">Sí, es como más se usa. Se abre igual en Android o iPhone, con zoom sobre el diagrama, y sin gastar datos una vez descargado.</div></details>
   <details><summary><span>¿En qué formato vienen los manuales?</span></summary><div class="acc-body">En PDF descargable: se abre en cualquier celular o computador sin instalar nada.</div></details>
@@ -495,50 +493,16 @@ document.addEventListener('click',function(ev){
 </footer>
 
 <div class="buybar" id="buybar">
-  <div class="p"><span id="buybar-precio">US$12.99</span><small>pago único · acceso inmediato</small></div>
-  <a href="#comprar" class="btn">Quiero los manuales →</a>
+  <div class="p"><span id="buybar-precio">$15.000</span><small>pago único · acceso inmediato</small></div>
+  <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn" rel="noopener">QUIERO EL PACK · $15.000 →</a>
 </div>
 
 <script>
-/* barra fija: se esconde cuando ya estás en la sección de precio */
-(function(){
-  var bar=document.getElementById('buybar'),c=document.getElementById('comprar'),h=document.querySelector('header');
-  var enPrecio=false,enHero=true;
-  function pinta(){ bar.style.display = (enPrecio||enHero) ? 'none' : ''; }
-  pinta();
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en){ enPrecio=en[0].isIntersecting; pinta(); }).observe(c);
-    if(h) new IntersectionObserver(function(en){ enHero=en[0].isIntersecting; pinta(); }).observe(h);
-  }
-})();
-
-/* precio + bonos */
-(function(){
-  var LINKS={base:'#STRIPE-PENDIENTE',a:'#STRIPE-PENDIENTE',b:'#STRIPE-PENDIENTE',ab:'#STRIPE-PENDIENTE'};
-  var PR={base:'12.99',a:'14.98',b:'14.98',ab:'16.97'};
-  var REF=null;
-  try{
-    var q=new URLSearchParams(location.search);
-    REF=q.get('ad')||q.get('utm_content')||null;
-    if(REF){ REF=REF.replace(/[^A-Za-z0-9_-]/g,'').slice(0,60)||null; if(REF) sessionStorage.setItem('motosRef',REF); }
-    if(!REF) REF=sessionStorage.getItem('motosRef');
-    if(!REF && (q.get('fbclid')||/facebook\.com|instagram\.com/.test(document.referrer))) REF='MOTOS-META-SINTAG';
-  }catch(e){}
-  function conRef(u){ if(u.charAt(0)==='#') return u; return REF ? u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF : u; }
-  var ca=document.querySelector('#bump-a input'), cb=document.querySelector('#bump-b input');
-  var btn=document.getElementById('btn-pago'), big=document.getElementById('precio-grande'), nota=document.getElementById('bump-nota');
-  function up(){
-    var k = ca.checked&&cb.checked ? 'ab' : ca.checked ? 'a' : cb.checked ? 'b' : 'base';
-    var t='US$'+PR[k]; window.__precioUSD=PR[k];
-    btn.href=conRef(LINKS[k]); btn.textContent='Quiero mi acceso ahora · '+t+' →';
-    big.textContent=t; document.getElementById('buybar-precio').textContent=t;
-    document.getElementById('bump-a').classList.toggle('on',ca.checked);
-    document.getElementById('bump-b').classList.toggle('on',cb.checked);
-    nota.innerHTML = (k==='ab') ? '🎉 Te llevas <b>todo por US$16.97</b>' : 'Marca los dos y te llevas <b>todo por US$16.97</b>';
-    var fp=document.getElementById('faq-precio'); if(fp) fp.textContent=t;
-  }
-  ca.addEventListener('change',up); cb.addEventListener('change',up); up();
-})();
+/* precio + bonos + barra fija: lo maneja estructura-venta.js.
+   Lo que vivía acá apuntaba los 4 combos a un ancla que no existe, así
+   que el botón de pago no llevaba a ninguna parte; y la función que
+   pegaba la atribución hacía early-return con las URLs que empiezan por
+   '#', o sea que era código muerto. */
 
 /* galería: cada video arranca cuando se ve (son clips livianos de ~130 KB) */
 (function(){

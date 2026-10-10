@@ -73,6 +73,11 @@ var EV = window.EV = {
      mediría otro producto. */
   pixel: '',
 
+  metodos: {
+    whatsapp: ['Nequi', 'Daviplata', 'Llaves', 'Bancolombia'],
+    stripe:   null   /* null = se dejan los logos que puso el diseño */
+  },
+
   /* Un solo verbo en TODOS los botones. Medido en /nueva/ el 2026-10-10:
      4 botones con 4 textos distintos. */
   verbo: 'QUIERO EL PACK',
@@ -83,7 +88,7 @@ var EV = window.EV = {
      3 LÍNEAS, estiraba la barra a 65 px de alto y quedaba pegado al logo
      con 0 px de aire — "MOTOS PRO" ilegible. El verbo corto va sin precio
      y sin flecha: una sola línea. Reversa: poner '' y vuelve el largo. */
-  verbo_corto: 'COMPRAR',
+  verbo_corto: '',
 
   /* Inyecciones de estructura (CTA repetido + chip de garantía arriba
      del pliegue). REVERSA DE UNA PALABRA: poner false. */
@@ -119,11 +124,34 @@ var PR = EV.precio[canal] || EV.precio.whatsapp;
    etiqueta quemada: ese es el error que dejó a melamina con
    AD1MELAMINACURSO fijo y la atribución muerta.
    --------------------------------------------------------------------- */
+var TRIGGERS_AJENOS = ["audiolibros","biblioteca","carpinteria","carpintería","carros",
+"comics","condorito","disenos sublimacion","diseños","hacer muebles","info autos",
+"info carros","info libros","info libros audiolibros","info melamina","info muebles",
+"info revistas","info sublimacion","kaliman","libros","mecanica de carros","megapack retro",
+"melamina","muebles","pack sublimacion","peliculas gratis","planos de muebles","playboy",
+"quiero info aluminio","quiero info arduino","quiero info barberia","quiero info barbería",
+"quiero info capcut","quiero info carros","quiero info claude","quiero info claude code",
+"quiero info libros","quiero info melamina","quiero info muebles",
+"quiero info muebles industriales","quiero info pintura","quiero info programacion",
+"quiero info programación","quiero info revistas","quiero info revistas y peliculas",
+"quiero info revistas y películas","quiero info sst","quiero info sublimacion",
+"quiero info sublimación","quiero melamina","revistas","revistas retro","serigrafia",
+"sublimacion","sublimación","vinil textil"];
+
+/* true si el texto le robaría el lead a otro flujo */
+function secuestra(txt) {
+  var l = String(txt || '').toLowerCase();
+  for (var i = 0; i < TRIGGERS_AJENOS.length; i++) {
+    if (l.indexOf(TRIGGERS_AJENOS[i]) !== -1) return TRIGGERS_AJENOS[i];
+  }
+  return '';
+}
+
 var ATRIB = (function () {
   var limpio = function (v) {
     return v ? String(v).replace(/[^A-Za-z0-9_.-]/g, '').slice(0, 40) : '';
   };
-  var out = { ad: '', camp: '', fuente: '', token: 'none', origen: 'ninguno' };
+  var out = { ad: '', camp: '', fuente: '', token: 'none', origen: 'ninguno', saneado: '' };
   try {
     var q = new URLSearchParams(location.search);
     out.ad     = limpio(q.get('ad')     || q.get('utm_content')  || q.get('adname'));
@@ -134,10 +162,29 @@ var ATRIB = (function () {
       if (q.get('fbclid')) out.fuente = 'meta';
       else if (/facebook\.com|instagram\.com/.test(document.referrer || '')) out.fuente = 'meta';
     }
+
     if (out.ad || out.camp || out.fuente) {
-      out.token = [out.camp || 'sincamp', out.ad || 'sinad', out.fuente || 'directo'].join('-');
-      out.origen = 'querystring';
-      sessionStorage.setItem('evAtrib', JSON.stringify(out));
+      /* se descarta SEGMENTO POR SEGMENTO: si la campaña se llama
+         "UTEC_CARROS_X" se tira la campaña, no toda la atribución. */
+      var seg = [out.camp, out.ad, out.fuente], malos = [];
+      for (var i = 0; i < seg.length; i++) {
+        var m = secuestra(seg[i]);
+        if (m) { malos.push(seg[i] + '~' + m); seg[i] = ''; }
+      }
+      out.saneado = malos.join(',');
+      if (malos.length) {
+        out.camp = seg[0]; out.ad = seg[1]; out.fuente = seg[2];
+        log('AVISO atribución: ' + out.saneado + ' contenía un disparador de otro flujo y se descartó ' +
+            '(habría mandado el lead al producto equivocado).');
+      }
+      if (out.camp || out.ad || out.fuente) {
+        out.token = [out.camp || 'sincamp', out.ad || 'sinad', out.fuente || 'directo'].join('-');
+        /* reja final: el token armado tampoco puede secuestrar */
+        var m2 = secuestra(out.token);
+        if (m2) { out.token = 'none'; out.saneado += (out.saneado ? ',' : '') + 'token~' + m2; }
+      }
+      out.origen = (out.token === 'none') ? 'descartado' : 'querystring';
+      if (out.token !== 'none') sessionStorage.setItem('evAtrib', JSON.stringify(out));
     } else {
       var g = sessionStorage.getItem('evAtrib');
       if (g) { out = JSON.parse(g); out.origen = 'sesion'; }
@@ -146,6 +193,7 @@ var ATRIB = (function () {
   return out;
 })();
 window.__evAtrib = ATRIB;
+window.__evSecuestra = secuestra;
 
 /* ---------------------------------------------------------------------
    2. DESTINO ÚNICO — una sola función resuelve a dónde va CADA botón.
@@ -290,8 +338,13 @@ function pintaBotones() {
     }
     /* el verbo: uno solo, con el precio pegado. Los iconos que el
        diseño ya puso dentro del botón se respetan. */
+    /* EL VERBO ES UNO SOLO. Lo que cambia es si lleva el precio pegado:
+       en los botones grandes si; en el nav y en la barra fija NO, porque
+       esos dos ya muestran el precio al lado y el texto largo se desborda
+       a 360 px — medido en la captura: el boton del nav tapaba el logo. */
+    var compacto = !!(b.closest && (b.closest('nav') || b.closest('#buybar')));
     var svg = b.querySelector('svg');
-    var etiqueta = EV.verbo + ' · ' + t + ' →';
+    var etiqueta = compacto ? EV.verbo : (EV.verbo + ' · ' + t + ' →');
     if (svg) {
       var textos = [].filter.call(b.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
       if (textos.length) { textos[0].textContent = ' ' + etiqueta; textos.slice(1).forEach(function (n) { n.textContent = ''; }); }
@@ -411,6 +464,21 @@ function chipGarantia() {
   if (hero.parentNode) hero.parentNode.insertBefore(c, hero.nextSibling);
 }
 
+function metodosDePago() {
+  if (!EV.inyectar) return;
+  var lista = EV.metodos && EV.metodos[canal];
+  if (!lista || !lista.length) return;          /* stripe: no se toca */
+  var row = $('.pay-row'); if (!row || row.getAttribute('data-ev-metodos')) return;
+  row.setAttribute('data-ev-metodos', canal);
+  row.innerHTML = '';
+  lista.forEach(function (m) {
+    var s = document.createElement('span');
+    s.className = 'pay-chip';
+    s.textContent = m;
+    row.appendChild(s);
+  });
+}
+
 /* ---------------------------------------------------------------------
    8. EL AVISO QUE MATA LA VENTA
    "Página en preparación: el pago todavía no está conectado" se queda
@@ -433,6 +501,7 @@ function repinta() {
 
 function arranca() {
   pintaBumps();
+  metodosDePago();
   chipGarantia();
   ctaRepetido();
   barraFija();
