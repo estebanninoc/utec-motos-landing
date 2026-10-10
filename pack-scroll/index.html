@@ -284,9 +284,13 @@
   .dp-piezas li{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-family:var(--disp);font-weight:800;font-size:.8rem}
   @media(max-width:820px){.dp-stage{width:100%;margin-left:0;padding:0 4px}}
   /* ESCENAS scroll-scrub chicas (motor/carburador/freno), mismo mecanismo que .dp-stage: sin caja, flota sobre el fondo */
-  .dp-mini{padding:50px 0 10px}
-  .dp-stage-mini{position:relative;text-align:center;margin:0 auto}
+  .dp-mini{padding:50px 0 10px;overflow:visible}
+  /* dp-scrub: carril alto (~270vh) para que cada cuadro cueste pocos px de scroll; el stage
+     queda sticky mientras el carril pasa, y se despega al llegar a su borde inferior */
+  .dp-scrub{position:relative;height:270vh}
+  .dp-stage-mini{position:sticky;top:10vh;text-align:center;margin:0 auto}
   .dp-stage-mini canvas{display:inline-block;max-width:100%;max-height:78vh;width:auto;height:auto}
+  @media(prefers-reduced-motion:reduce){.dp-scrub{height:auto}.dp-stage-mini{position:relative;top:0}}
   /* GALERÍA con video local */
   .fx video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
   .fx{cursor:default}
@@ -400,37 +404,37 @@ document.addEventListener('click',function(ev){
 </section>
 
 <section class="dp dp-mini" id="escena-motor">
-  <div class="dp-stage-mini" id="scr-motor-stage">
-    <canvas id="scr-motor-canvas" width="783" height="1400" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
-  </div>
+  <div class="dp-scrub" id="scr-motor-track"><div class="dp-stage-mini" id="scr-motor-stage">
+    <canvas id="scr-motor-canvas" width="784" height="1400" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
+  </div></div>
   <ul class="dp-piezas"><li>Motor</li><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul>
 </section>
 
 <section class="dp dp-mini" id="escena-carburador">
-  <div class="dp-stage-mini" id="scr-carburador-stage">
-    <canvas id="scr-carburador-canvas" width="722" height="1400" role="img" aria-label="Carburador de motocicleta que se desarma pieza por pieza: tapa, campana, aguja, chiclés, flotador, cuba."></canvas>
-  </div>
+  <div class="dp-scrub" id="scr-carburador-track"><div class="dp-stage-mini" id="scr-carburador-stage">
+    <canvas id="scr-carburador-canvas" width="720" height="1400" role="img" aria-label="Carburador de motocicleta que se desarma pieza por pieza: tapa, campana, aguja, chiclés, flotador, cuba."></canvas>
+  </div></div>
   <ul class="dp-piezas"><li>Carburador</li><li>Tapa</li><li>Campana</li><li>Aguja</li><li>Chiclés</li><li>Flotador</li><li>Cuba</li></ul>
 </section>
 
 <section class="dp dp-mini" id="escena-freno">
-  <div class="dp-stage-mini" id="scr-freno-stage">
-    <canvas id="scr-freno-canvas" width="1103" height="1400" role="img" aria-label="Sistema de freno de motocicleta que se desarma pieza por pieza: disco, caliper, pastillas, pistones, purgador."></canvas>
-  </div>
+  <div class="dp-scrub" id="scr-freno-track"><div class="dp-stage-mini" id="scr-freno-stage">
+    <canvas id="scr-freno-canvas" width="1104" height="1400" role="img" aria-label="Sistema de freno de motocicleta que se desarma pieza por pieza: disco, caliper, pastillas, pistones, purgador."></canvas>
+  </div></div>
   <ul class="dp-piezas"><li>Frenos</li><li>Disco</li><li>Caliper</li><li>Pastillas</li><li>Pistones</li><li>Purgador</li></ul>
 </section>
 
 <section class="dp dp-mini" id="escena-embrague">
-  <div class="dp-stage-mini" id="scr-embrague-stage">
-    <canvas id="scr-embrague-canvas" width="783" height="1400" role="img" aria-label="Embrague de motocicleta que se desarma pieza por pieza: campana, discos de fricción, platos de acero, plato de presión, muelles, tornillos."></canvas>
-  </div>
+  <div class="dp-scrub" id="scr-embrague-track"><div class="dp-stage-mini" id="scr-embrague-stage">
+    <canvas id="scr-embrague-canvas" width="782" height="1400" role="img" aria-label="Embrague de motocicleta que se desarma pieza por pieza: campana, discos de fricción, platos de acero, plato de presión, muelles, tornillos."></canvas>
+  </div></div>
   <ul class="dp-piezas"><li>Embrague</li><li>Campana</li><li>Discos</li><li>Platos</li><li>Muelles</li><li>Buje central</li><li>Tornillos</li></ul>
 </section>
 
 <section class="dp dp-mini" id="escena-horquilla">
-  <div class="dp-stage-mini" id="scr-horquilla-stage">
-    <canvas id="scr-horquilla-canvas" width="177" height="1400" role="img" aria-label="Horquilla de motocicleta que se desarma pieza por pieza: tapón, resorte, barra, retén, buje, barral."></canvas>
-  </div>
+  <div class="dp-scrub" id="scr-horquilla-track"><div class="dp-stage-mini" id="scr-horquilla-stage">
+    <canvas id="scr-horquilla-canvas" width="176" height="1400" role="img" aria-label="Horquilla de motocicleta que se desarma pieza por pieza: tapón, resorte, barra, retén, buje, barral."></canvas>
+  </div></div>
   <ul class="dp-piezas"><li>Horquilla</li><li>Tapón</li><li>Resorte</li><li>Barra</li><li>Retén</li><li>Buje</li><li>Barral</li></ul>
 </section>
 
@@ -660,82 +664,126 @@ document.addEventListener('click',function(ev){
   });
 })();
 
-/* despiece (moto grande + escenas chicas motor/carburador/freno/embrague/horquilla): el cuadro
-   sigue la posición del stage en pantalla (sin pin). Un solo motor para los 6 escenarios:
+/* despiece (moto grande + escenas chicas motor/carburador/freno/embrague/horquilla):
    - Precarga TEMPRANA: arranca a ~1.5 viewports de distancia (no 600px fijos) y pide TODOS
      los frames de una, esperando su decode() real (no solo el onload de red), para que ya
      estén listos para pintar cuando el escenario entra en pantalla.
    - Animación con "persecución" (lerp) en vez de salto directo: cada frame el dibujado avanza
      un 20% de la distancia que le falta al cuadro objetivo, por rAF continuo, estilo Apple.
-     Scroll rápido ya no salta de golpe entre cuadros lejanos. */
+     Scroll rápido ya no salta de golpe entre cuadros lejanos.
+   - Dibujado FRACCIONAL: entre el cuadro i e i+1 se hace crossfade según la fracción (no se
+     salta entero), así el movimiento no "escalona" aunque falten cuadros fuente.
+   - Si cfg.track viene (carril alto dp-scrub con el stage sticky adentro), el progreso 0→1
+     se mide sobre ESE carril (no sobre el stage, que ya no se mueve mientras está pegado). */
 function initEscena(cfg){
   var stage=document.getElementById(cfg.stage), canvas=document.getElementById(cfg.canvas), bar=cfg.bar?document.getElementById(cfg.bar):null;
+  var track=cfg.track?document.getElementById(cfg.track):null;
   if(!stage||!canvas) return;
   var ctx=canvas.getContext('2d'), N=cfg.n, W=canvas.width, H=canvas.height;
   var dir = window.matchMedia('(max-width:720px)').matches ? cfg.dirMob : cfg.dirDesk;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var imgs=[], ok=[], want=1, cur=1, started=false, running=false;
+  var stickyTopPx=window.innerHeight*0.10;
   function src(i){ return dir+'f_'+String(i).padStart(3,'0')+'.webp'; }
-  function draw(i){ if(ok[i]){ ctx.clearRect(0,0,W,H); ctx.drawImage(imgs[i],0,0,W,H); } }
-  function nearest(i){
+  function nearestInt(i){
+    i=Math.max(1,Math.min(N,Math.round(i)));
     if(ok[i]) return i;
     for(var d=1;d<N;d++){ if(ok[i-d]) return i-d; if(ok[i+d]) return i+d; }
     return i;
   }
+  function draw(pos){
+    if(!started || !imgs.length) return;
+    var i0=Math.floor(pos), frac=pos-i0, i1=i0+1;
+    if(i0<1){ i0=1; i1=1; frac=0; } if(i1>N){ i1=N; if(i0>N) i0=N; }
+    i0=nearestInt(i0); i1=nearestInt(i1);
+    if(!imgs[i0] || !ok[i0]) return;
+    ctx.clearRect(0,0,W,H);
+    ctx.globalAlpha=1; ctx.drawImage(imgs[i0],0,0,W,H);
+    if(i1!==i0 && frac>0.004 && imgs[i1] && ok[i1]){ ctx.globalAlpha=frac; ctx.drawImage(imgs[i1],0,0,W,H); ctx.globalAlpha=1; }
+  }
   function load(i){
     if(imgs[i]) return;
     var im=new Image(); im.decoding='async'; im.src=src(i); imgs[i]=im;
-    var mark=function(){ ok[i]=true; if(Math.round(cur)===i) draw(i); };
-    if(im.decode){ im.decode().then(mark, mark); } else { im.onload=mark; }
+    var mark=function(){ if(imgs[i]!==im) return; ok[i]=true; if(Math.abs(cur-i)<1) draw(cur); };
+    if(im.decode){ im.decode().then(mark, function(){}); } else { im.onload=mark; }
   }
   function startLoad(){
     if(started) return; started=true;
     if(reduced){ load(N); want=N; cur=N; if(bar) bar.style.setProperty('--t',1); return; }
-    for(var i=1;i<=N;i++) load(i);
+    /* en tandas chicas (no las ~150 de una) para no saturar conexiones/decode de golpe */
+    var i=1;
+    function chunk(){
+      if(!started) return;
+      var end=Math.min(N,i+9);
+      for(; i<=end; i++) load(i);
+      if(i<=N) setTimeout(chunk,60);
+    }
+    chunk();
   }
   function anim(){
+    if(!started){ running=false; return; }
     var d=want-cur;
-    if(Math.abs(d)<0.05){ cur=want; draw(nearest(Math.round(cur))); running=false; return; }
+    if(Math.abs(d)<0.01){ cur=want; draw(cur); running=false; return; }
     cur+=d*0.2;
-    draw(nearest(Math.round(cur)));
+    draw(cur);
     requestAnimationFrame(anim);
   }
   function kick(){ if(!running){ running=true; requestAnimationFrame(anim); } }
   function tick(){
-    var r=stage.getBoundingClientRect(), vh=window.innerHeight;
-    /* p=0 cuando el stage asoma por abajo; p=1 cuando su centro llega al 45% de la pantalla */
-    var start=vh, end=vh*0.45 - r.height/2;
-    var p=(start - r.top)/(start - end); p=Math.max(0,Math.min(1,p));
+    var vh=window.innerHeight, p;
+    if(track){
+      /* progreso del carril sticky: 0 cuando el carril empieza a pegarse, 1 cuando se despega */
+      var tr=track.getBoundingClientRect(), stageH=stage.getBoundingClientRect().height;
+      var range=Math.max(1, tr.height - stageH);
+      p=(stickyTopPx - tr.top)/range;
+    } else {
+      var r=stage.getBoundingClientRect();
+      /* p=0 cuando el stage asoma por abajo; p=1 cuando su centro llega al 45% de la pantalla */
+      var start=vh, end=vh*0.45 - r.height/2;
+      p=(start - r.top)/(start - end);
+    }
+    p=Math.max(0,Math.min(1,p));
     if(bar) bar.style.setProperty('--t',p.toFixed(3));
-    want=1+Math.round(p*(N-1));
+    want=1+p*(N-1);
     kick();
   }
+  function onResize(){ stickyTopPx=window.innerHeight*0.10; tick(); }
   function activar(){
     startLoad();
     if(reduced) return;
     window.addEventListener('scroll',tick,{passive:true});
-    window.addEventListener('resize',tick);
+    window.addEventListener('resize',onResize);
     tick();
   }
+  function liberar(){
+    /* fuera del margen de 1.5vh: suelta los frames decodificados (pueden ser ~150 x escena)
+       para no acumular memoria al pasar por las 5 piezas; si vuelve a entrar, recarga. */
+    if(!started) return;
+    window.removeEventListener('scroll',tick);
+    window.removeEventListener('resize',onResize);
+    imgs=[]; ok=[]; started=false; running=false; want=1; cur=1;
+    ctx.clearRect(0,0,W,H);
+  }
+  var ioTarget=track||stage;
   if('IntersectionObserver' in window){
     var lead=Math.round(window.innerHeight*1.5)+'px';
     var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ activar(); io.disconnect(); } });
+      es.forEach(function(e){ if(e.isIntersecting){ if(!started) activar(); } else { liberar(); } });
     },{rootMargin:lead+' 0px '+lead+' 0px'});
-    io.observe(stage);
+    io.observe(ioTarget);
   } else { activar(); }
 }
 initEscena({stage:'dp-stage',canvas:'dp-canvas',bar:'dp-bar',n:71,
   dirMob:'img/dp-frames/mob/',dirDesk:'img/dp-frames/desk/'});
-initEscena({stage:'scr-motor-stage',canvas:'scr-motor-canvas',n:90,
+initEscena({stage:'scr-motor-stage',canvas:'scr-motor-canvas',track:'scr-motor-track',n:148,
   dirMob:'img/scroll-frames/motor/mob/',dirDesk:'img/scroll-frames/motor/desk/'});
-initEscena({stage:'scr-carburador-stage',canvas:'scr-carburador-canvas',n:90,
+initEscena({stage:'scr-carburador-stage',canvas:'scr-carburador-canvas',track:'scr-carburador-track',n:148,
   dirMob:'img/scroll-frames/carburador/mob/',dirDesk:'img/scroll-frames/carburador/desk/'});
-initEscena({stage:'scr-freno-stage',canvas:'scr-freno-canvas',n:90,
+initEscena({stage:'scr-freno-stage',canvas:'scr-freno-canvas',track:'scr-freno-track',n:147,
   dirMob:'img/scroll-frames/freno/mob/',dirDesk:'img/scroll-frames/freno/desk/'});
-initEscena({stage:'scr-embrague-stage',canvas:'scr-embrague-canvas',n:90,
+initEscena({stage:'scr-embrague-stage',canvas:'scr-embrague-canvas',track:'scr-embrague-track',n:148,
   dirMob:'img/scroll-frames/embrague/mob/',dirDesk:'img/scroll-frames/embrague/desk/'});
-initEscena({stage:'scr-horquilla-stage',canvas:'scr-horquilla-canvas',n:90,
+initEscena({stage:'scr-horquilla-stage',canvas:'scr-horquilla-canvas',track:'scr-horquilla-track',n:147,
   dirMob:'img/scroll-frames/horquilla/mob/',dirDesk:'img/scroll-frames/horquilla/desk/'});
 </script>
 </body>
