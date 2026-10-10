@@ -63,14 +63,22 @@ var EV = window.EV = {
      tirado a la basura. */
   links: { base: '', a: '', b: '', ab: '' },
 
-  /* Píxel. VACÍO = la página NO carga fbevents.js: cero peticiones
-     externas. Candidatos medidos el 2026-10-10 en la cuenta:
-        1372300278375775  pixel "WH"      — last_fired_time: NUNCA disparó
-        1476648010591444  dataset "WH ... Event Data" — vivo, pero es el
-                          que hoy mide las conversaciones de WhatsApp por
-                          CAPI: meterle eventos de web mezcla dos cosas.
-     Cuál se usa lo decide Esteban. Heredar el de melamina o el de CapCut
-     mediría otro producto. */
+  /* Píxel. VACÍO = la página NO carga fbevents.js: cero peticiones externas.
+     CENSO POR API 2026-10-10 de act_1626304355673207 (LANDINGS USD, la cuenta
+     que va a pautar esta landing). Los 3 pixeles compartidos con ella son de
+     OTROS productos:
+        1040771825513533  "Edicion PRO - Curso CapCut"   (EL MEGA BAZAR)
+        1111081301276455  "MELAMINA - Planos y Curso"    (United States BASED)
+        1076125914843182  "The Game Box"                 (EL MEGA BAZAR)
+     act_2973319799675168 (WH INTERNATIONAL) devuelve {"data":[]}: CERO pixeles
+     compartidos. Y 1372300278375775 / 1476648010591444 no son legibles con este
+     token (error #200, sin permiso del dueño) ni estan compartidos con la cuenta.
+     => NO existe un dataset de MOTOS. Meter esta landing en cualquiera de los 3
+     mezcla productos y le ensucia la optimizacion al que ya corre. Crear el
+     dataset es ESCRITURA DE ACTIVO: queda PROPUESTO para el dedo de Esteban
+     (comando en el parte de motos-vende). Mientras esto siga vacio la pagina no
+     mide nada, y es la razon por la que el conjunto nace optimizado a
+     LANDING_PAGE_VIEWS y no a conversiones. */
   pixel: '',
 
   /* Un solo verbo en TODOS los botones. Medido en /nueva/ el 2026-10-10:
@@ -402,6 +410,12 @@ function chipGarantia() {
   /* reversión de riesgo ARRIBA DEL PLIEGUE. El texto NO se inventa: se
      toma del bloque de garantía que la propia página ya publica. */
   var hero = $('#btn-hero'); if (!hero || $('[data-ev-inyectado="chip"]')) return;
+  /* C4 — desde el rebase sobre pack-scroll la garantia va EN EL HTML (en el
+     .cta-note del hero), para que siga visible con el JS bloqueado. Si ya esta
+     escrita, este chip la repetiria. Reversa: borrar estas 2 lineas. */
+  var cont = (hero.closest && hero.closest('.hero-copy')) || (hero.parentNode && hero.parentNode.parentNode) || hero.parentNode;
+  var nota = cont && cont.querySelector ? cont.querySelector('.cta-note') : null;
+  if (nota && /[Gg]arant/.test(nota.textContent)) return;
   var c = document.createElement('div');
   c.setAttribute('data-ev-inyectado', 'chip');
   c.className = 'cta-note';

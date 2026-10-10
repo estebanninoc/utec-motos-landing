@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOTOS PRO: +900 manuales de taller de 30 marcas · repara tu moto tú mismo</title>
-<meta name="description" content="Deja de pagarle al taller: +900 manuales paso a paso de 30 marcas, despiece, diagramas eléctricos y tablas de torque. Pago único US$12.99.">
+<title>MOTOS PRO: 962 manuales de taller de 30 marcas · repara tu moto tú mismo</title>
+<meta name="description" content="Deja de pagarle al taller: 962 manuales paso a paso de 30 marcas, despiece, diagramas eléctricos y tablas de torque. Pago único $15.000.">
 <meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="estructura-venta.css">
 <meta property="og:title" content="MOTOS PRO: repara tu moto tú mismo">
-<meta property="og:description" content="+900 manuales de taller de 30 marcas. Pago único $15.000 COP.">
+<meta property="og:description" content="962 manuales de taller de 30 marcas. Pago único $15.000.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://estebanninoc.github.io/utec-motos-landing/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -187,6 +188,13 @@
 
   /* PRECIO */
   .price-card{background:linear-gradient(160deg,var(--panel2),#000);border:1.5px solid #fff;border-radius:24px;padding:46px 34px;text-align:center;max-width:520px;margin:38px auto 0;box-shadow:0 0 80px -24px rgba(255,255,255,.45)}
+  .price-label{color:var(--mut);font-size:.9rem}
+  .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
+  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:400;font-size:1.35rem;text-decoration-thickness:2px}
+  .ancla .off{background:#fff;color:#000;font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:#17171a;border:1px dashed #4a4a52;border-radius:12px;padding:10px 14px;margin:18px auto 20px;max-width:420px}
+  .reloj .rl{color:var(--mut);font-size:.85rem}
+  .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em}
   .price-now{font-family:var(--disp);font-size:3.6rem;font-weight:900;line-height:1;margin:6px 0 4px;letter-spacing:-.04em}
   .price-per{display:inline-block;background:#17171a;border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--mut);margin-top:12px}
   .price-per b{color:#fff}
@@ -219,6 +227,12 @@
   .bump .bp{font-family:var(--disp);font-weight:900;font-size:1.05rem}
   .bump-nota{font-size:.82rem;color:var(--mut);text-align:center;background:#17171a;border:1px dashed #3a3a40;border-radius:10px;padding:8px 12px}
   .bump-nota b{color:#fff}
+  /* BONOS OCULTOS (orden de Esteban, ya aplicada en melamina 2026-09-29: "los
+     bonos distraen"). Solo se ESCONDE el bloque: los dos checkbox siguen en
+     el DOM y sin marcar, up() resuelve siempre la clave "base" y el botón
+     sirve el precio base. No se tocó ningún precio, link ni el pixel.
+     REVERSA: borrar esta única regla y los bonos vuelven tal cual estaban. */
+  .bumps{display:none!important}
 
   @media(max-width:820px){
     .badges{grid-template-columns:repeat(2,1fr)}
@@ -270,6 +284,10 @@
   .dp-piezas{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px auto 0;max-width:640px;padding:0 20px}
   .dp-piezas li{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-family:var(--disp);font-weight:800;font-size:.8rem}
   @media(max-width:820px){.dp-stage{width:100%;margin-left:0;padding:0 4px}}
+  /* ESCENAS scroll-scrub chicas (motor/carburador/freno), mismo mecanismo que .dp-stage: sin caja, flota sobre el fondo */
+  .dp-mini{padding:50px 0 10px}
+  .dp-stage-mini{position:relative;text-align:center;margin:0 auto}
+  .dp-stage-mini canvas{display:inline-block;max-width:100%;max-height:78vh;width:auto;height:auto}
   /* GALERÍA con video local */
   .fx video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
   .fx{cursor:default}
@@ -280,28 +298,25 @@
   .entrega{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
   @media(max-width:820px){.entrega{grid-template-columns:1fr}}
 </style>
-<!-- Meta Pixel (pendiente ID real) -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','PIXEL_ID_PENDIENTE');
-fbq('track','PageView');
-document.addEventListener('click',function(ev){
-  var a = ev.target.closest ? ev.target.closest('[data-buy]') : null;
-  if(a){ fbq('track','InitiateCheckout',{value:parseFloat(window.__precioUSD)||12.99,currency:'USD'}); }
-},true);
-</script>
-<link rel="stylesheet" href="estructura-venta.css">
+<!-- Meta Pixel: UN SOLO DUENO, y es estructura-venta.js (EV.pixel).
+     Aca habia un bloque de medicion que: (1) pedia el fbevents.js de Meta en
+     CADA visita, (2) arrancaba el pixel con el id de relleno, contra un dataset
+     que no existe, y (3) mandaba un evento de checkout con un valor FIJO de
+     12.99 dolares en cada clic -- sobre una pagina que cobra 15.000 COP por
+     WhatsApp y que nunca puede saber si el cliente pago. Es el mismo patron
+     que se mando quitar en melamina por inflar el ROAS de adentro de Meta.
+     No se podia neutralizar desde el pie: vivia en el <head> y corria ANTES
+     del stub de la capa, asi que la peticion y el evento ya habian salido.
+     El evento honesto (Contact, SIN valor, con eventID estable) lo manda
+     estructura-venta.js seccion 6. Reversa: devolver el bloque original desde
+     pack-scroll/index.html. -->
 </head>
 <body>
 
 <nav>
   <div class="wrap">
     <div class="logo"><span class="mark"><img src="img/logo-mark.svg" alt="" width="30" height="30"></span>MOTOS<span class="sub">PRO</span></div>
-    <a href="#comprar" class="btn">Quiero los manuales</a>
+    <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn" data-ev-cta="1">COMPRAR</a>
   </div>
 </nav>
 
@@ -311,11 +326,11 @@ document.addEventListener('click',function(ev){
       <div class="hero-copy">
         <div class="pill">🏍️ Biblioteca de taller MOTOS PRO · <b>Celular + PC</b></div>
         <h1>Deja de pagarle al taller.<br>Repara tu moto <span class="cut">tú mismo</span>.</h1>
-        <p class="sub"><b>Más de 900 manuales de taller</b> de <b>30 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
+        <p class="sub"><b>962 manuales de taller</b> de <b>30 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
         <div class="cta-row">
-          <a href="#comprar" class="btn big" id="btn-hero">Empezar hoy · US$12.99 →</a>
+          <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn big" id="btn-hero" data-ev-cta="1">QUIERO EL PACK · $15.000 →</a>
         </div>
-        <div class="cta-note">Pago único · Acceso inmediato · Es tuyo para siempre</div>
+        <div class="cta-note">🛡️ Garantía de 7 días sin preguntas · Pago único · Acceso inmediato</div>
       </div>
 
       <div class="device" aria-hidden="true">
@@ -343,7 +358,7 @@ document.addEventListener('click',function(ev){
   </div>
 
   <div class="marcas">
-    <p class="marcas-lb">Compatible con 30 marcas de moto</p>
+    <p class="marcas-lb">Compatible con 30 marcas</p>
     <div class="cinta"><div class="cinta-track"><span class="cinta-grp"><span class="cinta-it"><img src="img/logos/honda.svg" alt="Honda" width="33" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/suzuki.svg" alt="Suzuki" width="48" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bajaj.svg" alt="Bajaj" width="150" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/hero.svg" alt="Hero" width="99" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/akt.webp" alt="AKT" width="120" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/cfmoto.svg" alt="CFMoto" width="162" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bmw.svg" alt="BMW" width="32" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/harley-davidson.svg" alt="Harley-Davidson" width="39" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/aprilia.svg" alt="Aprilia" width="72" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bera.png" alt="Bera" width="53" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/husqvarna.svg" alt="Husqvarna" width="133" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/indian.svg" alt="Indian" width="71" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/keeway.svg" alt="Keeway" width="139" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/kymco.svg" alt="Kymco" width="145" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/loncin.png" alt="Loncin" width="152" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/moto-guzzi.svg" alt="Moto Guzzi" width="91" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/motomel.png" alt="Motomel" width="56" height="26" decoding="async"></span></span><span class="cinta-grp" aria-hidden="true"><span class="cinta-it"><img src="img/logos/honda.svg" alt="" width="33" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/suzuki.svg" alt="" width="48" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bajaj.svg" alt="" width="150" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/hero.svg" alt="" width="99" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/akt.webp" alt="" width="120" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/cfmoto.svg" alt="" width="162" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bmw.svg" alt="" width="32" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/harley-davidson.svg" alt="" width="39" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/aprilia.svg" alt="" width="72" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/bera.png" alt="" width="53" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/husqvarna.svg" alt="" width="133" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/indian.svg" alt="" width="71" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/keeway.svg" alt="" width="139" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/kymco.svg" alt="" width="145" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/loncin.png" alt="" width="152" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/moto-guzzi.svg" alt="" width="91" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/motomel.png" alt="" width="56" height="26" decoding="async"></span></span></div></div>
     <div class="cinta cinta-rev"><div class="cinta-track"><span class="cinta-grp"><span class="cinta-it"><img src="img/logos/yamaha.svg" alt="Yamaha" width="139" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/kawasaki.svg" alt="Kawasaki" width="180" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/tvs.svg" alt="TVS" width="178" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/ktm.svg" alt="KTM" width="103" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/italika.svg" alt="Italika" width="150" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/vento.svg" alt="Vento" width="156" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/gilera.svg" alt="Gilera" width="22" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/sym.svg" alt="SYM" width="81" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/vespa.svg" alt="Vespa" width="87" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/ducati.svg" alt="Ducati" width="30" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/mv-agusta.svg" alt="MV Agusta" width="39" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/piaggio.svg" alt="Piaggio" width="23" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/royal-enfield.svg" alt="Royal Enfield" width="70" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/shineray.png" alt="Shineray" width="147" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/triumph.svg" alt="Triumph" width="95" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/zanella.png" alt="Zanella" width="60" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/zongshen.png" alt="Zongshen" width="37" height="26" decoding="async"></span></span><span class="cinta-grp" aria-hidden="true"><span class="cinta-it"><img src="img/logos/yamaha.svg" alt="" width="139" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/kawasaki.svg" alt="" width="180" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/tvs.svg" alt="" width="178" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/ktm.svg" alt="" width="103" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/italika.svg" alt="" width="150" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/vento.svg" alt="" width="156" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/gilera.svg" alt="" width="22" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/sym.svg" alt="" width="81" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/vespa.svg" alt="" width="87" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/ducati.svg" alt="" width="30" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/mv-agusta.svg" alt="" width="39" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/piaggio.svg" alt="" width="23" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/royal-enfield.svg" alt="" width="70" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/shineray.png" alt="" width="147" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/triumph.svg" alt="" width="95" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/zanella.png" alt="" width="60" height="26" decoding="async"></span><span class="cinta-it"><img src="img/logos/zongshen.png" alt="" width="37" height="26" decoding="async"></span></span></div></div>
   </div>
@@ -351,7 +366,7 @@ document.addEventListener('click',function(ev){
   <div class="wrap">
     <div class="badges">
       <div class="badge"><div class="n">+900</div><div class="l">manuales de taller</div></div>
-      <div class="badge"><div class="n">30</div><div class="l">marcas de motos</div></div>
+      <div class="badge"><div class="n">+100</div><div class="l">marcas de motos</div></div>
       <div class="badge"><div class="n">25<span style="font-size:.9rem"> GB</span></div><div class="l">de contenido</div></div>
       <div class="badge"><div class="n">2T·4T</div><div class="l">motores cubiertos</div></div>
     </div>
@@ -379,55 +394,48 @@ document.addEventListener('click',function(ev){
   <div class="wrap">
     <div class="eyebrow">Así es el contenido</div>
     <h2 class="title">Lo que hay dentro del pack</h2>
-    <p class="lead">Mira de cerca cada sistema de tu moto, pieza por pieza y con su nombre. <b>Así de claro</b> te lo muestra el manual de tu moto, para tu marca y tu modelo.</p>
-    <div class="gallery-big"><div class="fx fx-pack g1"><img class="fx-th" src="vid-ax/motor.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/motor.mp4" poster="vid-ax/motor.webp"></video><span>Motor</span><div class="fx-labels"><ul><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul></div></div><div class="fx fx-pack g3"><img class="fx-th" src="vid-ax/carburador.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/carburador.mp4" poster="vid-ax/carburador.webp"></video><span>Carburador</span><div class="fx-labels"><ul><li>Tapa</li><li>Campana</li><li>Aguja</li><li>Chiclés</li><li>Flotador</li><li>Cuba</li></ul></div></div><div class="fx fx-pack g4"><img class="fx-th" src="vid-ax/freno.webp" alt="" loading="lazy" decoding="async"><video muted loop playsinline preload="none" data-src="vid-ax/freno.mp4" poster="vid-ax/freno.webp"></video><span>Frenos</span><div class="fx-labels"><ul><li>Disco</li><li>Caliper</li><li>Pastillas</li><li>Pistones</li><li>Purgador</li></ul></div></div></div>
-    <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
+    <p class="lead">Baja y mira cada sistema abrirse pieza por pieza, con su nombre. <b>Así de claro</b> te lo muestra el manual de tu moto, para tu marca y tu modelo.</p>
   </div>
 </section>
 
-<!-- PRECIO -->
-<section id="comprar">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">Empieza hoy</div>
-    <h2 class="title">Arma tu pack, un solo pago</h2>
-    <div class="price-card">
-      <div class="price-now" id="precio-grande">US$12.99</div>
-      <div class="price-per">pago único · <b>acceso de por vida</b></div>
-      <ul class="price-list">
-        <li><b>+900 manuales</b> de taller de 30 marcas</li>
-        <li>Despiece, montaje y diagramas eléctricos</li>
-        <li>Curso completo de Mecánica 2T y 4T</li>
-        <li>Acceso inmediato a tu carpeta privada</li>
-        <li>Garantía de 7 días sin preguntas</li>
-      </ul>
-      <div class="bumps">
-        <label class="bump" id="bump-a"><input type="checkbox"><span class="bx"></span><span class="bt">🚗 <b>Bonus Autos</b><small>Polarizado de Autos + Aire Acondicionado Automotriz</small></span><span class="bp">+US$1.99</span></label>
-        <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
-        <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
-      </div>
-      <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Quiero mi acceso ahora · US$12.99 →</a>
-      <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
-  <div class="pay-row">
-    <span class="pay-chip"><svg width="30" height="16" viewBox="0 0 30 16" role="img" aria-label="Visa"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="900" font-size="15" letter-spacing="-.5" fill="currentColor">VISA</text></svg></span>
-    <span class="pay-chip"><svg width="20" height="16" viewBox="0 0 20 16" aria-hidden="true"><circle cx="7" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Mastercard</span>
-    <span class="pay-chip"><svg width="40" height="16" viewBox="0 0 40 16" role="img" aria-label="American Express"><rect x=".75" y=".75" width="38.5" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="20" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="8" letter-spacing=".5" fill="currentColor">AMEX</text></svg></span>
-    <span class="pay-chip"><svg width="50" height="16" viewBox="0 0 50 16" role="img" aria-label="PayPal"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="14" fill="currentColor">PayPal</text></svg></span>
-    <span class="pay-chip"><svg width="98" height="16" viewBox="0 0 98 16" role="img" aria-label="Mercado Pago"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="13" fill="currentColor">Mercado Pago</text></svg></span>
+<section class="dp dp-mini" id="escena-motor">
+  <div class="dp-stage-mini" id="scr-motor-stage">
+    <canvas id="scr-motor-canvas" width="783" height="1400" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
   </div>
-
-      <div class="aviso" id="aviso-checkout">Página en preparación: el pago todavía no está conectado.</div>
-    </div>
-  </div>
+  <ul class="dp-piezas"><li>Motor</li><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul>
 </section>
 
-<!-- GARANTÍA -->
-<section style="background:var(--panel)">
+<section class="dp dp-mini" id="escena-carburador">
+  <div class="dp-stage-mini" id="scr-carburador-stage">
+    <canvas id="scr-carburador-canvas" width="722" height="1400" role="img" aria-label="Carburador de motocicleta que se desarma pieza por pieza: tapa, campana, aguja, chiclés, flotador, cuba."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Carburador</li><li>Tapa</li><li>Campana</li><li>Aguja</li><li>Chiclés</li><li>Flotador</li><li>Cuba</li></ul>
+</section>
+
+<section class="dp dp-mini" id="escena-freno">
+  <div class="dp-stage-mini" id="scr-freno-stage">
+    <canvas id="scr-freno-canvas" width="1103" height="1400" role="img" aria-label="Sistema de freno de motocicleta que se desarma pieza por pieza: disco, caliper, pastillas, pistones, purgador."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Frenos</li><li>Disco</li><li>Caliper</li><li>Pastillas</li><li>Pistones</li><li>Purgador</li></ul>
+</section>
+
+<section class="dp dp-mini" id="escena-embrague">
+  <div class="dp-stage-mini" id="scr-embrague-stage">
+    <canvas id="scr-embrague-canvas" width="783" height="1400" role="img" aria-label="Embrague de motocicleta que se desarma pieza por pieza: campana, discos de fricción, platos de acero, plato de presión, muelles, tornillos."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Embrague</li><li>Campana</li><li>Discos</li><li>Platos</li><li>Muelles</li><li>Buje central</li><li>Tornillos</li></ul>
+</section>
+
+<section class="dp dp-mini" id="escena-horquilla">
+  <div class="dp-stage-mini" id="scr-horquilla-stage">
+    <canvas id="scr-horquilla-canvas" width="177" height="1400" role="img" aria-label="Horquilla de motocicleta que se desarma pieza por pieza: tapón, resorte, barra, retén, buje, barral."></canvas>
+  </div>
+  <ul class="dp-piezas"><li>Horquilla</li><li>Tapón</li><li>Resorte</li><li>Barra</li><li>Retén</li><li>Buje</li><li>Barral</li></ul>
+</section>
+
+<section>
   <div class="wrap">
-    <div class="guar">
-      <div class="shield">🛡️</div>
-      <h2 class="title" style="margin-bottom:10px">Garantía de 7 días</h2>
-      <p class="lead" style="margin:0 auto">Tiempo real para revisar los manuales antes de decidir. Si en 7 días no es lo que esperabas, te devolvemos el 100% de tu dinero.</p>
-    </div>
+    <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
   </div>
 </section>
 
@@ -439,7 +447,7 @@ document.addEventListener('click',function(ev){
     <p class="lead">Lo que ves es lo que hay.</p>
     <div class="acc">
       <details open>
-        <summary><span>1 · Manuales de taller por marca</span><span class="meta">+900 manuales · 30 marcas</span></summary>
+        <summary><span>1 · Manuales de taller por marca</span><span class="meta">962 manuales · 30 marcas</span></summary>
         <div class="acc-body"><p>Honda, Yamaha, Suzuki, Kawasaki, Bajaj, AKT, KTM, Ducati, BMW, Royal Enfield, Benelli, TVS, Hero, CF Moto, Italika, Aprilia, Piaggio, Harley-Davidson y las marcas chinas e indias de mayor circulación en Latinoamérica. Despiece, montaje y diagramas eléctricos.</p></div>
       </details>
       <details>
@@ -459,9 +467,57 @@ document.addEventListener('click',function(ev){
     </div>
 
     <div class="entrega">
-      <div class="step"><div class="num">1</div><h3>Pagas una sola vez</h3><p>US$12.99, sin mensualidades. Con tarjeta, PayPal o Mercado Pago.</p></div>
+      <div class="step"><div class="num">1</div><h3>Pagas una sola vez</h3><p>$15.000, sin mensualidades. Nequi, Daviplata, Llaves o Bancolombia.</p></div>
       <div class="step"><div class="num">2</div><h3>Recibes el acceso al instante</h3><p>Te llega el enlace a tu carpeta privada apenas se confirma el pago.</p></div>
       <div class="step"><div class="num">3</div><h3>Buscas tu moto y la arreglas</h3><p>PDF por marca y modelo. Se abre en el celular, incluso sin internet.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section id="comprar">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Empieza hoy</div>
+    <h2 class="title">Arma tu pack, un solo pago</h2>
+    <div class="price-card">
+      <div class="price-label">Precio de hoy</div>
+      <div class="ancla"><s id="anc-lista">&nbsp;</s><span class="off" id="anc-off">&nbsp;</span></div>
+      <div class="price-now" id="precio-grande">$15.000</div>
+      <div class="price-per">pago único en pesos · <b>acceso de por vida</b></div>
+      <ul class="price-list">
+        <li><b>962 manuales</b> de taller de 30 marcas</li>
+        <li>Despiece, montaje y diagramas eléctricos</li>
+        <li>Curso completo de Mecánica 2T y 4T</li>
+        <li>Acceso inmediato a tu carpeta privada</li>
+        <li>Garantía de 7 días sin preguntas</li>
+      </ul>
+      <div class="bumps">
+        <label class="bump" id="bump-a"><input type="checkbox"><span class="bx"></span><span class="bt">🚗 <b>Bonus Autos</b><small>Polarizado de Autos + Aire Acondicionado Automotriz</small></span><span class="bp">+US$1.99</span></label>
+        <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
+        <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
+      </div>
+      <div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--</b></div>
+      <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn big" id="btn-pago" data-buy="1" data-ev-cta="1">QUIERO EL PACK · $15.000 →</a>
+      <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
+  <div class="pay-row" style="display:none" data-ev-oculto="metodos-no-ofrecidos">
+    <span class="pay-chip"><svg width="30" height="16" viewBox="0 0 30 16" role="img" aria-label="Visa"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="900" font-size="15" letter-spacing="-.5" fill="currentColor">VISA</text></svg></span>
+    <span class="pay-chip"><svg width="20" height="16" viewBox="0 0 20 16" aria-hidden="true"><circle cx="7" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Mastercard</span>
+    <span class="pay-chip"><svg width="40" height="16" viewBox="0 0 40 16" role="img" aria-label="American Express"><rect x=".75" y=".75" width="38.5" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="20" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="8" letter-spacing=".5" fill="currentColor">AMEX</text></svg></span>
+    <span class="pay-chip"><svg width="50" height="16" viewBox="0 0 50 16" role="img" aria-label="PayPal"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="14" fill="currentColor">PayPal</text></svg></span>
+    <span class="pay-chip"><svg width="98" height="16" viewBox="0 0 98 16" role="img" aria-label="Mercado Pago"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="13" fill="currentColor">Mercado Pago</text></svg></span>
+  </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GARANTÍA -->
+<section style="background:var(--panel)">
+  <div class="wrap">
+    <div class="guar">
+      <div class="shield">🛡️</div>
+      <h2 class="title" style="margin-bottom:10px">Garantía de 7 días</h2>
+      <p class="lead" style="margin:0 auto">Tiempo real para revisar los manuales antes de decidir. Si en 7 días no es lo que esperabas, te devolvemos el 100% de tu dinero.</p>
     </div>
   </div>
 </section>
@@ -472,9 +528,9 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Preguntas frecuentes</div>
     <h2 class="title">Lo que todos preguntan</h2>
     <div class="acc">
-<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son 30 marcas y +900 manuales. Si no ubicas la tuya, se busca contigo por soporte.</div></details>
+<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son 30 marcas y 962 manuales. Si no ubicas la tuya, se busca contigo por soporte.</div></details>
   <details><summary><span>¿Necesito experiencia en mecánica?</span></summary><div class="acc-body">No. El manual muestra la pieza y el orden, igual que en el taller oficial. Empiezas por las fallas más comunes y avanzas a tu ritmo con el paso a paso de cada manual.</div></details>
-  <details><summary><span>¿Es un pago único o tiene mensualidad?</span></summary><div class="acc-body">Es un pago único de <b id="faq-precio">US$12.99</b>, sin suscripción y con acceso de por vida. Con 7 días de garantía.</div></details>
+  <details><summary><span>¿Es un pago único o tiene mensualidad?</span></summary><div class="acc-body">Es un pago único de <b id="faq-precio">$15.000</b>, sin suscripción y con acceso de por vida. Con 7 días de garantía.</div></details>
   <details><summary><span>¿Cómo llega el acceso después de pagar?</span></summary><div class="acc-body">Al confirmar el pago te llega el acceso para descargar todo de inmediato, sin esperas.</div></details>
   <details><summary><span>¿Funciona desde el celular?</span></summary><div class="acc-body">Sí, es como más se usa. Se abre igual en Android o iPhone, con zoom sobre el diagrama, y sin gastar datos una vez descargado.</div></details>
   <details><summary><span>¿En qué formato vienen los manuales?</span></summary><div class="acc-body">En PDF descargable: se abre en cualquier celular o computador sin instalar nada.</div></details>
@@ -495,8 +551,8 @@ document.addEventListener('click',function(ev){
 </footer>
 
 <div class="buybar" id="buybar">
-  <div class="p"><span id="buybar-precio">US$12.99</span><small>pago único · acceso inmediato</small></div>
-  <a href="#comprar" class="btn">Quiero los manuales →</a>
+  <div class="p"><span id="buybar-precio">$15.000</span><small>pago único · acceso inmediato</small></div>
+  <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS" class="btn" data-ev-cta="1">QUIERO EL PACK →</a>
 </div>
 
 <script>
@@ -514,8 +570,21 @@ document.addEventListener('click',function(ev){
 
 /* precio + bonos */
 (function(){
-  var LINKS={base:'#STRIPE-PENDIENTE',a:'#STRIPE-PENDIENTE',b:'#STRIPE-PENDIENTE',ab:'#STRIPE-PENDIENTE'};
-  var PR={base:'12.99',a:'14.98',b:'14.98',ab:'16.97'};
+  var WA_MOTOS='https://wa.me/573132579097?text=QUIERO%20INFO%20MOTOS';
+  var LINKS={base:WA_MOTOS,a:WA_MOTOS,b:WA_MOTOS,ab:WA_MOTOS};
+  var PR={base:'15.000',a:'15.000',b:'15.000',ab:'15.000'};
+  var ANTES={};   /* sin ancla: un 'antes' en pesos que nadie cobro es un numero inventado */
+  function pintarAncla(k){
+    var c=document.querySelector('.ancla'), lis=document.getElementById('anc-lista'), off=document.getElementById('anc-off');
+    if(!c) return;
+    var antes=ANTES[k];
+    var s=antes?parseFloat(antes):0, h=parseFloat(PR[k]);
+    if(!(s>h)){ c.style.display='none'; return; }   /* antes callarse que mentir */
+    var pct=Math.floor(100*(1-h/s));
+    c.style.display='';
+    lis.textContent='US$'+antes;
+    off.textContent='-'+pct+'%';
+  }
   var REF=null;
   try{
     var q=new URLSearchParams(location.search);
@@ -524,20 +593,53 @@ document.addEventListener('click',function(ev){
     if(!REF) REF=sessionStorage.getItem('motosRef');
     if(!REF && (q.get('fbclid')||/facebook\.com|instagram\.com/.test(document.referrer))) REF='MOTOS-META-SINTAG';
   }catch(e){}
-  function conRef(u){ if(u.charAt(0)==='#') return u; return REF ? u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF : u; }
+  /* La huella del clic viaja DENTRO del texto del mensaje, no como parametro:
+     wa.me ignora los parametros que no conoce, asi que un client_reference_id
+     pegado a la URL se pierde entero. Medido 2026-10-10 en Mongo: el flow MOTOS
+     engancha con lower.includes('quiero info motos') y los 1 triggers activos son
+     matchType=contains -> el sufijo NO rompe el ruteo del bot. */
+  function conRef(u){
+    if(u.charAt(0)==='#' || !REF) return u;
+    if(u.indexOf('wa.me')>=0){
+      var m=u.match(/[?&]text=([^&]*)/);
+      if(m) return u.replace(m[0], m[0].charAt(0)+'text='+encodeURIComponent(decodeURIComponent(m[1])+' · '+REF));
+      return u;
+    }
+    return u+(u.indexOf('?')<0?'?':'&')+'client_reference_id='+REF;
+  }
   var ca=document.querySelector('#bump-a input'), cb=document.querySelector('#bump-b input');
   var btn=document.getElementById('btn-pago'), big=document.getElementById('precio-grande'), nota=document.getElementById('bump-nota');
   function up(){
     var k = ca.checked&&cb.checked ? 'ab' : ca.checked ? 'a' : cb.checked ? 'b' : 'base';
-    var t='US$'+PR[k]; window.__precioUSD=PR[k];
-    btn.href=conRef(LINKS[k]); btn.textContent='Quiero mi acceso ahora · '+t+' →';
+    var t='$'+PR[k]; window.__precioCOP=PR[k];
+    btn.href=conRef(LINKS[k]); btn.textContent='QUIERO EL PACK · '+t+' →';
     big.textContent=t; document.getElementById('buybar-precio').textContent=t;
     document.getElementById('bump-a').classList.toggle('on',ca.checked);
     document.getElementById('bump-b').classList.toggle('on',cb.checked);
     nota.innerHTML = (k==='ab') ? '🎉 Te llevas <b>todo por US$16.97</b>' : 'Marca los dos y te llevas <b>todo por US$16.97</b>';
     var fp=document.getElementById('faq-precio'); if(fp) fp.textContent=t;
+    pintarAncla(k);
   }
   ca.addEventListener('change',up); cb.addEventListener('change',up); up();
+})();
+
+/* countdown real de 15 min por sesión (mismo mecanismo que en melamina: sessionStorage,
+   no se reinicia con F5, sí con sesión nueva) */
+(function(){
+  var e=document.getElementById('reloj-d');
+  if(!e) return;
+  var MIN=15, KEY='motosDeadline15', fin;
+  try{ fin=parseInt(sessionStorage.getItem(KEY),10); }catch(x){}
+  if(!fin||isNaN(fin)||fin<Date.now()||(fin-Date.now())>MIN*60000){
+    fin=Date.now()+MIN*60000;
+    try{ sessionStorage.setItem(KEY,fin); }catch(x){}
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tic(){
+    var s=Math.floor(Math.max(0,fin-Date.now())/1000);
+    e.textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+  }
+  tic(); setInterval(tic,1000);
 })();
 
 /* galería: cada video arranca cuando se ve (son clips livianos de ~130 KB) */
@@ -570,39 +672,83 @@ document.addEventListener('click',function(ev){
   });
 })();
 
-/* despiece: el cuadro sigue la posición de la moto en pantalla (sin pin):
-   entra armada por abajo y queda abierta del todo cuando llega al centro */
-(function(){
-  var stage=document.getElementById('dp-stage'), canvas=document.getElementById('dp-canvas'), bar=document.getElementById('dp-bar');
+/* despiece (moto grande + escenas chicas motor/carburador/freno/embrague/horquilla): el cuadro
+   sigue la posición del stage en pantalla (sin pin). Un solo motor para los 6 escenarios:
+   - Precarga TEMPRANA: arranca a ~1.5 viewports de distancia (no 600px fijos) y pide TODOS
+     los frames de una, esperando su decode() real (no solo el onload de red), para que ya
+     estén listos para pintar cuando el escenario entra en pantalla.
+   - Animación con "persecución" (lerp) en vez de salto directo: cada frame el dibujado avanza
+     un 20% de la distancia que le falta al cuadro objetivo, por rAF continuo, estilo Apple.
+     Scroll rápido ya no salta de golpe entre cuadros lejanos. */
+function initEscena(cfg){
+  var stage=document.getElementById(cfg.stage), canvas=document.getElementById(cfg.canvas), bar=cfg.bar?document.getElementById(cfg.bar):null;
   if(!stage||!canvas) return;
-  var ctx=canvas.getContext('2d'), N=71;
-  var dir = window.matchMedia('(max-width:720px)').matches ? 'img/dp-frames/mob/' : 'img/dp-frames/desk/';
+  var ctx=canvas.getContext('2d'), N=cfg.n, W=canvas.width, H=canvas.height;
+  var dir = window.matchMedia('(max-width:720px)').matches ? cfg.dirMob : cfg.dirDesk;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var imgs=[], ok=[], want=1;
+  var imgs=[], ok=[], want=1, cur=1, started=false, running=false;
   function src(i){ return dir+'f_'+String(i).padStart(3,'0')+'.webp'; }
-  function draw(i){ if(ok[i]){ ctx.clearRect(0,0,1280,732); ctx.drawImage(imgs[i],0,0,1280,732); } }
-  function show(i){
-    want=i; if(ok[i]) return draw(i);
-    for(var d=1;d<N;d++){ if(ok[i-d]) return draw(i-d); if(ok[i+d]) return draw(i+d); }
+  function draw(i){ if(ok[i]){ ctx.clearRect(0,0,W,H); ctx.drawImage(imgs[i],0,0,W,H); } }
+  function nearest(i){
+    if(ok[i]) return i;
+    for(var d=1;d<N;d++){ if(ok[i-d]) return i-d; if(ok[i+d]) return i+d; }
+    return i;
   }
-  function load(i){ if(imgs[i]) return; var im=new Image(); im.decoding='async'; im.onload=function(){ ok[i]=true; if(i===want) draw(i); }; im.src=src(i); imgs[i]=im; }
-  if(reduced){ load(N); want=N; if(bar) bar.style.setProperty('--t',1); return; }
-  load(1); load(N);
-  var rest=[]; for(var q=2;q<N;q++) rest.push(q);
-  (function more(){ rest.splice(0,6).forEach(load); if(rest.length) setTimeout(more,90); })();
-  var busy=false;
+  function load(i){
+    if(imgs[i]) return;
+    var im=new Image(); im.decoding='async'; im.src=src(i); imgs[i]=im;
+    var mark=function(){ ok[i]=true; if(Math.round(cur)===i) draw(i); };
+    if(im.decode){ im.decode().then(mark, mark); } else { im.onload=mark; }
+  }
+  function startLoad(){
+    if(started) return; started=true;
+    if(reduced){ load(N); want=N; cur=N; if(bar) bar.style.setProperty('--t',1); return; }
+    for(var i=1;i<=N;i++) load(i);
+  }
+  function anim(){
+    var d=want-cur;
+    if(Math.abs(d)<0.05){ cur=want; draw(nearest(Math.round(cur))); running=false; return; }
+    cur+=d*0.2;
+    draw(nearest(Math.round(cur)));
+    requestAnimationFrame(anim);
+  }
+  function kick(){ if(!running){ running=true; requestAnimationFrame(anim); } }
   function tick(){
-    busy=false;
     var r=stage.getBoundingClientRect(), vh=window.innerHeight;
-    /* p=0 cuando la moto asoma por abajo; p=1 cuando su centro llega al 45% de la pantalla */
+    /* p=0 cuando el stage asoma por abajo; p=1 cuando su centro llega al 45% de la pantalla */
     var start=vh, end=vh*0.45 - r.height/2;
     var p=(start - r.top)/(start - end); p=Math.max(0,Math.min(1,p));
     if(bar) bar.style.setProperty('--t',p.toFixed(3));
-    show(1+Math.round(p*(N-1)));
+    want=1+Math.round(p*(N-1));
+    kick();
   }
-  function req(){ if(!busy){ busy=true; requestAnimationFrame(tick); } }
-  window.addEventListener('scroll',req,{passive:true}); window.addEventListener('resize',req); tick();
-})();
+  function activar(){
+    startLoad();
+    if(reduced) return;
+    window.addEventListener('scroll',tick,{passive:true});
+    window.addEventListener('resize',tick);
+    tick();
+  }
+  if('IntersectionObserver' in window){
+    var lead=Math.round(window.innerHeight*1.5)+'px';
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ activar(); io.disconnect(); } });
+    },{rootMargin:lead+' 0px '+lead+' 0px'});
+    io.observe(stage);
+  } else { activar(); }
+}
+initEscena({stage:'dp-stage',canvas:'dp-canvas',bar:'dp-bar',n:71,
+  dirMob:'img/dp-frames/mob/',dirDesk:'img/dp-frames/desk/'});
+initEscena({stage:'scr-motor-stage',canvas:'scr-motor-canvas',n:90,
+  dirMob:'img/scroll-frames/motor/mob/',dirDesk:'img/scroll-frames/motor/desk/'});
+initEscena({stage:'scr-carburador-stage',canvas:'scr-carburador-canvas',n:90,
+  dirMob:'img/scroll-frames/carburador/mob/',dirDesk:'img/scroll-frames/carburador/desk/'});
+initEscena({stage:'scr-freno-stage',canvas:'scr-freno-canvas',n:90,
+  dirMob:'img/scroll-frames/freno/mob/',dirDesk:'img/scroll-frames/freno/desk/'});
+initEscena({stage:'scr-embrague-stage',canvas:'scr-embrague-canvas',n:90,
+  dirMob:'img/scroll-frames/embrague/mob/',dirDesk:'img/scroll-frames/embrague/desk/'});
+initEscena({stage:'scr-horquilla-stage',canvas:'scr-horquilla-canvas',n:90,
+  dirMob:'img/scroll-frames/horquilla/mob/',dirDesk:'img/scroll-frames/horquilla/desk/'});
 </script>
 <script src="estructura-venta.js"></script>
 </body>
