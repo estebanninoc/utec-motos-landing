@@ -58,3 +58,35 @@
     flex: 0 1 auto; min-width: 0;
   }
 }
+
+/* 4 — C1: EL BOTÓN DEL NAV NO SE COME LA BARRA (2026-10-10) -----------
+   Medido en lo SERVIDO: a 360 px el botón del nav ocupaba 174 px de 360
+   (48%), se partía en 3 líneas, estiraba el nav a 65 px y quedaba a 0 px
+   del logo. Acá sólo se le pone techo de ancho y se le prohíbe envolver;
+   el color, la forma y la tipografía los sigue poniendo el diseño.
+   Reversa: borrar este bloque. */
+nav .btn[data-ev-corto] {
+  white-space: nowrap;
+  max-width: 38%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;
+}
+@media (max-width: 420px) {
+  nav .btn[data-ev-corto] { padding-left: 14px; padding-right: 14px; font-size: .8rem; }
+  /* aire real entre el logo y el botón: el logo tiene que leerse entero */
+  nav .wrap { gap: 12px; }
+  nav .logo { min-width: 0; flex: 0 1 auto; }
+}
+
+/* 5 — C2: LA BARRA FIJA TAMBIÉN EN ESCRITORIO -------------------------
+   El diseño la declara display:none y sólo la enciende por debajo de
+   720 px. Medido: a 1280 px no aparecía nunca. La capa la enciende en
+   todo ancho cuando ella misma es la dueña (data-ev-barra) — el centro
+   es el mismo precio y el mismo CTA, sin tocar nada del diseño.
+   Reversa: borrar este bloque (o EV.inyectar = false). */
+html[data-ev-barra] .buybar { display: flex; }
+@media (min-width: 721px) {
+  html[data-ev-barra] .buybar { padding-left: 32px; padding-right: 32px; }
+  html[data-ev-barra] .buybar .btn { flex: 0 0 auto; }
+}

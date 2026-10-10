@@ -77,6 +77,14 @@ var EV = window.EV = {
      4 botones con 4 textos distintos. */
   verbo: 'QUIERO EL PACK',
 
+  /* C1 — VERBO CORTO PARA LA BARRA DE ARRIBA.
+     Medido en lo SERVIDO el 2026-10-10 a 360 px: el botón del nav con el
+     verbo largo ocupaba 174 px de los 360 (48% del ancho), se partía en
+     3 LÍNEAS, estiraba la barra a 65 px de alto y quedaba pegado al logo
+     con 0 px de aire — "MOTOS PRO" ilegible. El verbo corto va sin precio
+     y sin flecha: una sola línea. Reversa: poner '' y vuelve el largo. */
+  verbo_corto: 'COMPRAR',
+
   /* Inyecciones de estructura (CTA repetido + chip de garantía arriba
      del pliegue). REVERSA DE UNA PALABRA: poner false. */
   inyectar: true
@@ -273,6 +281,13 @@ function pintaBotones() {
     b.setAttribute('data-ev-cta', '1');
     b.setAttribute('data-ev-combo', comboActual);
     if (u) { b.setAttribute('href', u); b.setAttribute('rel', 'noopener'); }
+    /* C1: en el nav manda el verbo corto (ver EV.verbo_corto) */
+    var angosto = EV.verbo_corto && b.closest && b.closest('nav');
+    if (angosto) {
+      b.setAttribute('data-ev-corto', '1');
+      b.textContent = EV.verbo_corto;
+      return;
+    }
     /* el verbo: uno solo, con el precio pegado. Los iconos que el
        diseño ya puso dentro del botón se respetan. */
     var svg = b.querySelector('svg');
@@ -320,6 +335,21 @@ document.addEventListener('click', function (ev) {
    --------------------------------------------------------------------- */
 function barraFija() {
   var bar = $('#buybar'); if (!bar) return;
+  /* C2 — UN SOLO DUEÑO DE LA BARRA.
+     El diseño trae su propio script inline que también escribe
+     bar.style.display, y escribe '' (cae a la hoja de estilo, que apaga
+     la barra arriba de 720 px). Medido en lo SERVIDO el 2026-10-10:
+     a 1280 px la barra estaba display:none en TODO el scroll — los dos
+     scripts se pisaban y ganaba el de atrás. Reemplazar el nodo por su
+     clon deja los IntersectionObserver del script viejo apuntando a un
+     nodo DESCOLGADO: siguen corriendo, ya no mandan. Reversa: borrar
+     este bloque y la barra vuelve a tener dos dueños. */
+  if (bar.parentNode) {
+    var clon = bar.cloneNode(true);
+    bar.parentNode.replaceChild(clon, bar);
+    bar = clon;
+  }
+  document.documentElement.setAttribute('data-ev-barra', '1');
   var h = document.querySelector('header');
   var c = $('#comprar');
   var enHero = true, enPrecio = false;
@@ -330,6 +360,7 @@ function barraFija() {
   function pinta() {
     bar.style.display = (enHero || (ocultaEnPrecio && enPrecio)) ? 'none' : 'flex';
   }
+  pinta();
   if ('IntersectionObserver' in window) {
     if (h) new IntersectionObserver(function (e) { enHero = e[0].isIntersecting; pinta(); }).observe(h);
     if (c) new IntersectionObserver(function (e) { enPrecio = e[0].isIntersecting; pinta(); }).observe(c);
@@ -340,10 +371,13 @@ function barraFija() {
 function ctaRepetido() {
   if (!EV.inyectar) return;
   var anclas = [];
-  /* después de la garantía */
-  var g = $('.guar'); if (g) anclas.push(g.parentNode);
-  /* después del FAQ */
-  var f = $('#faq .acc'); if (f) anclas.push(f);
+  /* C3 — un CTA DESPUÉS DE CADA BLOQUE DE PRUEBA, no 2 en toda la página.
+     El orden de venta rápida es promesa → prueba → precio → objeciones, y
+     cada prueba termina con la puerta de compra abierta. */
+  var dp = $('#despiece');            if (dp) anclas.push(dp);          /* prueba 1: el despiece */
+  var fx = $('.fx-note');             if (fx) anclas.push(fx.parentNode);/* prueba 2: los clips del pack */
+  var g  = $('.guar');                if (g)  anclas.push(g.parentNode); /* después de la garantía */
+  var f  = $('#faq .acc');            if (f)  anclas.push(f);            /* después del FAQ */
   anclas.forEach(function (host, i) {
     if (!host || host.querySelector('[data-ev-inyectado]')) return;
     var d = document.createElement('div');
