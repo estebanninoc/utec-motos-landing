@@ -1,0 +1,60 @@
+/* =====================================================================
+   estructura-venta.css — compañera de estructura-venta.js
+   Obra: estructura-venta-motos · 2026-10-10
+
+   CERO DECISIONES DE DISEÑO. No define ni un color, ni una tipografía,
+   ni un tamaño nuevo: todo sale de las variables que el HTML de Esteban
+   ya declaró (--line, --mut, --panel). Lo único que hace es darle forma
+   a los DOS estados que la capa de estructura necesita y que el diseño
+   todavía no tenía:
+     1. un bump que pasó a "INCLUIDO" (ya no es cobrable)
+     2. los bloques que la capa inyecta (CTA repetido, chip de garantía)
+   Reversa: borrar el <link> de esta hoja. La página vuelve a verse
+   exactamente igual que hoy.
+   ===================================================================== */
+
+/* 1 — BUMP INCLUIDO ---------------------------------------------------
+   Los 2 bonos ya vienen dentro del pack que recibe el que paga hoy
+   (medido en la zona de entrega). Dejan de ser un checkbox que cobra y
+   pasan a ser una fila de valor. Se apaga el gesto de "clic" para que
+   nadie intente marcarlos. */
+.bump[data-ev-incluido] { cursor: default; opacity: 1; }
+.bump[data-ev-incluido] input { display: none; }
+.bump[data-ev-incluido] .bx {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-color: currentColor;
+}
+.bump[data-ev-incluido] .bp {
+  font-variant-numeric: normal;
+  letter-spacing: .04em;
+  font-size: .72rem;
+  white-space: nowrap;
+}
+
+/* 2 — BLOQUES INYECTADOS ---------------------------------------------
+   Heredan .btn y .cta-note del diseño. Acá sólo se resuelve el ancho a
+   360 px: un .btn big suelto en medio de una sección se desborda si no
+   se le permite envolver. */
+[data-ev-inyectado] { max-width: 520px; margin-left: auto; margin-right: auto; }
+[data-ev-inyectado] .btn {
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
+}
+[data-ev-inyectado="chip"] { justify-content: flex-start; }
+
+/* 3 — BARRA FIJA: que el botón quepa a 360 px --------------------------
+   El verbo único lleva el precio pegado, así que el botón de la barra
+   crece. Sin esto, a 360 px el precio y el botón se pisan. */
+@media (max-width: 420px) {
+  .buybar { gap: 8px; padding-left: 12px; padding-right: 12px; }
+  .buybar .p { font-size: 1.05rem; }
+  .buybar .p small { font-size: .62rem; }
+  .buybar .btn {
+    padding: 11px 13px; font-size: .8rem; white-space: nowrap;
+    flex: 0 1 auto; min-width: 0;
+  }
+}
