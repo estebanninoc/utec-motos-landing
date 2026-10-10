@@ -97,9 +97,14 @@ var EV = window.EV = {
      C5 — PRUEBA SOCIAL. NUMEROS MEDIDOS, CERO INVENTO.
      Medido por mi el 2026-10-10, y cada numero tiene su fuente:
 
-     ventas = 276. Sale de finanzas.db de Helios (abierta mode=ro), tabla
-       `ventas`, productos 'MOTOS' (n=274) + 'Curso Motos' (n=4) = 278,
-       MENOS las 2 `anulaciones` tipo 'anulada_error' = 276.
+     ventas = 278. Sale de finanzas.db de Helios (abierta mode=ro), tabla
+       `ventas`, productos 'MOTOS' (n=274) + 'Curso Motos' (n=4) = 278.
+       Las 2 `anulaciones` de motos NO se restan aparte: la tabla `ventas`
+       YA VIENE NETA. La huella que lo prueba es un bucket en monto=0 n=0
+       (2026-08-05 MEGA BAZAR REVISTAS, el unico de la tabla): una
+       agregacion de ventas jamas escribe una fila con cero ventas, ese
+       cero solo puede ser una resta. Restarlas otra vez descontaba dos
+       veces — es el error que yo mismo publique primero (decia 276).
        ⚠️ CORRIJO EL TRASPASO: ahi decia "90 ventas + 4 = 94 compradores".
        El 90 y el 4 eran CANTIDAD DE FILAS (una fila = un dia), no ventas.
        La cantidad de ventas vive en la columna `n`. Comprobado por
@@ -130,7 +135,7 @@ var EV = window.EV = {
      =================================================================== */
   prueba: {
     mostrar: true,
-    ventas: 276,
+    ventas: 278,
     desde: 'junio',
     reacciones: 2900,
     comentarios: 119
