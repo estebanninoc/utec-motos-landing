@@ -187,6 +187,13 @@
 
   /* PRECIO */
   .price-card{background:linear-gradient(160deg,var(--panel2),#000);border:1.5px solid #fff;border-radius:24px;padding:46px 34px;text-align:center;max-width:520px;margin:38px auto 0;box-shadow:0 0 80px -24px rgba(255,255,255,.45)}
+  .price-label{color:var(--mut);font-size:.9rem}
+  .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
+  .ancla s{color:var(--dim);font-family:var(--disp);font-weight:400;font-size:1.35rem;text-decoration-thickness:2px}
+  .ancla .off{background:#fff;color:#000;font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:#17171a;border:1px dashed #4a4a52;border-radius:12px;padding:10px 14px;margin:18px auto 20px;max-width:420px}
+  .reloj .rl{color:var(--mut);font-size:.85rem}
+  .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em}
   .price-now{font-family:var(--disp);font-size:3.6rem;font-weight:900;line-height:1;margin:6px 0 4px;letter-spacing:-.04em}
   .price-per{display:inline-block;background:#17171a;border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--mut);margin-top:12px}
   .price-per b{color:#fff}
@@ -219,6 +226,12 @@
   .bump .bp{font-family:var(--disp);font-weight:900;font-size:1.05rem}
   .bump-nota{font-size:.82rem;color:var(--mut);text-align:center;background:#17171a;border:1px dashed #3a3a40;border-radius:10px;padding:8px 12px}
   .bump-nota b{color:#fff}
+  /* BONOS OCULTOS (orden de Esteban, ya aplicada en melamina 2026-09-29: "los
+     bonos distraen"). Solo se ESCONDE el bloque: los dos checkbox siguen en
+     el DOM y sin marcar, up() resuelve siempre la clave "base" y el botón
+     sirve el precio base. No se tocó ningún precio, link ni el pixel.
+     REVERSA: borrar esta única regla y los bonos vuelven tal cual estaban. */
+  .bumps{display:none!important}
 
   @media(max-width:820px){
     .badges{grid-template-columns:repeat(2,1fr)}
@@ -468,6 +481,8 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Empieza hoy</div>
     <h2 class="title">Arma tu pack, un solo pago</h2>
     <div class="price-card">
+      <div class="price-label">Precio de hoy</div>
+      <div class="ancla"><s id="anc-lista">&nbsp;</s><span class="off" id="anc-off">&nbsp;</span></div>
       <div class="price-now" id="precio-grande">US$12.99</div>
       <div class="price-per">pago único · <b>acceso de por vida</b></div>
       <ul class="price-list">
@@ -482,6 +497,7 @@ document.addEventListener('click',function(ev){
         <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
         <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
       </div>
+      <div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--</b></div>
       <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Quiero mi acceso ahora · US$12.99 →</a>
       <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
   <div class="pay-row">
@@ -558,6 +574,18 @@ document.addEventListener('click',function(ev){
 (function(){
   var LINKS={base:'#STRIPE-PENDIENTE',a:'#STRIPE-PENDIENTE',b:'#STRIPE-PENDIENTE',ab:'#STRIPE-PENDIENTE'};
   var PR={base:'12.99',a:'14.98',b:'14.98',ab:'16.97'};
+  var ANTES={base:'29.99'};
+  function pintarAncla(k){
+    var c=document.querySelector('.ancla'), lis=document.getElementById('anc-lista'), off=document.getElementById('anc-off');
+    if(!c) return;
+    var antes=ANTES[k];
+    var s=antes?parseFloat(antes):0, h=parseFloat(PR[k]);
+    if(!(s>h)){ c.style.display='none'; return; }   /* antes callarse que mentir */
+    var pct=Math.floor(100*(1-h/s));
+    c.style.display='';
+    lis.textContent='US$'+antes;
+    off.textContent='-'+pct+'%';
+  }
   var REF=null;
   try{
     var q=new URLSearchParams(location.search);
@@ -578,8 +606,28 @@ document.addEventListener('click',function(ev){
     document.getElementById('bump-b').classList.toggle('on',cb.checked);
     nota.innerHTML = (k==='ab') ? '🎉 Te llevas <b>todo por US$16.97</b>' : 'Marca los dos y te llevas <b>todo por US$16.97</b>';
     var fp=document.getElementById('faq-precio'); if(fp) fp.textContent=t;
+    pintarAncla(k);
   }
   ca.addEventListener('change',up); cb.addEventListener('change',up); up();
+})();
+
+/* countdown real de 15 min por sesión (mismo mecanismo que en melamina: sessionStorage,
+   no se reinicia con F5, sí con sesión nueva) */
+(function(){
+  var e=document.getElementById('reloj-d');
+  if(!e) return;
+  var MIN=15, KEY='motosDeadline15', fin;
+  try{ fin=parseInt(sessionStorage.getItem(KEY),10); }catch(x){}
+  if(!fin||isNaN(fin)||fin<Date.now()||(fin-Date.now())>MIN*60000){
+    fin=Date.now()+MIN*60000;
+    try{ sessionStorage.setItem(KEY,fin); }catch(x){}
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tic(){
+    var s=Math.floor(Math.max(0,fin-Date.now())/1000);
+    e.textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+  }
+  tic(); setInterval(tic,1000);
 })();
 
 /* galería: cada video arranca cuando se ve (son clips livianos de ~130 KB) */
@@ -613,14 +661,17 @@ document.addEventListener('click',function(ev){
 })();
 
 /* despiece: el cuadro sigue la posición de la moto en pantalla (sin pin):
-   entra armada por abajo y queda abierta del todo cuando llega al centro */
+   entra armada por abajo y queda abierta del todo cuando llega al centro.
+   Carga perezosa por escenario (mismo mecanismo que las escenas chicas de abajo):
+   ningún frame (71 WebP, 8.3 MB) se descarga hasta que el stage está a ≤600px
+   del viewport. */
 (function(){
   var stage=document.getElementById('dp-stage'), canvas=document.getElementById('dp-canvas'), bar=document.getElementById('dp-bar');
   if(!stage||!canvas) return;
   var ctx=canvas.getContext('2d'), N=71;
   var dir = window.matchMedia('(max-width:720px)').matches ? 'img/dp-frames/mob/' : 'img/dp-frames/desk/';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var imgs=[], ok=[], want=1;
+  var imgs=[], ok=[], want=1, started=false, busy=false;
   function src(i){ return dir+'f_'+String(i).padStart(3,'0')+'.webp'; }
   function draw(i){ if(ok[i]){ ctx.clearRect(0,0,1280,732); ctx.drawImage(imgs[i],0,0,1280,732); } }
   function show(i){
@@ -628,11 +679,13 @@ document.addEventListener('click',function(ev){
     for(var d=1;d<N;d++){ if(ok[i-d]) return draw(i-d); if(ok[i+d]) return draw(i+d); }
   }
   function load(i){ if(imgs[i]) return; var im=new Image(); im.decoding='async'; im.onload=function(){ ok[i]=true; if(i===want) draw(i); }; im.src=src(i); imgs[i]=im; }
-  if(reduced){ load(N); want=N; if(bar) bar.style.setProperty('--t',1); return; }
-  load(1); load(N);
-  var rest=[]; for(var q=2;q<N;q++) rest.push(q);
-  (function more(){ rest.splice(0,6).forEach(load); if(rest.length) setTimeout(more,90); })();
-  var busy=false;
+  function startLoad(){
+    if(started) return; started=true;
+    if(reduced){ load(N); want=N; if(bar) bar.style.setProperty('--t',1); return; }
+    load(1); load(N);
+    var rest=[]; for(var q=2;q<N;q++) rest.push(q);
+    (function more(){ rest.splice(0,6).forEach(load); if(rest.length) setTimeout(more,90); })();
+  }
   function tick(){
     busy=false;
     var r=stage.getBoundingClientRect(), vh=window.innerHeight;
@@ -643,7 +696,19 @@ document.addEventListener('click',function(ev){
     show(1+Math.round(p*(N-1)));
   }
   function req(){ if(!busy){ busy=true; requestAnimationFrame(tick); } }
-  window.addEventListener('scroll',req,{passive:true}); window.addEventListener('resize',req); tick();
+  function activar(){
+    startLoad();
+    if(reduced) return;
+    window.addEventListener('scroll',req,{passive:true});
+    window.addEventListener('resize',req);
+    tick();
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ activar(); io.disconnect(); } });
+    },{rootMargin:'600px 0px 600px 0px'});
+    io.observe(stage);
+  } else { activar(); }
 })();
 
 /* escenas chicas (motor/carburador/freno): misma mecánica que arriba, generalizada para N escenarios,
