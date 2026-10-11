@@ -323,6 +323,14 @@
   .dp-stage-mini{position:sticky;top:10vh;text-align:center;margin:0 auto}
   .dp-stage-mini canvas{display:inline-block;max-width:100%;max-height:55vh;width:auto;height:auto}
   @media(prefers-reduced-motion:reduce){.dp-scrub{height:auto}.dp-stage-mini{position:relative;top:0}}
+  /* ORDEN AZ2 (Esteban): el motor deja el pin/sticky y el carril alto .dp-scrub — ya no
+     comparte el mecanismo "pegajoso" de las otras 4 escenas chicas (que siguen comentadas
+     tal cual arriba, para si algún día se reactivan con su .dp-scrub intacto). El motor
+     ahora fluye a la altura natural del stage, igual que la moto grande (#despiece): se
+     abre mientras se le pasa por encima, sin quedarse pegado ni frenar el scroll. Por eso
+     se pisa SOLO el position/top por id, nada de lo demás de .dp-stage-mini (centrado,
+     max-height) cambia. */
+  #scr-motor-stage{position:relative;top:0}
   /* GALERÍA con video local */
   .fx video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
   .fx{cursor:default}
@@ -476,9 +484,9 @@ document.addEventListener('click',function(ev){
 </section>
 
 <section class="dp dp-mini" id="escena-motor">
-  <div class="dp-scrub" id="scr-motor-track"><div class="dp-stage-mini" id="scr-motor-stage">
+  <div class="dp-stage-mini" id="scr-motor-stage">
     <canvas id="scr-motor-canvas" width="784" height="1400" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
-  </div></div>
+  </div>
   <ul class="dp-piezas"><li>Motor</li><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul>
 </section>
 
@@ -855,14 +863,14 @@ initEscena({stage:'scr-horquilla-stage',canvas:'scr-horquilla-canvas',track:'scr
      no hace clearRect: el primer drawImage con alpha=1 ya cubre el canvas entero. */
 var LUT_MOTOR=[1.0,4.168,6.397,8.38,10.254,11.749,13.379,14.753,16.028,17.361,18.801,20.104,21.459,23.046,24.414,25.801,27.491,28.881,30.27,31.9,33.2,34.329,35.512,36.829,38.075,39.114,40.532,41.975,43.454,44.616,45.737,46.735,47.613,48.439,49.279,50.194,51.148,52.007,52.743,53.545,54.402,55.236,55.972,56.753,57.489,58.216,58.976,59.773,60.526,61.233,61.888,62.525,63.17,63.847,64.536,65.215,65.869,66.472,67.066,67.702,68.363,69.04,69.638,70.254,70.9,71.486,72.067,72.686,73.318,73.964,74.597,75.215,75.811,76.409,77.008,77.643,78.287,78.941,79.577,80.199,80.798,81.438,82.095,82.731,83.428,84.152,84.818,85.453,86.086,86.785,87.511,88.236,88.935,89.604,90.278,90.964,91.716,92.494,93.273,94.03,94.714,95.447,96.216,96.983,97.875,98.702,99.459,100.21,101.05,102.022,102.87,103.666,104.451,105.262,106.142,107.062,107.963,108.789,109.682,110.571,111.56,112.582,113.484,114.412,115.531,116.616,117.718,118.823,120.097,121.594,122.9,124.249,126.05,127.702,129.935,132.279,137.0];
 function initMotor(cfg){
-  var stage=document.getElementById(cfg.stage), canvas=document.getElementById(cfg.canvas), track=document.getElementById(cfg.track);
-  if(!stage||!canvas||!track) return;
+  var stage=document.getElementById(cfg.stage), canvas=document.getElementById(cfg.canvas);
+  if(!stage||!canvas) return;
   var ctx=canvas.getContext('2d'), N=cfg.n, LUT=cfg.lut;
   var dir = window.matchMedia('(max-width:720px)').matches ? cfg.dirMob : cfg.dirDesk;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* want/cur viven en progreso de scroll 0..1 (t); draw()/LUT trabajan en posición de cuadro 1..N */
   var imgs=[], ok=[], loadedCount=0, allReady=false, want=0, cur=0, drawnPos=-1, running=false;
-  var W=0, H=0, stickyTopPx=window.innerHeight*0.10, lastWidth=window.innerWidth;
+  var W=0, H=0, lastWidth=window.innerWidth;
   function src(i){ return dir+'f_'+String(i).padStart(3,'0')+'.webp'; }
   function lutPos(p){
     var x=Math.max(0,Math.min(1,p))*(LUT.length-1), i0=Math.floor(x), frac=x-i0;
@@ -908,9 +916,12 @@ function initMotor(cfg){
   }
   function kick(){ if(!running){ running=true; requestAnimationFrame(anim); } }
   function tick(){
-    var tr=track.getBoundingClientRect(), stageH=stage.getBoundingClientRect().height;
-    var range=Math.max(1, tr.height - stageH);
-    var p=(stickyTopPx - tr.top)/range;
+    /* ORDEN AZ2: sin carril/pin — mismo criterio que la moto grande (initEscena sin track):
+       p=0 cuando el TOPE del stage asoma por abajo de la pantalla (top=100vh), p=1 cuando
+       su CENTRO llega al 38% de la pantalla (ya completamente abierto antes de salir). */
+    var vh=window.innerHeight, r=stage.getBoundingClientRect();
+    var start=vh, end=vh*0.38 - r.height/2;
+    var p=(start - r.top)/(start - end);
     p=Math.max(0,Math.min(1,p));
     want=p;
     kick();
@@ -919,7 +930,6 @@ function initMotor(cfg){
     var w=window.innerWidth;
     if(w===lastWidth){ sizeCanvas(); return; } /* iOS cambia innerHeight sin cambiar el ancho */
     lastWidth=w;
-    stickyTopPx=window.innerHeight*0.10;
     sizeCanvas();
     tick();
   }
@@ -931,7 +941,7 @@ function initMotor(cfg){
   window.addEventListener('resize',onResize);
   tick();
 }
-initMotor({stage:'scr-motor-stage',canvas:'scr-motor-canvas',track:'scr-motor-track',n:137,lut:LUT_MOTOR,
+initMotor({stage:'scr-motor-stage',canvas:'scr-motor-canvas',n:137,lut:LUT_MOTOR,
   dirMob:'img/scroll-frames/motor/mob/',dirDesk:'img/scroll-frames/motor/desk/'});
 </script>
 </body>
