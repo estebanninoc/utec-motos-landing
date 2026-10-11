@@ -312,12 +312,27 @@
   .dp-piezas{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px auto 0;max-width:640px;padding:0 20px}
   .dp-piezas li{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-family:var(--disp);font-weight:800;font-size:.8rem}
   @media(max-width:820px){.dp-stage{width:100%;margin-left:0;padding:0 4px}}
+  /* ORDEN AZ6 (Esteban): acortar el aire alrededor de las 2 animaciones en móvil para que el
+     contenido aparezca antes al ojo. Medido con Playwright en 390px: el padding propio de
+     #despiece (70px/40px) y el margin-top de .dp-stage (26px) eran los huecos grandes; el
+     hueco canvas->chips (dp-bar + dp-piezas, 33px) y el hueco lead->motor (pack-intro pb 20px
+     + escena-motor pt 8px, 36px) sumaban el resto. Solo mobile, desktop (1440) intacto. IDs
+     específicos (#despiece, #dp-bar) para no tocar #escena-motor, que ya venía ajustado desde
+     AZ3/AZ4 y no necesitaba más recorte. */
+  @media(max-width:820px){
+    #despiece{padding:20px 0 20px}
+    .dp-stage{margin-top:12px}
+    #dp-bar{margin-top:10px}
+    #despiece .dp-piezas{margin-top:8px}
+  }
   /* ESCENAS scroll-scrub chicas (motor/carburador/freno), mismo mecanismo que .dp-stage: sin caja, flota sobre el fondo */
   /* ORDEN AZ3 (Esteban): pegar el motor al párrafo que lo presenta. Antes, el padding-bottom
      genérico de section{} (66px) de la sección previa (".pack-intro") sumado al padding-top
      de .dp-mini (50px) dejaba ~124px de hueco vacío arriba del motor; .pack-intro se aparta
      con su propia clase para no tocar el padding de todas las demás <section> del sitio. */
   .pack-intro{padding-bottom:20px}
+  /* ORDEN AZ6: hueco lead(pack-intro)->canvas motor, mobile. Ver nota AZ6 arriba. */
+  @media(max-width:820px){.pack-intro{padding-bottom:8px}}
   .dp-mini{padding:8px 0 10px;overflow:visible}
   #escena-motor{padding-bottom:16px}
   /* ORDEN AZ4 (Esteban): el hueco chips del motor -> nota .fx-note había subido a 114px
@@ -496,7 +511,7 @@ document.addEventListener('click',function(ev){
 
 <section class="dp dp-mini" id="escena-motor">
   <div class="dp-stage-mini" id="scr-motor-stage">
-    <canvas id="scr-motor-canvas" width="784" height="1400" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
+    <canvas id="scr-motor-canvas" width="784" height="1361" role="img" aria-label="Motor de motocicleta que se desarma pieza por pieza: tapa de válvulas, árbol de levas, culata, cilindro, pistón, biela, cigüeñal, embrague, magneto."></canvas>
   </div>
   <ul class="dp-piezas"><li>Motor</li><li>Tapa de válvulas</li><li>Árbol de levas</li><li>Culata</li><li>Cilindro</li><li>Pistón</li><li>Biela</li><li>Cigüeñal</li><li>Embrague</li><li>Magneto</li></ul>
 </section>
