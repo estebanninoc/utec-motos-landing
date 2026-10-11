@@ -378,12 +378,17 @@
      2) borde tarjeta precio -> eyebrow "Así es el contenido": #comprar pb (66) + .pack-intro
         pt (66) = 132px -> #comprar pb 16px + .pack-intro pt 16px = 32px.
      3) nota fx-note -> eyebrow "Contenido completo": .post-despiece pb (66) + sección
-        siguiente pt (66) = 132px -> .post-despiece pb 16px + #contenido-completo pt 16px = 32px. */
+        siguiente pt (66) = 132px -> .post-despiece pb 16px + #contenido-completo pt 16px = 32px.
+     ORDEN AZ8 (Esteban): "mucho mejor pero sepáralos un poco, solo un poco" — los 3 huecos
+     de AZ7 se abren apenas en móvil, nada más. Solo mobile, desktop (1440) sin cambios.
+     1) 28px -> #comprar pt 8px->24px = 44px.
+     2) 32px -> #comprar pb 16px->24px + .pack-intro pt 16px->24px = 48px.
+     3) 32px -> .post-despiece pb 16px->24px + #contenido-completo pt 16px->24px = 48px. */
   @media(max-width:820px){
-    #comprar{padding:8px 0 16px}
-    .pack-intro{padding-top:16px}
-    .post-despiece{padding-bottom:16px}
-    #contenido-completo{padding-top:16px}
+    #comprar{padding:24px 0 24px}
+    .pack-intro{padding-top:24px}
+    .post-despiece{padding-bottom:24px}
+    #contenido-completo{padding-top:24px}
   }
 </style>
 <!-- Meta Pixel (pendiente ID real) -->
