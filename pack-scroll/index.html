@@ -319,7 +319,12 @@
      con su propia clase para no tocar el padding de todas las demás <section> del sitio. */
   .pack-intro{padding-bottom:20px}
   .dp-mini{padding:8px 0 10px;overflow:visible}
-  #escena-motor{padding-bottom:32px}
+  #escena-motor{padding-bottom:16px}
+  /* ORDEN AZ4 (Esteban): el hueco chips del motor -> nota .fx-note había subido a 114px
+     (32px de #escena-motor + 66px del padding-top genérico de section{} + 16px de margin-top
+     de .fx-note). Bajado a #escena-motor pb:16px + esta sección con su propio padding-top
+     chico, sin tocar section{} genérico ni el padding-bottom de esta misma sección. */
+  .post-despiece{padding-top:12px}
   /* dp-scrub: carril del carril sticky. ORDEN AZ1 (Esteban): es landing de venta rápida,
      el usuario debe bajar rápido — bajado de 170vh a 110vh y el canvas de 78vh a 55vh/45vh
      (mobile). tick() mide el progreso 0→1 sobre ESTE carril de forma relativa (stickyTopPx
@@ -529,7 +534,7 @@ document.addEventListener('click',function(ev){
 -->
 
 
-<section>
+<section class="post-despiece">
   <div class="wrap">
     <p class="fx-note">Así se ven en acción. Adentro está el manual completo de cada sistema, para tu marca y tu modelo.</p>
   </div>
