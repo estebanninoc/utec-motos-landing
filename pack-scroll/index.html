@@ -309,11 +309,17 @@
   .dp-stage canvas{display:block;width:100%;height:auto;aspect-ratio:1280/732}
   .dp-bar{max-width:280px;height:3px;border-radius:99px;background:#1c1c21;margin:18px auto 0;overflow:hidden}
   .dp-bar i{display:block;height:100%;width:calc(var(--t,0)*100%);background:var(--red)}
-  .dp-piezas{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px auto 0;max-width:640px;padding:0 20px}
+  .dp-piezas{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px auto 0;max-width:640px;padding:0 20px}
   .dp-piezas li{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-family:var(--disp);font-weight:800;font-size:.8rem}
   @media(max-width:820px){.dp-stage{width:100%;margin-left:0;padding:0 4px}}
   /* ESCENAS scroll-scrub chicas (motor/carburador/freno), mismo mecanismo que .dp-stage: sin caja, flota sobre el fondo */
-  .dp-mini{padding:50px 0 10px;overflow:visible}
+  /* ORDEN AZ3 (Esteban): pegar el motor al párrafo que lo presenta. Antes, el padding-bottom
+     genérico de section{} (66px) de la sección previa (".pack-intro") sumado al padding-top
+     de .dp-mini (50px) dejaba ~124px de hueco vacío arriba del motor; .pack-intro se aparta
+     con su propia clase para no tocar el padding de todas las demás <section> del sitio. */
+  .pack-intro{padding-bottom:20px}
+  .dp-mini{padding:8px 0 10px;overflow:visible}
+  #escena-motor{padding-bottom:32px}
   /* dp-scrub: carril del carril sticky. ORDEN AZ1 (Esteban): es landing de venta rápida,
      el usuario debe bajar rápido — bajado de 170vh a 110vh y el canvas de 78vh a 55vh/45vh
      (mobile). tick() mide el progreso 0→1 sobre ESTE carril de forma relativa (stickyTopPx
@@ -475,7 +481,7 @@ document.addEventListener('click',function(ev){
 </section>
 
 <!-- QUÉ VAS A APRENDER -->
-<section>
+<section class="pack-intro">
   <div class="wrap">
     <div class="eyebrow">Así es el contenido</div>
     <h2 class="title">Lo que hay dentro del pack</h2>
