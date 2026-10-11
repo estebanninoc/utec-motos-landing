@@ -744,41 +744,73 @@ function initEscena(cfg){
   var ctx=canvas.getContext('2d'), N=cfg.n, W=canvas.width, H=canvas.height;
   var dir = window.matchMedia('(max-width:720px)').matches ? cfg.dirMob : cfg.dirDesk;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var imgs=[], ok=[], loadedCount=0, allReady=false, want=1, cur=1, started=false, running=false;
+  var imgs=[], ok=[], loadedCount=0, allReady=false, want=1, cur=1, started=false, running=false, gen=0;
   var stickyTopPx=window.innerHeight*0.10, lastWidth=window.innerWidth;
+  var READY_FRAC=0.9, READY_TIMEOUT_MS=4000; /* ORDEN AZ5: no esperar el 100% de los N cuadros */
   function src(i){ return dir+'f_'+String(i).padStart(3,'0')+'.webp'; }
+  /* ORDEN AZ5: si el cuadro exacto no está listo (hueco por decode() que nunca resolvió o
+     que todavía no llegó), usar el cuadro cargado más cercano en vez de dejar el canvas
+     congelado en la posición vieja o, peor, en blanco. */
+  function nearestLoaded(i){
+    if(ok[i]) return i;
+    for(var d=1; d<N; d++){
+      if(i-d>=1 && ok[i-d]) return i-d;
+      if(i+d<=N && ok[i+d]) return i+d;
+    }
+    return null;
+  }
   function draw(pos){
     if(!started || !imgs.length) return;
     if(!allReady) pos=1;
     var i0=Math.floor(pos), frac=pos-i0, i1=i0+1;
     if(i0<1){ i0=1; i1=1; frac=0; } if(i1>N){ i1=N; if(i0>N) i0=N; }
-    if(!imgs[i0] || !ok[i0]) return;
+    if(!imgs[i0] || !ok[i0]){
+      i0=nearestLoaded(i0);
+      if(i0==null) return; /* todavía no cargó ni un solo cuadro: nada que pintar */
+      i1=i0; frac=0;
+    }
     ctx.clearRect(0,0,W,H);
     ctx.globalAlpha=1; ctx.drawImage(imgs[i0],0,0,W,H);
     if(i1!==i0 && frac>0.004 && imgs[i1] && ok[i1]){ ctx.globalAlpha=frac; ctx.drawImage(imgs[i1],0,0,W,H); ctx.globalAlpha=1; }
+  }
+  function checkReady(){
+    if(allReady) return;
+    if(loadedCount>=Math.ceil(N*READY_FRAC)){ allReady=true; draw(cur); }
   }
   function load(i){
     if(imgs[i]) return;
     var im=new Image(); im.decoding='async'; im.src=src(i); imgs[i]=im;
     var mark=function(){
       if(imgs[i]!==im) return; ok[i]=true; loadedCount++;
-      if(loadedCount>=N){ allReady=true; draw(cur); }
-      else if(Math.abs(cur-i)<1) draw(cur);
+      if(i===1) draw(cur); /* ORDEN AZ5: cuadro 1 visible en cuanto él esté listo, sin esperar a los demás */
+      checkReady();
+      if(!allReady && Math.abs(cur-i)<1) draw(cur);
     };
-    if(im.decode){ im.decode().then(mark, function(){}); } else { im.onload=mark; }
+    /* ORDEN AZ5: decode() puede rechazar de forma intermitente en WebKit/iOS aun con el
+       recurso bien cargado (presión de memoria/decodes concurrentes) — tratar el rechazo
+       igual que el éxito (como ya hace initMotor) en vez de un no-op que deja el cuadro
+       fantasma para siempre y nunca llega a loadedCount>=N. */
+    if(im.decode){ im.decode().then(mark, mark); } else { im.onload=mark; im.onerror=mark; }
   }
   function startLoad(){
     if(started) return; started=true;
+    gen++; var myGen=gen;
     if(reduced){ load(N); want=N; cur=N; if(bar) bar.style.setProperty('--t',1); return; }
     /* en tandas chicas (no las ~150 de una) para no saturar conexiones/decode de golpe */
     var i=1;
     function chunk(){
-      if(!started) return;
+      if(!started || gen!==myGen) return;
       var end=Math.min(N,i+9);
       for(; i<=end; i++) load(i);
       if(i<=N) setTimeout(chunk,60);
     }
     chunk();
+    /* ORDEN AZ5: red/decode lentos no deben trabar la animación para siempre — a los 4s se
+       anima con lo que haya, rellenando huecos con el cuadro cargado más cercano (ver draw()). */
+    setTimeout(function(){
+      if(gen!==myGen || allReady) return;
+      if(started){ allReady=true; draw(cur); }
+    }, READY_TIMEOUT_MS);
   }
   function anim(){
     if(!started){ running=false; return; }
@@ -823,6 +855,7 @@ function initEscena(cfg){
   }
   function liberar(){
     if(!started) return;
+    gen++; /* invalida el setTimeout de READY_TIMEOUT_MS de esta tanda si todavía estaba pendiente */
     window.removeEventListener('scroll',tick);
     window.removeEventListener('resize',onResize);
     imgs=[]; ok=[]; loadedCount=0; allReady=false; started=false; running=false; want=1; cur=1;
