@@ -1,0 +1,36 @@
+{
+ "r390": {
+  "label": "390",
+  "errores": [],
+  "heroOrder": [
+   ".pill",
+   "header h1",
+   "header p.sub",
+   ".device",
+   ".cta-row",
+   ".cta-note"
+  ],
+  "scrollHeight": 8431,
+  "scrollWidthCheck": {
+   "scrollWidth": 390,
+   "innerWidth": 390
+  }
+ },
+ "r1440": {
+  "label": "1440",
+  "errores": [],
+  "heroOrder": [
+   ".pill",
+   "header h1",
+   ".device",
+   "header p.sub",
+   ".cta-row",
+   ".cta-note"
+  ],
+  "scrollHeight": 7350,
+  "scrollWidthCheck": {
+   "scrollWidth": 1440,
+   "innerWidth": 1440
+  }
+ }
+}

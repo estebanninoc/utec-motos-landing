@@ -20,6 +20,12 @@
   :root{
     --bg:#000; --panel:#101012; --panel2:#17171a; --line:#28282d;
     --tx:#ffffff; --mut:#9a9aa3; --dim:#6e6e77;
+    /* ORDEN AZ1: acentos Yamaha. --red para RELLENOS (botones/barra, texto blanco
+       encima da 4.8:1 AA); --red-tx para TEXTO rojo directo sobre negro/panel (el
+       rojo de marca a secas no llega a 4.5:1 en texto chico, este sí: 5.1-5.6:1).
+       --blue ya aclarado desde el azul racing real (~#1E50A0, 2.4-2.7:1, no pasaba)
+       a uno que sí da AA en texto grande/UI (4.0-4.4:1 sobre negro/panel). */
+    --red:#E60012; --red-tx:#FF2A3C; --blue:#3B72C8;
     --radius:16px; --max:1080px;
     --disp:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
@@ -38,6 +44,10 @@
   .btn.big{font-size:1.2rem;padding:20px 46px}
   .btn.ghost{background:transparent;color:#fff;border:1.5px solid #3a3a40;box-shadow:none}
   .btn.ghost:hover{border-color:#fff;box-shadow:none}
+  /* ORDEN AZ1: solo los 3 botones DE COMPRA en rojo Yamaha (el del nav queda blanco/negro
+     como antes); blanco sobre --red da 4.8:1 AA */
+  #btn-hero,#btn-pago,.buybar .btn{background:var(--red);color:#fff;box-shadow:0 10px 44px -10px rgba(230,0,18,.45)}
+  #btn-hero:hover,#btn-pago:hover,.buybar .btn:hover{box-shadow:0 16px 56px -10px rgba(230,0,18,.6)}
 
   /* MARCA (marca de corte estilo CapCut) */
   .logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:1.18rem;letter-spacing:-.04em}
@@ -52,12 +62,25 @@
 
   /* HERO */
   header{position:relative;padding:74px 0 60px;background:radial-gradient(85% 60% at 50% 0%,rgba(255,255,255,.07),transparent 70%)}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
-  .pill{display:inline-flex;gap:8px;align-items:center;font-size:.8rem;font-weight:700;color:#fff;background:#17171a;border:1px solid var(--line);padding:7px 16px;border-radius:999px;margin-bottom:22px;letter-spacing:.01em}
+  /* ORDEN AZ1: nombro las 6 piezas del hero por grid-area en vez de mover el DOM, así
+     desktop sigue siendo 2 columnas (device ocupa las 5 filas de texto, centrado igual
+     que antes) y el móvil solo cambia el ORDEN VISUAL vía @media, sin duplicar markup.
+     column-gap (no "gap" a secas): con 5 filas de texto, un row-gap heredado metería
+     4 espacios de más entre pill/h1/sub/cta/note que antes no existían (antes "gap"
+     solo se notaba una vez, entre hero-copy y device, porque eran las únicas 2 celdas) */
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:44px;row-gap:0;align-items:center;
+    grid-template-areas:"pill device" "h1 device" "sub device" "cta device" "note device"}
+  .hero-grid>.pill{grid-area:pill}
+  .hero-grid>h1{grid-area:h1}
+  .hero-grid>p.sub{grid-area:sub}
+  .hero-grid>.cta-row{grid-area:cta}
+  .hero-grid>.cta-note{grid-area:note}
+  .hero-grid>.device{grid-area:device}
+  .pill{display:inline-flex;gap:8px;align-items:center;font-size:.8rem;font-weight:700;color:#fff;background:#17171a;border:1px solid var(--blue);padding:7px 16px;border-radius:999px;margin-bottom:22px;letter-spacing:.01em}
   .pill b{color:#fff}
   header h1{font-size:clamp(2.2rem,6vw,3.8rem);margin-bottom:18px}
   header h1 .cut{position:relative;display:inline-block}
-  header h1 .cut::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.14em;background:#fff;transform:skewX(-18deg)}
+  header h1 .cut::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.14em;background:var(--red);transform:skewX(-18deg)}
   header p.sub{font-size:clamp(1.05rem,2.4vw,1.28rem);color:var(--mut);max-width:600px;margin:0 0 30px}
   header p.sub b{color:#fff}
   .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
@@ -92,10 +115,12 @@
   .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:52px auto 0;max-width:860px}
   .badge{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 12px;text-align:center}
   .badge .n{font-family:var(--disp);font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;line-height:1;letter-spacing:-.03em}
+  /* ORDEN AZ1: azul solo en las cifras +900/+100 (las que pide la orden), no en 25GB/2T·4T */
+  .badge:nth-child(1) .n,.badge:nth-child(2) .n{color:var(--blue)}
   .badge .l{color:var(--mut);font-size:.82rem;margin-top:7px}
 
   section{padding:66px 0}
-  .eyebrow{color:var(--mut);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+  .eyebrow{color:var(--red-tx);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
   h2.title{font-size:clamp(1.8rem,4.5vw,2.7rem);margin-bottom:14px}
   .lead{color:var(--mut);font-size:1.08rem;max-width:640px;margin-bottom:8px}
   .lead b{color:#fff}
@@ -191,7 +216,7 @@
   .ancla{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
   .ancla s{color:var(--dim);font-family:var(--disp);font-weight:400;font-size:1.35rem;text-decoration-thickness:2px}
   .ancla .off{background:#fff;color:#000;font-family:var(--disp);font-weight:900;font-size:.9rem;letter-spacing:-.01em;padding:5px 11px;border-radius:999px;white-space:nowrap}
-  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:#17171a;border:1px dashed #4a4a52;border-radius:12px;padding:10px 14px;margin:18px auto 20px;max-width:420px}
+  .reloj{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;background:#17171a;border:1px dashed var(--blue);border-radius:12px;padding:10px 14px;margin:18px auto 20px;max-width:420px}
   .reloj .rl{color:var(--mut);font-size:.85rem}
   .reloj b{font-family:var(--disp);font-weight:900;font-size:1.2rem;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.02em}
   .price-now{font-family:var(--disp);font-size:3.6rem;font-weight:900;line-height:1;margin:6px 0 4px;letter-spacing:-.04em}
@@ -237,11 +262,15 @@
     .badges{grid-template-columns:repeat(2,1fr)}
     .grid,.steps{grid-template-columns:1fr}
     .acc-body ul{grid-template-columns:1fr}
-    .hero-grid{grid-template-columns:1fr;text-align:center;gap:36px}
-    .hero-copy .pill{margin-left:auto;margin-right:auto}
+    /* ORDEN AZ1: en móvil, H1 → sub → VIDEO → botón → nota (pill queda arriba de todo, no
+       la mueve la orden). row-gap:0 (ver nota arriba) + el margin de .device reproduce el
+       único espaciado de 36px que había antes (ahora alrededor del video, donde quedó) */
+    .hero-grid{grid-template-columns:1fr;text-align:center;row-gap:0;
+      grid-template-areas:"pill" "h1" "sub" "device" "cta" "note"}
+    .pill{margin-left:auto;margin-right:auto}
     header p.sub{margin-left:auto;margin-right:auto}
     .cta-row{justify-content:center}
-    .device{width:225px;margin-top:4px}
+    .device{width:225px;margin:36px auto}
     .gallery{grid-template-columns:repeat(2,1fr);gap:8px}
     .fx{padding:9px;border-radius:11px}
     .fx span{font-size:.68rem}
@@ -279,19 +308,20 @@
   .dp-stage{position:relative;max-width:1080px;margin:26px auto 0}
   .dp-stage canvas{display:block;width:100%;height:auto;aspect-ratio:1280/732}
   .dp-bar{max-width:280px;height:3px;border-radius:99px;background:#1c1c21;margin:18px auto 0;overflow:hidden}
-  .dp-bar i{display:block;height:100%;width:calc(var(--t,0)*100%);background:#fff}
+  .dp-bar i{display:block;height:100%;width:calc(var(--t,0)*100%);background:var(--red)}
   .dp-piezas{list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px auto 0;max-width:640px;padding:0 20px}
   .dp-piezas li{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-family:var(--disp);font-weight:800;font-size:.8rem}
   @media(max-width:820px){.dp-stage{width:100%;margin-left:0;padding:0 4px}}
   /* ESCENAS scroll-scrub chicas (motor/carburador/freno), mismo mecanismo que .dp-stage: sin caja, flota sobre el fondo */
   .dp-mini{padding:50px 0 10px;overflow:visible}
-  /* dp-scrub: carril alto (~170vh) para que cada cuadro cueste pocos px de scroll; el stage
-     queda sticky mientras el carril pasa, y se despega al llegar a su borde inferior. Bajado
-     de 270vh: a esa altura la pieza ya se veía abierta mucho antes de que el carril terminara
-     (scroll "muerto" el resto del carril) */
-  .dp-scrub{position:relative;height:170vh}
+  /* dp-scrub: carril del carril sticky. ORDEN AZ1 (Esteban): es landing de venta rápida,
+     el usuario debe bajar rápido — bajado de 170vh a 110vh y el canvas de 78vh a 55vh/45vh
+     (mobile). tick() mide el progreso 0→1 sobre ESTE carril de forma relativa (stickyTopPx
+     - tr.top)/range, así que sigue abriéndose al 95-100% del carril igual que en AY9, solo
+     que ahora en menos px de scroll. Antes de 170vh venía de 270vh (ver historial abajo). */
+  .dp-scrub{position:relative;height:110vh}
   .dp-stage-mini{position:sticky;top:10vh;text-align:center;margin:0 auto}
-  .dp-stage-mini canvas{display:inline-block;max-width:100%;max-height:78vh;width:auto;height:auto}
+  .dp-stage-mini canvas{display:inline-block;max-width:100%;max-height:55vh;width:auto;height:auto}
   @media(prefers-reduced-motion:reduce){.dp-scrub{height:auto}.dp-stage-mini{position:relative;top:0}}
   /* GALERÍA con video local */
   .fx video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
@@ -299,9 +329,13 @@
   /* PAGOS + AVISO */
   .pay-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
   .pay-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-family:var(--disp);font-size:.72rem;font-weight:700;color:var(--mut)}
-  .aviso{margin-top:18px;padding:11px 14px;border:1px dashed #3a3a40;border-radius:12px;font-size:.8rem;color:var(--mut)}
+  .aviso{margin-top:18px;padding:11px 14px;border:1px dashed var(--blue);border-radius:12px;font-size:.8rem;color:var(--mut)}
   .entrega{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
   @media(max-width:820px){.entrega{grid-template-columns:1fr}}
+  /* ORDEN AZ1: va DESPUÉS de la regla base .dp-stage-mini canvas (línea ~320) a propósito
+     — misma especificidad, así que el orden en el cascade decide, y puesta ANTES (como
+     estaba) la pisaba la regla base de 55vh y el mobile nunca bajaba de 55vh */
+  @media(max-width:820px){.dp-stage-mini canvas{max-height:45vh}}
 </style>
 <!-- Meta Pixel (pendiente ID real) -->
 <script>
@@ -330,15 +364,13 @@ document.addEventListener('click',function(ev){
 <header>
   <div class="wrap">
     <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="pill">🏍️ Biblioteca de taller MOTOS PRO · <b>Celular + PC</b></div>
-        <h1>Deja de pagarle al taller.<br>Repara tu moto <span class="cut">tú mismo</span>.</h1>
-        <p class="sub"><b>Más de 900 manuales de taller</b> de <b>+100 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
-        <div class="cta-row">
-          <a href="#comprar" class="btn big" id="btn-hero">Empezar hoy · US$12.99 →</a>
-        </div>
-        <div class="cta-note">Pago único · Acceso inmediato · Es tuyo para siempre</div>
+      <div class="pill">🏍️ Biblioteca de taller MOTOS PRO · <b>Celular + PC</b></div>
+      <h1>Deja de pagarle al taller.<br>Repara tu moto <span class="cut">tú mismo</span>.</h1>
+      <p class="sub"><b>Más de 900 manuales de taller</b> de <b>+100 marcas</b>, con despiece, diagramas eléctricos y el paso a paso para arreglar las fallas más comunes. En tu celular o en el PC.</p>
+      <div class="cta-row">
+        <a href="#comprar" class="btn big" id="btn-hero">Empezar hoy · US$12.99 →</a>
       </div>
+      <div class="cta-note">Pago único · Acceso inmediato · Es tuyo para siempre</div>
 
       <div class="device" aria-hidden="true">
         <div class="phone">
@@ -394,6 +426,44 @@ document.addEventListener('click',function(ev){
   <ul class="dp-piezas">
     <li>Motor</li><li>Tanque</li><li>Horquilla</li><li>Chasis</li><li>Cadena</li><li>Escape</li><li>Ruedas</li><li>Embrague</li>
   </ul>
+</section>
+
+<!-- PRECIO -->
+<section id="comprar">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Empieza hoy</div>
+    <h2 class="title">Arma tu pack, un solo pago</h2>
+    <div class="price-card">
+      <div class="price-label">Precio de hoy</div>
+      <div class="ancla"><s id="anc-lista">&nbsp;</s><span class="off" id="anc-off">&nbsp;</span></div>
+      <div class="price-now" id="precio-grande">US$12.99</div>
+      <div class="price-per">pago único · <b>acceso de por vida</b></div>
+      <ul class="price-list">
+        <li><b>+900 manuales</b> de taller de +100 marcas</li>
+        <li>Despiece, montaje y diagramas eléctricos</li>
+        <li>Curso completo de Mecánica 2T y 4T</li>
+        <li>Acceso inmediato a tu carpeta privada</li>
+        <li>Garantía de 7 días sin preguntas</li>
+      </ul>
+      <div class="bumps">
+        <label class="bump" id="bump-a"><input type="checkbox"><span class="bx"></span><span class="bt">🚗 <b>Bonus Autos</b><small>Polarizado de Autos + Aire Acondicionado Automotriz</small></span><span class="bp">+US$1.99</span></label>
+        <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
+        <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
+      </div>
+      <div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--</b></div>
+      <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Quiero mi acceso ahora · US$12.99 →</a>
+      <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
+  <div class="pay-row">
+    <span class="pay-chip"><svg width="30" height="16" viewBox="0 0 30 16" role="img" aria-label="Visa"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="900" font-size="15" letter-spacing="-.5" fill="currentColor">VISA</text></svg></span>
+    <span class="pay-chip"><svg width="20" height="16" viewBox="0 0 20 16" aria-hidden="true"><circle cx="7" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Mastercard</span>
+    <span class="pay-chip"><svg width="40" height="16" viewBox="0 0 40 16" role="img" aria-label="American Express"><rect x=".75" y=".75" width="38.5" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="20" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="8" letter-spacing=".5" fill="currentColor">AMEX</text></svg></span>
+    <span class="pay-chip"><svg width="50" height="16" viewBox="0 0 50 16" role="img" aria-label="PayPal"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="14" fill="currentColor">PayPal</text></svg></span>
+    <span class="pay-chip"><svg width="98" height="16" viewBox="0 0 98 16" role="img" aria-label="Mercado Pago"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="13" fill="currentColor">Mercado Pago</text></svg></span>
+  </div>
+
+      <div class="aviso" id="aviso-checkout">Página en preparación: el pago todavía no está conectado.</div>
+    </div>
+  </div>
 </section>
 
 <!-- QUÉ VAS A APRENDER -->
@@ -482,44 +552,6 @@ document.addEventListener('click',function(ev){
       <div class="step"><div class="num">1</div><h3>Pagas una sola vez</h3><p>US$12.99, sin mensualidades. Con tarjeta, PayPal o Mercado Pago.</p></div>
       <div class="step"><div class="num">2</div><h3>Recibes el acceso al instante</h3><p>Te llega el enlace a tu carpeta privada apenas se confirma el pago.</p></div>
       <div class="step"><div class="num">3</div><h3>Buscas tu moto y la arreglas</h3><p>PDF por marca y modelo. Se abre en el celular, incluso sin internet.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRECIO -->
-<section id="comprar">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">Empieza hoy</div>
-    <h2 class="title">Arma tu pack, un solo pago</h2>
-    <div class="price-card">
-      <div class="price-label">Precio de hoy</div>
-      <div class="ancla"><s id="anc-lista">&nbsp;</s><span class="off" id="anc-off">&nbsp;</span></div>
-      <div class="price-now" id="precio-grande">US$12.99</div>
-      <div class="price-per">pago único · <b>acceso de por vida</b></div>
-      <ul class="price-list">
-        <li><b>+900 manuales</b> de taller de +100 marcas</li>
-        <li>Despiece, montaje y diagramas eléctricos</li>
-        <li>Curso completo de Mecánica 2T y 4T</li>
-        <li>Acceso inmediato a tu carpeta privada</li>
-        <li>Garantía de 7 días sin preguntas</li>
-      </ul>
-      <div class="bumps">
-        <label class="bump" id="bump-a"><input type="checkbox"><span class="bx"></span><span class="bt">🚗 <b>Bonus Autos</b><small>Polarizado de Autos + Aire Acondicionado Automotriz</small></span><span class="bp">+US$1.99</span></label>
-        <label class="bump" id="bump-b"><input type="checkbox"><span class="bx"></span><span class="bt">🚲 <b>Bonus Extra</b><small>Bicicleta + Pintura y Plástico + Cuatrimoto/Torito/Motocarro</small></span><span class="bp">+US$1.99</span></label>
-        <div class="bump-nota" id="bump-nota">Marca los dos y te llevas <b>todo por US$16.97</b></div>
-      </div>
-      <div class="reloj" id="reloj"><span class="rl">La oferta termina en</span><b id="reloj-d">--:--</b></div>
-      <a href="#STRIPE-PENDIENTE" class="btn big" id="btn-pago" data-buy="1">Quiero mi acceso ahora · US$12.99 →</a>
-      <div class="cta-note">Pago seguro · Acceso inmediato tras confirmar</div>
-  <div class="pay-row">
-    <span class="pay-chip"><svg width="30" height="16" viewBox="0 0 30 16" role="img" aria-label="Visa"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="900" font-size="15" letter-spacing="-.5" fill="currentColor">VISA</text></svg></span>
-    <span class="pay-chip"><svg width="20" height="16" viewBox="0 0 20 16" aria-hidden="true"><circle cx="7" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Mastercard</span>
-    <span class="pay-chip"><svg width="40" height="16" viewBox="0 0 40 16" role="img" aria-label="American Express"><rect x=".75" y=".75" width="38.5" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="20" y="11" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="8" letter-spacing=".5" fill="currentColor">AMEX</text></svg></span>
-    <span class="pay-chip"><svg width="50" height="16" viewBox="0 0 50 16" role="img" aria-label="PayPal"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="14" fill="currentColor">PayPal</text></svg></span>
-    <span class="pay-chip"><svg width="98" height="16" viewBox="0 0 98 16" role="img" aria-label="Mercado Pago"><text x="0" y="13" font-family="'Inter Tight',Arial,sans-serif" font-weight="800" font-size="13" fill="currentColor">Mercado Pago</text></svg></span>
-  </div>
-
-      <div class="aviso" id="aviso-checkout">Página en preparación: el pago todavía no está conectado.</div>
     </div>
   </div>
 </section>
