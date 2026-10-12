@@ -71,7 +71,7 @@
      4 espacios de más entre pill/h1/sub/cta/note que antes no existían (antes "gap"
      solo se notaba una vez, entre hero-copy y device, porque eran las únicas 2 celdas) */
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:44px;row-gap:0;align-items:center;
-    grid-template-areas:"pill device" "h1 device" "sub device" "cta device" "note device" "chips device"}
+    grid-template-areas:"pill device" "h1 device" "sub device" "chips device" "cta device" "note device"}
   .hero-grid>.pill{grid-area:pill}
   .hero-grid>h1{grid-area:h1}
   .hero-grid>p.sub{grid-area:sub}
@@ -91,7 +91,7 @@
   /* ORDEN AZ9: pastillas de confianza bajo la nota del CTA, mismas cifras/promesas reales
      que ya están en la página (precio único, acceso inmediato, garantía 7 días del bloque
      de precio y FAQ) — nada nuevo, solo resumido arriba */
-  .trust-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .trust-row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
   .trust-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--disp);font-weight:700;font-size:.82rem;color:#fff;background:#141416;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
 
   /* MOCKUP TELÉFONO (editor CapCut en blanco y negro) */
@@ -277,12 +277,14 @@
     /* ORDEN AZ1: en móvil, H1 → sub → VIDEO → botón → nota (pill queda arriba de todo, no
        la mueve la orden). row-gap:0 (ver nota arriba) + el margin de .device reproduce el
        único espaciado de 36px que había antes (ahora alrededor del video, donde quedó).
-       ORDEN AZ9: se agrega "chips" (pastillas de confianza) después de "note". */
+       ORDEN BA1 (Esteban): "chips" (pastillas de confianza) sube antes del video (ya no
+       después de "note") y .cta-note se oculta en móvil porque repite lo mismo que los chips. */
     .hero-grid{grid-template-columns:1fr;text-align:center;row-gap:0;
-      grid-template-areas:"pill" "h1" "sub" "device" "cta" "note" "chips"}
+      grid-template-areas:"pill" "h1" "sub" "chips" "device" "cta"}
     .pill{margin-left:auto;margin-right:auto}
     header p.sub{margin-left:auto;margin-right:auto}
     .cta-row{justify-content:center}
+    .cta-note{display:none}
     .trust-row{justify-content:center}
     .device{width:225px;margin:36px auto}
     .gallery{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -672,16 +674,10 @@ document.addEventListener('click',function(ev){
     <div class="eyebrow">Preguntas frecuentes</div>
     <h2 class="title">Lo que todos preguntan</h2>
     <div class="acc">
-<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son +100 marcas y +900 manuales. Si no ubicas la tuya, se busca contigo por soporte.</div></details>
-  <details><summary><span>¿Necesito experiencia en mecánica?</span></summary><div class="acc-body">No. El manual muestra la pieza y el orden, igual que en el taller oficial. Empiezas por las fallas más comunes y avanzas a tu ritmo con el paso a paso de cada manual.</div></details>
-  <details><summary><span>¿Es un pago único o tiene mensualidad?</span></summary><div class="acc-body">Es un pago único de <b id="faq-precio">US$12.99</b>, sin suscripción y con acceso de por vida. Con 7 días de garantía.</div></details>
-  <details><summary><span>¿Cómo llega el acceso después de pagar?</span></summary><div class="acc-body">Al confirmar el pago te llega el acceso para descargar todo de inmediato, sin esperas.</div></details>
-  <details><summary><span>¿Funciona desde el celular?</span></summary><div class="acc-body">Sí, es como más se usa. Se abre igual en Android o iPhone, con zoom sobre el diagrama, y sin gastar datos una vez descargado.</div></details>
-  <details><summary><span>¿En qué formato vienen los manuales?</span></summary><div class="acc-body">En PDF descargable: se abre en cualquier celular o computador sin instalar nada.</div></details>
-  <details><summary><span>¿Necesito herramientas especiales?</span></summary><div class="acc-body">Las tareas más comunes piden las herramientas básicas de cualquier kit de mecánica de moto. Cuando una tarea puntual necesita algo extra, el manual lo indica antes de empezar.</div></details>
-  <details><summary><span>¿Se puede usar sin internet?</span></summary><div class="acc-body">Sí. Una vez descargado, se abre sin conexión — útil si estás en el garaje sin señal.</div></details>
-  <details><summary><span>¿Qué pasa si no me sirve?</span></summary><div class="acc-body">Tienes 7 días de garantía desde la compra. Si no te sirve, se reembolsa.</div></details>
-  <details><summary><span>¿Hay soporte si tengo dudas?</span></summary><div class="acc-body">Sí. Si no ubicas tu modelo o te queda una duda sobre un manual, puedes escribir por soporte.</div></details>
+<details><summary><span>¿Sirve para mi moto?</span></summary><div class="acc-body">Son +900 manuales de +100 marcas. Si no ubicas la tuya, te ayudamos a encontrarla por soporte.</div></details>
+  <details><summary><span>¿Necesito experiencia en mecánica?</span></summary><div class="acc-body">No. El manual te muestra cada pieza y el orden para desarmar y armar, paso a paso.</div></details>
+  <details><summary><span>¿Es un pago único?</span></summary><div class="acc-body">Sí. <b id="faq-precio">US$12.99</b> una sola vez, acceso de por vida y 7 días de garantía: si no te sirve, te devolvemos el dinero.</div></details>
+  <details><summary><span>¿Cómo recibo los manuales?</span></summary><div class="acc-body">Apenas pagas te llega el acceso. Son PDF que abres en el celular o el PC, y funcionan sin internet una vez descargados.</div></details>
     </div>
   </div>
 </section>
